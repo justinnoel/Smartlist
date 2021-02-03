@@ -203,9 +203,13 @@ webview.addEventListener('dialog', function (e) {
     // Show dialog box
     dialogBox.style.display = 'block';
 });
+
+var timea;
 function toast(data) {
+  clearTimeout(timea);
   var fdgdsx = document.getElementById("toast-container");
+  fdgdsx.className = fdgdsx.className.replace("show", "");
   document.getElementById("toast-container").innerHTML = data;
   fdgdsx.className = "show";
-  setTimeout(function(){ fdgdsx.className = fdgdsx.className.replace("show", ""); }, 3000);
+  timea = setTimeout(function(){ fdgdsx.className = fdgdsx.className.replace("show", ""); }, 3000);
 }

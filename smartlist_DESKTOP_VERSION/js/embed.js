@@ -60,6 +60,7 @@ window.onkeydown = function (e) {
     // Copy URL (CTRL/CMD + L)
     if (modifierActive && e.keyCode == 'L'.charCodeAt(0)) {
         // Copy webview source to clipboard
+        toast('Copied URL to clipboard');
         copyToClipboard(webview.src, 'text/plain');
     }
 
@@ -70,16 +71,19 @@ window.onkeydown = function (e) {
 
     // Zoom in (CTRL/CMD +)
     if (modifierActive && e.keyCode == 187) {
+        toast('Zooming in...');
         zoomFactor += 0.1;
         webview.setZoom(zoomFactor);
     }
 
     // Zoom out (CTRL/CMD -)
     if (modifierActive && e.keyCode == 189) {
+        toast('Zooming out...');
         zoomFactor -= 0.1;
 
         // Don't let zoom drop below 0.2
         if (zoomFactor <= 0.2) {
+            toast('Cannot zoom out anymore');
             zoomFactor = 0.2;
         }
 
@@ -89,6 +93,7 @@ window.onkeydown = function (e) {
     // Reset zoom (CTRL/CMD + 0)
     if (modifierActive && e.keyCode == '0'.charCodeAt(0)) {
         zoomFactor = 1.0;
+        toast('Zoom Reset');
         webview.setZoom(zoomFactor);
     }
 };

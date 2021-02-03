@@ -198,3 +198,9 @@ webview.addEventListener('dialog', function (e) {
     // Show dialog box
     dialogBox.style.display = 'block';
 });
+function toast(data) {
+  var fdgdsx = document.getElementById("toast-container");
+  document.getElementById("toast-container").innerHTML = data;
+  fdgdsx.className = "show";
+  setTimeout(function(){ fdgdsx.className = fdgdsx.className.replace("show", ""); }, 3000);
+}

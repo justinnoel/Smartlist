@@ -1,57 +1,19 @@
-# Smartlist (Desktop)
-## A PHP and SQL project by ManuTheCoder
-### This Repository is part of a larger project at: https://smartlist.ga
 ---
-Meet Smartlist.
-Smartlist is a home inventory app which lets you keep track of what you have, wherever you are - for free!
-* Encrypted items & databases - We implement a security system which prevents hackers from gaining access to your items.
-* View offline, and on any device - You can access your inventory anywhere, anytime, even without a proper connection
-* Minimalistic dashboard - We keep a simple dashboard, so you don't get overwhelmed at the sight of it!
-
-Quick links: <br>
-Home: https://smartlist.ga <br>
-Dashboard: https://smartlist.ga/dashboard/beta<br>
-Forum: https://community.smartlist.ga<br>
-Knowledge Base: https://knowledgebase.smartlist.ga/<br>
-
---- 
-### How can I get involved? 
-We appreciate visitors! Getting involved isn't mandatory, but we really enjoy it!<br>
-**We do not accept money, as per our home page, Smartlist is free forever to everyone. Please consider other ways of getting involved**
-Ways you can help: 
-* Contribute to our forum! We really appreciate it when others ask questions!
-* Give us code 
-* Fix any bugs
-* *Come up with new ideas* - New ideas are always welcome and widely appreciated. An idea is good enough to earn you the gold rank!
-* Signing up for an account
-* Reporting new bugs
---- 
-### Credits 
-The development process of this project is going really well thanks to these people! Without them, the very exsistence of this project wouldn't be there!
-
-### Diamond Sponsors
-* Pramodini Ravi Shankar - Gave the very idea of this project
-* Materialize CSS - Basic framework of this project
-* jQuery and jQuery team - Very important
-* Infinitzhost - Free website hosting with cPanel!
-### Gold Sponsors
-* Applicationize.me - Very useful in the desktop app 
-* Appetize.io - Good for native apps
-* MDN, Google developers, and W3schools for dev tutorials!
-### Others
-No one here yet! Why not try sponsoring?
-
+description: 'Here, you''ll find how to get started'
 ---
-### License
 
-This project is released under the Apache License<br>
-Copyright 2021 Manusvath Gurudath<br>
-Licensed under the Apache License, Version 2.0 (the "License");<br>
-you may not use this file except in compliance with the License.<br>
-You may obtain a copy of the License at<br>
-https://www.apache.org/licenses/LICENSE-2.0<br>
-Unless required by applicable law or agreed to in writing, software<br>
-distributed under the License is distributed on an "AS IS" BASIS,<br>
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br>
-See the License for the specific language governing permissions and<br>
-limitations under the License.<br>
+# Welcome to Smartlist!
+
+### Smartlist Knowledge Base
+
+Have you ever wondered how to do something in smartlist? Have any questions? Here is the place you should be right now. We've created a special handbook for you to get started. 
+
+Quick links:   
+Home: [https://smartlist.ga ](https://smartlist.ga)  
+Dashboard: [https://smartlist.ga/dashboard/beta](https://smartlist.ga/dashboard/beta)  
+Forum: [https://community.smartlist.ga](https://community.smartlist.ga)
+
+{% hint style="info" %}
+Smartlist's previous name was "Homebase". We've changed it quite some time ago, so please don't get confused when you see "Homebase"
+{% endhint %}
+

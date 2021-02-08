@@ -1,32 +1,16 @@
 # Table of contents
 
-* [Welcome to Smartlist!](README.md)
-
-## How to
-
-* [Getting Started](how-to/getting-started.md)
-* [Adding an item](how-to/adding-an-item.md)
-* [Adding a task](how-to/adding-a-task.md)
-* [Using your camera to take pictures](how-to/using-your-camera-to-take-pictures.md)
-
-## Advanced
-
-* [And ----- You're done!](advanced/and-youre-done.md)
-* [Notifications & Push messages](advanced/notifications-and-push-messages.md)
-
-## Errors
-
-* ["No data in budget meter to display"](errors/no-data-in-budget-meter-to-display.md)
-
-## FAQ
-
-* [Why us?](faq/untitled.md)
-* [Is Smartlist free?](faq/is-smartlist-free.md)
-
-## Other
-
-* [License](other/license.md)
-* [Support us!](other/support-us.md)
-* [Weird \(But cool\) Facts](other/weird-but-cool-facts.md)
-* [Credits](other/credits.md)
+* [Smartlist \(Desktop\)](README.md)
+* [Security Policy](security.md)
+* [web](web/README.md)
+  * [demo](web/demo/README.md)
+    * [Demo - You won't really find anything useful here...](web/demo/demo.md)
+  * [dashboard](web/dashboard/README.md)
+    * [rooms](web/dashboard/rooms/README.md)
+      * [Rooms](web/dashboard/rooms/rooms.md)
+    * [icon](web/dashboard/icon/README.md)
+      * [Icons & Images](web/dashboard/icon/icon.md)
+  * [Smartlist Web App](web/web.md)
+* [app.smartlist.ga](app.smartlist.ga/README.md)
+  * [Just the directory for the domain: https://app.smartlist.ga](app.smartlist.ga/app.smartlist.ga.md)
 

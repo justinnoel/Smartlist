@@ -1303,26 +1303,8 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `name`, `email`, `username`, `password`, `syncid`, `avatar`, `user_avatar`, `welcome`, `theme`, `dark_mode`, `notifications`, `remind`, `goal`) VALUES
-(1, 'Admin', 'hello@homebase.rf.gd', 'Admin', '8d35bb893be698b827e5ad64908628f4', '53', '', 'https://i.ibb.co/1KhCks5/test-png.png', '1', '', '', '', '97', '24'),
-(72, 'Cedric MALZAT', 'cedric.malzat@gmail.com', 'Kam3leoN', 'd98fe3c25570fb306d3e588ecd156f47', '', NULL, '', '', 'dark', '', '', '50', '1'),
-(30, 'Ram V', 'sriramvijayendra@gmail.com', 'coinsup', '75fbc09d78025c777670b509485e41f5', '', NULL, '', '', '', '', '', NULL, NULL),
-(51, 'daan', 'daanschenkel2@ziggo.nl', 'daansasa', '719d57f5afd387d6aa3dd1e7e3b17b0d', '', NULL, '', '', '', '', '', NULL, NULL),
-(25, 'Pramodini', 'pramodinir@gmail.com', 'pramodinir@gmail.com', '18310dc6e8b56bbe306aebcf33c10422', '', NULL, 'https://i.ibb.co/hLydZHN/download.png', '1', '', '', '', '10', '26'),
-(31, 'dev', 'dev', 'dev', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, '', '', '', '', '', NULL, NULL),
-(27, 'testuseraccount', '26gurudathmanusvat@iusd.org', 'dev', '8d35bb893be698b827e5ad64908628f4', '', NULL, '', '', '', '', '', NULL, NULL),
-(53, '26gurudathmanusvat@iusd.org', '26gurudathmanusvat@iusd.org', '26gurudathmanusvat@iusd.org', '8d35bb893be698b827e5ad64908628f4', '1', NULL, '', '1', '', '', '', NULL, NULL),
-(55, 'Preview', 'preview@preview.com', 'Previews', '574d1f6cae7ca93bfbdf71940ef9478b', '', NULL, '', '', '', '', '', NULL, NULL),
-(57, 'ManuTheCoder', 'coolbitmoji@gmail.com', 'development', 'aeee5aa92a8c8d32974f2692d7c27a35', '', NULL, '', '1', '', '', '', NULL, NULL),
-(71, 'Dimas Prassetya', 'dimas.prass15@gmail.com', 'prassetya.dimas', 'c9652c5e2584d76d7ded9ee88a536d1a', '', NULL, '', '', '', '', '', NULL, NULL),
-(58, 'Laura Weiss', '26weisslaura@gmail.com', 'IHeartOranges', '31e037dd791bed7e648adad076e8cad3', '', NULL, '', '', '', '', '', NULL, NULL),
-(60, 'asdfghjkl', 'asdfghjkl', 'asdfghjkl', 'c44a471bd78cc6c2fea32b9fe028d30a', '', NULL, '', '', '', '', '', NULL, NULL),
-(61, 'Dhanya', 'dhanya@gmail.com', 'dhanya', '127fd808dc076ce616593cf376027d9e', '', NULL, '', '', '', '', '', NULL, NULL),
-(79, 'Captain Kirk', 'captainkirk@gmail.com', 'Kirk', 'a468bb4820964dee5e0b6dbed46ec655', '', NULL, '', '', '', '', '', NULL, NULL),
-(84, 'Asdf', 'Asdf', 'Asdf', 'a25fda70d4a94ee66872cf8194243a70', '', NULL, '', '', '', '', '', NULL, NULL),
-(83, 'Captain James T. Kirk', 'captainkirk@gmail.com', 'jimkirk', 'a468bb4820964dee5e0b6dbed46ec655', '', NULL, '', '1', '', '', '', NULL, NULL),
-(97, 'pheralb', 'pheralb@pheralb.com', 'pheralb', '0739738839aa504a55fbb17bf29cfc63', '-1', NULL, 'https://icon-library.com/images/google-user-icon/google-user-icon-21.jpg', '0', '', '', '', '20', NULL),
-(96, 'NEW ACCNT', 'NEW ACCNT', 'NEW ACCNT', '7c905e73c2eb00ef7707fdb409ba1810', '-1', NULL, 'https://icon-library.com/images/google-user-icon/google-user-icon-21.jpg', '1', '', '', '', '20', NULL);
 
+-- ROWS HAVE BEEN OMMITED FOR SECURITY PURPOSES
 -- --------------------------------------------------------
 
 --

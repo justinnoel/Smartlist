@@ -7,18 +7,41 @@ Smartlist is a home inventory app which lets you keep track of what you have, wh
 * Encrypted items & databases - We implement a security system which prevents hackers from gaining access to your items.
 * View offline, and on any device - You can access your inventory anywhere, anytime, even without a proper connection
 * Minimalistic dashboard - We keep a simple dashboard, so you don't get overwhelmed at the sight of it!
-Quick links: 
 
+Quick links: <br>
 Home: https://smartlist.ga <br>
 Dashboard: https://smartlist.ga/dashboard/beta<br>
 Forum: https://community.smartlist.ga<br>
+Knowledge Base: https://knowledgebase.smartlist.ga/<br>
 
 --- 
 ### How can I get involved? 
-We appreciate visitors! Getting involved isn't mandatory, but we really enjoy it!
+We appreciate visitors! Getting involved isn't mandatory, but we really enjoy it!<br>
+**We do not accept money, as per our home page, Smartlist is free forever to everyone. Please consider other ways of getting involved**
 Ways you can help: 
 * Contribute to our forum! We really appreciate it when others ask questions!
+* Give us code 
+* Fix any bugs
+* *Come up with new ideas* - New ideas are always welcome and widely appreciated. An idea is good enough to earn you the gold rank!
+* Signing up for an account
+* Reporting new bugs
 --- 
+### Credits 
+The development process of this project is going really well thanks to these people! Without them, the very exsistence of this project wouldn't be there!
+
+### Diamond Sponsors
+* Pramodini Ravi Shankar - Gave the very idea of this project
+* Materialize CSS - Basic framework of this project
+* jQuery and jQuery team - Very important
+* Infinitzhost - Free website hosting with cPanel!
+### Gold Sponsors
+* Applicationize.me - Very useful in the desktop app 
+* Appetize.io - Good for native apps
+* MDN, Google developers, and W3schools for dev tutorials!
+### Others
+No one here yet! Why not try sponsoring?
+
+---
 ### License
 
 This project is released under the Apache License<br>

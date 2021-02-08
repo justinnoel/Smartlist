@@ -16,6 +16,7 @@ Home: https://smartlist.ga
 Dashboard: https://smartlist.ga/dashboard/beta
 
 Forum: https://community.smartlist.ga
+
 --- 
 ### How can I get involved? 
 We appreciate visitors! Getting involved isn't mandatory, but we really enjoy it!

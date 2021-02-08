@@ -16,11 +16,11 @@ Home: https://smartlist.ga
 Dashboard: https://smartlist.ga/dashboard/beta
 
 Forum: https://community.smartlist.ga
-
----
-### Getting Started
-
-
+--- 
+### How can I get involved? 
+We appreciate visitors! Getting involved isn't mandatory, but we really enjoy it!
+Ways you can help: 
+* Contribute to our forum! We really appreciate it when others ask questions!
 --- 
 ### License
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Our Privacy Policy was created with the help of a Free Privacy Policy
+  Generator.
+---
+
 # Privacy Policy
 
 ## Privacy Policy for Smartlist

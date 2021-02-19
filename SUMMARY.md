@@ -25,6 +25,7 @@
 
 ## Other
 
+* [Privacy Policy](other/privacy-policy.md)
 * [Terms and Conditions](other/terms-and-conditions.md)
 * [License](other/license.md)
 * [Support us!](other/support-us.md)

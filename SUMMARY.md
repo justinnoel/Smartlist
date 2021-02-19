@@ -25,6 +25,7 @@
 
 ## Other
 
+* [Terms and Conditions](other/terms-and-conditions.md)
 * [License](other/license.md)
 * [Support us!](other/support-us.md)
 * [Weird \(But cool\) Facts](other/weird-but-cool-facts.md)

@@ -44,7 +44,7 @@ For more general information on cookies, please read ["What Are Cookies" from Co
 
 ### Advertising Partners Privacy Policies
 
-You may consult this list to find the Privacy Policy for each of the advertising partners of Smartlist.&lt;/p&gt;
+You may consult this list to find the Privacy Policy for each of the advertising partners of Smartlist
 
 Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on Smartlist, which are sent directly to users' browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.
 

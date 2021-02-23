@@ -1,89 +1,78 @@
 <?php session_start();
-   if(!isset($_SESSION['valid'])) {header('Location: login.php');}
-   $servername = "OMMITED";
-   $username = "OMMITED";
-   $password = "OMMITED";
-   $dbname = "OMMITED";
+   if(!isset($_SESSION['valid'])) {header('Location: https://smartlist.ga/login');}
    include_once("connection.php");
    try {$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);$stmt = $dbh->query('SELECT * FROM bm WHERE login_id='.$_SESSION['id']);$row_count = $stmt->rowCount();$dbh = null;}
    catch (PDOexception $e) {echo "Error is: " . $e-> etmessage();}
       //ROOMS go to backup.txt for previous version (mysqli_fetch_array) ---------------------------------------------------------------------------------------------------------------------------------------
       $bedroomnotification = mysqli_query($mysqli, "SELECT * FROM bedroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
       $kitchennotification = mysqli_query($mysqli, "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
-      $login = mysqli_query($mysqli, "SELECT * FROM login WHERE id=".$_SESSION['id']." ORDER BY id DESC");
-      while($logina = mysqli_fetch_array($login)) { $welcome = $logina['welcome']; }
       //SESSION VARIABLES ---------------------------------------------------------------------------------------------------------------------------------------
       $notifications = $_SESSION['notifications'];
       $number_notify = $_SESSION['number_notify'];
-      ?>
+        try {
+        $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $sql = "SELECT * FROM login WHERE id=".$_SESSION['id'];
+        $users = $dbh->query($sql);
+        foreach ($users as $row) {
+        $goal = $row["goal"];
+        $welcome = $row['welcome'];
+        }
+        $dbh = null;
+        }
+        catch (PDOexception $e) {
+        echo "Error is: " . $e-> etmessage();
+        }
+    ?>
 <!--
-   DO NOT DELETE OR EDIT OR DOWNLOAD OR MODIFY THIS FILE
-   This project is released under the Apache License
-   Copyright 2021 Manusvath Gurudath
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-   https://www.apache.org/licenses/LICENSE-2.0
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-   -->
+----------------------------------------------------------------------------------------------------------------
+
+                                                    Hey!
+                                        Want to contribute to our site?
+                          Go to: https://smartlist.ga/contribute to contribute
+                        Github: https://github.com/ManuTheCoder/Smartlist-desktop
+
+----------------------------------------------------------------------------------------------------------------
+-->
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <!--PRELOAD-->
-      <link rel="preload" href="https://i.ibb.co/FDqN0Vh/Screenshot-2021-02-02-at-7-55-08-AM-2.png" as="image">
-      <link rel="preload" href="https://i.ibb.co/KX0bKPk/gummy-coffee.png" as="image">
-      <link rel="preload" href="<?php echo $_SESSION['avatar'];?>" as="image">
-      <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@2.8.0" as="script">
-      <link rel="preload" href="https://code.jquery.com/jquery-3.5.1.js" as="script">
-      <link rel="preconnect" href="https://i.ibb.co">
-      <meta name="mobile-web-app-capable" content="yes">
-      <meta name="apple-mobile-web-app-status-bar-style" content="#2a1782">
-      <meta name="apple-mobile-web-app-capable" content="yes"/>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
-      <link rel="search" href="https://smartlist.ga/search.xml" type="application/opensearchdescription+xml" title="your home (Smartlist)"/>
-      <link rel="shortcut icon" href="https://i.ibb.co/FDqN0Vh/Screenshot-2021-02-02-at-7-55-08-AM-2.png" type="image/png" />
-      <link rel="apple-touch-icon" href="https://i.ibb.co/FDqN0Vh/Screenshot-2021-02-02-at-7-55-08-AM-2.png" />
-      <script src="pwa.js" defer></script>
-      <link rel="manifest" href="manifest.webmanifest">
-      <script src="https://dragselect.com/ds.min.js"></script> 
-      <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+      <link rel="preconnect" href="https://i.ibb.co"> <meta name="mobile-web-app-capable" content="yes"> <meta name="apple-mobile-web-app-status-bar-style" content="#2a1782"> <meta name="apple-mobile-web-app-capable" content="yes"/> <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> <link rel="search" href="https://smartlist.ga/search.xml" type="application/opensearchdescription+xml" title="your home (Smartlist)"/> <link rel="shortcut icon" href="https://i.ibb.co/FDqN0Vh/Screenshot-2021-02-02-at-7-55-08-AM-2.png" type="image/png" /> <link rel="apple-touch-icon" href="https://i.ibb.co/FDqN0Vh/Screenshot-2021-02-02-at-7-55-08-AM-2.png" /> <script src="pwa.js" defer></script> <link rel="manifest" href="manifest.webmanifest"> <script src="https://dragselect.com/ds.min.js"></script> <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
       <title>Dashboard</title>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-      <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> <!-- Compiled and minified JavaScript -->
-      <meta name="theme-color" content="#2a1782">
-      <meta name="title" content="Smartlist - the free home inventory database">
-      <meta name="description" content="Hey! Have you ever spent so much buying extra groceries which you already have at home? Studies show that people over-buy items which they already have, making them spend hundreds of dollars! Ever wanted to keep track of what you have in your home for free? Smartlist lets you track what's in your home, anywhere, anytime, for free!">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <meta property="og:site_name" content="trinket.io" />
-      <meta property="og:title" content="Smartlist" />
-      <meta property="og:type" content="website" />
-      <meta property="og:description" content="Hey! Have you ever spent so much buying extra groceries which you already have at home? Studies show that people over-buy items which they already have, making them spend hundreds of dollars! Ever wanted to keep track of what you have in your home for free? Smartlist lets you track what's in your home, anywhere, anytime, for free!" />
-      <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:site" content="@Smartlist">
-      <meta name="twitter:title" content="Smartlist">
-      <meta name="twitter:description" content="Hey! Have you ever spent so much buying extra groceries which you already have at home? Studies show that people over-buy items which they already have, making them spend hundreds of dollars! Ever wanted to keep track of what you have in your home for free? Smartlist lets you track what's in your home, anywhere, anytime, for free!">
-      <meta name="twitter:domain" content="smartlist.ga">
-      <meta name="keywords" content="Home, Database, Inventory, free, Smartlist, Smartlist dashboard">
-      <meta name="robots" content="index, follow">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="language" content="English">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> <!-- Compiled and minified JavaScript --> <meta name="theme-color" content="#2a1782"> <meta name="title" content="Smartlist - the free home inventory database"> <meta name="description" content="Hey! Have you ever spent so much buying extra groceries which you already have at home? Studies show that people over-buy items which they already have, making them spend hundreds of dollars! Ever wanted to keep track of what you have in your home for free? Smartlist lets you track what's in your home, anywhere, anytime, for free!"> <link rel="preconnect" href="https://fonts.gstatic.com"> <meta property="og:site_name" content="smartlist.ga" /> <meta property="og:title" content="Smartlist" /> <meta property="og:type" content="website" /> <meta property="og:description" content="Hey! Have you ever spent so much buying extra groceries which you already have at home? Studies show that people over-buy items which they already have, making them spend hundreds of dollars! Ever wanted to keep track of what you have in your home for free? Smartlist lets you track what's in your home, anywhere, anytime, for free!" /> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:site" content="@Smartlist"> <meta name="twitter:title" content="Smartlist"> <meta name="twitter:description" content="Hey! Have you ever spent so much buying extra groceries which you already have at home? Studies show that people over-buy items which they already have, making them spend hundreds of dollars! Ever wanted to keep track of what you have in your home for free? Smartlist lets you track what's in your home, anywhere, anytime, for free!"> <meta name="twitter:domain" content="smartlist.ga"> <meta name="keywords" content="Home, Database, Inventory, free, Smartlist, Smartlist dashboard"> <meta name="robots" content="index, follow"> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <meta name="language" content="English">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <style>body {overflow-x:hidden}</style>
+<?php
+$useragent=$_SERVER['HTTP_USER_AGENT'];
+if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))) {
+}
+else {
+echo '<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>';
+}
+?>
       <style>
-         #Contact *,#Contact {user-select:none;}tr {transition: all .2s; } .tabs .tab a{ color:gray; } /*Black color to the text*/ .tabs .tab a.active { background-color:transparent; color:gray; } /*Background and text color when a tab is active*/ .tabs-content.carousel.carousel-slider .carousel-item.active{ position: relative; } .tabs-content { height: auto !important; min-height: 100%; } #test1, #test4 { user-select:none; } .tabs .indicator { background-color:gray; } /*Color of underline*/.collection.with-header li{ display:block;width:100%} .tabcontent{padding-bottom:100px}.demo {display:none}.content{display:none;outline:0;background:#fff;z-index:99999;position:relative;top:-20px;left:-50px;font-size:20px!important;box-shadow:0 0 50px #eee;width:200px;animation-name:menu;animation-fill-mode:forwards;animation-duration:.2s}@keyframes menu{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}.content div{padding:10px;line-height:40px;width:100%}.content div:hover{background:#eee}.sropdown:focus-within>.content{display:block}.sropdown{outline:0;color:#2BBBAD;cursor:pointer}.d-none{display:none!important}::-webkit-scrollbar{width:0}::-webkit-scrollbar-thumb{background:0 0}.sidenav-overlay {z-index: 10000}.sidenav{z-index: 999999 !important} .sidenav::-webkit-scrollbar{width:0}::-webkit-scrollbar-thumb{background:0 0}#toast-container{z-index: 99999999999999999999999999999999999 !important} dialog{position:fixed;max-height:90%;overflow:scroll;border:0;border-radius:10px}#toast-container{top:auto!important;right:auto!important;bottom:3%;left:2%}@media only screen and (max-width:600px){#toast-container{top:auto!important;right:auto!important;bottom:0;left:0}}dialog::backdrop{background:rgba(0,0,0,.8)}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.animate-bottom{position:relative;-webkit-animation-name:animatebottom;-webkit-animation-duration:1s;animation-name:animatebottom;animation-duration:1s}*{box-sizing:border-box}tr{user-select:none}body,html{height:100%;margin:0;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;background:var(--bg-color)}.tabcontent{display:none;height:100%;background:var(--bg-color)!important;padding-top:45px}.drag-target{width:50px}.tabs{background:var(--bg-color)}.bottom-sheet{max-height:90%!important}@-webkit-keyframes animatebottom{from{bottom:0;opacity:0}to{bottom:0;opacity:1}}@keyframes animatebottom{from{bottom:0;opacity:0}to{bottom:0;opacity:1}}#myDiv{display:none}.content{display:none;outline:0;background:#fff;z-index:99999;position:relative;top:-20px;left:-50px;font-size:20px!important;box-shadow:0 0 50px rgba(0,0,0,0.3);width:200px;animation-name:menu;animation-fill-mode:forwards;animation-duration:.2s}@keyframes menu{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}.content div{padding:10px;line-height:40px;width:100%}.content div:hover{background:#eee}.sropdown:focus-within>.content{display:block;background: var(--sidenav-color)}.sropdown{outline:0;color:#2BBBAD;cursor:pointer}.modal-overlay{z-index:9999999!important}.modal,.modal-fixed-footer{z-index:999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999!important}*{box-sizing:border-box}#myInput{background-position:10px 12px;background-repeat:no-repeat;width:100%;font-size:16px;padding:12px 20px 12px 40px;border:1px solid #ddd;margin-bottom:12px}.brand-logo{margin-left:-170px}@media only screen and (max-width:900px){.onup100{width:100%!important}.brand-logo{margin-left:-20px!important}.tabcontent{margin-left:0}}.message{background:rgba(200,200,200,.3);text-align:center;padding:30px;font-size:30px;margin-top:30px}body,footer,header{padding-left:300px}@media only screen and (max-width :992px){body,footer,header{padding-left:0}.medianopadding { padding: 0 !important; width: 100%; margin: 0; } .mediapadding { padding: 20px; }.label-icon{margin-bottom:-5px!important}.brand-logo{margin-top:5px;margin-left:0}}::-webkit-details-marker{display:none}.ds-selected{background: #ececec !important}#myDIVa{}@keyframes notify{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}.tap-target-wrapper{z-index:99999999999999999999999999999999999999999999999999999999999}.sropdown,td{z-index:-1!important}.btn{color:#fff!important}.btn-flat {color: #000 !important}table,.btn-flat:hover {background: transparent !important}#fab {transition: all .2s;} #hide{transition: all .2s;animation: btn .2s forwards ease-out;animation-delay:1s;transform: scale(0);} @keyframes btn { 0% {transform:scale(0)} 100% {transform: scale(1)} } nav { left: 300px; width: calc(100% - 300px) } @media only screen and (max-width : 992px) { header, main, footer { padding-left: 0; } nav {left: 0; width: 100%; } } .sidenav a,.sidenav i { color: var(--sidenavf-color) !important; } .waves-effect .waves-ripple { background-color: var(--waves-color); } .sidenav { background-color: var(--sidenav-color); }.material-icons,img {user-select: none}html {scroll-behavior: smooth}.card-new { animation: cnew 2s forwards; } @keyframes cnew { 0% { background: rgba(200,200,200,.5) } 25% { background: rgba(200,200,200,.5) } 26% { background: rgba(255,255,255,0) } 50% { background: rgba(255,255,255,0) } 51% { background: rgba(200,200,200,.5) } 75% { background: rgba(200,200,200,.5) } 76% { background: rgba(255,255,255,0) } 100% { background: rgba(255,255,255,0) } }* { -webkit-touch-callout:none;                /* prevent callout to copy image, etc when tap to hold */ -webkit-text-size-adjust:none;             /* prevent webkit from resizing text to fit */ -webkit-tap-highlight-color:rgba(0,0,0,0); /* prevent tap highlight color / shadow */ }.divider {background: rgba(0,0,0,0.1)}#hide { transform: scale(0); animation-delay: 1s; } #myDIVa li{ width: 100%; border-color: rgba(0,0,0,0.1) } .collapsible-header { border: 0 !Important; background: var(--sidenav-color) !important; color: var(--sidenavf-color) } .collapsible,.collapsible li { border-color: rgba(0,0,0,0.1) !important } :root { --primary-color: #302AE6; --secondary-color: #0099CC; --font-color: #424242; --bg-color: #fff; --heading-color: #292922; --navbar-color:#311b92; --bnav-color:#fff; --check-color:#eee; --modal-color:white; --todo-color:white; --overlay-color:rgba(0,0,0,0.9); --waves-color: rgba(0,0,0,0.2); --sidenav-color:#fff; --sidenavf-color: #616161; } [data-theme="dark"] { --primary-color: #9A97F3; --secondary-color: rgba(28, 35, 49, 0.5); --font-color: #e2e0e1; --waves-color: rgba(255,255,255,0.3); --bg-color: #1c1b1b; --heading-color: #818cab; --navbar-color:#232323; --bnav-color:#3c3d3b; --check-color:#263238; --modal-color:#263238; --sidenav-color:#232323; --overlay-color:rgba(255,255,255,0.9); --todo-color:rgba(0,0,0,0.87); --sidenavf-color: var(--font-color); } #searcha { max-height: 100%; height: 100%; width: 100% } .dd { display: none } .card *,table *,.collection-item,.modal *,.modal-footer,p,h1,h2,h3 { color: var(--font-color); } .collection-item,.modal,.modal-footer { background: var(--sidenav-color) !important; }.tabcontent {animation: tab .7s forwards} @keyframes tab {from {opacity: 0;margin-top: 30px;}to{opacity: 1;margin-top: 0;}}.dropdown { position: relative; display: inline-block; } .dropdown-contenta { position: absolute; background-color: var(--bg-color); min-width: 160px; box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12); z-index: 1; animation-name: dropdoaasdaswna; animation-duration: .2s; animation-fill-mode: forwards; outline: 0; border-radius: 3px; transition: all .2s; transform-origin: top right; margin-left: -120px; opacity: 0; transform: scale(0) } @keyframes dropdoaasdaswn { 0% { opacity: 0; transform: scale(0) } 100% { opacity: 1; transform: scale(1) } } .dropdown-contenta a { color: var(--font-color); padding: 12px 16px; outline: 0; text-decoration: none; display: block; cursor: pointer } .dropdown-contenta a:focus { background: #f1f1f1 } .dropdown { outline: 0; } .dropdown-contenta i { font-size: inherit; margin-right: 10px } .dropdown:focus-within .dropdown-contenta { opacity: 1; transform: scale(1) }.ctnt { display: block; position: fixed; top: -200px; left: 0; color: white; text-align: center; background: #000; padding: 20px; border: 0; text-decoration: none; width: 100%; transition: all .2s; } .ctnt:focus { top: 0; }#bar { background: #4287f5; width: 1%; height: 2px; position: fixed; top: 0; left: 0; animation: bar 2s forwards cubic-bezier(1,.09,.35,1); box-shadow: 0 0 10px #4287f5;z-index: 9999999999999999999999999999999999999999 } @keyframes bar { 0% {width:0%} 60% {width: 100%;opacity:1} 70% {width: 100%;opacity:0} 90% {width:100%;opacity:0;} 100% {width:100%;opacity:0;} } 
-      </style>
+    </style>
+    <style>
+        .show { z-index: 999999999999999999999999999999999; position: absolute;transition: all .2s; background-color: #fff; padding: 2px; display: block;  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); animation: ctx .2s forwards; margin: 0;border:0;padding:0; list-style-type: none; list-style: none; width: 200px; transform-origin:top left } hr { border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3); } @keyframes ctx { 0% { transform: scale(0);opacity:0; } 100% {transform: scale(1);opacity:1} } .hide { display: none; } .show li { list-style: none; } .show a { border: 0 !important; display:block; padding: 10px 20px; color: gray; text-decoration: none; text-align:left; }
+    </style>
+    <link rel="stylesheet" href="style.css">
       <script>
          var map = {}; onkeydown = onkeyup = function(e){ e = e || event; map[e.keyCode] = e.type == 'keydown'; if(map["191"]==true){ e.preventDefault(); showsearch();document.getElementById('search').focus(); } }
-      </script>
-      <script>
-         /* Enable pusher logging - don't include this in production*/ Pusher.logToConsole = true; var pusher = new Pusher('f7793ae32c2ecf8e787f', { cluster: 'us3' }); var channel = pusher.subscribe('my-channel'); channel.bind('<?php echo $_SESSION['name'] ?>', function(data) { //*alert(JSON.stringify(data));*/ syncalertplayAudio(); var notification = new Notification("Homebase | " + data); });
-      </script>
+         Pusher.logToConsole = false;
+        var pusher = new Pusher('70e2355e418d35261aca', {
+          cluster: 'us3'
+        });
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+          var notification = new Notification("" + data); 
+        });
+        <?php if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))) {
+}else{?>
+        $( function() {
+        $( ".modal" ).draggable({ axis: "y",revert: true });
+        } );
+        <?php } ?>
+        </script>
    </head>
    <body>
       <div id="bar" style="display:none"></div>
@@ -101,154 +90,19 @@
       </nav>
       <nav style="position:fixed;background: var(--navbar-color);z-index:999">
          <div class="nav-wrapper">
-            <ul class="right">
+            <ul class="right" id="nav_ul_notification">
                <li onclick="$('#slide-out').scrollTop(0);"><a class=" sidenav-trigger brand-logo left" style="margin-left:0px !important" data-target="slide-out"><i class="material-icons" id="icon">menu</i><span style="font-size: 23px;position: relative;top: -2px;left: -5px;" id="brandlogo">Smartlist</span></a></li>
                <li>
-                  <a  id="notification" data-position="bottom" class="right tooltippeda"  data-tooltip='Notifications' onclick='openPage("myDIVa", this, "");brandlogotext.innerHTML = "Inbox"'>
+                  <a  id="notification" data-position="bottom" class="right tooltippeda waves-effect waves-light"  data-tooltip='Notifications' onclick='openPage("myDIVa", this, "");brandlogotext.innerHTML = "Inbox"'>
                      <i class="material-icons">notifications</i>
                      <div id="hide" style="background:red;width:10px;height:10px;border-radius:999px;position:relative;top:-20px;left:-10px;margin-top: -24px;margin-right: -10px !important;float:right"></div>
                   </a>
                </li>
-               <li><a class="right" onclick="showsearch();document.getElementById('search').focus();"><i class="material-icons">search</i></a></li>
+               <li><a class="right waves-effect waves-light" onclick="showsearch();document.getElementById('search').focus();"><i class="material-icons">search</i></a></li>
             </ul>
          </div>
       </nav>
-      <div id="modal2" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <h4>Heads Up!</h4>
-            <p>Are you sure you want to delete your account???</p>
-         </div>
-         <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect waves-green btn-flat modal-trigger">Go back</a> <a class="waves-effect waves-light btn red modal-trigger" href="#modal5" class="red btn waves-effect waves-light">Delete My account</a> </div>
-      </div>
-      <div id="bmmodal" class="modal"><div class="modal-content">
-         <form action="https://smartlist.ga/scalesize/bm/addx.php" method="post" name="form1">
-            <table width="100%" border="0" class="table">
-               <tr >
-                  <td>Name</td>
-                  <td><input type="text" name="name" class="form-control" value="<?php echo date('m/d/Y') ;?>" readonly></td>
-               </tr>
-               <tr>
-                  <td>Price you spent</td>
-                  <td><input type="text" name="qty" class="form-control"></td>
-               </tr>
-               <tr class="d-none">
-                  <td>Price</td>
-                  <td><input type="text" name="price" class="form-control" value="1"></td>
-               </tr>
-               <tr>
-                  <td></td>
-                  <td><input type="submit" name="Submit" value="Add" class="red btn"></td>
-               </tr>
-            </table>
-         </form>
-         </div>
-      </div>
-      </div> 
-      <div id="kitchenmodal" class="modal ">
-         <div class="modal-content"> </div>
-      </div>
-      <div id="pair" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <h4>Heads Up!</h4>
-            <p>Are you sure you want to pair your account? Pairing your account will you see everything in their inventory!</p>
-         </div>
-         <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect waves-green btn-flat modal-trigger">Go back</a> <a class="waves-effect waves-light btn red modal-trigger modal-close" href="#pair2" class="red btn waves-effect waves-light">Pair my account!</a> </div>
-      </div>
-      <div id="camera" class="modal modal-fixed-footear">
-         <div class="modal-content">
-            <div class="logo">
-               <img class="image waves-effect" alt='image' src="https://i.pinimg.com/originals/51/11/d8/5111d818140cbaef5459ce331151463f.gif" onclick='document.getElementById("myCheck").click();'style="display:block;margin:auto;width:100%" /> 
-               <div class="result">
-                  <h2></h2>
-               </div>
-               <div class="capture">
-                  <div class="record waves-effect waves-light" /> <input class="input" type="file" accept="image/*" onchange="handleUpload(this.files);myFunction()" id="myCheck" style="opacity:0;" /> </div>
-               </div>
-            </div>
-         </div>
-         <div class="modal-footer"> <a href="#kitchennmodal" class="modal-close waves-effect waves-green btn-flat modal-trigger">Go back</a> </div>
-      </div>
-      <div id="pair2" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <h4>Pair your account</h4>
-            <br> 
-            <form action="pair.php" method="GET">
-               <input type="text" name="pairingaccountid" placeholder="Login ID..."> 
-               <p>To pair, you will need to know the other person's login ID. You can find yours in the settings page</p>
-         </div>
-         <div class="modal-footer"> <button type="submit"class="btn btn-flat waves-effect">Change</button> </form> <a class="waves-effect waves-light btn btn-flat modal-trigger modal-close" href="#modal1" class="red btn waves-effect waves-light">Never mind</a> </div> 
-      </div>
-      <div id="budgetmetermodala" class="modal modal-fixed-s"  style="width:90%">
-         <div class="modal-content">
-            <h3 class="center">Add an item (CTRL S)</h3>
-            <div class="collection"> <a onclick="openPage('addkitchen', this, '');setTimeout(function(){ document.getElementById('tags').focus() }, 0500);" class="modal-trigger collection-item waves-effect modal-close" id="kitchentoggle">Kitchen</a> <a href="https://smartlist.ga/dashboard/rooms/bedroom/addx.php" class="collection-item waves-effect">Bedroom</a> <a href="https://smartlist.ga/dashboard/rooms/bathroom/add.html" class="collection-item waves-effect">Bathroom</a> <a href="https://smartlist.ga/dashboard/rooms/garage/add.html" class="collection-item waves-effect">Garage</a> <a href="https://smartlist.ga/dashboard/rooms/family/add.html" class="collection-item waves-effect">Family</a> <a href="https://smartlist.ga/dashboard/rooms/storage/add.html" class="collection-item waves-effect">Storage Room</a> <a href="https://smartlist.ga/dashboard/rooms/dining_room/add.html" class="collection-item waves-effect">Dining Room</a><a href="https://smartlist.ga/dashboard/rooms/camping/add.html" class="collection-item waves-effect">Camping Supplies</a> <a href="https://smartlist.ga/dashboard/rooms/laundry/add.html" class="collection-item waves-effect">Laundry room</a> </div>
-         </div>
-      </div>
-      <div id="modal5" class="modal modal-fixed-footer">
-         <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
-         <div class="modal-content">
-            <h4>Heads Up (again)!</h4>
-            <p>We want to confirm this is you, so please do the reCAPTCHA</p>
-            <div class="g-recaptcha" data-sitekey="6LdSGPAZAAAAAMs85kHIOqrMKV7W_nDcJ-V0n2g7"></div>
-         </div>
-         <div class="modal-footer"> <a href="#!" class="modal-close waves-effect waves-green btn-flat">Go back</a> <a class="waves-effect waves-light btn red modal-trigger" href="#modal3" class="red btn waves-effect waves-light">Delete My account</a> </div>
-      </div>
-      <div id="modal3" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <h4>Are you very, very, very sure?</h4>
-            <p>Don't blame us because we didn't warn you........</p>
-            <ul style="list-style-type:circle !important;">
-               <li style="list-style-type:circle !important;">Your todos will vanish into thin air</li>
-               <li style="list-style-type:circle !important;">Your inventory will vanish into thin air</li>
-               <li style="list-style-type:circle !important;">Your rooms will vanish into thin air</li>
-               <li style="list-style-type:circle !important;">Your homes will vanish into thin air</li>
-               <li style="list-style-type:circle !important;">You will not be able to ever log in again with these credentials</li>
-               <li style="list-style-type:circle !important;">You will not be able use the desktop or mobile app</li>
-            </ul>
-         </div>
-         <div class="modal-footer"> <a href="#!" class="modal-close waves-effect waves-green btn-flat">That's scary. Never mind</a> <a href="https://smartlist.ga/dashboard/resources/resources/deleted.php?id=<?php echo $_SESSION['id'] ?>" class="red btn waves-effect waves-light">I choose to permanently delete my account</a> </div>
-      </div>
-      <div id="credits" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <h4>Credits</h4>
-            <ul>
-               <li>Materialize</li>
-               <li>InfinityFree</li>
-               <li>CodePen</li>
-               <li>Cloudflare</li>
-               <li>SQL</li>
-               <li>Materialize</li>
-               <li>Materialize</li>
-               <li>Webestools - for the forum</li>
-               <li><a href="https://blog.chapagain.com.np/very-simple-add-edit-delete-view-in-php-mysql/">Very Simple Add, Edit, Delete, View (CRUD) in PHP & MySQL [Beginner Tutorial]</a></li>
-               <h5>People</h5>
-            </ul>
-         </div>
-         <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect btn-flat modal-trigger">ok</a> </div>
-      </div>
-      <div id="security" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <h4>Privacy</h4>
-            <p>Yes, your data is encrypted end-to-end. We hash your items, so even if a hacker gets access to the database, it will be rendered useless! We also use PHP PDO, which is very secure to SQL injection attacks.</p>
-         </div>
-         <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect btn-flat modal-trigger">ok</a> </div>
-      </div>
-      <div id="avarar" class="modal modal-fixed-footer">
-         <div class="modal-content">
-            <a href="#user"><img class="materialboxed" alt='image' class="circle" src="<?php echo $_SESSION['avatar'] ?>" style="display:block;margin:auto;width:80px;"></a><br> 
-            <div class="row">
-               <div class="col s6 center">
-                  <h4 class="center">Upload an image</h4>
-                  <a href="https://smartlist.ga/playground/imgbb.php" class="btn btn-large red center">Upload an image</a> 
-               </div>
-               <div class="col s6">
-                  <h4 class="center">Or paste an image URL</h4>
-                  <form action="avatar.php" method="GET"><input type="text" name="pairingaccountid" placeholder="Avatar (Image URL)"></form>
-               </div>
-            </div>
-         </div>
-         <div class="modal-footer"> <button type="submit"class="btn btn-flat waves-effect">Change</button> <a href="#modal1" class="modal-close waves-effect btn-flat modal-trigger">Cancel</a> </div>
-      </div>
+      <div id="modal2" class="modal modal-fixed-footer"> <div class="modal-content"> <h4>Heads Up!</h4> <p>Are you sure you want to delete your account???</p> </div> <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect waves-green btn-flat modal-trigger">Go back</a> <a class="waves-effect waves-light btn red modal-trigger" href="#modal5" class="red btn waves-effect waves-light">Delete My account</a> </div> </div> <div id="bmmodal" class="modal"><div class="modal-content"> <form action="https://smartlist.ga/scalesize/bm/addx.php" method="post" name="form1"> <table width="100%" border="0" class="table"> <tr > <td>Name</td> <td><input type="text" name="name" class="form-control" value="<?php echo date('m/d/Y') ;?>" readonly></td> </tr> <tr> <td>Price you spent</td> <td><input type="text" name="qty" class="form-control"></td> </tr> <tr class="d-none"> <td>Price</td> <td><input type="text" name="price" class="form-control" value="1"></td> </tr> <tr> <td></td> <td><input type="submit" name="Submit" value="Add" class="red btn"></td> </tr> </table> </form> </div> </div> </div> <div id="kitchenmodal" class="modal "> <div class="modal-content"> </div> </div> <div id="pair" class="modal modal-fixed-footer"> <div class="modal-content"> <h4>Heads Up!</h4> <p>Are you sure you want to pair your account? Pairing your account will you see everything in their inventory!</p> </div> <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect waves-green btn-flat modal-trigger">Go back</a> <a class="waves-effect waves-light btn red modal-trigger modal-close" href="#pair2" class="red btn waves-effect waves-light">Pair my account!</a> </div> </div> <div id="camera" class="modal modal-fixed-footear"> <div class="modal-content"> <div class="logo"> <img class="image waves-effect" alt='image' src="https://i.pinimg.com/originals/51/11/d8/5111d818140cbaef5459ce331151463f.gif" onclick='document.getElementById("myCheck").click();'style="display:block;margin:auto;width:100%" /> <div class="result"> <h2></h2> </div> <div class="capture"> <div class="record waves-effect waves-light" /> <input class="input" type="file" accept="image/*" onchange="handleUpload(this.files);myFunction()" id="myCheck" style="opacity:0;" /> </div> </div> </div> </div> <div class="modal-footer"> <a href="#kitchennmodal" class="modal-close waves-effect waves-green btn-flat modal-trigger">Go back</a> </div> </div> <div id="pair2" class="modal modal-fixed-footer"> <div class="modal-content"> <h4>Pair your account</h4> <br> <form action="pair.php" method="GET"> <input type="text" name="pairingaccountid" placeholder="Login ID..."> <p>To pair, you will need to know the other person's login ID. You can find yours in the settings page</p> </div> <div class="modal-footer"> <button type="submit"class="btn btn-flat waves-effect">Change</button> </form> <a class="waves-effect waves-light btn btn-flat modal-trigger modal-close" href="#modal1" class="red btn waves-effect waves-light">Never mind</a> </div> </div> <div id="budgetmetermodala" class="modal modal-fixed-s  bottom-sheet"  style="width:100%"> <div class="modal-content"> <h4 class="center">Add an item <span class="hide-on-med-and-down">(CTRL S)</span></h4> <div class="collection"> <a onclick="openPage('addkitchen', this, '');setTimeout(function(){ document.getElementById('tags').focus() }, 0500);" class="modal-trigger collection-item waves-effect modal-close" id="kitchentoggle">Kitchen</a> <a href="#" onclick="openPage('bedroom_add', this, '');setTimeout(function(){ openPage('bedroom_add', this, '');document.getElementById('bedroom_name_input').focus() }, 0500);" class="collection-item waves-effect">Bedroom</a> <a href="#"onclick="openPage('bathroom_add', this, '');setTimeout(function(){ openPage('bathroom_add', this, '');document.getElementById('bathroom_name_input').focus() }, 0500);" class="collection-item waves-effect">Bathroom</a> <a href="https://smartlist.ga/dashboard/rooms/garage/add.html" class="collection-item waves-effect">Garage</a> <a href="https://smartlist.ga/dashboard/rooms/family/add.html" class="collection-item waves-effect">Family</a> <a href="https://smartlist.ga/dashboard/rooms/storage/add.html" class="collection-item waves-effect">Storage Room</a> <a href="https://smartlist.ga/dashboard/rooms/dining_room/add.html" class="collection-item waves-effect">Dining Room</a><a href="https://smartlist.ga/dashboard/rooms/camping/add.html" class="collection-item waves-effect">Camping Supplies</a> <a href="https://smartlist.ga/dashboard/rooms/laundry/add.html" class="collection-item waves-effect">Laundry room</a> </div> </div> </div> <div id="modal5" class="modal modal-fixed-footer"> <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script> --> <div class="modal-content"> <h4>Heads Up (again)!</h4> <p>We want to confirm this is you, so please do the reCAPTCHA</p> <div class="g-recaptcha" data-sitekey="6LdSGPAZAAAAAMs85kHIOqrMKV7W_nDcJ-V0n2g7"></div> </div> <div class="modal-footer"> <a href="#!" class="modal-close waves-effect waves-green btn-flat">Go back</a> <a class="waves-effect waves-light btn red modal-trigger" href="#modal3" class="red btn waves-effect waves-light">Delete My account</a> </div> </div> <div id="modal3" class="modal modal-fixed-footer"> <div class="modal-content"> <h4>Are you very, very, very sure?</h4> <p>Don't blame us because we didn't warn you........</p> <ul style="list-style-type:circle !important;"> <li style="list-style-type:circle !important;">Your todos will vanish into thin air</li> <li style="list-style-type:circle !important;">Your inventory will vanish into thin air</li> <li style="list-style-type:circle !important;">Your rooms will vanish into thin air</li> <li style="list-style-type:circle !important;">Your homes will vanish into thin air</li> <li style="list-style-type:circle !important;">You will not be able to ever log in again with these credentials</li> <li style="list-style-type:circle !important;">You will not be able use the desktop or mobile app</li> </ul> </div> <div class="modal-footer"> <a href="#!" class="modal-close waves-effect waves-green btn-flat">That's scary. Never mind</a> <a href="https://smartlist.ga/dashboard/resources/deleted.php?id=<?php echo $_SESSION['id'] ?>" class="red btn waves-effect waves-light">I choose to permanently delete my account</a> </div> </div> <div id="credits" class="modal modal-fixed-footer"> <div class="modal-content"> <h4>Credits</h4> <ul> <li>Materialize</li> <li>InfinityFree</li> <li>CodePen</li> <li>Cloudflare</li> <li>SQL</li> <li>Materialize</li> <li>Materialize</li> <li>Webestools - for the forum</li> <li><a href="https://blog.chapagain.com.np/very-simple-add-edit-delete-view-in-php-mysql/">Very Simple Add, Edit, Delete, View (CRUD) in PHP & MySQL [Beginner Tutorial]</a></li> <h5>People</h5> </ul> </div> <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect btn-flat modal-trigger">ok</a> </div> </div> <div id="security" class="modal modal-fixed-footer"> <div class="modal-content"> <h4>Privacy</h4> <p>Yes, your data is encrypted end-to-end. We hash your items, so even if a hacker gets access to the database, it will be rendered useless! We also use PHP PDO, which is very secure to SQL injection attacks.</p> </div> <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect btn-flat modal-trigger">ok</a> </div> </div> <div id="avarar" class="modal modal-fixed-footer"> <div class="modal-content"> <a href="#user"><img class="materialboxed" alt='image' class="circle" src="<?php echo $_SESSION['avatar'] ?>" style="display:block;margin:auto;width:80px;"></a><br> <div class="row"> <div class="col s6 center"> <h4 class="center">Upload an image</h4> <a href="https://smartlist.ga/playground/imgbb.php" class="btn btn-large red center">Upload an image</a> </div> <div class="col s6"> <h4 class="center">Or paste an image URL</h4> <form action="avatar.php" method="GET"><input type="text" name="pairingaccountid" placeholder="Avatar (Image URL)"></form> </div> </div> </div> <div class="modal-footer"> <button type="submit"class="btn btn-flat waves-effect">Change</button> <a href="#modal1" class="modal-close waves-effect btn-flat modal-trigger">Cancel</a> </div> </div>
       <ul id="slide-out" class="sidenav sidenav-fixed">
          <li>
             <div class="user-view">
@@ -265,7 +119,7 @@
                   <a class="waves-effect waves-light btn modal-trigger btn-flat" href="#modal1" style="color:white;margin:0;">Profile</a> -->
             </div>
          </li>
-         <li><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="openPage('News', this, );brandlogotext.innerHTML = 'Smartlist'" id="defaultOpen"><i class="material-icons">home</i>Home   </a></li>
+         <li><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="openPage('News', this, );brandlogotext.innerHTML = 'Smartlist';page_title = 'News';" id="defaultOpen"><i class="material-icons">home</i>Home   </a></li>
          <li style="height:0;opacity:0;width:0;"><a class="waves-effect"onclick="openPage('loader', this, );" ><i class="material-icons">home</i>Home   </a></li>
          <li>
             <div class="divider"></div>
@@ -296,8 +150,8 @@
             </a>
          </li>
          <li><a class="waves-effect sidenav-close"onclick="openPage('modal1', this, '');brandlogotext.innerHTML = 'Settings'"><i class="material-icons">settings</i>Settings</a></li>
-         <li><a class="waves-effect " onclick="openPage('modal1', this, '');brandlogotext.innerHTML = 'Settings'"><i class="material-icons">person</i>My Account</a></li>
-         <li><a class="waves-effect  " href="logout.php"><i class="material-icons">logout</i>Logout</a></li>
+         <li><a class="waves-effect" onclick="openPage('modal1', this, '');brandlogotext.innerHTML = 'Settings'"><i class="material-icons">person</i>My Account</a></li>
+         <li><a class="waves-effect" href="logout.php"><i class="material-icons">logout</i>Logout</a></li>
          <li>
             <div class="divider"></div>
          </li>
@@ -312,10 +166,19 @@
          <ul>
             <li data-position="left" data-tooltip="Task" class="tooltipped"><a class="btn-floating pink " href="https://smartlist.ga/dashboard/rooms/todo/add.html"><i class="material-icons" style="color:white !important">task</i></a></li>
             <li data-position="left" data-tooltip="Item" class="tooltipped"><a class="btn-floating pink modal-trigger" href="#budgetmetermodala"><i class="material-icons" style="color:white !important" onclick="//document.querySelector('#itemdialog').showModal()">shopping_basket</i></a></li>
-            <!--<li data-position="left" data-tooltip="Budget meter" class="tooltipped"><a class="btn-floating green modal-trigger" onclick="openPage('budgetmetermodal', this, '');" ><i class="material-icons" style="color:white !important">add_location</i></a></li>-->
             <li data-position="left" data-tooltip="Grocery List" class="tooltipped"> <a href="https://smartlist.ga/dashboard/rooms/grocerylist/add.html" class="text-center float-right btn-floating pink" ><i class="material-icons" style="color:white !important">add_shopping_cart</i></a></li>
          </ul>
       </div>
+      <div class="hide" id="rmenu">
+  <a href="#"onclick='window.history.back();' class="waves-effect">Back</a>
+  <a href="#"onclick='window.history.forward();' class="waves-effect">Forward</a>
+  <a href="#"onclick='location.reload()' class="waves-effect">Reload</a>
+  <hr>
+  <a href="#"onclick='document.execCommand("copy");M.toast({html: "Copied!"})' class="waves-effect">Copy</a>
+  <a href="#"onclick='document.execCommand("paste");' class="waves-effect">Paste</a>
+  <hr>
+    <a href="#"onclick='window.print();' class="waves-effect">Print</a>
+</div>
       <!--CONTENT BEGINS-->
       <div id="CONTENT" tabindex="0" style="outline: 0;">
       <div id="div1"></div>
@@ -346,23 +209,22 @@
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/laundry/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/laundry/', 'laundryroom')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                        /*  echo "<td> <div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/bedroom/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
                                  <a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bedroom/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete</a><a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                   }
@@ -382,93 +244,60 @@
                <a href="#bmmodal" class="btn modal-close waves-effect waves-light right green modal-trigger">Add a point</a>
                <h4>My budget meter</h4>
                <table class="table table-striped " id="myTable">
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         echo '<table class="table">
-                                   <tr>
-                                    <td>Name</td>
-                                    <td>Quantity</td>
-                                    <td class="d-none">Price</td>
-                                    <td style="width:10%">Actions</td>
-                                   </tr>';
-                         foreach ($users as $row) {
-                             echo "<tr>";
-                             print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
-                             if ($row['login_id'] != $_SESSION['id']) {
-                                      echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-                             }
-                             echo "</td><td>";
-                             echo " <div class=\"dropdown\" tabindex='0'>
-                                    <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
-                                    <div class=\"dropdown-contenta\">
-                                    <a href=\"https://smartlist.ga/dashboard/rooms/bedroom/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
-                                    <a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bedroom/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete</a><a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
-                                    </div>
-                                    </div></td>
-                                    ";
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-               </table>
-               <form action="https://smartlist.ga/dashboard/resources/resources/goal/action.php" style="background: #efefef;padding: 10px;">
+<?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); echo '<table class="table"> <tr> <td>Name</td> <td>Quantity</td> <td class="d-none">Price</td> <td style="width:10%">Actions</td> </tr>'; foreach ($users as $row) { echo "<tr>"; print "<td>".$row["name"] . "</td><td>" . $row["qty"] .""; if ($row['login_id'] != $_SESSION['id']) { echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>"; } echo "</td><td>"; echo " <div class=\"dropdown\" tabindex='0'> <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a> <div class=\"dropdown-contenta\"> <a href=\"https://smartlist.ga/dashboard/rooms/bedroom/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a> <a onclick='$(\"#div1\").load(\"https://smartlist.ga/scalesize/bm/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete</a> </div> </div></td> "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?>
+               </table><br><br><br>
+               <form action="https://smartlist.ga/dashboard/resources/goal/action.php" style="background: #efefef;padding: 10px;">
                   <div class="row">
                      <div class="col s9">
                         <h5>Set a goal. </h5>
                         <p class="range-field">
-                           <input class="quantity" min="0" name="goal" placeholder="Type a number..." type="range">
+                           <input class="quantity" min="0" name="goal" placeholder="Type a number..." type="range" value="<?php echo $goal;?>">
                         </p>
                         <p>Your goal will appear on the graph as a red line. Try not to spend more than this goal!</p>
                      </div>
                      <div class="col s3"><br><br>
-                        <button type="submit" class="btn blue right">Set goal</button>
+                        <button type="submit" class="btn blue right" onclick="var dis=this;setTimeout(function(){dis.disabled=true;},10);return true;">Set goal</button>
                      </div>
                   </div>
                </form>
                </table>
             </div>
          </div>
-         <div id="addkitchen" class="tabcontent">
-            <div class="container">
-               <form onsubmit="return false" method="GET" name="form1">
-                <h6>Add an item (Kitchen)</h6>
-                  <div class="row">
-                     <div class="col s9 input-field "> 
-                        <label onclick="this.nextSibling.focus()">Item Name</label><input type="text" name="name" autocomplete="off" class="form-control autocomplete" id="tags" value="<?php echo $_GET['item']; ?>" class="autocomplete"> 
-                     </div>
-                     <div class="col s1"> 
-                        <a href="https://smartlist.ga/dashboard/upload/upload.php"class="btn btn-flat waves-effect btn-large" style='position: relative;bottom: -10px;'><i class="material-icons">camera_alt</i></a> 
-                     </div>
-                     <div class="col s12">
-                        <div class="input-field">
-                           <label>Quantity</label>
-                           <input type="text" name="qty"  id="qty" class="form-control" value="1" autocompletae="off">
-                        </div>
-                     </div>
-                     <div class="col s12">
-                        <div class="input-field">
-    <select name="price" id="date" >
-      <option value="Pots and Pans">Pots/Pans</option>
-      <option value="Fruits, Veggies, etc."selected>Fruits, Veggies, etc.</option>
-      <option value="Cutlery">Cutlery</option>
-      <option value="Bottles and Cups">Bottles and Cups</option>
-      <option value="Bowls and Plates">Bowls and Plates</option>
-    </select>
-    <label>Tag</label>
-  </div>
-                     </div>
-                  </div>
-
-                  <button type="submit" name="Submit" value="Add" class="btn green waves-effect waves-light btn-large" onclick="add()">Add</button>
-               </form>
-            </div>
-         </div>
+         <div id="bedroom_add" class="tabcontent"> 
+         <div class="container">
+              <form onsubmit="return false" method="GET" name="form1"> 
+              <h6>Add an item (Bedroom)</h6> 
+              <div class="row"> 
+              <div class="col s12 input-field ">
+                   <label onclick="this.nextSibling.focus()">Item Name</label>
+                   <input type="text" name="name" autocomplete="off" class="form-control" id="bedroom_name_input" value="<?php echo $_GET['item']; ?>"> 
+                   </div>
+                            <div class="col s12"> 
+                            <div class="input-field"> 
+                            <label>Quantity</label>
+                            <input type="text" name="qty"  id="bedroom_qty_input" class="form-control" value="1" autocompletae="off"> 
+                            </div>
+                            </div>
+                            </div>
+                            <button type="submit" name="Submit" value="Add" class="btn green waves-effect waves-light btn-large" onclick="add_bedroom()">Add</button> </form> </div> </div>
+         <div id="bathroom_add" class="tabcontent"> 
+         <div class="container">
+              <form onsubmit="return false" method="GET" name="form1"> 
+              <h6>Add an item (Bathroom)</h6> 
+              <div class="row"> 
+              <div class="col s12 input-field ">
+                   <label onclick="this.nextSibling.focus()">Item Name</label>
+                   <input type="text" name="name" autocomplete="off" class="form-control" id="bathroom_name_input" value="<?php echo $_GET['item']; ?>" > 
+                   </div>
+                            <div class="col s12"> 
+                            <div class="input-field"> 
+                            <label>Quantity</label>
+                            <input type="text" name="qty"  id="bathroom_qty_input" class="form-control" value="1" autocompletae="off"> 
+                            </div>
+                            </div>
+                            </div>
+                            <button type="submit" name="Submit" value="Add" class="btn green waves-effect waves-light btn-large" onclick="add_bathroom()">Add</button> </form> </div> </div>
+<div id="addkitchen" class="tabcontent"> <div class="container"> <form onsubmit="return false" method="GET" name="form1"> <h6>Add an item (Kitchen)</h6> <div class="row"> <div class="col s9 input-field "> <label onclick="this.nextSibling.focus()">Item Name</label><input type="text" name="name" autocomplete="off" class="form-control autocomplete" id="tags" value="<?php echo $_GET['item']; ?>" class="autocomplete"> </div> <div class="col s1"> <a href="https://smartlist.ga/dashboard/upload/upload.php"class="btn btn-flat waves-effect btn-large" style='position: relative;bottom: -10px;'><i class="material-icons">camera_alt</i></a> </div> <div class="col s12"> <div class="input-field"> <label>Quantity</label> <input type="text" name="qty"  id="qty" class="form-control" value="1" autocompletae="off"> </div> </div> <div class="col s12"> <div class="input-field"> <select name="price" id="date" > <option value="Pots and Pans">Pots/Pans</option> <option value="Fruits, Veggies, etc."selected>Fruits, Veggies, etc.</option> <option value="Cutlery">Cutlery</option> <option value="Bottles and Cups">Bottles and Cups</option> <option value="Bowls and Plates">Bowls and Plates</option> </select> <label>Tag</label> </div> </div> </div> <button type="submit" name="Submit" value="Add" class="btn green waves-effect waves-light btn-large" onclick="add()">Add</button> </form> </div> </div>
          <div id="cs" class="tabcontent">
             <div class="container">
                <?php 
@@ -481,23 +310,22 @@
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/camping/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/camping/', 'camping')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                         /* echo "<td> <div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/bedroom/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
                                  <a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bedroom/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete</a><a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                   }
@@ -510,23 +338,6 @@
          </div>
          <div id="Home" class="tabcontent"> 
             <div class="container">
-               <?php
-                  /*while($bedroomres = mysqli_fetch_array($bedroom)) {
-                  echo "<tr>";
-                  echo "<td>".$bedroomres['name']."</td>";
-                  echo "<td>".$bedroomres['qty']."</td>";
-                  echo "<td class=\"d-none\">".$bedroomres['price']."</td>";
-                  echo "<td><div class='dropdown' tabindex='0'>
-                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a><div class='dropdown-contenta' style='float:right'></a>
-                  <a href=\"https://smartlist.ga/dashboard/rooms/bedroom/edit.php?id=$bedroomres[id]\" style=\"float:none\">
-                  <div><i class='material-icons' style=\"float:none\">edit</i> Edit</div>
-                  </a>
-                  <div><a href=\"https://smartlist.ga/dashboard/rooms/bedroom/delete.php?id=$bedroomres[id]\" onClick=\"return confirm('Are you sure you want to delete this item? This action is irreversible!')\">
-                  <i class='material-icons'>delete</i> Delete
-                  </a></div>
-                  </div> </div>
-                  </td>";}*/
-                  ?>
                <?php 
                   try {
                       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -534,28 +345,28 @@
                       $users = $dbh->query($sql);
                       $bedroom_row_count = $users->rowCount();
                       if($bedroom_row_count > 0) {
-                      echo '<table class="table">
+                      echo '<table class="table" id="bedroom_table">
                                 <tr>
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
+                                 <!--<td style="width:10%">Actions</td>-->
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/bedroom/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/bedroom/', 'bedroom')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td></tr>";
+                         /* echo " <td><div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/bedroom/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
                                  <a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bedroom/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete</a><a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;}
                      else {
@@ -639,7 +450,7 @@
                         <div class="collapsible-header waves-effect"><i class="material-icons">notifications</i>Notifications</div>
                         <div class="collapsible-body">
                            <ul class="collection">
-                              <button onclick="notifyMe()"class="btn red" type="button">Test Notifications!</button>
+                              <button onclick="notifyMe();desktop_ping('Success! Notifications are enabled!', 'Smartlist Notificatons')"class="btn red" type="button">Test Notifications!</button>
                               <a class="collection-item">
                                  Notifications
                                  <div class="switch" style="float:right">
@@ -666,19 +477,12 @@
                         </div>
                      </li>
                      <li>
-                        <div class="collapsible-header waves-effect"><i class="material-icons">info</i>More</div>
-                        <div class="collapsible-body">
-                           <ul class="collection">
-                              <a class="waves-effect collection-item modal-trigger modal-close" href="#credits">Credits</a>
-                           </ul>
-                        </div>
-                     </li>
-                     <li>
                         <div class="collapsible-header waves-effect"><i class="material-icons">keyboard</i>Keyboard Shortcuts</div>
                         <div class="collapsible-body">
                            <h4 style="color: var(--font-color)">Keyboard Shortcuts</h4>
                            <p>CTRL F - Focus on search bar</p>
-                           <p>CTRL B - View Notifications</p>
+                           <p>CTRL / or /- Focus on search bar</p>
+                           <p>CTRL B - View budget Meter</p>
                            <p>CTRL S - Add item</p>
                            <p>CTRL E - Open settings</p>
                         </div>
@@ -686,7 +490,8 @@
                      <li>
                         <div class="collapsible-header waves-effect"><i class="material-icons">code</i>Developer</div>
                         <div class="collapsible-body">
-                           <p>Coming Soon!</p>
+                            <a href="https://smartlist.ga/contribute/">Contributor &amp; Developer Dashboard</a>
+                           <p>The API is a powerful feature by smartlist. To use this, go to <a href="https://smartlist.ga/contribute/">https://smartlist.ga/contribute/</a>, log in using your smartlist account, and then click on the code icon. Then, create and API key, and follow the directions</p>
                         </div>
                      </li>
                      <li>
@@ -934,38 +739,7 @@
          <div id="searchresults" class="tabcontent">
             <div class="container">
                <h5 class="center" style="color: var(--font-color)">Search results for "<span id="sr"></span>"</h5>
-               <div class="chip">
-                  <img src="<?php echo $_SESSION['avatar']; ?>" alt="Contact Person">
-                  By: <?php echo $_SESSION['name']; ?>
-               </div>
-               <div class="chip">
-                  Kitchen
-                  <i class="close material-icons" onclick="document.getElementById('kitchen_search').style.display='none'">close</i>
-               </div>
-               <div class="chip">
-                  Garage
-                  <i class="close material-icons" onclick="document.getElementById('garage_search').style.display='none'">close</i>
-               </div>
-               <div class="chip">
-                  Bedroom
-                  <i class="close material-icons" onclick="document.getElementById('bedroom_search').style.display='none'">close</i>
-               </div>
-               <div class="chip">
-                  Bathroom
-                  <i class="close material-icons" onclick="document.getElementById('bathroom_search').style.display='none'">close</i>
-               </div>
-               <div class="chip">
-                  Storage
-                  <i class="close material-icons" onclick="document.getElementById('storage_search').style.display='none'">close</i>
-               </div>
-               <div class="chip">
-                  Exact Search
-                  <i class="close material-icons">close</i>
-               </div>
-               <div class="chip">
-                  Search rooms and actions
-                  <i class="close material-icons" onclick="document.getElementById('rooms').style.display='none'">close</i>
-               </div>
+<div class="chip"> <img src="<?php echo $_SESSION['avatar']; ?>" alt="Contact Person"> By: <?php echo $_SESSION['name']; ?> </div> <div class="chip"> Kitchen <i class="close material-icons" onclick="document.getElementById('kitchen_search').style.display='none'">close</i> </div> <div class="chip"> Garage <i class="close material-icons" onclick="document.getElementById('garage_search').style.display='none'">close</i> </div> <div class="chip"> Bedroom <i class="close material-icons" onclick="document.getElementById('bedroom_search').style.display='none'">close</i> </div> <div class="chip"> Bathroom <i class="close material-icons" onclick="document.getElementById('bathroom_search').style.display='none'">close</i> </div> <div class="chip"> Storage <i class="close material-icons" onclick="document.getElementById('storage_search').style.display='none'">close</i> </div> <div class="chip"> Exact Search <i class="close material-icons">close</i> </div> <div class="chip"> Search rooms and actions <i class="close material-icons" onclick="document.getElementById('rooms').style.display='none'">close</i> </div>
                <ul class="collection with-header" id="myUL">
                   <div id="rooms">
                      <li class="collection-item waves-effect"><a href="#!" >Kitchen<span class="new badge">Room</span></a></li>
@@ -1078,416 +852,45 @@
             </div>
          </div>
          <div id="myDIVa" class="tabcontent">
-            <h3 class="center">Inbox</h3>
+            <h3 class="center" id="ERR_EMPTY_NOTIFICATION_TITLE">Inbox</h3>
+    <div id="ERR_EMPTY_NOTIFICATION" style="display:none">
+<img src="https://i.ibb.co/18k528g/urban-683.png" style="width:50vw;display:block;margin:auto"><br>
+<p style="text-align:center">No notifications</p>
+</div>
             <div class="container">
                <ul class="collection" style="border:0 !important;background:var(--bg-color); " id="menu">
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle blue" style="color:white !important">kitchen</i>
-                                          <span class="title">Kitchen</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM bedroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle red" style="color:white !important">bed</i>
-                                          <span class="title">Bedroom</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle green" style="color:white !important">wc</i>
-                                          <span class="title">Bathroom</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM garage WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle yellow" style="color:white !important">directions_car</i>
-                                          <span class="title">Garage</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM family WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle pink" style="color:white !important">tv</i>
-                                          <span class="title">Family Room</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM dining_room WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle purple" style="color:white !important">local_dining</i>
-                                          <span class="title">Dining Room</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
-                  <?php 
-                     try {
-                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                         $sql = "SELECT * FROM storageroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
-                         $users = $dbh->query($sql);
-                         foreach ($users as $numbervarnotify) {
-                          if ($numbervarnotify['qty'] < $number_notify) {
-                                             echo '
-                                          <li class="collection-item avatar waves-effect">
-                                          <i class="material-icons circle cyan" style="color:white !important">domain</i>
-                                          <span class="title">Storage Room</span>
-                                          <p>You\'re going to run out of ';
-                                                   echo $numbervarnotify['name']; 
-                                          echo " soon</p></li>";
-                         }
-                         }
-                         $dbh = null;
-                     }
-                     catch (PDOexception $e) {
-                         echo "Error is: " . $e-> etmessage();
-                     }
-                     ?>
+                  <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle blue" style="color:white !important">kitchen</i> <span class="title">Kitchen</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM bedroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle red" style="color:white !important">bed</i> <span class="title">Bedroom</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle green" style="color:white !important">wc</i> <span class="title">Bathroom</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM garage WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle yellow" style="color:white !important">directions_car</i> <span class="title">Garage</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM family WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle pink" style="color:white !important">tv</i> <span class="title">Family Room</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM dining_room WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle purple" style="color:white !important">local_dining</i> <span class="title">Dining Room</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM storageroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid']; $users = $dbh->query($sql); foreach ($users as $numbervarnotify) { if ($numbervarnotify['qty'] < $number_notify) { echo ' <li class="collection-item avatar"> <i class="material-icons circle cyan" style="color:white !important">domain</i> <span class="title">Storage Room</span> <p>You\'re going to run out of '; echo $numbervarnotify['name']; echo " soon</p></li>"; } } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?>
                </ul>
             </div>
          </div>
-         <div id="kitchen_cat" class="tabcontent">
-             <div class="row container"><h6 class="center">Categories</h6><div class="col m6 s12">
-              <ul class="collapsible">
-                  <li>
-      <div class="collapsible-header"><i class="material-icons">local_dining</i>Cutlery</div>
-      <div class="collapsible-body">
-             <?php 
-               try {
-                   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                   $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Cutlery'";
-                   $users = $dbh->query($sql);
-                   echo '<table class="table"><h4 class="center">Cutlery</h4>
-                    <tr>
-                              <td>Name</td>
-                              <td>Quantity</td>
-                              <td class="d-none">Price</td>
-                              <td style="width:10%">Actions</td>
-                             </tr>
-                   ';
-                   foreach ($users as $row) {
-                       echo "<tr class='draggables'>";
-                       print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
-                       if ($row['login_id'] != $_SESSION['id']) {
-                                echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-                       }
-                       echo "</td><td>";
-                       echo " <div class=\"dropdown\" tabindex='0'>
-                              <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
-                              <div class=\"dropdown-contenta\">
-                              <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a>
-                              <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a>
-                              <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a>
-                              <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a>
-                              </div>
-                              </div></td>
-                              ";
-                   }
-                   $dbh = null;
-               }
-               catch (PDOexception $e) {
-                   echo "Error is: " . $e-> etmessage();
-               }
-               ?>
-               </table></div>
-               </div></li>
-               </ul>
-               <div class="col m6 s12">
-              <ul class="collapsible">
-                  <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Fruits &amp; Veggies</div>
-      <div class="collapsible-body">
-               <?php 
-               try {
-                   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                   $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Fruits, Veggies, etc.'";
-                   $users = $dbh->query($sql);
-                   echo '<table class="table"><h4 class="center">Fruits, Veggies, etc.</h4>
-                    <tr>
-                              <td>Name</td>
-                              <td>Quantity</td>
-                              <td class="d-none">Price</td>
-                              <td style="width:10%">Actions</td>
-                             </tr>
-                   ';
-                   foreach ($users as $row) {
-                       echo "<tr class='draggables'>";
-                       print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
-                       if ($row['login_id'] != $_SESSION['id']) {
-                                echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-                       }
-                       echo "</td><td>";
-                       echo " <div class=\"dropdown\" tabindex='0'>
-                              <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
-                              <div class=\"dropdown-contenta\">
-                              <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a>
-                              <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a>
-                              <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a>
-                              <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a>
-                              </div>
-                              </div></td>
-                              ";
-                   }
-                   $dbh = null;
-               }
-               catch (PDOexception $e) {
-                   echo "Error is: " . $e-> etmessage();
-               }
-               ?>
-                </table></div>
-               </div></li>
-               </ul>
-                <div class="col m6 s12">
-              <ul class="collapsible">
-                  <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Pots and Pans</div>
-      <div class="collapsible-body">
-               <?php 
-               try {
-                   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                   $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Pots and Pans'";
-                   $users = $dbh->query($sql);
-                   echo '<table class="table"><h4 class="center">Pots and Pans</h4>
-                    <tr>
-                              <td>Name</td>
-                              <td>Quantity</td>
-                              <td class="d-none">Price</td>
-                              <td style="width:10%">Actions</td>
-                             </tr>
-                   ';
-                   foreach ($users as $row) {
-                       echo "<tr class='draggables'>";
-                       print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
-                       if ($row['login_id'] != $_SESSION['id']) {
-                                echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-                       }
-                       echo "</td><td>";
-                       echo " <div class=\"dropdown\" tabindex='0'>
-                              <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
-                              <div class=\"dropdown-contenta\">
-                              <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a>
-                              <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a>
-                              <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a>
-                              <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a>
-                              </div>
-                              </div></td>
-                              ";
-                   }
-                   $dbh = null;
-               }
-               catch (PDOexception $e) {
-                   echo "Error is: " . $e-> etmessage();
-               }
-               ?>
-               </table></div>
-               </div></li>
-               </ul>
-               <div class="col m6 s12">
-                <ul class="collapsible">
-                  <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Bottles and Cups</div>
-      <div class="collapsible-body">
-               <?php 
-               try {
-                   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                   $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Bottles and Cups'";
-                   $users = $dbh->query($sql);
-                   echo '<table class="table"><h4 class="center">Bottles and Cups</h4>
-                    <tr>
-                              <td>Name</td>
-                              <td>Quantity</td>
-                              <td class="d-none">Price</td>
-                              <td style="width:10%">Actions</td>
-                             </tr>
-                   ';
-                   foreach ($users as $row) {
-                       echo "<tr class='draggables'>";
-                       print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
-                       if ($row['login_id'] != $_SESSION['id']) {
-                                echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-                       }
-                       echo "</td><td>";
-                       echo " <div class=\"dropdown\" tabindex='0'>
-                              <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
-                              <div class=\"dropdown-contenta\">
-                              <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a>
-                              <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a>
-                              <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a>
-                              <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a>
-                              </div>
-                              </div></td>
-                              ";
-                   }
-                   $dbh = null;
-               }
-               catch (PDOexception $e) {
-                   echo "Error is: " . $e-> etmessage();
-               }
-               ?>
-               </table></div>
-               </div></li>
-               </ul>
-               <div class="col m6 s12">
-                <ul class="collapsible">
-                  <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Bowls and Plates</div>
-      <div class="collapsible-body">
-               <?php 
-               try {
-                   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                   $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Bowls and Plates'";
-                   $users = $dbh->query($sql);
-                   echo '<table class="table"><h4 class="center">Bowls and Plates</h4>
-                    <tr>
-                              <td>Name</td>
-                              <td>Quantity</td>
-                              <td class="d-none">Price</td>
-                              <td style="width:10%">Actions</td>
-                             </tr>
-                   ';
-                   foreach ($users as $row) {
-                       echo "<tr class='draggables'>";
-                       print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
-                       if ($row['login_id'] != $_SESSION['id']) {
-                                echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-                       }
-                       echo "</td><td>";
-                       echo " <div class=\"dropdown\" tabindex='0'>
-                              <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
-                              <div class=\"dropdown-contenta\">
-                              <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a>
-                              <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a>
-                              <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a>
-                              <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a>
-                              </div>
-                              </div></td>
-                              ";
-                   }
-                   $dbh = null;
-               }
-               catch (PDOexception $e) {
-                   echo "Error is: " . $e-> etmessage();
-               }
-               ?>
-               </table></div>
-               </div></li>
-               </ul>
-               </div>
-        </div>
+<div id="kitchen_cat" class="tabcontent"> <div class="row container"><h6 class="center">Categories</h6><div class="col m6 s12"> <ul class="collapsible"> <li> <div class="collapsible-header"><i class="material-icons">local_dining</i>Cutlery</div> <div class="collapsible-body"> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Cutlery'"; $users = $dbh->query($sql); echo '<table class="table"><h4 class="center">Cutlery</h4> <tr> <td>Name</td> <td>Quantity</td> <td class="d-none">Price</td> <td style="width:10%">Actions</td> </tr> '; foreach ($users as $row) { echo "<tr class='draggables'>"; print "<td>".$row["name"] . "</td><td>" . $row["qty"] .""; if ($row['login_id'] != $_SESSION['id']) { echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>"; } echo "</td><td>"; echo " <div class=\"dropdown\" tabindex='0'> <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a> <div class=\"dropdown-contenta\"> <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a> <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a> <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a> <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a> </div> </div></td> "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> </table></div> </div></li> </ul> <div class="col m6 s12"> <ul class="collapsible"> <li> <div class="collapsible-header"><i class="material-icons">filter_drama</i>Fruits &amp; Veggies</div> <div class="collapsible-body"> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Fruits, Veggies, etc.'"; $users = $dbh->query($sql); echo '<table class="table"><h4 class="center">Fruits, Veggies, etc.</h4> <tr> <td>Name</td> <td>Quantity</td> <td class="d-none">Price</td> <td style="width:10%">Actions</td> </tr> '; foreach ($users as $row) { echo "<tr class='draggables'>"; print "<td>".$row["name"] . "</td><td>" . $row["qty"] .""; if ($row['login_id'] != $_SESSION['id']) { echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>"; } echo "</td><td>"; echo " <div class=\"dropdown\" tabindex='0'> <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a> <div class=\"dropdown-contenta\"> <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a> <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a> <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a> <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a> </div> </div></td> "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> </table></div> </div></li> </ul> <div class="col m6 s12"> <ul class="collapsible"> <li> <div class="collapsible-header"><i class="material-icons">filter_drama</i>Pots and Pans</div> <div class="collapsible-body"> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Pots and Pans'"; $users = $dbh->query($sql); echo '<table class="table"><h4 class="center">Pots and Pans</h4> <tr> <td>Name</td> <td>Quantity</td> <td class="d-none">Price</td> <td style="width:10%">Actions</td> </tr> '; foreach ($users as $row) { echo "<tr class='draggables'>"; print "<td>".$row["name"] . "</td><td>" . $row["qty"] .""; if ($row['login_id'] != $_SESSION['id']) { echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>"; } echo "</td><td>"; echo " <div class=\"dropdown\" tabindex='0'> <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a> <div class=\"dropdown-contenta\"> <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a> <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a> <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a> <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a> </div> </div></td> "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> </table></div> </div></li> </ul> <div class="col m6 s12"> <ul class="collapsible"> <li> <div class="collapsible-header"><i class="material-icons">filter_drama</i>Bottles and Cups</div> <div class="collapsible-body"> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Bottles and Cups'"; $users = $dbh->query($sql); echo '<table class="table"><h4 class="center">Bottles and Cups</h4> <tr> <td>Name</td> <td>Quantity</td> <td class="d-none">Price</td> <td style="width:10%">Actions</td> </tr> '; foreach ($users as $row) { echo "<tr class='draggables'>"; print "<td>".$row["name"] . "</td><td>" . $row["qty"] .""; if ($row['login_id'] != $_SESSION['id']) { echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>"; } echo "</td><td>"; echo " <div class=\"dropdown\" tabindex='0'> <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a> <div class=\"dropdown-contenta\"> <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a> <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a> <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a> <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a> </div> </div></td> "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> </table></div> </div></li> </ul> <div class="col m6 s12"> <ul class="collapsible"> <li> <div class="collapsible-header"><i class="material-icons">filter_drama</i>Bowls and Plates</div> <div class="collapsible-body"> <?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." AND `price` = 'Bowls and Plates'"; $users = $dbh->query($sql); echo '<table class="table"><h4 class="center">Bowls and Plates</h4> <tr> <td>Name</td> <td>Quantity</td> <td class="d-none">Price</td> <td style="width:10%">Actions</td> </tr> '; foreach ($users as $row) { echo "<tr class='draggables'>"; print "<td>".$row["name"] . "</td><td>" . $row["qty"] .""; if ($row['login_id'] != $_SESSION['id']) { echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>"; } echo "</td><td>"; echo " <div class=\"dropdown\" tabindex='0'> <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a> <div class=\"dropdown-contenta\"> <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a> <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share <span class='badge right'>New</a> <a target='_blank' href='https://www.google.com/search?q=recipes+with+".urlencode($row['name'])."' class='waves-effect'><i class='material-icons'>whatshot</i>Find a recipe</a> <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a> </div> </div></td> "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?> </table></div> </div></li> </ul> </div> </div>
          <div id="Contact" class="tabcontent">
             <?php 
                try {
                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                    $sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
                    $users = $dbh->query($sql);
+                   $KITCHEN_VAR_COUNT = $users->rowCount();
+                   if($KITCHEN_VAR_COUNT > 0){
+                   }
+                    else {
+                     echo "<div id='KITCHEN_VAR_COUNT' style='height: 90vh'><img alt='image' src='https://i.ibb.co/KX0bKPk/gummy-coffee.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p></div>";
+                     }
                    echo '<table class="table container" id="kitchen_table">
-                           <div class="container"><button class="left btn red" onclick="openPage(\'kitchen_cat\', this, \'\')">View in category mode</button><div class="right search"><input type="search" id="kitchen_search" placeholder="Search..."></div></div>
+                           <div class="container"><button class=" btn red" onclick="openPage(\'kitchen_cat\', this, \'\')">Category mode</button><div class="right search"><input type="search" style="display:none" id="kitchen_search" placeholder="Search..."></div></div>
                              <tr>
                               <td>Name</td>
                               <td>Quantity</td>
-                              <td class="d-none">Price</td>
-                              <td style="width:10%">Actions</td>
+                              <!--<td style="width:10%">Actions</td>-->
                              </tr>';
                    foreach ($users as $row) {
-                       echo "<tr class='draggables'>";
-                       print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
+                       echo "<tr class='draggables' id='tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', '', 'kitchen')\">";
+                       print "<td>".htmlspecialchars($row["name"]) . "</td><td>" . htmlspecialchars($row["qty"]) ."";
                        if ($row['login_id'] != $_SESSION['id']) {
                                 echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                        }
-                       echo "</td><td>";
-                       echo " <div class=\"dropdown\" tabindex='0'>
+                       echo "</td></tr>";
+                    /*   echo " <td><div class=\"dropdown\" tabindex='0'>
                               <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                               <div class=\"dropdown-contenta\">
                               <a href=\"edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit item</a>
@@ -1496,7 +899,8 @@
                               <a onclick='toast(\"".$row['name']."\", \"".$row["qty"]."\");$(\"#div1\").load(\"https://smartlist.ga/dashboard/delete.php?id=$row[id]\");this.parentElement.parentElement.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons'>delete</i>Delete item</a>
                               </div>
                               </div></td>
-                              ";
+                              </tr>
+                              ";*/
                    }
                    $dbh = null;
                }
@@ -1505,6 +909,30 @@
                }
                ?>
             </table>
+         </div>
+         <nav style="position:fixed;background: #212121;z-index:10000;top:0;display:none;overflow:hidden" id="secondary_nav">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo left hide-on-large-only" onclick="back();" style="margin: 0 !important"><i class="material-icons">arrow_back</i> <span style="font-size: 20px;position: relative;top: -3px;">Item Details</span></a>
+      <ul class="right">
+        <li><a href="#" id="nav_delete" class="waves-effect waves-light"><i class="material-icons">delete</i></a></li>
+        <li><a href="#" id="nav_edit" class="waves-effect waves-light"><i class="material-icons">edit</i></a></li>
+      </ul>
+    </div>
+  </nav>
+         <div id="item_popup" class="tabcontent">
+             <div class="container">
+             <p class="flow-text" style="margin-bottom:0;" id="item_title">Title</p>
+             <p class="flow-text" style="margin-top:0;"id="item_qty">Title</p>
+             <p class="flow-text" id="item_desc">Desc (tags)</p>
+             <div id="ERR_VIEW_ONLY" style="display:none"><blockquote>View-only mode is set for this item automatically when you create one. Please refresh to edit/delete this item</blockquote></div>
+             <a href="javascript:void(0)" onclick="back();" class="hide-on-small-only btn red">Back</a>
+            <div class="collection">
+                    <a href="#!" class="collection-item waves-effect" id="action_edit">Edit</a>
+                    <a href="#!" class="collection-item waves-effect" id="action_share" target="_blank">Share</a>
+                    <a href="#!" class="collection-item waves-effect" id="action_delete">Delete</a>
+                    <a href="#!" class="collection-item waves-effect" id="action_recipe" target="_blank" style="visibility:hidden;height:0;padding:0;">Find a recipe</a>
+            </div>
+             </div>
          </div>
          <div id="dining_room" class="tabcontent">
             <div class="container">
@@ -1520,16 +948,15 @@
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/dining_room/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/dining_room/', 'dining_room')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                          /*echo " <td><div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/dining_room/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
@@ -1537,7 +964,7 @@
                                  <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                   }
@@ -1566,16 +993,15 @@
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/family/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/family/', 'family')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                        /*  echo " <td><div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/family/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
@@ -1583,7 +1009,7 @@
                                  <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                       }
@@ -1600,37 +1026,34 @@
          </div>
          <div id="bathroom" class="tabcontent">
             <div class="container">
-               <?php
-                  /*while($bathroomres = mysqli_fetch_array($bathroom)) {
-                  echo "<tr>";
-                  echo "<td>".$bathroomres['name']."</td>";
-                  echo "<td>".$bathroomres['qty']."</td>";
-                  echo "<td class=\"d-none\">".$bathroomres['price']."</td>";
-                  echo "<td><a href=\"https://smartlist.ga/dashboard/rooms/bathroom/edit.php?id=$bathroomres[id]\"><i class='material-icons'>edit</i></a> <a href=\"https://smartlist.ga/dashboard/rooms/bathroom/delete.php?id=$bathroomres[id]\" onClick=\"return confirm('Are you sure you want to delete this item? This action is irreversible!')\"><i class='material-icons'>delete</i></a></td>";
-                  }*/
-                  ?>
                <?php 
                   try {
                       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                       $sql = "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
                       $users = $dbh->query($sql);
                       $bath_count = $users->rowCount();
+                       if($bath_count > 0){
+                   }
+                    else {
+                     echo "<div id='bathroom_table_var' style='height: 90vh'><img alt='image' src='https://i.ibb.co/KX0bKPk/gummy-coffee.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p></div>";
+                     }
                       if($bath_count > 0) {
-                      echo '<table class="table">
+                        //   bathroom_table_var
+                      echo '<table class="table"  id="bathroom_table">
                                 <tr>
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
+                                 <!--<td style="width:10%">Actions</td>-->
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/bathroom/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/bathroom/', 'bathroom')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                          /*echo "<td> <div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/bathroom/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
@@ -1638,7 +1061,7 @@
                                  <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                       }
@@ -1667,16 +1090,15 @@
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/storage/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/storage/', 'storage')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                          /*echo " <td><div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/storage/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
@@ -1684,7 +1106,7 @@
                                  <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                       }
@@ -1781,16 +1203,6 @@
          </div>
          <div id="About" class="tabcontent">
             <div class="container">
-               <?php
-                  /*while($garageres = mysqli_fetch_array($garage)) {
-                  echo "<tr>";
-                  echo "<td>".$garageres['name']."</td>";
-                  echo "<td>".$garageres['qty']."</td>";
-                  echo "<td class=\"d-none\">".$garageres['price']."</td>";
-                  echo "<td><a href=\"https://smartlist.ga/dashboard/rooms/garage/edit.php?id=$garageres[id]\"><i class='material-icons'>edit</i></a> <a href=\"https://smartlist.ga/dashboard/rooms/garage/delete.php?id=$garageres[id]\" onClick=\"return confirm('Are you sure you want to delete this item? This action is irreversible!')\"><i class='material-icons'>delete</i></a></td>";
-                  }
-                  */
-                  ?>
                <?php 
                   try {
                       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -1803,16 +1215,16 @@
                                  <td>Name</td>
                                  <td>Quantity</td>
                                  <td class="d-none">Price</td>
-                                 <td style="width:10%">Actions</td>
+                                 <!--<td style="width:10%">Actions</td>-->
                                 </tr>';
                       foreach ($users as $row) {
-                          echo "<tr>";
+                          echo "<tr id='https://smartlist.ga/dashboard/rooms/garage/tr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/garage/', 'garage')\">";
                           print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
                           if ($row['login_id'] != $_SESSION['id']) {
                                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
                           }
-                          echo "</td><td>";
-                          echo " <div class=\"dropdown\" tabindex='0'>
+                          echo "</td>";
+                          /*echo " <td><div class=\"dropdown\" tabindex='0'>
                                  <a class=\"dropbtn\"><i class='material-icons'>more_vert</i></a>
                                  <div class=\"dropdown-contenta\">
                                  <a href=\"https://smartlist.ga/dashboard/rooms/garage/edit.php?id=$row[id]\" class='waves-effect'><i class='material-icons'>edit</i>Edit</a>
@@ -1820,7 +1232,7 @@
                                  <a href='https://smartlist.ga/dashboard/rooms/share/?name=".$row['name']."&personname=".$_SESSION['name']."&itemqty=".$row['qty']."&room=kitchen&id=".$row['id']."&new=true' class='waves-effect'><i class='material-icons'>share</i>Share</a>
                                  </div>
                                  </div></td>
-                                 ";
+                                 ";*/
                       }
                       $dbh = null;
                   }
@@ -1835,173 +1247,121 @@
                </table>
             </div>
          </div>
+               <div id="key" class="modal modal-fixed-a">
+         <div class="modal-content">
+            <h4>Keyboard Shortcuts</h4>
+            <p>CTRL F - Focus on search bar</p>
+            <p>CTRL B - View Notifications</p>
+            <p>CTRL S - Add item</p>
+            <p>CTRL E - Open settings</p>
+         </div>
+         <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cool!</a>
+         </div>
+      </div>
          <!--CONTENT ENDS-->
       </div>
       <script defer>
-         $('select').formSelect();
-         function showsearch() {
-             var oijw = document.getElementById("searchbar");
-             if (oijw.style.display === "none") {
-                 oijw.style.display = "block";
-             } else {
-                 oijw.style.display = "none";
-             }
+      var item_state, item_p;
+      var page_title = 'News';
+      function item(id, name, qty, price, directory, room) {
+       document.querySelector("meta[name=theme-color]").setAttribute("content", "#1f1f1f"); if (room == 'bedroom') { page_title = 'Home'; } else if (room == 'kitchen') { page_title = 'Contact'; } else if (room == 'bathroom') { page_title = 'bathroom'; } else if (room == 'garage') { page_title = 'About'; } else if (room == 'family') { page_title = 'family'; } else if (room == 'storage') { page_title = 'storage'; } else if (room == 'dining_room') { page_title = 'dining_room'; } else if (room == 'laundryroom') { page_title = 'laundryroom'; } else if (room == 'camping') { page_title = 'cs'; }
+         item_state = 'item_popup';
+         item_p = 1;
+         document.getElementById("action_delete").onclick = function() {document.getElementById(directory+'tr_'+id).style.display='none'; if (room == 'kitchen') {toast(name, qty);} else {M.toast({html: 'Deleted!'})} $("#div1").load(directory+"delete.php?id="+id);openPage(page_title, '', '')}
+         document.getElementById("nav_delete").onclick = function() {document.getElementById(directory+'tr_'+id).style.display='none'; if (room == 'kitchen') {toast(name, qty);} else {M.toast({html: 'Deleted!'})} $("#div1").load(directory+"delete.php?id="+id);openPage(page_title, '', '')}
+         document.getElementById('nav_edit').href = directory + "edit.php?id=" + id;
+         document.getElementById('action_edit').href = directory + "edit.php?id=" + id;
+         document.getElementById('action_recipe').href = "https://www.google.com/search?q=recipes+with+" + encodeURI(name);
+         if (room !== 'kitchen') { document.getElementById('action_recipe').style.visibility = 'hidden'; document.getElementById('action_recipe').style.height = '0'; document.getElementById('action_recipe').style.padding = '0'; }
+         else if (room == 'kitchen') { document.getElementById('action_recipe').style.visibility = 'visible'; document.getElementById('action_recipe').style.height = 'auto'; document.getElementById('action_recipe').style.padding = '10px 20px'; }
+         document.getElementById('item_title').innerHTML = name;
+         document.getElementById('item_qty').innerHTML = "Quantity: " + qty;
+         document.getElementById('item_desc').innerHTML = "<div class='chip'>" + price + "</div><div class='chip'>By: <?php echo $_SESSION['name'];?></div><div class='chip'>Room: "+room+"</div>";
+         if (room == 'kitchen') {document.getElementById('item_desc').style.display='block'}
+         else {         document.getElementById('item_desc').innerHTML = "<div class='chip'>By: <?php echo $_SESSION['name'];?></div><div class='chip'>Room: "+room+"</div>";
+}
+         if(id == 'DISABLED_ITEM') { 
+         document.getElementById("nav_delete").style.display="none";
+         document.getElementById('nav_edit').style.display="none";
+              document.getElementById("action_delete").style.display="none";
+         document.getElementById('action_edit').style.display="none";
+         document.getElementById('ERR_VIEW_ONLY').style.display='block';
          }
-         var ctx = document.getElementById('myChart').getContext('2d');
-         var myChart = new Chart(ctx, {
-                     type: 'line',
-                     data: {
-                     <?php echo "labels: ['',";
-            try {
-            $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id'];
-            $users = $dbh->query($sql);
-            foreach ($users as $row) {
-                echo "'".$row['name']."', ";
+         else {
+              document.getElementById("nav_delete").style.display="block";
+         document.getElementById('nav_edit').style.display="block";
+         document.getElementById("action_delete").style.display="block";
+                  document.getElementById('ERR_VIEW_ONLY').style.display='none';
+         document.getElementById('action_edit').style.display="block";
+         }
+         if(id == 'KITCHEN_IDENTIFY_BY_NAME') {
+             document.getElementById("action_delete").onclick = function() {document.getElementById('KITCHEN_tr_'+name).style.display='none'; toast(name, qty); $("#div1").load("https://smartlist.ga/dashboard/rooms/kitchen/quickdelete.php?name="+encodeURI(name)+"&qty="+encodeURI(qty)+"&price="+encodeURI(price));openPage(page_title, '', '')}
+             document.getElementById("nav_delete").onclick = function() {document.getElementById('KITCHEN_tr_'+name).style.display='none'; toast(name, qty); $("#div1").load("https://smartlist.ga/dashboard/rooms/kitchen/quickdelete.php?name="+encodeURI(name)+"&qty="+encodeURI(qty)+"&price="+encodeURI(price));openPage(page_title, '', '')}
             }
-            $dbh = null;
-            }
-            catch (PDOexception $e) {
-            echo "Error is: " . $e-> etmessage();
-            }
-            echo "],";
-            echo "\n";
-            echo "datasets: [{";echo "\n";
-            echo "label: 'Amount you spent',";
-            echo "\n";
-            echo "data: [0,";
-            try {
-            $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id'];
-            $users = $dbh->query($sql);
-            foreach ($users as $row) {
-                echo "".$row['qty'].", ";
-            }
-            $dbh = null;
-            }
-            catch (PDOexception $e) {
-            echo "Error is: " . $e-> etmessage();
-            }
-            echo "], \n order: 2,"; ?> 
-                     borderColor: 'rgba(0, 188, 212, 0.75)',
-                     backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                     pointBorderColor: 'rgba(0, 188, 212, 0)',
-                     pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                     }, {
-                     label: 'My goal',
-                     data: [<?php 
-            try {
-            $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $sql = "SELECT * FROM login WHERE id=".$_SESSION['id'];
-            $users = $dbh->query($sql);
-            foreach ($users as $row) {
-            $goal = $row["goal"];
-            }
-            $dbh = null;
-            }
-            catch (PDOexception $e) {
-            echo "Error is: " . $e-> etmessage();
-            }
-            ?><?php 
-            try {
-            $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id'];
-            $users = $dbh->query($sql);
-            foreach ($users as $row) {echo $goal.", ";}
-            echo $goal.", ";
-            $dbh = null;
-            }
-            catch (PDOexception $e) {
-            echo "Error is: " . $e-> etmessage();
-            }
-            ?>],
-                     type: 'line',
-                     // this dataset is drawn on top
-                     order: 1,
-                     borderColor: 'rgba(245, 71, 83, 0.7)',
-                     borderWidth: 3,
-                     backgroundColor: 'rgba(245, 71, 83, 0)',
-                     }]
-             },
-             options: {
-                 maintainAspectRatio: false,
-                 scales: {
-                     yAxes: [{
-                         ticks: {
-                             beginAtZero: true,
-                         },
-                         scaleLabel: {
-                             display: true,
-                             labelString: 'You spent '
-                         }
-                     }],
-                     annotation: {
-                         annotations: [{
-                             type: 'line',
-                             mode: 'horizontal',
-                             scaleID: 'y-axis-0',
-                             value: 5,
-                             borderColor: 'rgb(75, 192, 192)',
-                             borderWidth: 10,
-                             label: {
-                                 enabled: false,
-                                 content: 'Test label'
-                             }
-                         }]
-                     },
-                     xAxes: [{
-                         gridLines: {
-                             color: "rgba(0, 0, 0, 0)",
-                         },
-                         scaleLabel: {
-                             display: true,
-                             labelString: 'Date'
-                         }
-                     }]
-                 },
-                 tooltips: {
-                     titleFontSize: 16,
-                     caretPadding: 10,
-                     bodyFontSize: 14,
-                     mode: 'x',
-                     displayColors: false,
-                     callbacks: {
-                         label: function(tooltipItems, data) {
-                             return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' dollars';
-                         },
-                     },
-                 },
-                 elements: {
-                     animationEasing: 'easeIn',
-                     line: {
-                         tension: 0
-                     },
-                     point: {
-                         radius: 0
-                     }
-                 },
-             }
-         });
-         ctx.height = 500;      
-      </script><script>
-         var brandlogotext = document.getElementById("brandlogo"); 
-         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) { } else { var ds = new DragSelect({ selectables: document.querySelectorAll('.draggables'), area: document.getElementById('Contact'),callback: e => console.log(e), }); } 
-         $(document).ready(function(){ $('input.autocomplete').autocomplete({ data: { "Apple": null, "Banana": null, "Orange": null, "Coriander": null, "Kale": null, "Watermelon": null, "Mango": null, "Noodles": null, "Juice": null, "Dal": null, "Black beans": null, "Kidney beans": null, "Coconuts": null, "Dark Chocolate": null, "Bread": null, "Chocolate": null, "Apple": null, "Orange": null, "Yogurt": null, "Milk": null, "Coriander": null, "Cilantro": null, "Sooji fine": null, "Saaru powder": null, "Banana": null, "Pineapple": null, "Watermelon": null, "Almond": null, "Carrot": null, "Brocolli": null, "JavaScript": null, "Lisp": null, "Perl": null, "PHP": null, "Python": null, "Ruby": null, "Scala": null, "Scheme": null, "Apple": null, "Apricot": null, "Artichoke": null, "Asian Pear": null, "Asparagus": null, "Atemoya": null, "Avocado": null, "Bamboo Shoots": null, "Banana": null, "Bean Sprouts": null, "Beans": null, "Beets": null, "Belgian Endive": null, "Bell Peppers": null, "Bitter Melon": null, "Blackberries": null, "Blueberries": null, "Bok Choy": null, "Boniato": null, "Boysenberries": null, "Broccoflower": null, "Broccoli": null, "Brussels Sprouts": null, "Cabbage": null, "Cactus Pear": null, "Cantaloupe": null, "Carambola": null, "Carrots": null, "Casaba Melon": null, "Cauliflower": null, "Celery": null, "Chayote": null, "Cherimoya": null, "Cherries": null, "Coconuts": null, "Collard Greens": null, "Corn": null, "Cranberries": null, "Cucumber": null, "Dates": null, "Dried Plums": null, "Eggplant": null, "Endive": null, "Escarole": null, "Feijoa": null, "Fennel": null, "Figs": null, "Garlic": null, "Gooseberries": null, "Grapefruit": null, "Grapes": null, "Green Beans": null, "Green Onions": null, "Greens": null, "Guava": null, "Hominy": null, "Honeydew Melon": null, "Horned Melon": null, "Iceberg Lettuce": null, "Jerusalem Artichoke": null, "Jicama": null, "Kale": null, "Kiwifruit": null, "Kohlrabi": null, "Kumquat": null, "Leeks": null, "Lemons": null, "Lettuce": null, "Lima Beans": null, "Limes": null, "Longan": null, "Loquat": null, "Lychee": null, "Madarins": null, "Malanga": null, "Mandarin Oranges": null, "Mangos": null, "Mulberries": null, "Mushrooms": null, "Napa": null, "Nectarines": null, "Okra": null, "Onion": null, "Oranges": null, "Papayas": null, "Parsnip": null, "Passion Fruit": null, "Peaches": null, "Pears": null, "Peas": null, "Peppers": null, "Persimmons": null, "Pineapple": null, "Plantains": null, "Plums": null, "Pomegranate": null, "Potatoes": null, "Prickly Pear": null, "Prunes": null, "Pummelo": null, "Pumpkin": null, "Quince": null, "Radicchio": null, "Radishes": null, "Raisins": null, "Raspberries": null, "Red Cabbage": null, "Rhubarb": null, "Romaine Lettuce": null, "Rutabaga": null, "Shallots": null, "Snow Peas": null, "Spinach": null, "Sprouts": null, "Squash": null, "Strawberries": null, "String Beans": null, "Sweet Potato": null, "Tangelo": null, "Tangerines": null, "Tomatillo": null, "Tomato": null, "Turnip": null, "Ugli Fruit": null, "Water Chestnuts": null, "Watercress": null, "Watermelon": null, "Waxed Beans": null, "Yams": null, "Yellow Squash": null, "Yuca/Cassava": null, "Zucchini Squash": null, }, limit: 3, }); });$(document).ready(function(){$('.sidenav').sidenav();$('.collapsible').collapsible();});$('.tap-target').tapTarget();$(document).ready(function(){$('.fixed-action-btn').floatingActionButton({/*hoverEnabled: false*/});});$(document).ready(function(){ $("#kitchen_search").on("keyup", function() { var value = $(this).val().toLowerCase(); $("#kitchen_table tr").filter(function() { $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) }); }); }); $("#notification").on("click", function(){ $("#hide").css('display', 'none'); 
-         localStorage.setItem("hidea", $("#hide").is(":visible")); }); localStorage.hidea == "false" ? $("#hide").css('display', 'none') : $("#hide").show();         function myFunction() { var x = document.getElementById("myDIV"); if (x.style.display === "none") { x.style.display = "block"; } else { x.style.display = "none"; } } /*function myFunctiona() { var xt = document.getElementById("myDIVa"); if (xt.style.display === "none") { xt.style.display = "block"; } else { xt.style.display = "none"; } }*/
-                  $(document).ready(function(){ $('.sidenav') .sidenav() .on('click tap', 'li a', () => { /*$('.sidenav').sidenav('close');*/ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) { $('.sidenav').sidenav('close'); } }); });$(document).ready(function(){$('.modal').modal();});var animals = []; function openPage(pageName,elmnt,color) { var i, tabcontent, tablinks; tabcontent = document.getElementsByClassName("tabcontent"); for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; } tablinks = document.getElementsByClassName("tablink"); for (i = 0; i < tablinks.length; i++) { } document.getElementById(pageName).style.display = "block"; $(pageName).scrollTop(0); window.scrollTo(0, 0); animals.push(pageName); } document.getElementById("defaultOpen").click();function filter() { var input, filter, ul, li, a, i, txtValue; input = document.getElementById("search"); filter = input.value.toUpperCase(); ul = document.getElementById("myUL"); li = ul.getElementsByTagName("li"); for (i = 0; i < li.length; i++) { a = li[i].getElementsByTagName("a")[0]; txtValue = a.textContent || a.innerText; if (txtValue.toUpperCase().indexOf(filter) > -1) { li[i].style.display = ""; } else { li[i].style.display = "none"; } } }const toggleSwitch = document.querySelector('#darkmode'); const currentTheme = localStorage.getItem('theme'); if (currentTheme) { document.documentElement.setAttribute('data-theme', currentTheme); if (currentTheme === 'dark') { toggleSwitch.checked = true; var metaThemeColor = document.querySelector("meta[name=theme-color]"); metaThemeColor.setAttribute("content", "#191918"); document.getElementById("imageid").src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.whatswithtech.com%2Fwp-content%2Fuploads%2F2015%2F09%2Fblack-and-blue-material-design-wallpaper.png&f=1&nofb=1"; } }
-                  function switchTheme(e) { if (e.target.checked) { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); var metaThemeColor = document.querySelector("meta[name=theme-color]"); metaThemeColor.setAttribute("content", "#191918"); document.getElementById("imageid").src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.whatswithtech.com%2Fwp-content%2Fuploads%2F2015%2F09%2Fblack-and-blue-material-design-wallpaper.png&f=1&nofb=1"; } else { document.documentElement.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); var metaThemeColor = document.querySelector("meta[name=theme-color]"); metaThemeColor.setAttribute("content", "#2a1782"); } } toggleSwitch.addEventListener('change', switchTheme, false);
-                  $(window).bind('keydown', function(event) { if (event.ctrlKey || event.metaKey) { switch (String.fromCharCode(event.which).toLowerCase()) { case 'f': event.preventDefault(); showsearch();document.getElementById('search').focus(); break; case 'd': event.preventDefault(); $('.modal').modal('close'); $('#key').modal('open'); break; case 'e': event.preventDefault(); $('.modal').modal('close'); openPage('modal1', this, '');brandlogotext.innerHTML = 'Settings'; break; case 'b': event.preventDefault(); $('.modal').modal('close'); openPage('budgetmetermodal', this, ''); break; case 's': event.preventDefault(); $('.modal').modal('close'); $('#budgetmetermodala').modal('open'); break; } } });var length = $('ul#menu li').length;document.getElementById('badge').innerHTML = length;
+        if(id == 'BEDROOM_IDENTIFY_BY_NAME') {
+             document.getElementById("action_delete").onclick = function() {document.getElementById('BEDROOM_tr'+name).style.display='none'; M.toast({html: 'Deleted!'}); $("#div1").load("https://smartlist.ga/dashboard/rooms/bedroom/quickdelete.php?name="+encodeURI(name)+"&qty="+encodeURI(qty));openPage(page_title, '', '')}
+             document.getElementById("nav_delete").onclick = function() {document.getElementById('BEDROOM_tr'+name).style.display='none'; M.toast({html: 'Deleted!'}); $("#div1").load("https://smartlist.ga/dashboard/rooms/bedroom/quickdelete.php?name="+encodeURI(name)+"&qty="+encodeURI(qty));openPage(page_title, '', '')}
+        }
+        if(id == 'BATHROOM_IDENTIFY_BY_NAME') {
+             document.getElementById("action_delete").onclick = function() {document.getElementById('BATHROOM_tr'+name).style.display='none'; M.toast({html: 'Deleted!'}); $("#div1").load("https://smartlist.ga/dashboard/rooms/bathroom/quickdelete.php?name="+encodeURI(name)+"&qty="+encodeURI(qty));openPage(page_title, '', '')}
+             document.getElementById("nav_delete").onclick = function() {document.getElementById('BATHROOM_tr'+name).style.display='none'; M.toast({html: 'Deleted!'}); $("#div1").load("https://smartlist.ga/dashboard/rooms/bathroom/quickdelete.php?name="+encodeURI(name)+"&qty="+encodeURI(qty));openPage(page_title, '', '')}
+        }
+         document.getElementById('action_share').href = "https://smartlist.ga/dashboard/rooms/share/?name="+encodeURI(name)+"&personname=<?php echo urlencode($_SESSION['name']);?>&itemqty="+encodeURI(qty)+"&room=kitchen&id="+id+"&new=true" + id;
+         openPage('item_popup', this, '');
+         secondary();
+      }
+      function back() { if(page_title == 'News') {brandlogotext.innerHTML = 'Smartlist';} openPage(page_title, this, ''); document.querySelector("meta[name=theme-color]").setAttribute("content", "#2a1782");}
+      $('select').formSelect(); function showsearch() { var oijw = document.getElementById("searchbar"); if (oijw.style.display === "none") { oijw.style.display = "block"; } else { oijw.style.display = "none"; } } function secondary() { var oijwsecondary_nav = document.getElementById("secondary_nav"); if (oijwsecondary_nav.style.display === "none") { oijwsecondary_nav.style.display = "block"; } else { oijwsecondary_nav.style.display = "none"; } }
+  var ctx = document.getElementById('myChart').getContext('2d'); var myChart = new Chart(ctx, { type: 'line', data: { <?php echo "labels: ['',"; try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id']; $users = $dbh->query($sql); foreach ($users as $row) { echo "'".$row['name']."', "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } echo "],"; echo "\n"; echo "datasets: [{";echo "\n"; echo "label: 'Amount you spent',"; echo "\n"; echo "data: [0,"; try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id']; $users = $dbh->query($sql); foreach ($users as $row) { echo "".$row['qty'].", "; } $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } echo "], \n order: 2,"; ?> borderColor: 'rgba(0, 188, 212, 0.75)', backgroundColor: 'rgba(0, 188, 212, 0.3)', pointBorderColor: 'rgba(0, 188, 212, 0)', pointBackgroundColor: 'rgba(0, 188, 212, 0.9)', }, { label: 'My goal', data: [<?php try { $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); $sql = "SELECT * FROM bm WHERE login_id=".$_SESSION['id']; $users = $dbh->query($sql); foreach ($users as $row) {echo $goal.", ";} echo $goal.", "; $dbh = null; } catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); } ?>],
+type: 'line', order: 1, borderColor: 'rgba(245, 71, 83, 0.7)', borderWidth: 3, backgroundColor: 'rgba(245, 71, 83, 0)', }] }, options: { maintainAspectRatio: false, scales: { yAxes: [{ ticks: { beginAtZero: true, }, scaleLabel: { display: true, labelString: 'You spent ' } }], annotation: { annotations: [{ type: 'line', mode: 'horizontal', scaleID: 'y-axis-0', value: 5, borderColor: 'rgb(75, 192, 192)', borderWidth: 10, label: { enabled: false, content: 'Test label' } }] }, xAxes: [{ gridLines: { color: "rgba(0, 0, 0, 0)", }, scaleLabel: { display: true, labelString: 'Date' } }] }, tooltips: { titleFontSize: 16, caretPadding: 10, bodyFontSize: 14, mode: 'x', displayColors: false, callbacks: { label: function(tooltipItems, data) { return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' dollars'; }, }, }, elements: { animationEasing: 'easeIn', line: { tension: 0 }, point: { radius: 0 } }, } }); ctx.height = 500;
+         $(document).ready(function() {
+    $('body').on('contextmenu', '', function() {
+      document.getElementById("rmenu").className = "show";
+      document.getElementById("rmenu").style.top = mouseY(event) + 'px';
+      document.getElementById("rmenu").style.left = mouseX(event) + 'px';
+      window.event.returnValue = false;
+    });
+});
+$(document).bind("click", function(event) {
+  document.getElementById("rmenu").className = "hide";
+});
+function mouseX(evt) {
+  if (evt.pageX) {
+    return evt.pageX;
+  } else if (evt.clientX) {
+    return evt.clientX + (document.documentElement.scrollLeft ?
+      document.documentElement.scrollLeft :
+      document.body.scrollLeft);
+  } else {
+    return null;
+  }
+}
+function mouseY(evt) {
+  if (evt.pageY) {
+    return evt.pageY;
+  } else if (evt.clientY) {
+    return evt.clientY + (document.documentElement.scrollTop ?
+      document.documentElement.scrollTop :
+      document.body.scrollTop);
+  } else {
+    return null;
+  }
+}
       </script>
-      <script>
-         $(document).ready(function(){ $('.sidenav') .sidenav() .on('click tap', 'li a', () => { document.getElementById("bar").style.display="block"; setTimeout(function(){ document.getElementById("bar").style.display = "none" }, 2000); }); }); $(document).ready(function(){ $(".card a").click(function(){ document.getElementById("bar").style.display="block"; setTimeout(function(){ document.getElementById("bar").style.display = "none" }, 2000); }); });
-      </script>
+<script>
+if ($('#menu li').length == 0) {
+document.getElementById('ERR_EMPTY_NOTIFICATION').style.display='block';
+document.getElementById('ERR_EMPTY_NOTIFICATION_TITLE').style.display='none';
+}
+</script>
+      <script src="./js/swipe.js"></script>
+      <script src="./js/app.js"></script>
       <?php
          if(isset($_GET['item'])) {
              ?>
       <script defer>
          $(document).ready(function(){
-         //   $('#kitchenmodal').modal();
-            //$('#kitchenmodal').modal('open'); 
          openPage('addkitchen', this, '');
          });
       </script>
@@ -2010,65 +1370,40 @@
          ?>
       <script defer>
          $(document).ready(function(){
-            $('#birthday').modal();
-            //$('#birthday').modal('open'); 
-         });
-      </script>
-      <script defer>
-         $(document).ready(function(){
-           $('.tabs').tabs({swipeable: true});
-         });
-      </script>
-      <script defer>
-         $(document).ready(function(){
+            $('.tabs').tabs({swipeable: true});
             $('#modal').modal();
-                $('.materialboxed').materialbox();
-            //$('#modal').modal('open'); 
+            $('.materialboxed').materialbox();
          });
-      </script>
-      <script>
-         function hide() {
-             document.getElementById("fab").style.transform = "scale(0)";
-         }
-         function show() {
-             document.getElementById("fab").style.transform = "scale(1)";
-         }
       </script>
       <script type="text/javascript">
-         var trigger_flag = localStorage.getItem('trigger_flag');
-         if( !trigger_flag ) {
-         // invoke your function here
-         localStorage.setItem('trigger_flag', 'flag_is_set');
-         }
+        //  var trigger_flag = localStorage.getItem('trigger_flag');
+        //  if( !trigger_flag ) {
+        //  // invoke your function here
+        //  localStorage.setItem('trigger_flag', 'flag_is_set');
+        //  }
       </script>
       <script id="rendered-js">
          window.oncontextmenu = function(event) {
               event.preventDefault();
               event.stopPropagation();
               return false;
-         };var now = new Date();
-         var hrs = now.getHours();
-         var msg = "";
-         //if (hrs >  0) msg = localStorage.setItem('theme', 'dark');      // REALLY early
-         //if (hrs >  6) msg = localStorage.setItem('theme', 'dark');      // After 6am
-         //if (hrs > 17) msg = localStorage.setItem('theme', 'dark');      // After 5pm
-         //if (hrs > 22) msg = localStorage.setItem('theme', 'dark');      // After 10pm//alert(msg);
+         };
       </script>
       <script> 
          function changeValue(){ 
          document.getElementById("sr").innerHTML = document.getElementById("search").value
          }
-                  function addItem(history) { 
-                        let type = document. 
-                          getElementById("type").value; 
-                      let value = document. 
-                          getElementById("value").value; 
-                      type = document.createElement(type); 
-                        type.appendChild( 
-                          document.createTextNode(value)); 
-                        document.getElementById( 
-                          "parent").appendChild(type); 
-                  } 
+      function addItem(history) { 
+            let type = document. 
+              getElementById("type").value; 
+          let value = document. 
+              getElementById("value").value; 
+          type = document.createElement(type); 
+            type.appendChild( 
+              document.createTextNode(value)); 
+            document.getElementById( 
+              "parent").appendChild(type); 
+      } 
       </script>
       <script defer>
          setTimeout(function(){
@@ -2085,195 +1420,141 @@
                   echo "openPage('Contact', this, '');";
               } 
               elseif ($t == "3") {
-                  echo "openPage('Home', this, '');";
+                  echo "openPage('Home', this, '');brandlogotext.innerHTML = 'Bedroom'";
               } 
               elseif ($t == "g") {
-                  echo "openPage('About', this, '');";
+                  echo "openPage('About', this, '');brandlogotext.innerHTML = 'Garage'";
+              } 
+              elseif ($t == "bathroom") {
+                  echo "openPage('bathroom', this, '');brandlogotext.innerHTML = 'Bathroom'";
+              } 
+              elseif ($t == "storage") {
+                  echo "openPage('storage', this, '');brandlogotext.innerHTML = 'Storage Room'";
+              } 
+              elseif ($t == "family") {
+                  echo "openPage('family', this, '');brandlogotext.innerHTML = 'Family Room'";
+              } 
+              elseif ($t == "laundry") {
+                  echo "openPage('laundryroom', this, '');brandlogotext.innerHTML = 'Laundry Room'";
+              } 
+              elseif ($t == "dining_room") {
+                  echo "openPage('dining_room', this, '');brandlogotext.innerHTML = 'Dining Room'";
               } 
             }
             elseif (!isset($_GET["room"])){
             echo "openPage('News', this, );";
             }
             ?>  
+            request_notification();
          }, 00);
-      </script>
-      <script defer>
-         $(document).ready(function(){
-           $('.tooltipped').tooltip();
-          });
+                  var syncalertx = document.getElementById("syncalert"); function syncalertplayAudio() { syncalertx.play(); } $(document).ready(function(){ $('.tooltipped').tooltip(); });
+         function notifyMe() { if (!("Notification" in window)) { alert("This browser does not support desktop notifications. Please use Chrome"); } else if (Notification.permission === "granted") {  } else if (Notification.permission !== "denied") { Notification.requestPermission().then(function (permission) { if (permission === "granted") {  } }); } } function request_notification() { if (!("Notification" in window)) { alert("This browser does not support desktop notifications. Please use Chrome"); } else if (Notification.permission === "granted") { /*var notification = new Notification("Welcome to Smartlist!");*/ } else if (Notification.permission !== "denied") { Notification.requestPermission().then(function (permission) { if (permission === "granted") { /*var notification = new Notification("Nice! Notifications are enabled!");*/ } }); } }
       </script>
       <audio id="syncalert">
          <source src="https://padlet-uploads.storage.googleapis.com/446844750/abff4e01e3d7691aa96889855e09afaa/notification_simple_02.wav" type="audio/mpeg">
          Your browser does not support the audio element.
       </audio>
-      <script defer>
-         var syncalertx = document.getElementById("syncalert"); 
-         function syncalertplayAudio() { 
-           syncalertx.play(); 
-         } 
-      </script>
       <script>
-         var modal = document.getElementById('myDIVa');
-         window.onclick = function(event) {
-           if (event.target == modal) {
-             //modal.style.display = "none";
-           }
-         }
-      </script>
-      <script>
-         function notifyMe() {
-           if (!("Notification" in window)) {
-             alert("This browser does not support desktop notifications. Please use Chrome");
-           }
-           else if (Notification.permission === "granted") {
-             var notification = new Notification("Welcome to Smartlist!");
-           }
-           else if (Notification.permission !== "denied") {
-             Notification.requestPermission().then(function (permission) {
-               if (permission === "granted") {
-                 var notification = new Notification("Nice! Notifications are enabled!");
-               }
-             });
-           }
-         }
-         function request_notification() {
-           if (!("Notification" in window)) {
-             alert("This browser does not support desktop notifications. Please use Chrome");
-           }
-           else if (Notification.permission === "granted") {
-             //var notification = new Notification("Welcome to Smartlist!");
-           }
-           else if (Notification.permission !== "denied") {
-             Notification.requestPermission().then(function (permission) {
-               if (permission === "granted") {
-                 //var notification = new Notification("Nice! Notifications are enabled!");
-               }
-             });
-           }
-         }
-         window.onload = function() {
-         request_notification();
-         }
-      </script>
-      <div id="key" class="modal modal-fixed-a">
-         <div class="modal-content">
-            <h4>Keyboard Shortcuts</h4>
-            <p>CTRL F - Focus on search bar</p>
-            <p>CTRL B - View Notifications</p>
-            <p>CTRL S - Add item</p>
-            <p>CTRL E - Open settings</p>
-         </div>
-         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cool!</a>
-         </div>
-      </div>
-      <div id="birthday" class="modal modal-fixed-a">
-         <div class="modal-content">
-            <h4 class=center>Smartlist beta is almost here!</h4>
-            <p class=center>On Jan 1, 2021, we'll present to you the best new features!</p>
-         </div>
-         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cool!</a>
-         </div>
-      </div>
-      <!--JavaScript at end of body for optimized loading-->
-      <script>
-         //var name = 'Apples';
-         //var qty = 1;
-         function toast(name, qty) {
-         M.toast({html: "Deleted \"" + name + '" <a class="btn-flat toast-action waves-effect waves-orange text-white" style="color: white !important" href="https://smartlist.ga/dashboard/exe.php?name='+ encodeURI(name) +'&qty='+ qty +'&price=1">Undo</a>'});
-         }
-      </script>
-      <script>
+    var searcha, qtay, date;
          function add() {
          $('.modal').modal('close'); 
          openPage('Contact', this, '');
-         var searcha = document.getElementById("tags").value;
-         document.getElementById("tags").value = null;
-         var qtay = document.getElementById("qty").value;
-         var date = document.getElementById("date").value;
-         $("#kitchen_table").append("<tr class='card-new'><td>"+ searcha +"</td><td>"+qtay+"</td><td>Refresh to see options</td></tr>");
+          searcha = document.getElementById("tags").value.replace(/['"]+/g, '');
+          qtay = document.getElementById("qty").value.replace(/['"]+/g, '');
+          date = document.getElementById("date").value.replace(/['"]+/g, '');
+         $("#kitchen_table").append("<tr class='card-new' id='KITCHEN_tr_"+searcha+"' onclick='item(\"KITCHEN_IDENTIFY_BY_NAME\", \""+searcha+"\", \""+qtay+"\", \""+date+"\", \"\", \"kitchen\")'><td>"+ searcha +"</td><td>"+qtay+"</td></tr>");
+          document.getElementById("tags").value = null;
+         if(document.getElementById('KITCHEN_VAR_COUNT')) {document.getElementById('KITCHEN_VAR_COUNT').style.display='none';}
          $("#div1").load("https://smartlist.ga/dashboard/modal.php?name="+encodeURI(searcha)+"&qty="+encodeURI(qtay)+"&price="+encodeURI(date)+"");
           document.getElementById("bar").style.display="block";
          setTimeout(function(){ document.getElementById("bar").style.display = "none" }, 2000);
-         //window.scrollTo(0,document.body.scrollHeight);
+         $('html, body').scrollTop($(document).height());
          }
+history.pushState(null, null, 'beta');
+window.addEventListener('popstate', function(event) {
+  history.pushState(null, null, 'beta');
+  $('.modal').modal('close');
+/* openPage(last_page, this, '')*/
+if (item_state == 'item_popup') {
+back();
+item_state = '1';
+}
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {$('.sidenav').sidenav('close');}
+});
+var bedroom_qty, bedroom_name, bathroom_qty, bathroom_name;
+function add_bathroom() {
+    $('.modal').modal('close'); 
+    openPage('bathroom', this, '');
+    bathroom_qty = document.getElementById("bathroom_qty_input").value.replace(/['"]+/g, '');
+    bathroom_name = document.getElementById("bathroom_name_input").value.replace(/['"]+/g, '');
+    document.getElementById("bathroom_name_input").value = null;
+    document.getElementById("bathroom_qty_input").value = null;
+    $("#bathroom_table").append("<tr class='card-new'id='BATHROOM_tr"+bathroom_name+"' onclick='item(\"BATHROOM_IDENTIFY_BY_NAME\", \""+ bathroom_name +"\", \""+bathroom_qty+"\", \"\", \"\", \"bathroom\")'><td>"+ bathroom_name +"</td><td>"+bathroom_qty+"</td></tr>");
+    if(document.getElementById('bathroom_table_var')) {document.getElementById('bathroom_table_var').style.display='none';}
+    $("#div1").load("https://smartlist.ga/dashboard/rooms/bathroom/quickadd.php?name="+encodeURI(bathroom_name)+"&qty="+encodeURI(bathroom_qty)+"");
+    document.getElementById("bar").style.display="block";
+    setTimeout(function(){ document.getElementById("bar").style.display = "none" }, 2000);
+    $('html, body').scrollTop($(document).height());
+}
+function add_bedroom() {
+    $('.modal').modal('close'); 
+    openPage('Home', this, '');
+    bedroom_qty = document.getElementById("bedroom_qty_input").value.replace(/['"]+/g, '');
+    bedroom_name = document.getElementById("bedroom_name_input").value.replace(/['"]+/g, '');
+    document.getElementById("bedroom_name_input").value = null;
+    document.getElementById("bedroom_qty_input").value = null;
+    $("#bedroom_table").append("<tr class='card-new'id='BEDROOM_tr"+bedroom_name+" onclick='item(\"BEDROOM_IDENTIFY_BY_NAME\", \""+ bedroom_name +"\", \""+bedroom_qty+"\", \"\", \"\", \"bedroom\")'><td>"+ bedroom_name +"</td><td>"+bedroom_qty+"</td></tr>");
+    if(document.getElementById('BEDROOM_VAR_COUNT')) {document.getElementById('BEDROOM_VAR_COUNT').style.display='none';}
+    $("#div1").load("https://smartlist.ga/dashboard/rooms/bedroom/quickadd.php?name="+encodeURI(bedroom_name)+"&qty="+encodeURI(bedroom_qty)+"");
+    document.getElementById("bar").style.display="block";
+    setTimeout(function(){ document.getElementById("bar").style.display = "none" }, 2000);
+        $('html, body').scrollTop($(document).height());
+}
       </script>   
    </body>
 </html>
-<?php
-   $message = $_GET["syncpersonnotifications"];
-     echo $_GET["welcome"];
-   if (isset($message)) {
-       echo "<script>
-     var toastHTML = '<span>Paired account! To view, please log in again</span><a class=\"btn-flat toast-action waves-effect waves-light text-white\" style=\"color: white !important\">Login</a>';
-     M.toast({html: toastHTML});
-     </script>";
-   }
-   ?>
-<?php 
-   if (!empty($notifications)) {
-       ?>
+<!--<?php $message = $_GET["syncpersonnotifications"]; echo $_GET["welcome"]; if (isset($message)) { echo "<script> var toastHTML = '<span>Paired account! To view, please log in again</span><a class=\"btn-flat toast-action waves-effect waves-light text-white\" style=\"color: white !important\">Login</a>'; M.toast({html: toastHTML}); </script>"; } ?> <?php if (isset($bm_set)) { ?> <script> function set() { var toastHTML = '<span>Budget meter goal successfully set! Try not to go above this goal! <br><i>The goal is displayed as a red line in the chart above</i></span>'; M.toast({html: toastHTML}); } setTimeout(function(){ set() }, 1000); </script> <?php } ?> <?php if (!empty($notifications)) { ?> <script defer> setTimeout(function(){ var notification = new Notification("You're running out of  <?php while($bedroomnotificationa = mysqli_fetch_array($bedroomnotification)) { if ($bedroomnotificationa['qty'] < $number_notify) { echo $bedroomnotificationa['name']; echo ", "; } } ?> in your bedroom"); syncalertplayAudio(); }, 20000); </script> <?php } ?>-->
+<?php if (!empty($notifications)) { 
+
+?> 
 <script defer>
-   setTimeout(function(){ 
-    var notification = new Notification("You're running out of  <?php
-      while($bedroomnotificationa = mysqli_fetch_array($bedroomnotification)) {
-          if ($bedroomnotificationa['qty'] < $number_notify) {
-               echo $bedroomnotificationa['name']; 
-               echo ", ";
-          }
-      }
-      ?> in your bedroom");
-    syncalertplayAudio();
-    }, 20000);
-</script>
-<?php 
-   }
-   ?>
-<?php 
-   if (!empty($notifications)) {
-       ?>
-<script defer>
-   setTimeout(function(){ 
-            var notification = new Notification("You're running out of  <?php
-      while($kitchennotificationa = mysqli_fetch_array($kitchennotification)) {
-          if ($kitchennotificationa['qty'] < $number_notify) {
-               echo $kitchennotificationa['name']; 
-               echo ", ";
-          }
-      }
-      ?> in your kitchen");
-            syncalertplayAudio();
-            }, 10000);
-   <?php 
-      while($kitchennotificationa = mysqli_fetch_array($kitchennotification)) {
-      if ($kitchennotificationa['qty'] < "20") {
-          echo "
-               setTimeout(function(){
-               var notification = new Notification(\"You have ".$kitchennotificationa['qty']." ".$kitchennotificationa['name']." left in your kitchen\");                      syncalertplayAudio() 
-               }, 3000);";
-      }
-      }
-      ?>
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+var notify_cookie;
+var NOTIFY_ALREADY_CLOSED = getCookie("NOTIFY_ALREADY_CLOSED");
+if ($('#menu li').length > 0) {
+if(NOTIFY_ALREADY_CLOSED == 1){  }
+else{
+    desktop_ping('<?php  try {
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id= ".$_SESSION['syncid'];
+$users = $dbh->query($sql);
+echo "You\'re going to run out of: ";
+foreach ($users as $row) {
+  print $row["name"]. ", ";
+}
+$dbh = null;
+}
+catch (PDOexception $e) {
+echo "Error is: " . $e-> etmessage();
+}?>', 'Kitchen | Smartlist');
+document.cookie = "NOTIFY_ALREADY_CLOSED=1";
+}
+}
 </script>
 <?php 
    }
    ?>
 <?php if ($welcome != 1) { $donotshowmdl = mysqli_query($mysqli, "UPDATE login SET welcome='1' WHERE id=".$_SESSION['id'].""); echo ' <div style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 9999999999999999999999999999;text-align:center;background: white;background-image: url(\'https://image.ibb.co/de6JzG/bitmap_1_1.png\');overflow:scroll;background-size:cover;background-repeat:no-repeat;background-position: center;"> <div class="container"> <h3>Hello, and welcome to Smartlist!!!!</h3> <p>We strongly suggest you to read the <a href="https://homebasedocs.gitbook.io/docs/">documentation here</a></p> <p>Scroll down to continue</p> <div class="row"> <div class="col s6"> <img alt=\'image\' src="https://i.ibb.co/wKDxTsm/Screenshot-2021-01-15-at-11-24-14-AM.png" width="100%"> </div> <div class="col s6"> <h4>Welcome to Smartlist! </h4> <p>This is your dashboard</p> </div> </div> <div class="row"> <div class="col s6"> <h4>Adding an item</h4> <p>Press CTRL S, or hit the purple button</p> </div> <div class="col s6">        <img  alt=\'image\'src="https://i.ibb.co/BjhXJ05/Screenshot-2021-01-15-at-11-20-02-AM.png" width="100%"> </div> </div> <div class="row"> <div class="col s6"> <img  alt="image" src="https://i.ibb.co/BKvvKL6/Screenshot-2021-01-15-at-11-31-04-AM.png" width="100%"> </div> <div class="col s6"> <h4>View your rooms </h4> <p>Click on a link in the sidebar</p> </div> </div> <div class="row"> <div class="col s6"> <h4>Read the documentation</h4> </div> <div class="col s6">       <p>Get to know more by reading the docs! <br><a href="https://homebasedocs.gitbook.io/docs/">homebasedocs.gitbook.io/docs</a></p> </div> </div> <button onclick="this.parentElement.parentElement.style.display=\'none\';defaultOpen.click()" class="btn waves-light btn-large waves-effect red">Let\'s Get started!</button> <br><br> </div> </div> <br><br> </div> <script> $(\'.carousel.carousel-slider\').carousel({ fullWidth: true, indicators: true }); </script> '; } ?> <?php if(isset($_GET['query'])) { echo "<script>setTimeout(function(){ showsearch();document.getElementById('search').focus();openPage('searchresults', this, '');filter() }, 0100);</script>"; } ?>
-<?php
-   /*
-      require __DIR__ . '../vendor/autoload.php';
-      $options = array(
-        'cluster' => 'us3',
-        'useTLS' => true
-      );
-      $pusher = new Pusher\Pusher(
-        'f7793ae32c2ecf8e787f',
-        '25d66906c1679a69423d',
-        '1121272',
-        $options
-      );
-      $data['message'] = 'hello world';
-      $pusher->trigger('my-channel', 'my-event', $data);
-      */
-      ?>

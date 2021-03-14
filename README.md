@@ -1,6 +1,6 @@
 [![Image](https://i.ibb.co/PZr6Gdn/save-money-by-keeping-track-of-what-you-have-at-home-1.png)](https://smartlist.ga)
 
-<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="20px">
+<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="100px">
 
 
 # Smartlist (Desktop)

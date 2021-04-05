@@ -3,9 +3,8 @@
 <!--<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="100px">-->
 
 
-# Smartlist (Desktop)
-## A PHP and SQL project by ManuTheCoder
-#### This Repository is part of a larger project at: https://smartlist.ga
+# Smartlist
+## The sophisticated home inventory app
 ![CB](https://img.shields.io/badge/Contributors-20-yellow?style=for-the-badge)
 ![Frontend](https://img.shields.io/static/v1?label=Frontend&message=HTML,%20CSS,%20JS&color=%3CCOLOR%3E&style=for-the-badge)
 ![Backend](https://img.shields.io/static/v1?label=Backend&message=PHP,%20SQL&color=red&style=for-the-badge)

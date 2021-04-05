@@ -29,7 +29,7 @@ Home: https://smartlist.ga <br>
 Dashboard: https://smartlist.ga/dashboard/beta<br>
 Forum: https://community.smartlist.ga<br>
 Knowledge Base: https://knowledgebase.smartlist.ga/<br>
-
+ 
 --- 
 ### How can I get involved? 
 We appreciate visitors! Getting involved isn't mandatory, but we really enjoy it!<br>

@@ -5,6 +5,7 @@
 
 # Smartlist
 ## The sophisticated home inventory app
+### Made by @ManuTheCoder, a passionate 13-year-old coder
 ![CB](https://img.shields.io/badge/Contributors-20-yellow?style=for-the-badge)
 ![Frontend](https://img.shields.io/static/v1?label=Frontend&message=HTML,%20CSS,%20JS&color=%3CCOLOR%3E&style=for-the-badge)
 ![Backend](https://img.shields.io/static/v1?label=Backend&message=PHP,%20SQL&color=red&style=for-the-badge)

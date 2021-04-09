@@ -4,7 +4,7 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "icon/todo.png",
+      "src": "icon/icon_192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
@@ -16,6 +16,20 @@
       "purpose": "any maskable"
     }
   ],
+  "shortcuts" : [
+  {
+    "name": "Logout",
+    "url": "./logout.php"
+  },
+  {
+    "name": "Login",
+    "url": "./login.php"
+  },
+  {
+    "name": "Dashboard",
+    "url": "./test.php"
+  }
+],
   "name": "Smartlist",
   "short_name": "Smartlist",
   "start_url": "https://smartlist.ga/dashboard/",

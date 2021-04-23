@@ -5,7 +5,7 @@
 
 # Smartlist
 ## The sophisticated home inventory app
-Smartlist is a home inventory app that lets you keep track of what you home inventory app! Smartlist is free of cost and has no "Premium plans". Smartlist is made using HTML, CSS, JS, jQuery, PHP, SQL. This product is a
+Smartlist is a home inventory app that lets you keep track of what you home inventory app! Smartlist is free of cost and has no "Premium plans". Smartlist is made using HTML, CSS, JS, jQuery, PHP, SQL. This product is an open source projec
 ##### [Want to volunteer?](https://smartlist.ga/join)
 ![CB](https://img.shields.io/badge/Contributors-20-yellow?style=flat)
 ![Frontend](https://img.shields.io/static/v1?label=Frontend&message=HTML,%20CSS,%20JS&color=%3CCOLOR%3E&style=flat)
@@ -34,13 +34,25 @@ This is the **official GitHub Repository** for Smartlist!
 * **Suggested items** - Get to know what you have, and what you need
 * **Todo List** - Be more productive using our todo list
 * **Grocery List** - Keep track of what you need next time you visit the grocery store
+* **Right click on items** (Or tap and hold on mobile) - You can now view an item's actions by right-clicking it, or tapping and holding it on mobile!
 * **Help Desk** - We have a forum and a knowledge base!
 * **Generate QR codes** - Want to share items? You can now generate QR codes, send emails, and more!
+* **Search your home!** - Search your home for items
+* **Keep a budget** - Know how much you spend, and try not to spend higher than your budget!
+* **Smartlist is a single page app!** No more redirects!
 * **Create, Update, Edit, Delete items** - You can Create, Update, Edit, Delete items!
 * **Smartlist Events** - Smartlist events is a great place to organize and keep track of what you need and have for a party, wedding, etc.
 * **Profile Pictures** - Personalize your account!
 * **Offline Access** - Access your inventory offline!
 * **Invite collaborators and comment on items!** - You can create a shareable link for items, and then share it with others - even who don't have an account!
+* **Accessible to Everyone!**  - We ran the lighthouse test, and scored *100%* in accessibility!
+* **Keyboard Shortcuts** - For the pros - Ever wanted to quickly go to the next room and switch back to the previous room, or search an item quickly? You can now press CTRL F to search items, CTRL E to go to your settings, CTRL B to go to your budget meter, and CTRL S to add an item! 
+### How is Smartlist different from other home inventory apps?
+* **Smartlist is free** - We don't believe in an nonsensical "Paid plans", and "Pricing"
+* **Smartlist is open source** - You can download the files from the GitHub repository. Please read our terms and conditions before doing so, though. 
+* **Smartlist is a single page app!** No more redirects!
+* **Budget meter** - This is the first home inventory app to create the budget meter! Keep track of how much you spend *visually!*
+* **Extremely fast load times** - Our app loads extremely fast
 ### How can I contribute?
 Want to contribute? 
 Visit: https://smartlist.ga/join

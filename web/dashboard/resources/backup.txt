@@ -1,0 +1,55 @@
+   //$grocery = mysqli_query($mysqli, "SELECT * FROM grocerylist WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$garage = mysqli_query($mysqli, "SELECT * FROM garage WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$kitchen = mysqli_query($mysqli, "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$storage = mysqli_query($mysqli, "SELECT * FROM storageroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$family = mysqli_query($mysqli, "SELECT * FROM family WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$bathroom = mysqli_query($mysqli, "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$bedroom = mysqli_query($mysqli, "SELECT * FROM bedroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$todo = mysqli_query($mysqli, "SELECT * FROM todo WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$dining = mysqli_query($mysqli, "SELECT * FROM dining_room WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$camping = mysqli_query($mysqli, "SELECT * FROM camping WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$laundry = mysqli_query($mysqli, "SELECT * FROM laundry WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$garagesearchitemresult = mysqli_query($mysqli, "SELECT * FROM garage WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$kitchensearchitemresult = mysqli_query($mysqli, "SELECT * FROM products WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$storagesearchitemresult = mysqli_query($mysqli, "SELECT * FROM storageroom WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$familysearchitemresult = mysqli_query($mysqli, "SELECT * FROM family WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$bathroomsearchitemresult = mysqli_query($mysqli, "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$bedroomsearchitemresult = mysqli_query($mysqli, "SELECT * FROM bedroom WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$grocerylistsearchitemresult = mysqli_query($mysqli, "SELECT * FROM grocerylist WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$kitchennotificationaaa = mysqli_query($mysqli, "SELECT * FROM products WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$bedroomnotificationzx = mysqli_query($mysqli, "SELECT * FROM bedroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$bathroomnotificationzx = mysqli_query($mysqli, "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$tablebm = mysqli_query($mysqli, "SELECT * FROM bm WHERE login_id=".$_SESSION['id']." ORDER BY id ASC");
+   //$chartqty = mysqli_query($mysqli, "SELECT * FROM bm WHERE login_id=".$_SESSION['id']." ORDER BY id ASC");
+   //$chartname = mysqli_query($mysqli, "SELECT * FROM bm WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$bathroomnotificationzx = mysqli_query($mysqli, "SELECT * FROM bathroom WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$garagenotificationds = mysqli_query($mysqli, "SELECT * FROM garage WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$todoa = mysqli_query($mysqli, "SELECT * FROM todo WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$featureupdates = mysqli_query($mysqli, "SELECT * FROM features ORDER BY id DESC");
+   //$todomobile = mysqli_query($mysqli, "SELECT * FROM todo WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$todoab = mysqli_query($mysqli, "SELECT * FROM todo WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
+   //$result = mysqli_query($mysqli, "SELECT * FROM grocerylist WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   //$grocerylistmobile = mysqli_query($mysqli, "SELECT * FROM grocerylist WHERE login_id=".$_SESSION['id']." ORDER BY id DESC");
+   
+   
+   
+         <div id="modal" class="modal modal-fixed-footer">
+         <div class="modal-content">
+            <h4>Welcome to your brand-new account</h4>
+            <p>Here are a few tips and tricks</p>
+         </div>
+         <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+         </div>
+      </div>
+            <div id="modal" class="modal modal-fixed-footer">
+         <div class="modal-content">
+            <h4>Welcome to your brand-new account</h4>
+            <p>Here are a few tips and tricks</p>
+         </div>
+         <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+         </div>
+      </div>
+   
+   

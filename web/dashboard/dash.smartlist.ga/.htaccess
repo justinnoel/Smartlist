@@ -1,0 +1,102 @@
+# <VirtualHost *:80>
+#     ServerName www.example.com
+#     ServerAlias m.example.com 
+#     DocumentRoot "/www/domain.com/web"
+#     <Directory "/www/domain.com/web">
+#       # deny .htaccess use.
+#       AllowOverride None
+#       Order allow,deny
+#       Allow from all
+#     </Directory>
+# </VirtualHost>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^dash.smartlist\.ga [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://dash.smartlist.ga/$1 [R,L]
+
+RewriteCond %{HTTP_REFERER} !^http://app.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://app.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://community.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://community.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://dash.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://dash.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://events.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://events.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://forum.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://forum.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://help.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://help.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.tk/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.tk$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.app.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.app.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.community.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.community.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.dash.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.dash.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.events.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.events.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.forum.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.forum.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.help.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.help.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.tk/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.tk$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^http://www.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://app.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://app.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://community.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://community.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://dash.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://dash.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://events.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://events.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://forum.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://forum.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://help.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://help.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.tk/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.tk$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.app.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.app.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.community.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.community.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.dash.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.dash.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.events.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.events.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.forum.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.forum.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.help.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.help.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.smartlist.ga$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.tk/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.tk$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.smartlist.ga/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.smartlist.ga$      [NC]
+RewriteRule .*\.(jpg|jpeg|gif|png|bmp)$ - [F,NC]
+
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

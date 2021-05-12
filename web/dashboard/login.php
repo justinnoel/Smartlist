@@ -128,7 +128,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       input {
         background-color: #fff !important;
         background-image:none !important;
-        -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+        /* -webkit-box-shadow: 0 0 0px 1000px #fff inset; */
 
         color: #000000 !important;
       }
@@ -192,7 +192,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       [data-theme="dark"] h4 {color: white !important;}
       [data-theme="dark"] input {color:white !important;background: transparent !important;}
       [data-theme="dark"] hr {display: none;}
-      [data-theme="dark"] img {background: white;border-radius; 5px;overflow:hidden;}
+      [data-theme="dark"] img {background: white;overflow:hidden;}
       :root {--bg-color: white}
       [data-theme="dark"] {--bg-color: #212121}
     </style>

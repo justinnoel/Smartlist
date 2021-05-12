@@ -1,14 +1,6 @@
-<?php session_start(); ?>
-<?php
-if(!isset($_SESSION['valid'])) {
-    header('Location: login.php');
-}
-?>
-<?php
-$servername = "localhost";
-$username = "bcxkspna";
-$password = "Q\$J~:4GI!7+E";
-$dbname = "bcxkspna_test";
+<?php 
+session_start(); 
+include('../../cred.php');
 $name = $_POST['name'];
 $qty = 1;
 $price = 'QR code';

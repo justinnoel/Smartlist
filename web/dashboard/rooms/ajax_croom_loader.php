@@ -14,12 +14,12 @@ try {
              <td class="d-none">Price</td>
             </tr>';
   foreach ($users as $row) {
-      echo "<tr id='croomtr_".$row['id']."' onclick=\"item('".$row['id']."', '".$row['name']."', '".$row['qty']."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/laundry/', 'custom_room', '".$row['star']."')";
+      echo "<tr id='croomtr_".$row['id']."' onclick=\"item('".$row['id']."', '".decrypt($row['name'])."', '".decrypt($row['qty'])."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/laundry/', 'custom_room', '".$row['star']."')";
       if($row['star'] == 1) {
           echo "\" style='background: #f2f2aa'>";
       }
       else {echo "\">";}
-      print "<td>".$row["name"] . "</td><td>" . $row["qty"] ."";
+      print "<td>".decrypt($row["name"]) . "</td><td>" . decrypt($row["qty"])."";
       if ($row['login_id'] != $_SESSION['id']) {
                echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
       }

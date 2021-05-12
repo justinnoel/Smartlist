@@ -389,7 +389,10 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
               reset();
             }
             else if (data == 'Valid') {
-              window.location.href='https://smartlist.ga/dashboard/beta';
+              sessionStorage.setItem('status','loggedIn');
+              setTimeout(function() {
+                  window.location.href='https://smartlist.ga/dashboard/beta';
+              }, 300);
             }
             else if (data == 'max') {
               window.location.reload();

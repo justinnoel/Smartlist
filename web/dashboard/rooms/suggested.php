@@ -14,14 +14,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -39,14 +39,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -63,14 +63,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -87,14 +87,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -111,14 +111,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -135,14 +135,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -159,14 +159,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -183,14 +183,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -207,14 +207,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) < $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="red-text">Quantity: '.$row['qty'].'</p>
+                    <p class="red-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -232,14 +232,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -248,7 +248,6 @@ $number_notify = $_SESSION['number_notify'];
   $dbh = null;
 }
       catch(PDOexception $e){echo "Error is: " . $e->etmessage();} ?> 
-      
               <?php try {
   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $sql = $dbh->prepare("SELECT * FROM garage WHERE login_id = :login_id OR login_id= :syncid");
@@ -257,14 +256,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -281,14 +280,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -305,14 +304,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -329,14 +328,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -353,14 +352,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -377,14 +376,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';
@@ -401,14 +400,14 @@ $number_notify = $_SESSION['number_notify'];
   $sql->execute();
   $users = $sql->fetchAll();
   foreach ($users as $row) {
-    if (preg_replace("/[^0-9]/", "", $row['qty']) > $number_notify){
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) > $number_notify){
       echo '<div class="col s12 m4">
             <div class="card" style="width:100%;box-shadow:none;border: 1px solid #ccc;border-radius: 5px;height: 120px;">
                 <div class="card-content">
                     <span class="card-title" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        '.$row['name'].'
+                        '.decrypt($row['name']).'
                     </span>
-                    <p class="green-text">Quantity: '.$row['qty'].'</p>
+                    <p class="green-text">Quantity: '.decrypt($row['qty']).'</p>
                 </div>
             </div>
         </div>';

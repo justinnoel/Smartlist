@@ -17,7 +17,7 @@ echo '<table class="table" id="storage_sort">
 </tr>';
 foreach ($users as $row)
 {
-echo "<tr data-id=".json_encode($row['id'])." id='storagetr_" . $row['id'] . "' onclick=\"item('" . $row['id'] . "', '" . encrypt($row['name']) . "', '" . encrypt($row['qty']) . "', '" . encrypt($row['price']) . "', 'https://smartlist.ga/dashboard/rooms/storage/', 'storage', '" . $row['star'] . "')";
+echo "<tr data-id=".json_encode($row['id'])." id='storagetr_" . $row['id'] . "' onclick=\"item('" . $row['id'] . "', '" . decrypt($row['name']) . "', '" . decrypt($row['qty']) . "', '" . decrypt($row['price']) . "', 'https://smartlist.ga/dashboard/rooms/storage/', 'storage', '" . $row['star'] . "')";
 if ($row['star'] == 1)
 {
 echo "\" style='border-left: 3px solid #f57f17'>";
@@ -26,7 +26,7 @@ else
 {
 echo "\">";
 }
-print "<td>" . encrypt($row["name"]) . "</td><td>" . encrypt($row["qty"]) . "";
+print "<td>" . decrypt($row["name"]) . "</td><td>" . decrypt($row["qty"]) . "";
 if ($row['login_id'] != $_SESSION['id'])
 {
 echo "<span clas='badge red' style='float:right;color:white;padding: 4px;border-radius: 2px;background: #00695c !Important'>SYNCED</span>";

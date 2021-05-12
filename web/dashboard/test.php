@@ -159,10 +159,10 @@ try {
     <meta name="apple-mobile-web-app-status-bar-style" content="#2a1782"> 
     <meta name="apple-mobile-web-app-capable" content="yes"/><script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0" defer></script> 
     <link rel="search" href="https://smartlist.ga/search.xml" type="application/opensearchdescription+xml" title="Smartlist"/> 
-    <link rel="shortcut icon" href="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg">
-    <link rel="favicon" href="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg">
+    <link rel="shortcut icon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
+    <link rel="favicon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
     <meta name="robots" content="index, nofollow" />
-    <link rel="apple-touch-icon" href="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg" /> 
+    <link rel="apple-touch-icon" href="https://smartlist.ga/dashboard/icon/roofing.svg" /> 
     <script src="https://cdn.jsdelivr.net/gh/Smartlist-app/Assets/src/js/pwa.js" defer></script> 
     <link rel="manifest" href="./manifest.webmanifest"> 
     <link rel="preload" href="<?php echo htmlspecialchars($_SESSION['avatar']); ?>" as="image">
@@ -213,6 +213,20 @@ try {
   .dropdown-content {
       background: var(--bg-color) !important;
   }
+  .section-search input.autocomplete {
+  color: #000;
+}
+.input-field .prefix.active {
+  color: #000!important;
+}
+.dropdown-content li>a, .dropdown-content li>span {
+  color: #000!important;
+}
+.autocomplete-content li .highlight {
+  color: #283593 !important;
+  background: rgba(40, 53, 147, .1);
+  border: 1px solid rgba(40, 53, 147,.2);
+}
   [tabindex]:focus {
       background: rgba(0, 0, 0, 0.1);
   }
@@ -234,15 +248,15 @@ try {
   <b><h5 class="center">Add an item <span class="hide-on-med-and-down">(CTRL S)</span></h5></b>
   <p class="center">Please select a room</p>
   <div class="collection"> 
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="sm_page('addkitchen');AJAX_LOAD('#addkitchen', './rooms/kitchen/quickadd.php')"><i class="material-icons-round left">countertops</i>Kitchen</a> 
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="sm_page('bedroom_add');AJAX_LOAD('#bedroom_add', './rooms/bedroom/quickadd.php')"><i class="material-icons-round left">bed</i>Bedroom</a> 
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="sm_page('bathroom_add');AJAX_LOAD('#bathroom_add', './rooms/bathroom/quickadd.php')"><i class="material-icons-round left">wc</i>Bathroom</a> 
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="sm_page('garage_add');setTimeout(function(){ sm_page('garage_add');document.getElementById('garage_name_input').focus() }, 0500);"  class="modal-close collection-item waves-effect"><i class="material-icons-round left">build</i>Garage</a> 
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="AJAX_LOAD('#add_family', './rooms/family/add1.php');sm_page('add_family')"><i class="material-icons-round left">tv</i>Family</a> 
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="AJAX_LOAD('#storage_add', './rooms/storage/quickadd.php');sm_page('storage_add')"><i class="material-icons-round left">business</i>Storage Room</a>
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="sm_page('dining_room_add'); AJAX_LOAD('#dining_room_add', './rooms/dining_room/quickadd.php')"><i class="material-icons-round left">restaurant</i>Dining Room</a>
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="AJAX_LOAD('#camping_add', './rooms/camping/quickadd.php'); sm_page('camping_add')"><i class="material-icons-round left">landscape</i>Camping Supplies</a>
-  <a class="collection-item modal-close" href="javascript:void(0)" onclick="sm_page('laundry_room_add'); AJAX_LOAD('#laundry_room_add', './rooms/laundry/quickadd.php')"><i class="material-icons-round left">local_laundry_service</i>Laundry room</a>
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('addkitchen'); AJAX_LOAD('#addkitchen', './rooms/kitchen/quickadd.php')"><i class="material-icons-round left">countertops</i>Kitchen</a> 
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('bedroom_add');AJAX_LOAD('#bedroom_add', './rooms/bedroom/quickadd.php')"><i class="material-icons-round left">bed</i>Bedroom</a> 
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('bathroom_add');AJAX_LOAD('#bathroom_add', './rooms/bathroom/quickadd.php')"><i class="material-icons-round left">wc</i>Bathroom</a> 
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('garage_add'); setTimeout(function(){ sm_page('garage_add');document.getElementById('garage_name_input').focus() }, 0500);"><i class="material-icons-round left">build</i>Garage</a> 
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('add_family'); AJAX_LOAD('#add_family', './rooms/family/add1.php');"><i class="material-icons-round left">tv</i>Family</a> 
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('storage_add'); AJAX_LOAD('#storage_add', './rooms/storage/quickadd.php');"><i class="material-icons-round left">business</i>Storage Room</a>
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('dining_room_add'); AJAX_LOAD('#dining_room_add', './rooms/dining_room/quickadd.php')"><i class="material-icons-round left">restaurant</i>Dining Room</a>
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('camping_add'); AJAX_LOAD('#camping_add', './rooms/camping/quickadd.php');"><i class="material-icons-round left">landscape</i>Camping Supplies</a>
+  <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('laundry_room_add'); AJAX_LOAD('#laundry_room_add', './rooms/laundry/quickadd.php')"><i class="material-icons-round left">local_laundry_service</i>Laundry room</a>
   <?php try
 {
   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -326,7 +340,7 @@ try {
   <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage<span class="new-badge">New!</span></a></li>
   <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
   <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this);sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php')"><i class="material-icons-round">construction</i>Maintenance <span class="new-badge">New!</span></a></li>
-  <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://smartlist.ga/dashboard/recipe/" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator <span class="new-badge">New!</span></a></li>
+  <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator <span class="new-badge">New!</span></a></li>
   <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('budgetmetermodal');change_title('Budget Meter');"><i class="material-icons-round">payments</i>My budget meter</a></li>
   <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
   <li style="pointer-events:none">
@@ -905,7 +919,14 @@ function qq() {
               }
             });
         }
-    })
+    });
+    var interval = setInterval(function() {
+      if (sessionStorage.getItem('status') == null) {
+          clearInterval(interval)
+          window.location.href = "http://smartlist.ga/dashboard/login.php?inactive";
+        // alert(1)
+        } 
+    }, 300000);
 </script>   
 <?php if (!empty($notifications))
 { ?>

@@ -9,10 +9,10 @@ $users = $dbh->query($sql);
 $dr_count = $users->rowCount();
 if ($dr_count > 0)
 {
-echo '<table class="table">
-<tr>
-<td>Name</td>
-<td>Quantity</td>
+echo '<table class="table" id="campingSort">
+<tr class="hover">
+<td onclick="campingSort(0)">Name</td>
+<td onclick="campingSort(1)">Quantity</td>
 </tr>';
 foreach ($users as $row)
 {
@@ -44,3 +44,41 @@ echo "Error is: " . $e->etmessage();
 ?>
 </table>
 </div>
+<script>
+function campingSort(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("campingSort");
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+  </script>

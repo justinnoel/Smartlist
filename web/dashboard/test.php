@@ -190,13 +190,61 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="stylesheet" href="./resources/style.css">
   <style>
-  @media only screen and (max-width:900px) { 
+    @media only screen and (max-width:900px) {
       .nav_btn_menu {
-          top: -2px !important;
+        top: -2px !important;
       }
-      #toast-container { top: auto!important; right: auto!important; bottom: 0; left: 0; width: calc(100% - 30px)!important }
-      #accounts { width: 100% } .hover td::after { display: none } .name { color: var(--font-color)!important } .email { color: #aaa!important } .chart_container, canvas { height: 55vh!important } .__dropdown { color: gray!important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100%!important } #settingsContainer .row { margin-top: 0!important } }
-  .collection-item b {transition: all .2s;}
+
+      #toast-container {
+        top: auto !important;
+        right: auto !important;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 30px) !important
+      }
+
+      #accounts {
+        width: 100%
+      }
+
+      .hover td::after {
+        display: none
+      }
+
+      .name {
+        color: var(--font-color) !important
+      }
+
+      .email {
+        color: #aaa !important
+      }
+
+      .chart_container,
+      canvas {
+        height: 55vh !important
+      }
+
+      .__dropdown {
+        color: gray !important
+      }
+
+      .background {
+        border-bottom: 1px solid rgba(200, 200, 200, .3)
+      }
+
+      #settingsContainer {
+        width: 100% !important
+      }
+
+      #settingsContainer .row {
+        margin-top: 0 !important
+      }
+    }
+
+    .collection-item b {
+      transition: all .2s;
+    }
+
     :root {
       --sidenavbg-color: <?php echo htmlspecialchars($bmBgColor);
                           ?>;
@@ -218,16 +266,16 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </nav>
   <nav style="top:0;position:fixed;background: var(--navbar-color);z-index:999">
     <div class="nav-wrapper">
-        <ul class="left">
-            <li id="scroll_sidenav_to_top">
-                <a class="sidenav-trigger braand-logo left" style="margin-left: -10px !important" data-target="slide-out" href="javascript:void(0)">
-                 <div style="margin-left:0px !important" class="nav_btn_menu btn btn-floating btn-large waves-effect waves-light btn-flat navbar_btn">
-                     <i class="material-icons-round" id="icon">menu</i>
-                 </div>
-                 <span style="font-size: 20px;font-weight:400;margin-left: -10px" id="brandlogo">Smartlist</span>
-             </a>
-          </li>
-        </ul>
+      <ul class="left">
+        <li id="scroll_sidenav_to_top">
+          <a class="sidenav-trigger braand-logo left" style="margin-left: -10px !important" data-target="slide-out" href="javascript:void(0)">
+            <div style="margin-left:0px !important" class="nav_btn_menu btn btn-floating btn-large waves-effect waves-light btn-flat navbar_btn">
+              <i class="material-icons-round" id="icon">menu</i>
+            </div>
+            <span style="font-size: 20px;font-weight:400;margin-left: -10px" id="brandlogo">Smartlist</span>
+          </a>
+        </li>
+      </ul>
       <ul class="right" id="nav_ul_notification">
         <li> <a id="notification" onclick="document.getElementById('defaultOpen').classList.remove('sidenav-active');" data-position="bottom" class="right tooltippeda waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" style="margin-top: 6% !important;margin-right: 0 !important;" data-tooltip='Notifications'> <i class="material-icons-round animate-zoom">notifications</i>
             <div id="hide_notification"></div>
@@ -976,9 +1024,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <!--<center><br><br><br><svg class='circular' height='50' width='50'>-->
       <!--    <circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />-->
       <!--  </svg><br></center>-->
-        <center style="padding:10px;padding-top: 30vh">
-  <div class="shapes-5" style="color: var(--navbar-color)"></div>
-</center>
+      <center style="padding:10px;padding-top: 30vh">
+        <div class="shapes-5" style="color: var(--navbar-color)"></div>
+      </center>
     </div>
   </div>
   <div id="key" class="modal modal-fixed-footera">

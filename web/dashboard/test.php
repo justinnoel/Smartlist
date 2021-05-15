@@ -316,15 +316,18 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       </b>
       <p class="center">Please select a room</p>
       <div class="collection">
-        <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('addkitchen'); AJAX_LOAD('#addkitchen', './rooms/kitchen/quickadd.php')"><i class="material-icons-round left">countertops</i>Kitchen</a>
+        <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('addkitchen'); AJAX_LOAD('#addkitchen', './rooms/kitchen/quickadd.php')"><i class="material-icons-round left">blender</i>Kitchen</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('bedroom_add');AJAX_LOAD('#bedroom_add', './rooms/bedroom/quickadd.php')"><i class="material-icons-round left">bed</i>Bedroom</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('bathroom_add');AJAX_LOAD('#bathroom_add', './rooms/bathroom/quickadd.php')"><i class="material-icons-round left">wc</i>Bathroom</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('garage_add'); setTimeout(function(){ sm_page('garage_add');document.getElementById('garage_name_input').focus() }, 0500);"><i class="material-icons-round left">build</i>Garage</a>
-        <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('add_family'); AJAX_LOAD('#add_family', './rooms/family/add1.php');"><i class="material-icons-round left">tv</i>Family</a>
+        <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('add_family'); AJAX_LOAD('#add_family', './rooms/family/add1.php');"><i class="material-icons-round left">chair</i>Family</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('storage_add'); AJAX_LOAD('#storage_add', './rooms/storage/quickadd.php');"><i class="material-icons-round left">business</i>Storage Room</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('dining_room_add'); AJAX_LOAD('#dining_room_add', './rooms/dining_room/quickadd.php')"><i class="material-icons-round left">restaurant</i>Dining Room</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('camping_add'); AJAX_LOAD('#camping_add', './rooms/camping/quickadd.php');"><i class="material-icons-round left">landscape</i>Camping Supplies</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('laundry_room_add'); AJAX_LOAD('#laundry_room_add', './rooms/laundry/quickadd.php')"><i class="material-icons-round left">local_laundry_service</i>Laundry room</a>
+        <a href="javascript:void(0)" class="collection-item" style="color: gray !important;border: 0">
+          <b>Custom Rooms</b>
+        </a>
         <?php try {
           $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
           $sql = "SELECT * FROM roomnames WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];

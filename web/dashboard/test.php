@@ -157,7 +157,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="#2a1782">
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" defer></script>
   <link rel="search" href="https://smartlist.ga/search.xml" type="application/opensearchdescription+xml" title="Smartlist" />
   <link rel="shortcut icon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
   <link rel="favicon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
@@ -188,7 +188,14 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="./resources/style.css">
   <style>
+  @media only screen and (max-width:900px) { 
+      .nav_btn_menu {
+          top: -2px !important;
+      }
+      #toast-container { top: auto!important; right: auto!important; bottom: 0; left: 0; width: calc(100% - 30px)!important }
+      #accounts { width: 100% } .hover td::after { display: none } .name { color: var(--font-color)!important } .email { color: #aaa!important } .chart_container, canvas { height: 55vh!important } .__dropdown { color: gray!important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100%!important } #settingsContainer .row { margin-top: 0!important } }
   .collection-item b {transition: all .2s;}
     :root {
       --sidenavbg-color: <?php echo htmlspecialchars($bmBgColor);
@@ -197,7 +204,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                         ?> !important
     }
   </style>
-  <link rel="stylesheet" href="./resources/style.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0PH6N0Z7E"></script>
 </head>
 
@@ -212,10 +218,17 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </nav>
   <nav style="top:0;position:fixed;background: var(--navbar-color);z-index:999">
     <div class="nav-wrapper">
+        <ul class="left">
+            <li id="scroll_sidenav_to_top">
+                <a class="sidenav-trigger braand-logo left" style="margin-left: -10px !important" data-target="slide-out" href="javascript:void(0)">
+                 <div style="margin-left:0px !important" class="nav_btn_menu btn btn-floating btn-large waves-effect waves-light btn-flat navbar_btn">
+                     <i class="material-icons-round" id="icon">menu</i>
+                 </div>
+                 <span style="font-size: 20px;font-weight:400;margin-left: -10px" id="brandlogo">Smartlist</span>
+             </a>
+          </li>
+        </ul>
       <ul class="right" id="nav_ul_notification">
-        <li id="scroll_sidenav_to_top"><a class="sidenav-trigger brand-logo left" style="margin-left:0px !important" data-target="slide-out" href="javascript:void(0)">
-            <div class="btn btn-floating btn-large waves-effect waves-light btn-flat navbar_btn"><i class="material-icons-round" id="icon">menu</i></div><span style="font-size: 20px;position: relative;top: -1px;left: -5px;font-weight:400" id="brandlogo">Smartlist</span>
-          </a></li>
         <li> <a id="notification" onclick="document.getElementById('defaultOpen').classList.remove('sidenav-active');" data-position="bottom" class="right tooltippeda waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" style="margin-top: 6% !important;margin-right: 0 !important;" data-tooltip='Notifications'> <i class="material-icons-round animate-zoom">notifications</i>
             <div id="hide_notification"></div>
           </a> </li>
@@ -837,9 +850,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="nav-wrapper">
         <a href="javascript:void(0)" class="brand-logo left hide-on-large-only" onclick="back();" style="margin-left: 7px !important;margin-top: 0 !important"><i class="material-icons-round">arrow_back</i> <span style="font-size: 20px;position: relative;top: -3px;">Details</span></a>
         <ul class="right snav">
-          <li><a href="javascript:void(0)" id="nav_star" class="animate-zoom waves-effect waves-yellow tooltipped" data-position="bottom" data-tooltip="Star item"><i class="material-icons-round">star_outline</i></a></li>
-          <li><a style="animation-delay:100ms" href="javascript:void(0)" id="nav_edit" class="animate-zoom waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Edit item"><i class="material-icons-round">edit</i></a></li>
-          <li><a style="animation-delay:200ms" href="javascript:void(0)" id="nav_delete" class="animate-zoom waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Delete item"><i class="material-icons-round">delete</i></a></li>
+          <li><a href="javascript:void(0)" id="nav_star" class="animate-zoom waves-effect waves-yellow" data-position="bottom" data-tooltip="Star item"><i class="material-icons-round">star_outline</i></a></li>
+          <li><a style="animation-delay:100ms" href="javascript:void(0)" id="nav_edit" class="animate-zoom waves-effect waves-light" data-position="bottom" data-tooltip="Edit item"><i class="material-icons-round">edit</i></a></li>
+          <li><a style="animation-delay:200ms" href="javascript:void(0)" id="nav_delete" class="animate-zoom waves-effect waves-light"><i class="material-icons-round">delete</i></a></li>
         </ul>
       </div>
     </nav>

@@ -1,23 +1,15 @@
-<?php session_start(); ?>
-
 <?php
-if(!isset($_SESSION['valid'])) {
-header('Location: login.php');
+session_start();
+include('../../cred.php');
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $sql = "DELETE FROM todo WHERE id=".$_GET['id'];
+  $conn->exec($sql);
+  echo "<script>M.toast({html: 'Deleted task successfully'})</script>";
+} catch(PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
 }
-?>
 
-<?php
-//including the database connection file
-include("connection.php");
-
-//getting id of the data from url
-$id = $_GET['id'];
-
-//deleting the row from table
-$result=mysqli_query($mysqli, "DELETE FROM todo WHERE id=$id");
-   $todo = mysqli_query($mysqli, "SELECT * FROM todo WHERE login_id=".$_SESSION['id']." OR login_id=".$_SESSION['syncid']." ORDER BY id DESC");
-if(mysqli_num_rows($todo) == 0) {
-}
-//redirecting to the display page (view.php in our case)
-//header("Location:view.php");
+$conn = null;
 ?>

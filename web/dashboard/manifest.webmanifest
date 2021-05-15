@@ -1,26 +1,62 @@
 {
+  "name": "Smartlist",
+  "start_url": "https://smartlist.ga/dashboard/",
+  "scope": "https://smartlist.ga/dashboard/",
   "background_color": "#2a1782",
   "description": "Smartlist is a home inventory app that lets you keep track of what you have in your home for free",
   "dir": "ltr",
   "lang": "en-US",
   "display": "standalone",
   "orientation": "portrait",
-  "name": "Smartlist",
-  "categories": ["Inventory", "Home Inventory", "Home database", "Smartlist", "Smartlist home inventory app"],
+  "categories": [
+    "Inventory",
+    "Home Inventory",
+    "Home database",
+    "Smartlist",
+    "Smartlist home inventory app"
+  ],
   "short_name": "Smartlist",
-  "start_url": "https://smartlist.ga/dashboard/",
   "theme_color": "#2a1782",
   "icons": [
-    { "src": "icon/icon_192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon/x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "icon/icon_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon/x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ],
-  "shortcuts" : [
-      { "name": "Scan Items", "url": "./scan/live/" },
-      { "name": "Logout", "url": "./logout.php" },
-      { "name": "Login", "url": "./login.php" },
-      { "name": "Dashboard", "url": "./test.php" }
+  "shortcuts": [
+    {
+      "name": "Scan Items",
+      "url": "./scan/live/",
+      "icons": [{ "src": "https://smartlist.ga/dashboard/icon/icon_192x192_1_92x92_1_96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Logout",
+      "url": "./logout.php",
+      "icons": [{ "src": "https://smartlist.ga/dashboard/icon/icon_192x192_1_92x92_1_96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Login",
+      "url": "./login.php",
+      "icons": [{ "src": "https://smartlist.ga/dashboard/icon/icon_192x192_1_92x92_1_96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Dashboard",
+      "url": "./test.php",
+      "icons": [{ "src": "https://smartlist.ga/dashboard/icon/icon_192x192_1_92x92_1_96x96.png", "sizes": "96x96" }]
+    }
   ],
   "protocol_handlers": [
-      { "protocol": "web+smartlist", "url": "/test.php?query=%s" }
-    ]
+    {
+      "protocol": "web+smartlist",
+      "url": "/test.php?query=%s"
+    }
+  ]
 }

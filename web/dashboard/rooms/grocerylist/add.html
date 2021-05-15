@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Add an item | Grocery List | Smartlist</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<style>
+		.modal_bg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.3);
+			/*opacity:0;*/
+			animation: modal .2s forwards;
+			/*transform: scale(2);*/
+			transition: all .2s;
+			z-index: 999;
+		}
+
+		@keyframes modal {
+			0% {
+				transform: scale(2);
+				opacity: 0;
+			}
+			100% {
+				transform: scale(1);
+				opacity: 1
+			}
+		}
+
+		.modal_content {
+			position: fixed;
+			top: 50%;
+			transition: all .2s;
+			left: 50%;
+			box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
+			width: 80px;
+			height: 80px;
+			background: white;
+			border-radius: 2px;
+			padding: 15px;
+			transform: translate(-50%, -50%)
+		}
+	</style>
+</head>
+
+<body onload='load()'>
+	<div class="modal_bg" id="modal">
+		<div class="modal_content">
+			<div class="preloader-wrapper active">
+				<div class="spinner-layer spinner-red-only">
+					<div class="circle-clipper left">
+						<div class="circle"></div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle"></div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container"><br>
+<form action="add.php" method="post" name="form1">
+    <h5>Add an item (Grocery List)</h5>
+<div class="input-field">
+    <label>Item name</label>
+    <input type="text" name="name" class="autocomplete" required autocomplete="off">
+</div>
+<tr>
+<div class="input-field">
+<label>Quantity</label>
+<input type="number" name="qty" class="form-control" required autocomplete="off">
+</div>
+<input type="hidden" name="price" class="form-control" value="1">
+<button type="submit" name="Submit" value="Add" class="waves-effect text-center btn btn-primary d-block m-auto purple darken-3">Create</button>
+<a href="javascript:history.back()" class="text-center btn btn-info red">Back</a>
+</form>
+<script>
+      // The setTimeout is used for demo purposes only. Please remove this, as it will slow your page down!
+      function load() {
+        var e = document.getElementById("modal");
+        e.style.animation = 'auto';
+        setTimeout(function(){
+          e.style.transform = 'scale(2)';
+          e.style.opacity = '0';
+          setTimeout(function(){
+            e.style.display = 'none';
+          }, 0200);
+        }, 1000);
+      }
+      $(document).ready(function() { $('input.autocomplete').autocomplete({ data: { "Apple": 'https://media.istockphoto.com/photos/red-apple-with-leaf-picture-id683494078?k=6&m=683494078&s=612x612&w=0&h=aVyDhOiTwUZI0NeF_ysdLZkSvDD4JxaJMdWSx2p3pp4=', "Banana": null, "Orange": null, "Coriander": null, "Kale": null, "Watermelon": null, "Mango": null, "Noodles": null, "Juice": null, "Dal": null, "Black beans": null, "Kidney beans": null, "Coconuts": null, "Dark Chocolate": null, "Bread": null, "Chocolate": null, "Yogurt": null, "Milk": null, "Cilantro": null, "Sooji fine": null, "Saaru powder": null, "Pineapple": null, "Almond": null, "Carrot": null, "Brocolli": null, "JavaScript": null, "Lisp": null, "Perl": null, "PHP": null, "Python": null, "Ruby": null, "Scala": null, "Scheme": null, "Apricot": null, "Artichoke": null, "Asian Pear": null, "Asparagus": null, "Atemoya": null, "Avocado": null, "Bamboo Shoots": null, "Bean Sprouts": null, "Beans": null, "Beets": null, "Belgian Endive": null, "Bell Peppers": null, "Bitter Melon": null, "Blackberries": null, "Blueberries": null, "Bok Choy": null, "Boniato": null, "Boysenberries": null, "Broccoflower": null, "Broccoli": null, "Brussels Sprouts": null, "Cabbage": null, "Cactus Pear": null, "Cantaloupe": null, "Carambola": null, "Carrots": null, "Casaba Melon": null, "Cauliflower": null, "Celery": null, "Chayote": null, "Cherimoya": null, "Cherries": null, "Collard Greens": null, "Corn": null, "Cranberries": null, "Cucumber": null, "Dates": null, "Dried Plums": null, "Eggplant": null, "Endive": null, "Escarole": null, "Feijoa": null, "Fennel": null, "Figs": null, "Garlic": null, "Gooseberries": null, "Grapefruit": null, "Grapes": null, "Green Beans": null, "Green Onions": null, "Greens": null, "Guava": null, "Hominy": null, "Honeydew Melon": null, "Horned Melon": null, "Iceberg Lettuce": null, "Jerusalem Artichoke": null, "Jicama": null, "Kiwifruit": null, "Kohlrabi": null, "Kumquat": null, "Leeks": null, "Lemons": null, "Lettuce": null, "Lima Beans": null, "Limes": null, "Longan": null, "Loquat": null, "Lychee": null, "Madarins": null, "Malanga": null, "Mandarin Oranges": null, "Mangos": null, "Mulberries": null, "Mushrooms": null, "Napa": null, "Nectarines": null, "Okra": null, "Onion": null, "Oranges": null, "Papayas": null, "Parsnip": null, "Passion Fruit": null, "Peaches": null, "Pears": null, "Peas": null, "Peppers": null, "Persimmons": null, "Plantains": null, "Plums": null, "Pomegranate": null, "Potatoes": null, "Prickly Pear": null, "Prunes": null, "Pummelo": null, "Pumpkin": null, "Quince": null, "Radicchio": null, "Radishes": null, "Raisins": null, "Raspberries": null, "Red Cabbage": null, "Rhubarb": null, "Romaine Lettuce": null, "Rutabaga": null, "Shallots": null, "Snow Peas": null, "Spinach": null, "Sprouts": null, "Squash": null, "Strawberries": null, "String Beans": null, "Sweet Potato": null, "Tangelo": null, "Tangerines": null, "Tomatillo": null, "Tomato": null, "Turnip": null, "Ugli Fruit": null, "Water Chestnuts": null, "Watercress": null, "Waxed Beans": null, "Yams": null, "Yellow Squash": null, "Yuca/Cassava": null, "Zucchini Squash": null, }, limit: 3, }); });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>

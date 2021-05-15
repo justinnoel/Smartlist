@@ -189,70 +189,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <style>
-    .disabled {
-      pointer-events: none
-    }
-
-    .white-text,
-    .white-text * {
-      color: white !important;
-    }
-
+  .collection-item b {transition: all .2s;}
     :root {
       --sidenavbg-color: <?php echo htmlspecialchars($bmBgColor);
                           ?>;
       --navbar-color: #<?php echo htmlspecialchars($theme);
                         ?> !important
-    }
-
-    @media only screen and (max-width:600px) {
-      .navbar_btn i {
-        line-height: 50px !important;
-      }
-
-      #search_close {
-        padding-top: 0px !important;
-      }
-    }
-
-    .collection-item.green {
-      border-color: #1b5e20 !important;
-    }
-
-    [tabindex] {
-      outline: 0;
-    }
-
-    .dropdown-content {
-      background: var(--bg-color) !important;
-    }
-
-    .section-search input.autocomplete {
-      color: #000;
-    }
-
-    .input-field .prefix.active {
-      color: #000 !important;
-    }
-
-    .dropdown-content li>a,
-    .dropdown-content li>span {
-      color: #000 !important;
-    }
-
-    .autocomplete-content li .highlight {
-      color: #283593 !important;
-      background: rgba(40, 53, 147, .1);
-      border: 1px solid rgba(40, 53, 147, .2);
-    }
-
-    [tabindex]:focus {
-      background: rgba(0, 0, 0, 0.1);
-    }
-
-    .addheight {
-      max-height: 90% !important;
-      min-height: 90% !important;
     }
   </style>
   <link rel="stylesheet" href="./resources/style.css">
@@ -417,7 +359,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './rooms/grocerylist/view.php');change_title('Grocery List')"><i class="material-icons-round">local_grocery_store</i>Grocery list</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage<span class="new-badge">New!</span></a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
-    <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this);sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php')"><i class="material-icons-round">construction</i>Maintenance <span class="new-badge">New!</span></a></li>
+    <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="/*sidenav_highlight(this); */sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance <span class="new-badge">New!</span></a></li>
     <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator <span class="new-badge">New!</span></a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('budgetmetermodal');change_title('Budget Meter');"><i class="material-icons-round">payments</i>My budget meter</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
@@ -1018,9 +960,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       </div>
     </div>
     <div id="ajax_loader" class="tabcontent" style="margin-top: 0 !important">
-      <center><br><br><br><svg class='circular' height='50' width='50'>
-          <circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />
-        </svg><br></center>
+      <!--<center><br><br><br><svg class='circular' height='50' width='50'>-->
+      <!--    <circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />-->
+      <!--  </svg><br></center>-->
+        <center style="padding:10px;padding-top: 30vh">
+  <div class="shapes-5" style="color: var(--navbar-color)"></div>
+</center>
     </div>
   </div>
   <div id="key" class="modal modal-fixed-footera">

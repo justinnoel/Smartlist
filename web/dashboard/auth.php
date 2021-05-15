@@ -61,8 +61,13 @@ $pwd_hash = password_hash($_POST['password'], PASSWORD_ARGON2I);
              }
              $_SESSION['welcome'] = htmlspecialchars($row['welcome']);
              $_SESSION['theme'] = htmlspecialchars($row['theme']);
+             if($row['welcome'] === "1") {
              setcookie('attempts', 0, time() + (86400 * 30), "/");
              echo 'Valid';
+             }
+             else {
+                 echo "Welcome";
+             }
           }
           else {
         setcookie('attempts', $_COOKIE['attempts']++, time() + (86400 * 30), "/");

@@ -394,6 +394,9 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
                   window.location.href='https://smartlist.ga/dashboard/beta';
               }, 300);
             }
+            else if(data == "Welcome") {
+                window.location.href = "https://smartlist.ga/dashboard/welcome"
+            }
             else if (data == 'max') {
               window.location.reload();
               document.cookie = "attempts=5";

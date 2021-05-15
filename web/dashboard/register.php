@@ -90,7 +90,7 @@ $message = '
                       <br>
                       <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                         Hey, <br>
-                        Thanks for signing up for Smartlist! We welcome you to Smartlist! Feel free to explore the dashboard, add an item, and track your expenses using our budget meter! If you want to read the knowledge base, you can do so <a href="http://help.smartlist.ga/" style="text-decoration: none;color: #2196f3">here</a>. If you have any further questions, visit our <a href="https://community.smartlist.ga/" style="text-decoration: none;color: #2196f3">community forum</a>
+                        Thanks for signing up for Smartlist! We welcome you to Smartlist! Feel free to explore the dashboard, add an item, and track your expenses using our budget meter! If you want to read the knowledge base, you can do so <a href="http://support.smartlist.ga/" style="text-decoration: none;color: #2196f3">here</a>. If you have any further questions, visit our <a href="https://community.smartlist.ga/" style="text-decoration: none;color: #2196f3">community forum</a>
                       </p>
                       <a href="https://smartlist.ga/dashboard/resources/recovery.php?u='.urlencode($id).'"
                          style="background:#4527a0;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:5px;">View my Dashboard</a>

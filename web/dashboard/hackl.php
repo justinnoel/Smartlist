@@ -5,8 +5,9 @@ if(isset($_SESSION['valid'])) {
     exit;
 }
 if(isset($_GET['sett'])) {$msg1 = "Please login again"; }
+include('cred.php');
 try {
-  $db = new PDO('mysql:host=localhost;dbname=bcxkspna_test;charset=utf8mb4', 'bcxkspna', 'Q$J~:4GI!7+E');
+  $db = new PDO('mysql:host='.$servername.';dbname='.$dbname.';charset=utf8mb4', $username, $password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);  
 } catch (PDOException $e) {
@@ -30,9 +31,9 @@ if(isset($_POST['submitBtnLogin'])) {
         /******************** Your code ***********************/
        $validuser = $row['username'];
  $_SESSION['valid'] = $validuser;
- $_SESSION['name'] = $row['name'];
+ $_SESSION['name'] = decrypt($row['name']);
  $_SESSION['id'] = $row['id'];
- $_SESSION['email'] = $row['email'];
+ $_SESSION['email'] = decrypt($row['email']);
  $_SESSION['notifications'] = $row['notifications'];
  $_SESSION['number_notify'] = $row['remind'];
  $t = $row['syncid'];
@@ -77,7 +78,23 @@ if(isset($_POST['submitBtnLogin'])) {
         echo $_SESSION['number_notify'];
         echo $_SESSION['id'];
         */
-       header("location: https://smartlist.ga/dashboard/beta");
+        // echo $row['welcome'];
+        if($row['welcome'] === 1) {
+            header("location: https://smartlist.ga/dashboard/beta");
+        }
+        else {
+            try {
+              $conn = new PDO("mysql:host=$servername;dbname=$dbname", $databaseUsername, $databasePassword);
+              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = "UPDATE login SET welcome='1' WHERE id=".$row['id'];
+              $stmt = $conn->prepare($sql);
+              $stmt->execute();
+            } catch(PDOException $e) {
+              echo $sql . "<br>" . $e->getMessage();
+            }
+            $conn = null;
+            header('Location: https://smartlist.ga/dashboard/welcome');
+        }
       } else {
         header("Location: https://smartlist.ga/dashboard/login.php?incorrect");
       }

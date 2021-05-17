@@ -163,6 +163,7 @@ function item(id, name, qty, price, directory, room, star) {
 	item_state = 'item_popup';
 	item_p = 1;
 	document.getElementById("action_delete").onclick = function() {
+        document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
 		document.getElementById(room + 'tr_' + id).style.display = 'none';
 		if(room == 'kitchen') {
 			toast(name, qty);
@@ -177,6 +178,7 @@ function item(id, name, qty, price, directory, room, star) {
 		document.getElementById("fab").style.display = "";
 	};
 	document.getElementById("nav_delete").onclick = function() {
+	    document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
 		document.getElementById(room + 'tr_' + id).style.display = 'none';
 		if(room == 'kitchen') {
 			toast(name, qty);
@@ -465,6 +467,7 @@ function item(id, name, qty, price, directory, room, star) {
 	secondary();
 	if(room == 'custom_room') {
 		document.getElementById('nav_delete').onclick = function() {
+    	    document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
 			$('#div1').load('./rooms/custom_item_delete.php?id=' + id);
 			sm_page('custom_room', this, '');
 			document.getElementById('croomtr_' + id).style.background = 'rgba(235, 185, 181, .5)';
@@ -473,6 +476,7 @@ function item(id, name, qty, price, directory, room, star) {
 			}, 1000);
 		};
 		document.getElementById('action_delete').onclick = function() {
+	        document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
 			$('#div1').load('./rooms/custom_item_delete.php?id=' + id);
 			sm_page('custom_room', this, '');
 			document.getElementById('croomtr_' + id).style.background = 'rgba(235, 185, 181, .5)';
@@ -1132,7 +1136,9 @@ function dragElement(elmnt) {
 		e.stopPropagation();
 		pos2 = pos4 - e.clientY;
 		pos3 = e.clientX;
+		if(! /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 		$(".modal.bottom-sheet a").addClass('disabled');
+		}
 		pos4 = e.clientY;
 		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
 	}
@@ -1143,7 +1149,9 @@ function dragElement(elmnt) {
 		document.onmousemove = null;
 		setTimeout(function() {
 			elmnt.style.top = "";
+			if(! /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 			$(".modal.bottom-sheet a").removeClass('disabled');
+			}
 		}, 100);
 		return false;
 	}
@@ -1196,22 +1204,22 @@ function add_bedroom() {
 	$("#div1").load("https://smartlist.ga/dashboard/rooms/bedroom/quickadd.php?name=" + encodeURI(bedroom_name) + "&qty=" + encodeURI(bedroom_qty) + "");
 	$('html, body').scrollTop($(document).height());
 }
-$("#garage_form").submit(function(e) {
-	sm_page('ajax_loader', this, '');
-	e.preventDefault();
-	var form = $(this);
-	var url = form.attr('action');
-	$.ajax({
-		type: "POST",
-		url: url,
-		data: form.serialize(),
-		success: function(data) {
-			sm_page('About', this, '');
-			AJAX_LOAD('#About', './rooms/garage/view.php');
-			document.getElementById("garage_form").reset();
-		}
-	});
-});
+// $("#garage_form").submit(function(e) {
+// 	sm_page('ajax_loader', this, '');
+// 	e.preventDefault();
+// 	var form = $(this);
+// 	var url = form.attr('action');
+// 	$.ajax({
+// 		type: "POST",
+// 		url: url,
+// 		data: form.serialize(),
+// 		success: function(data) {
+// 			sm_page('About', this, '');
+// 			AJAX_LOAD('#About', './rooms/garage/view.php');
+// 			document.getElementById("garage_form").reset();
+// 		}
+// 	});
+// });
 history.pushState(null, null, 'https://smartlist.ga/dashboard/beta');
 window.addEventListener('popstate', function(event) {
 	// event.preventDefault();
@@ -2300,13 +2308,14 @@ function _settingsLoad(el, data) {
 			for(i = 0; i < tablinks.length; i++) {
 				tablinks[i].style.boxShadow = "";
 			}
-			document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
+			document.querySelector("meta[name=theme-color]").setAttribute("content", '#212121');
 			tabcontent = document.getElementsByClassName("__SETTINGSPAGE");
 			for(i = 0; i < tabcontent.length; i++) {
 				tabcontent[i].style.display = "none";
 			}
 			document.getElementById('capitalizeFirstLetter').onclick = function() {
-				sm_page('News', this, '')
+				sm_page('News', this, '');
+				document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
 			}
 			document.getElementById('_settingsmenu').style.display = "block";
 		}

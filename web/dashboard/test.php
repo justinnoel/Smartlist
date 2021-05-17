@@ -188,7 +188,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="stylesheet" href="./resources/style.css">
+  <link rel="stylesheet" href="./resources/style.css?v=1">
   <style>
     @media only screen and (max-width:900px) {
       .nav_btn_menu {
@@ -266,7 +266,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </nav>
   <nav style="top:0;position:fixed;background: var(--navbar-color);z-index:999">
     <div class="nav-wrapper">
-      <ul class="left">
+      <ul class="left" style="position:absolute;">
         <li id="scroll_sidenav_to_top">
           <a class="sidenav-trigger braand-logo left" style="margin-left: -10px !important" data-target="slide-out" href="javascript:void(0)">
             <div style="margin-left:0px !important" class="nav_btn_menu btn btn-floating btn-large waves-effect waves-light btn-flat navbar_btn">
@@ -319,7 +319,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('addkitchen'); AJAX_LOAD('#addkitchen', './rooms/kitchen/quickadd.php')"><i class="material-icons-round left">blender</i>Kitchen</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('bedroom_add');AJAX_LOAD('#bedroom_add', './rooms/bedroom/quickadd.php')"><i class="material-icons-round left">bed</i>Bedroom</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('bathroom_add');AJAX_LOAD('#bathroom_add', './rooms/bathroom/quickadd.php')"><i class="material-icons-round left">wc</i>Bathroom</a>
-        <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('garage_add'); setTimeout(function(){ sm_page('garage_add');document.getElementById('garage_name_input').focus() }, 0500);"><i class="material-icons-round left">build</i>Garage</a>
+        <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('garage_add');AJAX_LOAD('#garage_add', './rooms/garage/quickadd.php')"><i class="material-icons-round left">build</i>Garage</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('add_family'); AJAX_LOAD('#add_family', './rooms/family/add1.php');"><i class="material-icons-round left">chair</i>Family</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('storage_add'); AJAX_LOAD('#storage_add', './rooms/storage/quickadd.php');"><i class="material-icons-round left">business</i>Storage Room</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('dining_room_add'); AJAX_LOAD('#dining_room_add', './rooms/dining_room/quickadd.php')"><i class="material-icons-round left">restaurant</i>Dining Room</a>
@@ -530,57 +530,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </table>
       </div>
     </div>
-    <div id="garage_add" class="tabcontent">
-      <div class="container">
-        <form action="https://smartlist.ga/dashboard/rooms/garage/add.php" method='POST' id="garage_form">
-          <div class="row">
-            <div class="col s12">
-              <h5>Add an item (Garage)</h5>
-              <div class="input-field"> <label>Name</label> <input name='name' id='garage_name_input' type='text'> <?php
-                                                                                                                    try {
-                                                                                                                      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                                                                                                                      $sql = "
-                        SELECT `name`,
-         COUNT(`name`) AS `value_occurrence` 
-         FROM     `garage`
-         WHERE login_id = " . $_SESSION['id'] . "
-         GROUP BY `name`
-         ORDER BY `value_occurrence` DESC
-         LIMIT    7;";
-                                                                                                                      $users = $dbh->query($sql);
-                                                                                                                      foreach ($users as $row) {
-                                                                                                                        echo '<div class="chip waves-effect" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 200px" onclick="var x = document.getElementById(\'garage_name_input\');x.value= this.getElementsByTagName(\'span\')[0].innerHTML;x.focus();document.getElementById(\'garage_qty_input\').focus()"><span>' . $row['name'] . '</span></div>';
-                                                                                                                      }
-                                                                                                                      $dbh = null;
-                                                                                                                    } catch (PDOexception $e) {
-                                                                                                                      echo "Error is: " . $e->getmessage();
-                                                                                                                    }
-                                                                                                                    ?>
-              </div>
-              <div class="input-field"> <label>Quantity</label> <input name='qty' type='text' id='garage_qty_input'> </div> <button class='btn purple darken-3 waves-effect'><i class="material-icons-round left">add</i>Submit</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="bathroom_add" class="tabcontent">
-      <div class="container">
-        <form onsubmit="return false" method="GET" name="form1">
-          <h5>Add an item (Bathroom)</h5>
-          <div class="row">
-            <div class="col s12 input-field "> <label onclick="this.nextSibling.focus()">Item Name</label> <input type="text" name="name" autocomplete="off" class="form-control" id="bathroom_name_input" value="<?php echo htmlspecialchars($_GET['item']); ?>"> </div>
-            <div class="col s12">
-              <div class="input-field"> <label>Quantity</label> <input type="text" name="qty" id="bathroom_qty_input" class="form-control" value="1" autocomplete="off"></div>
-            </div>
-          </div> <button type="submit" name="Submit" value="Add" class="btn purple darken-3 waves-effect waves-light btn-lage" onclick="add_bathroom()">Add</button>
-        </form>
-      </div>
-    </div>
+    
     <div id="modal1" class="tabcontent" style="position:fixed;top:0;left:0;z-index:999999;width:100%;overflow-y:scroll">
       <nav style="position:fixed;top:0;left:0;z-index:2;width:100%;background: #303030">
         <ul>
           <li>
-            <a href="javascript:void(0)" class="waves-efsfect waves-slight" onclick="sm_page('News');meta_theme_color(user.theme_top-color)" id="capitalizeFirstLetter" style="font-size: 20px"><i class="material-icons-round left" id="settings-icon" style="color:white;top:20px">arrow_back</i> Settings</a>
+            <a href="javascript:void(0)" class="waves-efsfect waves-slight" onclick="sm_page('News');meta_theme_color(user.theme_top_color)" id="capitalizeFirstLetter" style="font-size: 20px"><i class="material-icons-round left" id="settings-icon" style="color:white;top:20px">arrow_back</i> Settings</a>
           </li>
         </ul>
       </nav>
@@ -965,10 +920,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </div>
     <!-- AJAX LOADERS -->
     <div id="div1"></div>
+    <div id="bathroom_add" class="tabcontent"> </div>
     <div id="dining_room" class="tabcontent"></div>
     <div id="family" class="tabcontent"></div>
     <div id="croom_add" class="tabcontent"></div>
     <div id="bathroom" class="tabcontent"></div>
+    <div id="garage_add" class="tabcontent"> </div>
     <div id="add_family" class="tabcontent"></div>
     <div id="storage" class="tabcontent"></div>
     <div id="addkitchen" class="tabcontent"> </div>
@@ -1062,7 +1019,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <a href="javascript:void(0)" id="rclick_delete" class="modal-close waves-effect"><i class="material-icons-round left">delete</i> Delete</a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/js/materialize.min.js"></script>
-  <script src="./js/app.js"></script>
+  <script src="./js/app.js?t=1451"></script>
   <script defer>
     function qq() {
       var input, filter, ul, li, a, i, txtValue;

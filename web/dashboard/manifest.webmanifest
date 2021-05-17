@@ -58,5 +58,37 @@
       "protocol": "web+smartlist",
       "url": "/test.php?query=%s"
     }
-  ]
+  ],
+  "screenshots" : [
+      {
+        "src": "https://smartlist.ga/dashboard/images/s1.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s2.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s3.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s4.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s5.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s6.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      }
+    ]
 }

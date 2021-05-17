@@ -1671,6 +1671,14 @@ td {
 #search_close {
   line-height: 57px!important
 }
+.settings_progress {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  z-index: 999999999999999999999999999999999999999999999999999999999
+}
 
 @media only screen and (max-width:600px) {
   .tabcontent {
@@ -1707,14 +1715,6 @@ td {
   box-shadow: none!important
 }
 
-.settings_progress {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  z-index: 999999999999999999999999999999999999999999999999999999999
-}
 
 .navbar_btn .waves-ripple {
   transition-duration: .9s!important;

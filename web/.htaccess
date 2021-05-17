@@ -5,11 +5,11 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} ^.*/index\.php 
 RewriteRule ^(.*)index.php$ /$1 [R=301,L]
 # MAINTENANCE REDIRECT - REMOVE THIS!!!!! ----------------------------------
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REMOTE_ADDR} !^68\.225\.245\.178
-RewriteCond %{REQUEST_URI} !^/maintenance\.html$
-RewriteRule ^(.*)$ https://maintenance.smartlist.workers.dev [R=307,L]
+# RewriteEngine On
+# RewriteBase /
+# RewriteCond %{REMOTE_ADDR} !^68\.225\.245\.178
+# RewriteCond %{REQUEST_URI} !^/maintenance\.html$
+# RewriteRule ^(.*)$ https://maintenance.smartlist.workers.dev [R=307,L]
 # SECURITY ------------------------------------------------------------------
 
 ServerSignature Off
@@ -157,79 +157,6 @@ AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 # END cPanel-generated php ini directives, do not edit
 
-RewriteCond %{HTTP_REFERER} !^http://app.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://app.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://community.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://community.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://dash.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://dash.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://events.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://events.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://forum.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://forum.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://help.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://help.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.tk/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://sjscustomcakes.tk$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.app.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.app.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.community.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.community.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.dash.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.dash.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.events.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.events.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.forum.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.forum.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.help.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.help.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.tk/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.sjscustomcakes.tk$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^http://www.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://app.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://app.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://community.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://community.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://dash.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://dash.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://events.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://events.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://forum.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://forum.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://help.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://help.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.tk/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://sjscustomcakes.tk$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.app.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.app.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.community.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.community.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.dash.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.dash.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.events.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.events.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.forum.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.forum.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.help.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.help.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.smartlist.ga$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.tk/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.sjscustomcakes.tk$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.smartlist.ga/.*$      [NC]
-RewriteCond %{HTTP_REFERER} !^https://www.smartlist.ga$      [NC]
-RewriteRule .*\.(jpg|jpeg|gif|png|bmp)$ - [F,NC]
 
 # php -- BEGIN cPanel-generated handler, do not edit
 # Set the “ea-php74” package as the default “PHP” programming language.

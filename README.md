@@ -44,6 +44,7 @@ This is the **official GitHub Repository** for Smartlist!
 * **Smartlist Events** - Smartlist events is a great place to organize and keep track of what you need and have for a party, wedding, etc.
 * **Profile Pictures** - Personalize your account!
 * **Offline Access** - Access your inventory offline!
+* **Food Waste meter** - Track how much food you waste and prevent global food hunger!
 * **Invite collaborators and comment on items!** - You can create a shareable link for items, and then share it with others - even who don't have an account!
 * **Accessible to Everyone!**  - We ran the lighthouse test, and scored *100%* in accessibility!
 * **Keyboard Shortcuts** - For the pros - Ever wanted to quickly go to the next room and switch back to the previous room, or search an item quickly? You can now press CTRL F to search items, CTRL E to go to your settings, CTRL B to go to your budget meter, and CTRL S to add an item! 

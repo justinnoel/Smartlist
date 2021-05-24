@@ -1,3 +1,4 @@
+<br><br> 
 <div class="container">
     <form action="https://smartlist.ga/dashboard/addx.php" method="POST" id="kitchen_add_form">
         <a href="./scan/live" target="_blank" class="btn right blue-grey darken-2 waves-effect waves-light">Scan Items</a><h5>Add an item (Kitchen)</h5> 
@@ -17,6 +18,8 @@
                 <option value="Bowls and Plates">Bowls and Plates</option> 
             </select>
         </div> 
+                <div class="gray-text" style="padding: 0px 10px;color: gray !important"><i class='material-icons left'>verified_user</i>All items are encrypted</div><br>
+
         <button class="btn blue-grey darken-3">
             Submit
         </button>

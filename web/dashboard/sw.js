@@ -1,4 +1,4 @@
-const offlineFallbackPage = "./offline";
+// const offlineFallbackPage = "./offline";
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open('smartlist-app').then((cache) => cache.addAll([

@@ -23,6 +23,6 @@ Remind me only once a week
      <p>Minimum # of items per notifications</p>
      <p class="range-field">
           <input type="range" name="remind" min="0" max="100" value="<?php echo $_SESSION['number_notify']; ?>"/> </p>
-          <button class="btn blue-grey darken-3 waves-effect waves-light">Submit</button>
+          <button class="btn blue-grey darken-3 waves-effect waves-light" style="margin-bottom:10px">Submit</button>
           </form>
           <button class="btn grey darken-3 hide-on-small-only" onclick=" desktop_ping('Success!', 'Notifications are enabled!');">Test push notifications</button> 

@@ -1,21 +1,27 @@
+<br><br>
 <div class="container">
 <form action="https://smartlist.ga/dashboard/rooms/camping/add.php" method="POST" id="camping_add_form">
         <h5>Add an item (Camping Supplies)</h5>
         <div class="input-field">
             <label>Name</label>
-            <input type="text" name="name" autofocus autocomplete="off" required>
+            <input type="text" name="name" autofocus autocomplete="off" required class="validate" data-length="150">
         </div>
         <div class="input-field">
             <label>Quantity</label>
             <input type="text" name="qty" autocomplete="off">
         </div>
-        <input type="hidden" name="price" value="1" autocomplete="off" required>
+        <input type="hidden" name="price" value="1" autocomplete="off" required class="validate" data-length="20">
+                <div class="gray-text" style="padding: 0px 10px;color: gray !important"><i class='material-icons left'>verified_user</i>All items are encrypted</div><br>
+
         <button class="btn blue-grey darken-3">
             Submit
         </button>
     </form>
 </div>
 <script>
+ $(document).ready(function() {
+    $('.validate').characterCounter();
+  });
     $("#camping_add_form").submit(function(e) {
         e.preventDefault();
         var form = $(this);

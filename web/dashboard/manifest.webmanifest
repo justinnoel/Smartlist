@@ -89,6 +89,16 @@
         "src": "https://smartlist.ga/dashboard/images/s6.png",
         "sizes": "4050x5920",
         "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s7.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
+      },
+      {
+        "src": "https://smartlist.ga/dashboard/images/s8.png",
+        "sizes": "4050x5920",
+        "type": "image/png"
       }
     ]
 }

@@ -7,7 +7,7 @@
         </div>
         <div class="input-field">
             <label>Quantity</label>
-            <input type="text" name="qty" autocomplete="off">
+            <input type="text" name="qty" autocomplete="off" class="validate" data-length="20">
         </div>
         <input type="hidden" name="price" value="1" autocomplete="off" required class="validate" data-length="20">
         <button class="btn blue-grey darken-3">

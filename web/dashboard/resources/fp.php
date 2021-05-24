@@ -127,6 +127,7 @@ header('Location: https://smartlist.ga/dashboard/resources/fp.php?done');
         <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" as="style">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style">
+        <meta name="viewport" content="width=device-width">
         <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" as="script">
         <link rel="preload" href="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg" as="image"> 
         <link rel="preload" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fc.pxhere.com%2Fphotos%2Fdf%2F33%2Fmountains_snowy_peaks_mountain_top_scenery_top_range_slopes-543415.jpg!d&f=1&nofb=1" as="image">

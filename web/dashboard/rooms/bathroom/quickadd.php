@@ -17,10 +17,10 @@ include('../../cred.php');
             <input type="text" name="qty" class="validate" autocomplete="off" required data-length="20">
         </div>
         <input type="hidden" name="price" value="1" autocomplete="off" required>
+            <div class="gray-text" style="padding: 0px 10px;color: gray !important"><i class='material-icons left'>verified_user</i>All items are encrypted</div><br>
         <button class="btn blue-grey darken-3">
             Submit
         </button>
-        <p class="gray-text"><i class='material-icons left'>verified_user</i>All items are encrypted</p>
     </form>
 </div>
 <script>

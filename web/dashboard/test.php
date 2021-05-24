@@ -1,8 +1,12 @@
 <?php
 ini_set('session.gc_maxlifetime', 180000);
 session_start();
+$actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+if ($actual_link == "https://smartlist.ga/dashboard/beta/") {
+  header("Location: https://smartlist.ga/dashboard/beta");
+}
 if (!isset($_SESSION['valid'])) {
-  header('Location: https://smartlist.ga/login');
+  header('Location: https://smartlist.ga/dashboard/login');
   exit();
 }
 include_once("cred.php");
@@ -153,11 +157,23 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
 
 <head>
   <title>Dashboard</title>
-  <meta name="keywords" content="Smartlist, Homebase, KeepInventory, Smartlist dashboard, Smart List, List, Inventory, Home, Smartlist app, Smart list app, Smartlist Dashboard, Smartlist login, Smartlist Signup, Smart list login, Smart list sign up, Smart list signup, smart list register, Smartlist logo, smartist, smarst, smatist">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com/">
+  <link rel="dns-prefetch" href="https://<?php echo parse_url($_SESSION['avatar'], PHP_URL_HOST); ?>/">
+  <link rel="dns-prefetch" href="https://static.hotjar.com/">
+  <link rel="dns-prefetch" href="https://smartlist.ga/">
+  <link rel="dns-prefetch" href="https://res.cloudinary.com/">
+  <link rel="dns-prefetch" href="https://padlet-uploads.storage.googleapis.com/">
+  <link rel="dns-prefetch" href="https://ajax.googleapis.com/">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+  <meta name="keywords" content="Smartlist, Smartlist dashboard, Smart List, List, Inventory, Home, Smartlist app, Smart list app, Smartlist Dashboard, Smartlist login, Smartlist Signup, Smartlist login, free home inventory app, free, home, inventory, app">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="#2a1782">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" defer></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="search" href="https://smartlist.ga/search.xml" type="application/opensearchdescription+xml" title="Smartlist" />
   <link rel="shortcut icon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
   <link rel="favicon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
@@ -188,8 +204,63 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="stylesheet" href="./resources/style.css?v=1">
+  <link rel="stylesheet" href="./resources/style.css?v=<?php echo rand(0, 9999999); ?>">
+  <!-- Hotjar Tracking Code for smartlist.ga -->
+  <script>
+    (function(h, o, t, j, a, r) {
+      h.hj = h.hj || function() {
+        (h.hj.q = h.hj.q || []).push(arguments)
+      };
+      h._hjSettings = {
+        hjid: 2386239,
+        hjsv: 6
+      };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script');
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
   <style>
+    .pagination_container {
+      text-align: right;
+    }
+
+    * {
+      user-drag: none
+    }
+
+    .pagination_btn {
+      padding: 15px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all .2s;
+      background: transparent;
+      border: 0;
+    }
+
+    tr.hover {
+      display: table-row !important;
+    }
+
+    .pagination_btn:not(.paginationActive):focus {
+      background: transparent;
+      color: inherit;
+    }
+
+    .pagination_container button {
+      padding: 10px;
+    }
+
+    .paginationActive {
+      color: white;
+      background: #212121 !important;
+    }
+
     @media only screen and (max-width:900px) {
       .nav_btn_menu {
         top: -2px !important;
@@ -209,6 +280,10 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
 
       .hover td::after {
         display: none
+      }
+
+      .menu.gray-text {
+        padding: 0 !important;
       }
 
       .name {
@@ -277,7 +352,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </li>
       </ul>
       <ul class="right" id="nav_ul_notification">
-        <li> <a id="notification" onclick="document.getElementById('defaultOpen').classList.remove('sidenav-active');" data-position="bottom" class="right tooltippeda waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" style="margin-top: 6% !important;margin-right: 0 !important;" data-tooltip='Notifications'> <i class="material-icons-round animate-zoom">notifications</i>
+        <li> <a id="notification" data-position="bottom" class="right tooltippeda waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" style="margin-top: 6% !important;margin-right: 0 !important;" data-tooltip='Notifications'> <i class="material-icons-round animate-zoom">notifications</i>
             <div id="hide_notification"></div>
           </a> </li>
         <li><a style="margin-top: 6% !important;margin-left: 0 !important;margin-right: 3px !important" class="right waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" id="search_toggle"><i class="material-icons-round animate-zoom" style="animation-delay:100ms">search</i></a></li>
@@ -297,17 +372,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       </form>
     </div>
   </div>
-  </div>
-  <div id="kitchenmodal" class="modal ">
-    <div class="modal-content"></div>
-  </div>
-  <div id="pair" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4>Heads Up!</h4>
-      <p>Are you sure you want to pair your account? Pairing your account will you see everything in their inventory!
-      </p>
-    </div>
-    <div class="modal-footer"> <a href="#modal1" class="modal-close waves-effect waves-green btn-flat">Go back</a> <a class="waves-effect waves-light btn red modal-close" class="red btn waves-effect waves-light" id="pair_account_modal">Pair my account!</a> </div>
   </div>
   <div id="budgetmetermodala" onscroll="this.classList.add('addheight')" class="modal modal-fixed-s  bottom-sheet" style="width:60%">
     <div class="modal-content" id="CTRLS_CTNT" style="cursor: auto">
@@ -371,7 +435,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       </div>
     </li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Dashboard');sm_page('News');AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');" id="defaultOpen"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested', this);AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested');AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="<?php if (!admin()) { ?>sidenav_highlight(this); <?php } ?>change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './finances/index.php')"><i class="material-icons-round">money</i>Budget Dashboard <span class="new-badge">New!</span></a></li>
     <li class="links" style="display:none"><a class="waves-effect" onclick="change_title('Loading...');sm_page('loader');"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li style="pointer-events:none">
       <div class="divider"></div>
@@ -423,9 +488,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './rooms/grocerylist/view.php');change_title('Grocery List')"><i class="material-icons-round">local_grocery_store</i>Grocery list</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage<span class="new-badge">New!</span></a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
-    <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="/*sidenav_highlight(this); */sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance <span class="new-badge">New!</span></a></li>
+    <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance</a></li>
     <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator <span class="new-badge">New!</span></a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('budgetmetermodal');change_title('Budget Meter');"><i class="material-icons-round">payments</i>My budget meter</a></li>
+    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('budgetmetermodal');change_title('Budget Meter');AJAX_LOAD('#budgetmetermodal', './rooms/bm/index.php')"><i class="material-icons-round">payments</i>My budget meter</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
     <li style="pointer-events:none">
       <div class="divider">
@@ -440,9 +505,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       </div>
     </li>
     <li><a class="subheader" href="javascript:void(0)" rel='nofollow'>Profile</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect " href="#modal1" onclick="sidenav_highlight(this); sm_page('notification_popup');AJAX_LOAD('#notification_popup', './rooms/notifications.php');brandlogotext.innerHTML = 'Inbox'"><i class="material-icons-round">notifications_outline</i>Notifications <span id="badge" class="badge"></span>
+    <li class="links"><a tabindex="0" class="waves-effect " href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('notification_popup');AJAX_LOAD('#notification_popup', './rooms/notifications.php');brandlogotext.innerHTML = 'Inbox'"><i class="material-icons-round">notifications_outline</i>Notifications <span id="badge" class="badge"></span>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); sm_page('modal1');meta_theme_color('#1f1f1f')"><i class="material-icons-round">settings</i>Settings</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect modal-trigger sidenav-close" href="#_feedback" onclick="sidenav_highlight(this); change_title('Feedback')"><i class="material-icons-round">feedback</i>Feedback</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect modal-trigger sidenav-close" href="#_feedback" onclick="change_title('Feedback')"><i class="material-icons-round">feedback</i>Feedback</a></li>
     </a>
     </li>
   </ul>
@@ -475,7 +540,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <i class="large material-icons-round left" style="color:white !important">edit</i>
     </a>
   </div>
-  <div class="fixed-action-btn" id="fab"> <a class="btn-floatsing btn-large waves-effect waves-light FLOATING_ACTION_BUTTON" href="javascript:void(0)" style="background:var(--navbar-color);z-index:99999999999999999999999999999999999999 !important;border-radius: 999999999px !important;color:white;text-decoration:none;transition:width .2s, transform .2s !important;transform-origin: right;box-shadow:0 4px 5px -2px rgba(0,0,0,.2),0 7px 10px 1px rgba(0,0,0,.14),0 2px 16px 1px rgba(0,0,0,.12)!important;" id="FLOATING_ACTION_BUTTON"> <i class="large material-icons-round left" style="color:white !important">add</i><span>Add</span> </a>
+  <div class="fixed-action-btn" id="fab">
+    <a class="btn-floatsing btn-large waves-effect waves-light FLOATING_ACTION_BUTTON" href="javascript:void(0)" style="background:var(--navbar-color);z-index:99999999999999999999999999999999999999 !important;border-radius: 999999999px !important;color:white;text-decoration:none;transition:width .2s, transform .2s !important;transform-origin: right;box-shadow:0 4px 5px -2px rgba(0,0,0,.2),0 7px 10px 1px rgba(0,0,0,.14),0 2px 16px 1px rgba(0,0,0,.12)!important;" id="FLOATING_ACTION_BUTTON">
+      <i class="large material-icons-round left" style="color:white !important">add</i>
+      <span>Add</span>
+    </a>
     <ul>
       <li data-position="left" data-tooltip="Task" class="tooltipped"><a class="btn-floating" href="javascript:void(0)" onclick="sm_page('todo_add');AJAX_LOAD('#todo_add', './rooms/todo/quickadd.php')" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">check</i></a></li>
       <li data-position="left" data-tooltip="Item" class="tooltipped"><a class="btn-floating modal-trigger" href="#budgetmetermodala" style="background: #<?php echo $theme_light; ?> !important"><i class="material-icons-round" style="color:white !important">category</i></a></li>
@@ -492,45 +561,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
           </svg> </center>
       </div>
     </div>
-    <div id="budgetmetermodal" class="tabcontent">
-      <div class='container'>
-        <a href="#bmmodal" class="btn modal-close waves-effect waves-light right modal-trigger" onclick="setTimeout(function(){document.getElementById('bm_amount').focus()}, 100);sm_page('News')" style="background: #<?php echo htmlspecialchars($theme_light); ?>">Add a point</a>
-        <h4>My budget meter</h4>
-        <table class="table table-striped " id="myTable">
-          <?php
-          try {
-            $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
-            $users = $dbh->query($sql);
-            echo '<table class="table"> <tr> <td>Date</td> <td>Quantity</td>  <td style="width:10%">Actions</td> </tr><tr id="bm_items"></tr><script>
-            var budgetmeter = [';
-            foreach ($users as $row) {
-              echo "{name: '" . trim(decrypt($row['name'])) . "',qty: '" . trim(decrypt($row['qty'])) . "',id: '" . $row['id'] . "',price: " . trim(decrypt($row['price'])) . ",";
-              if ($row['login_id'] != $_SESSION['id']) {
-                echo "sync: true";
-              }
-              echo "},";
-            }
-            echo "]</script>";
-            $dbh = null;
-          } catch (PDOexception $e) {
-            echo "Error is: " . $e->getmessage();
-          } ?>
-        </table><br><br><br>
-        <form action="https://smartlist.ga/dashboard/resources/goal/action.php" style="background: #efefef;padding: 10px;">
-          <div class="row">
-            <div class="col s9">
-              <h5>Set a goal. </h5>
-              <p class="range-field"> <input class="quantity" min="0" name="goal" placeholder="Type a number..." type="range" value="<?php echo htmlspecialchars($goal); ?>"> </p>
-              <p>Your goal will appear on the graph as a red line. Try not to spend more than this goal!</p>
-            </div>
-            <div class="col s3"><br><br> <button type="submit" class="btn blue right">Set goal</button> </div>
-          </div>
-        </form>
-        </table>
-      </div>
-    </div>
-    
     <div id="modal1" class="tabcontent" style="position:fixed;top:0;left:0;z-index:999999;width:100%;overflow-y:scroll">
       <nav style="position:fixed;top:0;left:0;z-index:2;width:100%;background: #303030">
         <ul>
@@ -542,7 +572,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="container" id="settingsContainer">
         <div class="row" style="margin-top: 10px">
           <div style="padding: 0 !important" class="col s12 m3 __sidebar">
-            <div class="collection" style="border:1px solid #ccc;border-radius: 5px;" id='_settingsmenu'> <a href="javascript:void(0)" id="__def" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Account</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_privacy', './user/settings/privacy.php', 'box')" class="collection-item waves-effect"><span>Privacy</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_notifications', './user/settings/notifications.php', 'box')" class="collection-item waves-effect"><span>Notifications</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_rooms', './user/settings/rooms.php', 'box')" class="collection-item waves-effect"><span>Rooms</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Appearance</span></a> <a href="javascript:void(0)" onclick="sm_page('pair2')" class="collection-item waves-effect"><span>Sync</span></a> <a href="javascript:void(0)" class="collection-item waves-effect" style="opacity:.8;pointer-events:none"><span>Labels - Coming Soon!</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>App</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_developer', './user/settings/developer.php', 'box')" class="collection-item waves-effect"><span>Developer</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_support', './user/settings/support.php', 'box')" class="collection-item waves-effect"><span>Support</span></a>
+            <div class="collection" style="border:1px solid #ccc;border-radius: 5px;" id='_settingsmenu'> <a href="javascript:void(0)" id="__def" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Account</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_privacy', './user/settings/privacy.php', 'box')" class="collection-item waves-effect"><span>Privacy</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_notifications', './user/settings/notifications.php', 'box')" class="collection-item waves-effect"><span>Notifications</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_rooms', './user/settings/rooms.php', 'box')" class="collection-item waves-effect"><span>Rooms</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Appearance</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_sync', './user/settings/sync.php', 'box')" class="collection-item waves-effect" class="collection-item waves-effect"><span>Sync</span></a> <a href="javascript:void(0)" class="collection-item waves-effect" style="opacity:.8;pointer-events:none"><span>Labels - Coming Soon!</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>App</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_developer', './user/settings/developer.php', 'box')" class="collection-item waves-effect"><span>Developer</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_support', './user/settings/support.php', 'box')" class="collection-item waves-effect"><span>Support</span></a>
               <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_backup', './user/settings/backup.php', 'box')" class="collection-item waves-effect"><span>Backup</span></a>
               <a href="logout.php" class="collection-item waves-effect"><span>Log Out</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_other', './user/settings/other.php', 'box')" class="collection-item waves-effect"><span>Other</span></a>
             </div>
@@ -567,6 +597,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 </div>
               </div>
             </div>
+            <div id="_smSettingsPage_sync" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_privacy" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_rooms" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_logout" class="__SETTINGSPAGE"></div>
@@ -635,18 +666,26 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </div>
       </div>
     </div>
-    <div id="News" class="tabcontent" style="background:var(--bg-color);animation:tab .2s forwards !important;">
-      <div class="chart_container" style="padding: 0 15px; <?php if ($row_count !== 0) { ?>margin-top: 30px;<?php } ?>width: 100%;background:var(--chart-color) !important;<?php if ($row_count == 0) {
-                                                                                                                                                                              echo "background: #eee !important;";
-                                                                                                                                                                            } ?>">
-        <?php if ($row_count == 0) {
-          echo "<br><br><br><br><br><br><br><br><h6 class='center' style='margin: 0;color: gray'>No data in budget meter to display<br><a href='https://support.smartlist.ga/docs/#/no-data-in-budget-meter-to-display' style='color: #aaa' class='center'>More Info</a></h6>";
-        } ?><?php if ($row_count > 0) { ?><canvas id="myChart" style="width: 100%" class="ree"></canvas>
-      <?php
-            } ?>
+    <div id="News" class="tabcontent" style="background:var(--bg-color);animation:tab .2s forwards !important;padding: 10px;padding-top: 70px">
+      <div class="row" style="margin-bottom: 0 !important">
+        <div class="chart_container col s12 m12" style="<?= (($row_count !== 0) ? "background:var(--chart-color) !important;" : "background: #eee !important;") ?>height: auto !important;">
+          <div class="card">
+            <div class="card-content">
+              <?php
+              if ($row_count == 0) {
+                echo "<br><br><br><br><br><br><br><br><h6 class='center' style='margin: 0;color: gray'>No data in budget meter to display<br><a href='https://support.smartlist.ga/docs/#/no-data-in-budget-meter-to-display' style='color: #aaa' class='center'>More Info</a></h6>";
+              } else { ?>
+                <h5 style="margin-top: 0;">My Expenses</h5><br>
+                <!--<canvas id="myChart" style="width: 100%;display: none" class="ree"></canvas>-->
+                <canvas id="budgetMeter" style="width: 100%;"></canvas>
+                <div id="chart"> </div>
+              <?php } ?>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="row" style="padding: 0 15px">
-        <div id="test1" class="col s12 m6" style="padding: 10px;padding-bottom:0;">
+      <div class="row">
+        <div id="test1" class="col s12 m6">
           <div>
             <?php
             try {
@@ -672,13 +711,13 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 echo "Error is: " . $e->getmessage();
               }
             } else {
-              echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Todo</h5><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div></div>";
+              echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Todo</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div></div>";
             }
             ?>
             <?php include('./rooms/starred.php'); ?>
           </div>
         </div>
-        <div class="col s12 m6" style="padding: 10px;padding-bottom:0;">
+        <div class="col s12 m6">
           <div id="grocery_list"><?php
                                   try {
                                     $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -694,7 +733,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                                       $sql = "SELECT * FROM grocerylist WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
                                       $users = $dbh->query($sql);
-                                      echo "<div class='card fade-up'><div class='card-content'><h5 style='margin-top:0'>Grocery List<a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
+                                      echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List<a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
                                       foreach ($users as $todo_listx) {
                                         echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . $todo_listx['name'] . '</b><br>Quantity: ' . $todo_listx['qty'] . '</span></label></p>';
                                       }
@@ -703,7 +742,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       echo "Error is: " . $e->getmessage();
                                     }
                                   } else {
-                                    echo "<div class='card fade-up'><div class='card-content'><h5 style='margin-top:0'>Grocery List</h5><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'><br><p class='center'>Nothing in your grocery list.... Good Job! </p></div></div>";
+                                    echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Nothing in your grocery list.... Good Job! </p></div></div>";
                                   }
                                   ?>
           </div>
@@ -842,16 +881,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </div>
       </div>
     </div>
-    <div id="searchresults" class="tabcontent">
-      <div class="container">
-        <h5 class="center" style="color: var(--font-color)">Search results for "<span id="sr"></span>"</h5>
-        <div class="chip"> <img loading="lazy" src="<?php echo $_SESSION['avatar']; ?>" alt="Contact Person"> By:
-          <?php echo $_SESSION['name']; ?> </div>
-        <script>
-          var sr_res = []
-        </script>
-      </div>
-    </div>
     <nav style="position:fixed;background: #212121;z-index:10000;top:0;display:none;overflow:visible;overflow-y: hidden" id="secondary_nav">
       <div class="nav-wrapper">
         <a href="javascript:void(0)" class="brand-logo left hide-on-large-only" onclick="back();" style="margin-left: 7px !important;margin-top: 0 !important"><i class="material-icons-round">arrow_back</i> <span style="font-size: 20px;position: relative;top: -3px;">Details</span></a>
@@ -895,13 +924,14 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </form>
       </div>
     </div>
+    <input id="copyToClipboard" type="hidden">
     <div id="item_popup" style="animation: fade .2s forwards" class="tabcontent">
       <!--ITEM_POPUP-->
       <div class="container">
         <div class="hide-on-med-and-down" style="margin-top: 50px;"></div>
-        <h3 id="item_title" class="fade-up" style="width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></h3>
-        <h5 id="item_qty" class="fade-up" style="animation-delay: .1s"></h5>
-        <p class="flow-text fade-up" style="animation-delay: .2s" id="item_desc"></p>
+        <h3 id="item_title" onclick="copyToClipboard(this.innerText)" class="fade-up" style="cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></h3>
+        <h5 id="item_qty" class="fade-up" style="animation-delay: .1s" onclick="copyToClipboard(this.innerText)"></h5>
+        <p class="flow-text fade-up" style="animation-delay: .2s" id="item_desc" onclick="copyToClipboard(this.innerText)"></p>
         <div class="collection z-depth-2 fade-up" style="animation-delay: .3s;padding:0" id="item_options">
           <a href="javascript:void(0)" class="collection-item waves-effect" id="action_edit" style="color:gray"><i class="material-icons-round left">edit</i>Edit</a>
           <a href="javascript:void(0)" class="collection-item waves-effect" style="color:gray" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a>
@@ -918,17 +948,22 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <a href="javascript:void(0)" onclick="back();" class="hide-on-small-only btn waves-effect" style="background: #<?php echo htmlspecialchars($theme_light); ?>"><i class="material-icons-round left">arrow_back</i>Back</a>
       </div>
     </div>
+
+
     <!-- AJAX LOADERS -->
+    <div id="finances" class="tabcontent"></div>
     <div id="div1"></div>
     <div id="bathroom_add" class="tabcontent"> </div>
     <div id="dining_room" class="tabcontent"></div>
     <div id="family" class="tabcontent"></div>
     <div id="croom_add" class="tabcontent"></div>
+    <div id="searchresults" class="tabcontent"> </div>
     <div id="bathroom" class="tabcontent"></div>
     <div id="garage_add" class="tabcontent"> </div>
     <div id="add_family" class="tabcontent"></div>
     <div id="storage" class="tabcontent"></div>
     <div id="addkitchen" class="tabcontent"> </div>
+    <div id="budgetmetermodal" class="tabcontent"> </div>
     <div id="gl" class="tabcontent"></div>
     <div id="foodwaste" class="tabcontent"></div>
     <div id="grocerylist_add" class="tabcontent"></div>
@@ -950,36 +985,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <div id='custom_room' class='tabcontent'></div>
     <div id="STARRED_ITEMS" class="tabcontent"></div>
     <div id="laundryroom" class="tabcontent"></div>
+
+    <div id="pair2" class="tabcontent"> </div>
     <!-- END AJAX LOADERS -->
-    <div id="pair2" class="tabcontent" style="position:fixed;top:0;left:0;z-index:999999;width:100%;overflow-y:scroll">
-      <nav style="position:fixed;top:0;left:0;z-index:2;width:100%;background: #212121">
-        <ul>
-          <li> <a href="javascript:void(0)" class="waves-effect waves-light" onclick="sm_page('modal1')" style="margin-left: 1px;border-radius:999px;"><i class="material-icons-round" style="color:white" onclick="sm_page('News')">arrow_back</i></a> </li>
-        </ul>
-      </nav>
-      <div class='container'>
-        <h4>Pair your account</h4> <br>
-        <div style='background:#eee;padding: 10px;'>
-          <p>Step #1 - Request access</p>
-          <form action="pair.php" method="GET">
-            <div class='input-field'> <label>Login ID...</label> <input type="number" name="pairingaccountid">
-              <span style='color:#aaa'>To pair, you will need to know the other person's login ID. You can find
-                yours in the settings page</span>
-            </div> <button type="submit" class="btn purple darken-3 waves-effect">Change</button>
-        </div>
-      </div>
-      </form> <br>
-      <div class="container">
-        <div style='background:#eee;padding: 10px;'> <a href="javascript:void(0)" onclick="AJAX_LOAD('#paira', 'https://smartlist.ga/dashboard/resources/pair_req.php')" class="right waves-effect btn purple darken-3">Refresh</a>
-          <p><b>Step #2 - View requests</b></p>
-          <div id='paira'></div>
-        </div><br>
-        <div style='background:#eee;padding: 10px;'> <a href="javascript:void(0)" id="account_pair_view" class="right waves-effect btn purple darken-3">Refresh</a>
-          <p><b>Step #3 - View current accounts paired to yours</b></p>
-          <div id='pairb'></div>
-        </div>
-      </div>
-    </div>
+
+
     <div id="ajax_loader" class="tabcontent" style="margin-top: 0 !important">
       <!--<center><br><br><br><svg class='circular' height='50' width='50'>-->
       <!--    <circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />-->
@@ -1019,9 +1029,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <a href="javascript:void(0)" id="rclick_delete" class="modal-close waves-effect"><i class="material-icons-round left">delete</i> Delete</a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/js/materialize.min.js"></script>
-  <script src="./js/app.js?t=1451"></script>
+  <script src="./js/app.js?t=<?php echo rand(0, 9999999); ?>"></script>
   <script defer>
     function qq() {
+      $("#noSearchResultsHeading").show();
+      $("#noSearchResultsContainer").hide()
       var input, filter, ul, li, a, i, txtValue;
       input = document.getElementById("q");
       filter = input.value.toUpperCase();
@@ -1031,10 +1043,14 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         a = li[i].getElementsByTagName("a")[0];
         txtValue = a.textContent || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
+          li[i].classList.remove('hide')
         } else {
-          li[i].style.display = "none";
+          li[i].classList.add('hide')
         }
+      }
+      if ($("#search_results li:not(.hide)").length == 0) {
+        $('#noSearchResultsHeading').hide();
+        $("#noSearchResultsContainer").show()
       }
     }
     const user = {
@@ -1066,10 +1082,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         }
         $dbh = null;
         echo "],"; ?> order: 2,
+        fill: true,
+        tension: 0.3,
         borderColor: user.bmBorderColor,
         backgroundColor: user.bmBgColor,
         pointBorderColor: 'rgba(0, 188, 212, 0)',
-        pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+        pointBackgroundColor: 'rgba(0, 188, 212, 0)',
       },
       {
         label: 'Budget',
@@ -1080,7 +1098,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                   foreach ($users as $row) {
                     echo $goal . ", ";
                   }
-                  echo $goal . ", ";
                   $dbh = null;
                 } catch (PDOexception $e) {
                   echo "Error is: " . $e->getmessage();
@@ -1103,11 +1120,86 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       });
       ctx.height = 500;
     }
+    var ctx = document.getElementById('budgetMeter').getContext('2d');
+    var budgetMeter = new Chart(ctx, {
+      type: 'line',
+      data: __bmglobal,
+      options: __bmconfig,
+    });
     var __bmgoal = <?php if (isset($goal)) {
                       echo $goal;
                     } else {
                       echo 0;
                     } ?>;
+    $(document).ready(function() {
+      $('a').attr('draggable', false);
+    });
+    var ele = document.documentElement;
+    // ele.style.cursor = 'grab';
+
+    let pos = {
+      top: 0,
+      left: 0,
+      x: 0,
+      y: 0
+    };
+
+    var mouseDownHandler = function(e) {
+      // ele.style.cursor = 'grabbing';
+      ele.style.userSelect = 'none';
+
+      pos = {
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    var mouseMoveHandler = function(e) {
+      // How far the mouse has been moved
+      var dx = e.clientX - pos.x;
+      var dy = e.clientY - pos.y;
+
+      // Scroll the element
+      ele.scrollTop = pos.top - dy;
+      ele.scrollLeft = pos.left - dx;
+    };
+
+    var mouseUpHandler = function() {
+      // ele.style.cursor = 'grab';
+      ele.style.removeProperty('user-select');
+
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    // Attach the handler
+    ele.addEventListener('mousedown', mouseDownHandler);
+
+
+    // var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    // chart.render();
+    function copyToClipboard(data) {
+      console.log(data)
+      var copyText = document.getElementById("copyToClipboard");
+      copyText.type = 'text';
+      copyText.value = data;
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+      document.execCommand("copy");
+      M.toast({
+        html: "Copied text to Clipboard"
+      });
+      copyText.type = 'hidden';
+
+    }
+
     <?php if (isset($_GET['item'])) { ?> $(document).ready(function() {
         sm_page('addkitchen');
       });
@@ -1129,48 +1221,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                       // if (isset($_GET["room"])) { $t = $_GET["room"]; if ($t == "10") { echo "sm_page('Contact', this,'' );AJAX_LOAD('#Contact', './rooms/kitchen/view.php')"; } elseif ($t == "1") { echo "sm_page('Contact');AJAX_LOAD('#Contact', './rooms/kitchen/view.php')"; } elseif ($t == "3") { echo "sm_page('Home');AJAX_LOAD('#Home', './rooms/bedroom/view.php');nav_title('Bedroom')"; } elseif ($t == "g") { echo "sm_page('About');nav_title('Garage')"; } elseif ($t == "bathroom") { echo "sm_page('bathroom');AJAX_LOAD('#bathroom', './rooms/bathroom/view.php');nav_title('Bathroom')"; } elseif ($t == "storage") { echo "sm_page('storage');AJAX_LOAD('#storage', './rooms/storage/view.php');nav_title('Storage Room')"; } elseif ($t == "family") { echo "sm_page('family');AJAX_LOAD('#family', './rooms/family/view.php');nav_title('Family Room')"; } elseif ($t == "laundry") { echo "sm_page('laundryroom');AJAX_LOAD('#laundryroom', './rooms/laundry/view.php');nav_title('Laundry Room')"; } elseif ($t == "dining_room") { echo "sm_page('dining_room');AJAX_LOAD('#dining_room', './rooms/dining_room/view.php');nav_title('Dining Room')"; } } elseif (!isset($_GET["room"])) { echo "sm_page('News', this, );"; }
                       //  echo "$(document).ready(function() { $('#bmmodal').modal('open'); document.getElementById('bm_amount').focus() });";
                       ?>
-
-    function mtoggle(el) {
-      el.classList.toggle('green');
-      el.classList.toggle('darken-3');
-      el.classList.toggle('white-text');
-    }
-    $("#search_bar").submit(function(e) {
-      e.preventDefault();
-      var form = $(this);
-      sm_page('ajax_loader');
-      var url = form.attr('action');
-      $.ajax({
-        type: "POST",
-        url: url,
-        data: form.serialize(),
-        success: function(data) {
-          document.getElementById('searchresults').innerHTML = data;
-          qq();
-          sm_page('searchresults');
-        }
-      });
-
-
-    });
-    window.addEventListener('load', function() {
-      var btns = document.querySelectorAll('.links a');
-      for (i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("keyup", function(event) {
-          if (event.keyCode === 13) {
-            event.preventDefault();
-            this.click();
-          }
-        });
-      }
-    });
-    var interval = setInterval(function() {
-      if (sessionStorage.getItem('status') == null) {
-        clearInterval(interval)
-        window.location.href = "http://smartlist.ga/dashboard/login.php?inactive";
-        // alert(1)
-      }
-    }, 300000);
   </script>
   <?php if (!empty($notifications)) { ?>
     <script defer>
@@ -1206,6 +1256,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <?php } ?>
 </body>
 
-</html> <?php if (isset($_GET['query'])) {
-          echo "<script> document.body.addEventListener('load', function() { setTimeout(function(){ document.getElementById('search').value = " . json_encode($_GET['query']) . "; changeValue(); filter(); sm_page('searchresults',this, ''); }, 1000); }); </script>";
-        } ?>
+</html>
+<?php if (isset($_GET['query'])) {
+  echo "<script> document.body.addEventListener('load', function() { setTimeout(function(){ document.getElementById('search').value = " . json_encode($_GET['query']) . ";}, 1000); }); </script>";
+} ?>

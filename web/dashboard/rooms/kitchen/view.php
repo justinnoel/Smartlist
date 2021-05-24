@@ -17,13 +17,13 @@ include('../../cred.php');
     echo '<table class="table container" id="kitchen_table">
       <div class="container"><input type="search" style="display:none" id="kitchen_search" placeholder="Search..."></div></div>
       <tr class="hover">
-        <td onclick="sortTable(0)"><b>Name</b></td>
-        <td onclick="sortTable(1)"><b>Quantity</b></td>
+        <td onclick="sortTable(0)" style="width: 50%"><b>Name</b></td>
+        <td onclick="sortTable(1)" style="width: 50%"><b>Quantity</b></td>
       </tr>
 ';
 foreach ($users as $row)
     {
-      echo "<tr class=\"draggable\" data-id='".intval($row['id'])."' id='kitchentr_".$row['id']."' onclick='item(".$row['id'].", ".json_encode(decrypt($row['name'])).", ".json_encode(decrypt($row['qty']))." , ".json_encode(decrypt($row['price'])).",  \"\", \"kitchen\", ".json_encode($row['star']).")' ".($row['star'] == 1 ? 'style=\'border-left: 3px solid #f57f17;\'' : '')."><td>".decrypt($row['name'])."</td><td> ".decrypt($row['qty'])." </td></tr>";
+      echo "<tr class=\"draggable\" tabindex='0' data-id='".intval($row['id'])."' id='kitchentr_".$row['id']."' onclick='item(".$row['id'].", ".json_encode(decrypt($row['name'])).", ".json_encode(decrypt($row['qty']))." , ".json_encode(decrypt($row['price'])).",  \"\", \"kitchen\", ".json_encode($row['star']).")' ".($row['star'] == 1 ? 'style=\'border-left: 3px solid #f57f17;\'' : '')."><td>".decrypt($row['name'])."</td><td> ".decrypt($row['qty'])." </td></tr>";
     }
     $dbh = null;
   }
@@ -45,11 +45,11 @@ function sortTable(n) {
   dir = "asc";
   while (switching) {
     switching = false;
-    rows = table.rows;
+    rows = table.querySelectorAll('tr:not(:last-child)');
     for (i = 1; i < (rows.length - 1); i++) {
       shouldSwitch = false;
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
+      x = rows[i].querySelectorAll("td")[n];
+      y = rows[i + 1].querySelectorAll("td")[n];
       if (dir == "asc") {
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
           shouldSwitch = true;
@@ -74,4 +74,6 @@ function sortTable(n) {
     }
   }
 }
+  addPagerToTables('#kitchen_table', 15);
+
   </script>

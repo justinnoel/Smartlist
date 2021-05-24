@@ -9,7 +9,7 @@ include('../../../cred.php');
     $sql = "SELECT * FROM family WHERE login_id=" . $_SESSION['id'];
     $users = $dbh->query($sql);
     foreach ($users as $row) {
-      echo str_replace(',', '', $row['name']). ", ". str_replace(',', '', $row['qty']). "\n";
+      echo str_replace(',', '', decrypt($row['name'])). ", ". str_replace(',', '', decrypt($row['qty'])). "\n";
     }
     $dbh = null;
   }

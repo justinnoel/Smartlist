@@ -5,8 +5,8 @@ $q = str_replace('"', '', trim($_POST['query']));
 ?>
 <br>
 <div class="container">
-<h5>Search results for "<?php echo htmlspecialchars($q); ?>"</h5><br>
-<input id='q' value="<?php echo $q; ?>" type="hidden" oninput="qq()">
+<h5 id="noSearchResultsHeading">Search results for "<?php echo htmlspecialchars($q); ?>"</h5><br>
+<input id='q' value="<?php echo $q; ?>" type="hidden" oninput="">
 <ul class="collection" id="search_results">
 <?php
 try
@@ -270,3 +270,16 @@ catch(PDOexception $e) { echo "Error is: " . $e->etmessage(); }
 
 </ul>
 </div>
+<div style="display:none" id="noSearchResultsContainer">
+    <div class="container">
+        <div class="container center">
+            <img src="https://i.ibb.co/7y844v7/acc336e913e7b393292965434d5a48bf.png" width="100%">
+            <h5><b>No results found</b></h5>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function() {
+        qq();
+    }, 400)
+</script>

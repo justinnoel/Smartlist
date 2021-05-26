@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include('../cred.php'); 
+include('../../cred.php'); 
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $sql = "SELECT * FROM login WHERE id=" . $_SESSION['id'];
 $users = $dbh->query($sql);

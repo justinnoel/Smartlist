@@ -170,6 +170,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <meta name="keywords" content="Smartlist, Smartlist dashboard, Smart List, List, Inventory, Home, Smartlist app, Smart list app, Smartlist Dashboard, Smartlist login, Smartlist Signup, Smartlist login, free home inventory app, free, home, inventory, app">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="#2a1782">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>-->
@@ -191,6 +192,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <meta property="og:site_name" content="smartlist.ga" />
   <meta property="og:title" content="Smartlist" />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Smartlist-app/Assets/cover.png" />
+
+  <meta property="og:url" content="https://smartlist.ga/dashboard/beta" />
   <meta property="og:description" content="Smartlist is a free home inventory app that lets you keep track of what you have in your home, and helps you save money" />
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@Smartlist">
@@ -230,7 +234,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     * {
       user-drag: none
     }
-
+    .sync_tr {
+        background: rgba(0, 121, 107, .1) !important;
+    }
     .pagination_btn {
       padding: 15px;
       width: 40px;
@@ -365,7 +371,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <h4>Add a point</h4>
         <p>Enter how much you spent today</p>
         <div class="input-field"> <i class="material-icons-round prefix">attach_money</i> <label>Amount you
-            spent</label> <input type="number" name="qty" required id="bm_amount" autocomplete='off'> </div>
+            spent</label> <input type="number" name="qty" required id="bm_amount" autocomplete='off' autofocus> </div>
         <p style="margin-top: 20px"><i class="material-icons-round left">verified</i> We take your privacy very
           seriously, and we will never sell your data. <a href="https://support.smartlist.ga/docs/#/privacy-policy" class="blue-text">Read our Privacy Statement</a></p><br>
         <input type="submit" name="Submit" value="Add" class="btn purple darken-3">
@@ -436,7 +442,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Dashboard');sm_page('News');AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');" id="defaultOpen"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested');AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="<?php if (!admin()) { ?>sidenav_highlight(this); <?php } ?>change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './finances/index.php')"><i class="material-icons-round">money</i>Budget Dashboard <span class="new-badge">New!</span></a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="<?php if (!admin()) { ?>sidenav_highlight(this); <?php } ?>change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">money</i>Budget Dashboard <span class="new-badge">New!</span></a></li>
     <li class="links" style="display:none"><a class="waves-effect" onclick="change_title('Loading...');sm_page('loader');"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li style="pointer-events:none">
       <div class="divider"></div>
@@ -572,12 +578,13 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="container" id="settingsContainer">
         <div class="row" style="margin-top: 10px">
           <div style="padding: 0 !important" class="col s12 m3 __sidebar">
-            <div class="collection" style="border:1px solid #ccc;border-radius: 5px;" id='_settingsmenu'> <a href="javascript:void(0)" id="__def" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Account</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_privacy', './user/settings/privacy.php', 'box')" class="collection-item waves-effect"><span>Privacy</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_notifications', './user/settings/notifications.php', 'box')" class="collection-item waves-effect"><span>Notifications</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_rooms', './user/settings/rooms.php', 'box')" class="collection-item waves-effect"><span>Rooms</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Appearance</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_sync', './user/settings/sync.php', 'box')" class="collection-item waves-effect" class="collection-item waves-effect"><span>Sync</span></a> <a href="javascript:void(0)" class="collection-item waves-effect" style="opacity:.8;pointer-events:none"><span>Labels - Coming Soon!</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>App</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_developer', './user/settings/developer.php', 'box')" class="collection-item waves-effect"><span>Developer</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_support', './user/settings/support.php', 'box')" class="collection-item waves-effect"><span>Support</span></a>
+            <div class="collection" style="border:1px solid #ccc;border-radius: 5px;" id='_settingsmenu'> <a href="javascript:void(0)" id="__def" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Account</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_privacy', './user/settings/privacy.php', 'box')" class="collection-item waves-effect"><span>Privacy</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_notifications', './user/settings/notifications.php', 'box')" class="collection-item waves-effect"><span>Notifications</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_rooms', './user/settings/rooms.php', 'box')" class="collection-item waves-effect"><span>Rooms</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Appearance</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_sync', './user/settings/sync.php', 'box')" class="collection-item waves-effect" class="collection-item waves-effect"><span>Sync</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_categories', './user/settings/categories.php', 'box')" class="collection-item waves-effect"<?php if(!admin()) {?> style="opacity:.8;pointer-events:none"<?php } ?>><div class="new-badge right">New!</div><span>Categories </span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>App</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_developer', './user/settings/developer.php', 'box')" class="collection-item waves-effect"><span>Developer</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_support', './user/settings/support.php', 'box')" class="collection-item waves-effect"><span>Support</span></a>
               <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_backup', './user/settings/backup.php', 'box')" class="collection-item waves-effect"><span>Backup</span></a>
               <a href="logout.php" class="collection-item waves-effect"><span>Log Out</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_other', './user/settings/other.php', 'box')" class="collection-item waves-effect"><span>Other</span></a>
             </div>
           </div>
           <div class="col s12 m9">
+          <div id="_smSettingsPage_categories" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_backup" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_account" class="__SETTINGSPAGE">
               <div class="row">
@@ -668,12 +675,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </div>
     <div id="News" class="tabcontent" style="background:var(--bg-color);animation:tab .2s forwards !important;padding: 10px;padding-top: 70px">
       <div class="row" style="margin-bottom: 0 !important">
-        <div class="chart_container col s12 m12" style="<?= (($row_count !== 0) ? "background:var(--chart-color) !important;" : "background: #eee !important;") ?>height: auto !important;">
-          <div class="card">
+        <div class="chart_container col s12 m12" style="<?= (($row_count !== 0) ? "background:var(--chart-color) !important;" : "") ?>height: auto !important;">
+          <div class="card"<?=(($row_count == 0) ? "style='padding: 100px !important'" : "")?>>
             <div class="card-content">
               <?php
               if ($row_count == 0) {
-                echo "<br><br><br><br><br><br><br><br><h6 class='center' style='margin: 0;color: gray'>No data in budget meter to display<br><a href='https://support.smartlist.ga/docs/#/no-data-in-budget-meter-to-display' style='color: #aaa' class='center'>More Info</a></h6>";
+                echo "<h6 class='center' style='margin: 0;color: gray'>No data in budget meter to display<br><a href='https://support.smartlist.ga/docs/#/no-data-in-budget-meter-to-display' style='color: #aaa' class='center'>More Info</a></h6>";
               } else { ?>
                 <h5 style="margin-top: 0;">My Expenses</h5><br>
                 <!--<canvas id="myChart" style="width: 100%;display: none" class="ree"></canvas>-->
@@ -1126,11 +1133,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       data: __bmglobal,
       options: __bmconfig,
     });
-    var __bmgoal = <?php if (isset($goal)) {
-                      echo $goal;
-                    } else {
-                      echo 0;
-                    } ?>;
+    var __bmgoal = <?=(isset($goal) ? $goal : 0 );?>;
     $(document).ready(function() {
       $('a').attr('draggable', false);
     });

@@ -23,7 +23,7 @@ include('../../cred.php');
 ';
 foreach ($users as $row)
     {
-      echo "<tr class=\"draggable\" tabindex='0' data-id='".intval($row['id'])."' id='kitchentr_".$row['id']."' onclick='item(".$row['id'].", ".json_encode(decrypt($row['name'])).", ".json_encode(decrypt($row['qty']))." , ".json_encode(decrypt($row['price'])).",  \"\", \"kitchen\", ".json_encode($row['star']).")' ".($row['star'] == 1 ? 'style=\'border-left: 3px solid #f57f17;\'' : '')."><td>".decrypt($row['name'])."</td><td> ".decrypt($row['qty'])." </td></tr>";
+      echo "<tr class=\"draggable".($row['login_id'] !== $_SESSION['id'] ? " sync_tr" : "")."\" tabindex='0' data-id='".intval($row['id'])."' id='kitchentr_".$row['id']."' onclick='item(".$row['id'].", ".json_encode(decrypt($row['name'])).", ".json_encode(decrypt($row['qty']))." , ".json_encode(decrypt($row['price'])).",  \"./rooms/kitchen/\", \"kitchen\", ".json_encode($row['star']).")' ".($row['star'] == 1 ? 'style=\'border-left: 3px solid #f57f17;\'' : '')."><td>".decrypt($row['name'])."</td><td> ".decrypt($row['qty'])." </td></tr>";
     }
     $dbh = null;
   }

@@ -1,16 +1,11 @@
 <?php
-// Update the details below with your MySQL details
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'bcxkspna';
-$DATABASE_PASS = 'Q$J~:4GI!7+E';
-$DATABASE_NAME = 'bcxkspna_comments';
+include("../../cred.php");
+$dbname = "bcxkspna_comments";
 try {
-    $pdo = new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
+    $pdo = new PDO('mysql:host=' . $servername . ';dbname=' . $dbname . ';charset=utf8', $username, $password);
 } catch (PDOException $exception) {
-    // If there is an error with the connection, stop the script and display the error
     exit('Failed to connect to database!');
 }
-// Below function will convert datetime to time elapsed string
 function time_elapsed_string($datetime, $full = false) {
     $now = new DateTime;
     $ago = new DateTime($datetime);
@@ -28,17 +23,13 @@ function time_elapsed_string($datetime, $full = false) {
     if (!$full) $string = array_slice($string, 0, 1);
     return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
-// This function will populate the comments and comments replies using a loop
 function show_comments($comments, $parent_id = -1) {
     $html = '';
     if ($parent_id != -1) {
-        // If the comments are replies sort them by the "submit_date" column
         array_multisort(array_column($comments, 'submit_date'), SORT_ASC, $comments);
     }
-    // Iterate the comments using the foreach loop
     foreach ($comments as $comment) {
         if ($comment['parent_id'] == $parent_id) {
-            // Add the comment to the $html variable
             $html .= '
             <div class="comment card">
                 <div class="card-content">
@@ -65,8 +56,8 @@ function show_write_comment_form($parent_id = -1) {
         <form>
             <input name="parent_id" type="hidden" value="' . $parent_id . '">
             <input name="name" type="text" placeholder="Your Name" required>
-            <textarea name="content" placeholder="Write your comment here..." required></textarea>
-            <button type="submit">Submit Comment</button>
+            <textarea name="content" placeholder="Write your comment here..." required class="materialize-textarea"></textarea>
+            <button type="submit" class="btn blue-grey darken-3 waves-effect waves-light">Submit Comment</button>
         </form>
     </div>
     ';

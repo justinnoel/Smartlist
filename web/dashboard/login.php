@@ -214,7 +214,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
         <div class="consadftainer">
           <h4><b>Hi there, Welcome back! <img class="right hello" src="https://i.pinimg.com/originals/d8/32/10/d83210d052f3e7e4a7e78bfd16a6f23e.png" width="40px"></b></h4>
           <p>Log in to access your inventory, tasks, lists, and more!</p>
-          <form method="POST" id="__login" action="https://smartlist.ga/dashboard/auth.php">
+          <form method="POST" id="__login" action="https://smartlist.ga/dashboard/login_auth.php">
             <div class="input-field" onclick="this.getElementsByTagName('input')[0].focus()">
               <input type="text" id="u1" name='username' autocomplete="off" spellcheck="off" autofocus>
               <label>Username</label>
@@ -243,6 +243,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
     <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/js/materialize.min.js"></script>
     <script src="https://matthias-vogt.github.io/legitRipple.js/js/ripple.js"></script>
     <script>
+    history.pushState(null, null, 'https://smartlist.ga/dashboard/auth')
       function bar0() {
         document.getElementById('bar').style.width="0%"
         document.getElementById('bar').style.width="100%"
@@ -299,7 +300,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
         setTimeout(function() {
           document.getElementById('submitBtn').innerHTML = "Login";
         }, 200);
-        // M.toast({html: "Invalid Username or Password"})
+        // M.toast({text: "Invalid Username or Password"})
       }
       $("#__login").submit(function(e) {
         e.preventDefault();
@@ -313,13 +314,13 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
           data: form.serialize(),
           success: function(data) {
             if(data == 'Invalid') {
-              M.toast({html: 'Invalid username or password'});
+              M.toast({text: 'Invalid username or password'});
               document.getElementById('bar').style.transitionDuration = '.2s';
               document.getElementById('bar').style.width='0%';
               reset();
             }
             else if(data == 'Empty') {
-              M.toast({html: 'Both fields are required'});
+              M.toast({text: 'Both fields are required'});
               reset();
             }
             else if (data == 'Valid') {
@@ -353,47 +354,29 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
         });
       });
     </script>
-		<?php if(isset($_GET['empty'])) {?>
-    <script>
-      window.onload=function() {M.toast({html: 'Login Details are empty. Please try again'})}
-      function checkCookie(){
-        var cookieEnabled = navigator.cookieEnabled;
-        if (!cookieEnabled){ 
-          document.cookie = "testcookie";
-          cookieEnabled = document.cookie.indexOf("testcookie")!=-1;
-        }
-        return cookieEnabled || showCookieFail();
-      }
-
-      function showCookieFail(){
-        document.getElementById('cbx').disabled = true;
-      }
-      checkCookie();
-    </script>
-    <?php } ?>
     <?php if(isset($_GET['logout'])) {?>
     <script>
-      window.onload=function() {M.toast({html: 'Successfully logged out of your account'})}
+      window.onload=function() {M.toast({text: 'Successfully logged out of your account'})}
     </script>
     <?php } ?>
     <?php if(isset($_GET['reg'])) {?>
     <script>
-      window.onload=function() {M.toast({html: 'Successfully signed up! Please log in to your account!'})}
+      window.onload=function() {M.toast({text: 'Successfully signed up! Please log in to your account!'})}
     </script>
     <?php } ?>
     <?php if(isset($_GET['incorrect'])) {?>
     <script>
-      window.onload=function() {M.toast({html: 'Incorrect Username or Password'})}
+      window.onload=function() {M.toast({text: 'Incorrect Username or Password'})}
     </script>
     <?php } ?>
     <?php if(isset($_GET['reset'])) {?>
     <script>
-      window.onload=function() {M.toast({html: 'Changed password successfully. Please log in again'})}
+      window.onload=function() {M.toast({text: 'Changed password successfully. Please log in again'})}
     </script>
     <?php } ?>
     <?php if(isset($_GET['sett'])) {?>
     <script>
-      window.onload=function() {M.toast({html: 'Successfully updated your settings. Please log in again'})}
+      window.onload=function() {M.toast({text: 'Successfully updated your settings. Please log in again'})}
     </script>
     <?php } ?>
   </body>

@@ -1,3 +1,7 @@
+<?php 
+session_start(); 
+include('../../cred.php');
+?>
 <div class="container">
     <form action="https://smartlist.ga/dashboard/rooms/storage/add.php" method="POST" id="storage_add_form">
         <h5>Add an item (Storage room)</h5>
@@ -9,8 +13,31 @@
             <label>Quantity</label>
             <input type="text" name="qty" autocomplete="off">
         </div>
-        <input type="hidden" name="price" value="1" autocomplete="off" required class="validate" data-length="20">
-        <button class="btn blue-grey darken-3">
+<select name="price"> 
+            <option disabled>Categories</option>
+                <option selected value="No Category Specified">No Category Specified</option> 
+                <option disabled>Other</option>
+                <?php
+                try
+                {
+                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                    $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
+                    $users = $dbh->query($sql);
+                        foreach ($users as $row){
+                            ?>
+                            <option value=<?=json_encode($row['name'])?>> <?=htmlspecialchars($row['name'])?> </option>
+                            <?php
+                    }
+                        $dbh = null;
+                }
+                catch(PDOexception $e)
+                {
+                    echo "Error is: " . $e->etmessage();
+                }
+            ?>
+            </select>
+            <script>$('select').formSelect();</script>
+            <button class="btn blue-grey darken-3">
             Submit
         </button>
     </form>
@@ -21,6 +48,7 @@
   });
     $("#storage_add_form").submit(function(e) {
         e.preventDefault();
+        sm_page("ajax_loader");
         var form = $(this);
         var url = form.attr('action');
         $.ajax({
@@ -28,6 +56,7 @@
             url: url,
             data: form.serialize(),
             success: function(data) {
+                sm_page("storage_add")
                 document.getElementById('storage_add_form').reset()
                 M.toast({html: 'Added item successfully. You can keep adding more'});
             }

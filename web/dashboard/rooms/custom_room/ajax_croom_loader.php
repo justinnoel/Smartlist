@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include_once("../cred.php");
+include_once("../../cred.php");
 try {
   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $sql = "SELECT * FROM custom_room_items WHERE login_id=".$_SESSION['id']." AND price = '".$_GET['room']."'";
@@ -14,16 +14,8 @@ try {
              <td class="d-none">Price</td>
             </tr>';
   foreach ($users as $row) {
-      echo "<tr id='croomtr_".$row['id']."' onclick=\"item('".$row['id']."', '".decrypt($row['name'])."', '".decrypt($row['qty'])."', '".$row['price']."', 'https://smartlist.ga/dashboard/rooms/laundry/', 'custom_room', '".$row['star']."')";
-      if($row['star'] == 1) {
-          echo "\" style='background: #f2f2aa'>";
-      }
-      else {echo "\">";}
-      print "<td>".decrypt($row["name"]) . "</td><td>" . decrypt($row["qty"])."";
-      if ($row['login_id'] != $_SESSION['id']) {
-               echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
-      }
-      echo "</td>";
+      echo "<tr class='".($row['login_id'] != $_SESSION['id'] ? "sync" : "")."' id='croomtr_".$row['id']."' onclick='item(".json_encode($row['id']).", ".json_encode(decrypt($row['name'])).", ".json_encode(decrypt($row['qty'])).", ".json_encode($row['label']).", \"\", \"custom_room\", ".json_encode($row['star']).")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">";
+      print "<td>".decrypt(htmlspecialchars($row["name"])) . "</td><td>" . decrypt(htmlspecialchars($row["qty"]))."</td>";
   }
   $dbh = null;
 }

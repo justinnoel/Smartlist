@@ -10,7 +10,7 @@ $sql = "SELECT * FROM roomnames WHERE login_id=" . $_SESSION['id'] . " OR login_
 $users = $dbh->query($sql);
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" style='width:100%;'><i class='material-icons-round left'>" . $row['qty'] . "</i>" . $row["name"] . " <a class='secondary-content waves-effect _room' href='https://smartlist.ga/dashboard/rooms/custom_room_delete.php?id=" . $row['id'] . "&name=" . urlencode($row['name']) . "'><i class='material-icons-round'>delete</i></a></li>";
+print "<li class=\"collection-item\" style='width:100%;'><i class='material-icons-round left'>" . $row['qty'] . "</i>" . $row["name"] . " <a class='secondary-content waves-effect _room' href='https://smartlist.ga/dashboard/rooms/custom_room/custom_room_delete.php?id=" . $row['id'] . "&name=" . urlencode($row['name']) . "'><i class='material-icons-round'>delete</i></a></li>";
 }
 $dbh = null;
 }

@@ -16,8 +16,30 @@ include('../../cred.php');
             <label>Quantity</label>
             <input type="text" name="qty" class="validate" autocomplete="off" required data-length="20">
         </div>
-        <input type="hidden" name="price" value="1" autocomplete="off" required>
-        <div class="gray-text" style="padding: 0px 10px;color: gray !important"><i class='material-icons left'>verified_user</i>All items are encrypted</div><br>
+<select name="price"> 
+            <option disabled>Categories</option>
+                <option selected value="No Category Specified">No Category Specified</option> 
+                <option disabled>Other</option>
+                <?php
+                try
+                {
+                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                    $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
+                    $users = $dbh->query($sql);
+                        foreach ($users as $row){
+                            ?>
+                            <option value=<?=json_encode($row['name'])?>> <?=htmlspecialchars($row['name'])?> </option>
+                            <?php
+                    }
+                        $dbh = null;
+                }
+                catch(PDOexception $e)
+                {
+                    echo "Error is: " . $e->etmessage();
+                }
+            ?>
+            </select>
+            <script>$('select').formSelect();</script>
          <button class="btn blue-grey darken-3">
             Submit
         </button>

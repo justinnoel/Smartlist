@@ -4,7 +4,7 @@ if(isset($_SESSION['valid'])) {
     exit;
 }
 else {
-    header('Location: https://smartlist.ga/dashboard/login');
+    header('Location: https://smartlist.ga/dashboard/auth');
     exit;
 }
 ?>

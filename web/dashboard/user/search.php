@@ -39,6 +39,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
             <b><a href='javascript:void(0)'>". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Kitchen</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -60,6 +62,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)' onclick=\"change_title('Garage');sm_page('About');AJAX_LOAD('#About', './rooms/garage/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Garage</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -81,6 +85,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)' onclick=\"change_title('Bedroom');sm_page('Home');AJAX_LOAD('#Home', './rooms/bedroom/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Bedroom</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -102,6 +108,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)'onclick=\" change_title('Bathroom');sm_page('bathroom');AJAX_LOAD('#bathroom', './rooms/bathroom/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Bathroom</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -123,6 +131,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)' onclick=\"change_title('Family Room');sm_page('family');AJAX_LOAD('#family', './rooms/family/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Family Room</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -144,6 +154,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)' onclick=\"change_title('Storage Room');sm_page('storage');AJAX_LOAD('#storage', './rooms/storage/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Storage Room</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -165,6 +177,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)'>". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Laundry</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -186,6 +200,8 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
 
             <b><a href='javascript:void(0)'>". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Dining Room</span>
+            <br>
+            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."
        </li>";
 }
 $dbh = null;
@@ -261,6 +277,8 @@ foreach ($users as $row)
 print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
             <b><a href='javascript:void(0)' onclick=\"load_croom('" . str_replace('"', '', str_replace("'", "", $row['price'])) . "', '" . str_replace('"', '', str_replace("'", "", decrypt($row['name']))) . "')\"\">". htmlspecialchars(decrypt($row["name"])). "</a></b>
             <br><span>Custom room Item</span>
+            <br>
+            ".($row["label"] !== "No Category Specified" && !empty($row["label"]) && isset($row["label"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars($row['label']).'</div>' : "")."
        </li>";
 }
 $dbh = null;

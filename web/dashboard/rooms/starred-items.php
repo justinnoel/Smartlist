@@ -12,7 +12,7 @@ include('../cred.php');
                  </tr>';
        foreach ($users as $row) {
            echo "<tr class='draggables' id='tr_star_".$row['id']."'>";
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."</td><td>Kitchen</td></tr>";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Kitchen</td></tr>";
        }
        $dbh = null;
    }
@@ -27,11 +27,11 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
            }
-           echo "</td><td>Bedroom</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Bedroom</td></tr>";
        }
        $dbh = null;
    }
@@ -46,11 +46,30 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
            }
-           echo "</td><td>Garage</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Garage</td></tr>";
+       }
+       $dbh = null;
+   }
+   catch (PDOexception $e) {
+       echo "Error is: " . $e-> etmessage();
+   }  
+   try {
+       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+       $sql = "SELECT * FROM custom_room_items WHERE star = 1 AND (login_id='".$_SESSION['id']."' OR login_id='".$_SESSION['syncid']."')";
+       $users = $dbh->query($sql);
+       $KITCHEN_VAR_COUNT = $users->rowCount();
+       foreach ($users as $row) {
+           echo "<tr class='draggables'>";
+           
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           if ($row['login_id'] != $_SESSION['id']) {
+                    echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
+           }
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Custom Room</td></tr>";
        }
        $dbh = null;
    }
@@ -65,11 +84,11 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
            }
-           echo "</td><td>Bathroom</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Bathroom</td></tr>";
        }
        $dbh = null;
    }
@@ -84,11 +103,11 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
            }
-           echo "</td><td>Family room</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Family room</td></tr>";
        }
        $dbh = null;
    }
@@ -103,11 +122,11 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
            }
-           echo "</td><td>Laundry</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Laundry</td></tr>";
        }
        $dbh = null;
    }
@@ -122,11 +141,11 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge synced'>Synced</span>";
            }
-           echo "</td><td>Camping</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Camping</td></tr>";
        }
        $dbh = null;
    }
@@ -141,11 +160,11 @@ include('../cred.php');
        foreach ($users as $row) {
            echo "<tr class='draggables'>";
            
-           print "<td>".htmlspecialchars(decrypt($row["name"])) . "</td><td>" . htmlspecialchars(decrypt($row["qty"])) ."";
+           print "<td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>".htmlspecialchars(decrypt($row["name"])) . "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>" . htmlspecialchars(decrypt($row["qty"])) ."";
            if ($row['login_id'] != $_SESSION['id']) {
                     echo "<span clas='badge red' style='float:right;color:white;padding: 4px;background: #2BBBAD !Important'>Synced</span>";
            }
-           echo "</td><td>Storage</td></tr>";
+           echo "</td><td class='cursor-pointer' onclick='copyToClipboard(this.innerText)'>Storage</td></tr>";
        }
        $dbh = null;
    }

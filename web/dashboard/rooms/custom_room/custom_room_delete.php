@@ -1,13 +1,13 @@
 <?php
 session_start(); 
-$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 if($_GET['confirm'] == 'true') {
-include("../connection.php");
-$id = $_GET['id'];
-$name = $_GET['name'];
-$result=mysqli_query($mysqli, "DELETE FROM roomnames WHERE id=$id AND login_id=".$_SESSION['id']);
-$result1=mysqli_query($mysqli, "DELETE FROM custom_room_items WHERE price='$name' AND login_id=".$_SESSION['id']);
-header('Location: https://smartlist.ga/dashboard/beta');
+    include("../../cred.php");
+    $id = $_GET['id'];
+    $name = $_GET['name'];
+    $result= mysqli_query($mysqli, "DELETE FROM roomnames WHERE id=$id AND login_id=".$_SESSION['id']);
+    $result1= mysqli_query($mysqli, "DELETE FROM custom_room_items WHERE price='$name' AND login_id=".$_SESSION['id']);
+    header('Location: https://smartlist.ga/dashboard/beta');
 }
 ?><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0PH6N0Z7E"></script>

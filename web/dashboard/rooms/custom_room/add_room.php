@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_POST['submit'])) {
-include('../cred.php');
+include('../../cred.php');
 $name = str_replace("<", "",str_replace("?", "", str_replace("'", "", $_POST['name'])));
 $qty = str_replace("<", "",str_replace("?", "", str_replace("'", "",$_POST['icon'])));
 $loginId = $_SESSION['id'];

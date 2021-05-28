@@ -2,19 +2,19 @@
 session_start(); 
 include('../../cred.php');
 ?>
-<br><br>
 <div class="container">
-<form action="https://smartlist.ga/dashboard/rooms/camping/add.php" method="POST" id="camping_add_form">
-        <h5>Add an item (Camping Supplies)</h5>
+<form action="https://smartlist.ga/dashboard/rooms/custom_room/custom_room_adder.php?room=<?php echo $_GET['room']; ?>" method="POST" id="croom_form">
+        <h5>Add an item</h5>
         <div class="input-field">
             <label>Name</label>
-            <input type="text" name="name" autofocus autocomplete="off" required class="validate" data-length="150">
+            <input type="text" name="name" autofocus autocomplete="off" class="validate" required data-length="150">
         </div>
         <div class="input-field">
             <label>Quantity</label>
-            <input type="text" name="qty" autocomplete="off">
+            <input type="text" name="qty" autocomplete="off" class="validate" data-length="20">
         </div>
-<select name="price"> 
+        <input type="hidden" name="price" value="<?php echo $_GET['room']; ?>" autocomplete="off" required>
+        <select name="label"> 
             <option disabled>Categories</option>
                 <option selected value="No Category Specified">No Category Specified</option> 
                 <option disabled>Other</option>
@@ -37,8 +37,7 @@ include('../../cred.php');
                 }
             ?>
             </select>
-            <script>$('select').formSelect();</script>
-            <button class="btn blue-grey darken-3">
+        <button class="btn blue-grey darken-3">
             Submit
         </button>
     </form>
@@ -46,8 +45,9 @@ include('../../cred.php');
 <script>
  $(document).ready(function() {
     $('.validate').characterCounter();
+    $("select").formSelect()
   });
-    $("#camping_add_form").submit(function(e) {
+    $("#croom_form").submit(function(e) {
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action');
@@ -57,8 +57,9 @@ include('../../cred.php');
             url: url,
             data: form.serialize(),
             success: function(data) {
-                sm_page('camping_add');
-                document.getElementById('camping_add_form').reset();
+                sm_page('croom_add');
+                // $('.collapsible').collapsible('open')
+                document.getElementById('croom_form').reset();
                 M.toast({html: 'Added item successfully. You can keep adding more'});
             }
         });

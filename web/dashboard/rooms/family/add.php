@@ -14,7 +14,7 @@ try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sql = "INSERT INTO family(name, qty, price, login_id) 
-  VALUES(".json_encode(encrypt($name)).",".json_encode(encrypt($qty)).", ".json_encode(encrypt(1)).", ".json_encode($loginId).")";
+  VALUES(".json_encode(encrypt($name)).",".json_encode(encrypt($qty)).", ".json_encode(encrypt($price)).", ".json_encode($loginId).")";
   $conn->exec($sql);
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

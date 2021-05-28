@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-include('../cred.php');
+include('../../cred.php');
 $id = $_POST['id'];
 $name = $_POST['name'];
 $qty = $_POST['qty'];

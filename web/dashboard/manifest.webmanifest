@@ -1,6 +1,6 @@
 {
   "name": "Smartlist",
-  "start_url": "https://smartlist.ga/dashboard/",
+  "start_url": "https://smartlist.ga/dashboard/beta",
   "scope": "https://smartlist.ga/dashboard/",
   "background_color": "#2a1782",
   "description": "Smartlist is a home inventory app that lets you keep track of what you have in your home for free",

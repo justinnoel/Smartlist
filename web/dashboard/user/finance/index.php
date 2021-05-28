@@ -46,7 +46,6 @@ catch (PDOexception $e) {
         padding: 10px;
         width: 100%;
         border-radius: 3px;
-        margin-left: 10px;
         margin-bottom: 10px;
     }
     .status {
@@ -93,14 +92,14 @@ catch (PDOexception $e) {
     </div>
     
     <div class="row">
-        <div class="col s12 m6">
+        <div class="col s12 m12">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title" style="font-weight: bold !important"><b>Amount spent overall</b></span>
                     <?php
                         try {
                             $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                            $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC LIMIT 10";
+                            $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC LIMIT 17";
                             $users = $dbh->query($sql);
                             echo '<table class="table" style="animation: none"> <tr style="border:0;height:0;overflow;hidden;display: none"><td></td> <td></td>';
                                 foreach ($users as $row) {

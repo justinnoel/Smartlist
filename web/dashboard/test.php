@@ -227,7 +227,10 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
   </script>
   <style>
-    .cursor-pointer {cursor: pointer;}
+    .cursor-pointer {
+      cursor: pointer;
+    }
+
     .pagination_container {
       text-align: right;
     }
@@ -235,9 +238,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     * {
       user-drag: none
     }
+
     .sync_tr {
-        background: rgba(0, 121, 107, .1) !important;
+      background: rgba(0, 121, 107, .1) !important;
     }
+
     .pagination_btn {
       padding: 15px;
       width: 40px;
@@ -579,13 +584,15 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="container" id="settingsContainer">
         <div class="row" style="margin-top: 10px">
           <div style="padding: 0 !important" class="col s12 m3 __sidebar">
-            <div class="collection" style="border:1px solid #ccc;border-radius: 5px;" id='_settingsmenu'> <a href="javascript:void(0)" id="__def" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Account</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_privacy', './user/settings/privacy.php', 'box')" class="collection-item waves-effect"><span>Privacy</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_notifications', './user/settings/notifications.php', 'box')" class="collection-item waves-effect"><span>Notifications</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_rooms', './user/settings/rooms.php', 'box')" class="collection-item waves-effect"><span>Rooms</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Appearance</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_sync', './user/settings/sync.php', 'box')" class="collection-item waves-effect" class="collection-item waves-effect"><span>Sync</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_categories', './user/settings/categories.php', 'box')" class="collection-item waves-effect"<?php if(!admin()) {?> style="opacity:.8;pointer-events:none"<?php } ?>><div style="margin-top: 2px" class="new-badge right">New!</div><span>Categories </span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>App</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_developer', './user/settings/developer.php', 'box')" class="collection-item waves-effect"><span>Developer</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_support', './user/settings/support.php', 'box')" class="collection-item waves-effect"><span>Support</span></a>
+            <div class="collection" style="border:1px solid #ccc;border-radius: 5px;" id='_settingsmenu'> <a href="javascript:void(0)" id="__def" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Account</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_privacy', './user/settings/privacy.php', 'box')" class="collection-item waves-effect"><span>Privacy</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_notifications', './user/settings/notifications.php', 'box')" class="collection-item waves-effect"><span>Notifications</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_rooms', './user/settings/rooms.php', 'box')" class="collection-item waves-effect"><span>Rooms</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>Appearance</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_sync', './user/settings/sync.php', 'box')" class="collection-item waves-effect" class="collection-item waves-effect"><span>Sync</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_categories', './user/settings/categories.php', 'box')" class="collection-item waves-effect">
+                <div style="margin-top: 2px" class="new-badge right">New!</div><span>Categories </span>
+              </a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''))" class="collection-item waves-effect"><span>App</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_developer', './user/settings/developer.php', 'box')" class="collection-item waves-effect"><span>Developer</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_support', './user/settings/support.php', 'box')" class="collection-item waves-effect"><span>Support</span></a>
               <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_backup', './user/settings/backup.php', 'box')" class="collection-item waves-effect"><span>Backup</span></a>
               <a href="logout.php" class="collection-item waves-effect"><span>Log Out</span></a> <a href="javascript:void(0)" onclick="_settingsLoad(this, this.getElementsByTagName('span')[0].innerHTML.toLowerCase().replace(' ', ''));AJAX_LOAD('#_smSettingsPage_other', './user/settings/other.php', 'box')" class="collection-item waves-effect"><span>Other</span></a>
             </div>
           </div>
           <div class="col s12 m9">
-          <div id="_smSettingsPage_categories" class="__SETTINGSPAGE"></div>
+            <div id="_smSettingsPage_categories" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_backup" class="__SETTINGSPAGE"></div>
             <div id="_smSettingsPage_account" class="__SETTINGSPAGE">
               <div class="row">
@@ -677,7 +684,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <div id="News" class="tabcontent" style="background:var(--bg-color);animation:tab .2s forwards !important;padding: 10px;padding-top: 70px">
       <div class="row" style="margin-bottom: 0 !important">
         <div class="chart_container col s12 m12" style="<?= (($row_count !== 0) ? "background:var(--chart-color) !important;" : "") ?>height: auto !important;">
-          <div class="card"<?=(($row_count == 0) ? "style='padding: 100px !important'" : "")?>>
+          <div class="card" <?= (($row_count == 0) ? "style='padding: 100px !important'" : "") ?>>
             <div class="card-content">
               <?php
               if ($row_count == 0) {
@@ -1025,7 +1032,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </div>
   <!--CONTENT ENDS-->
   </div>
-  
+
   <audio id="syncalert" preload="none">
     <source src="https://padlet-uploads.storage.googleapis.com/446844750/abff4e01e3d7691aa96889855e09afaa/notification_simple_02.wav" type="audio/mpeg" defer loading="lazy">
   </audio>
@@ -1100,14 +1107,14 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     ]
     };
     if (document.getElementById('budgetMeter')) {
-    var ctx = document.getElementById('budgetMeter').getContext('2d');
-    var budgetMeter = new Chart(ctx, {
+      var ctx = document.getElementById('budgetMeter').getContext('2d');
+      var budgetMeter = new Chart(ctx, {
         type: 'line',
         data: __bmglobal,
         options: __bmconfig,
-    });
-}
-    var __bmgoal = <?=(isset($goal) ? $goal : 0 );?>;
+      });
+    }
+    var __bmgoal = <?= (isset($goal) ? $goal : 0); ?>;
 
     <?php if (isset($_GET['item'])) { ?> $(document).ready(function() {
         sm_page('addkitchen');

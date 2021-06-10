@@ -153,7 +153,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect blue darken-3" style="color:white !important">blender</i> <span class="title"><b>Kitchen</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }
@@ -175,7 +175,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect red darken-3" style="color:white !important">bed</i> <span class="title"><b>Bedroom</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }
@@ -197,7 +197,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect green darken-3" style="color:white !important">wc</i> <span class="title"><b>Bathroom</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }
@@ -219,7 +219,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect yellow darken-3" style="color:white !important">build</i> <span class="title"><b>Garage</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }
@@ -241,7 +241,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect pink darken-3" style="color:white !important">chair</i> <span class="title"><b>Family Room</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }
@@ -263,7 +263,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect purple darken-3" style="color:white !important">restaurant</i> <span class="title"><b>Dining Room</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }
@@ -285,7 +285,7 @@ $month = date('M');
     if (preg_replace("/[^0-9]/", "", decrypt($numbervarnotify['qty'])) < $number_notify)
     {
       echo ' <li class="collection-item avatar"> <i class="material-icons circle waves-effect cyan darken-3" style="color:white !important">domain</i> <span class="title"><b>Storage Room</b></span> <p>You\'re going to run out of ';
-      echo decrypt($numbervarnotify['name']);
+      echo htmlspecialchars(decrypt($numbervarnotify['name']));
       echo " soon</p></li>";
     }
   }

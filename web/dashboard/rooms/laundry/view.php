@@ -1,47 +1,30 @@
 <?php session_start(); include('../../cred.php');?>
 <div class="container">
 <?php
-try
-{
-$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM laundry WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
-$users = $dbh->query($sql);
-$lr_count = $users->rowCount();
-if ($lr_count > 0)
-{
-echo '<table class="table" id="sort_laundry">
-<tr class="hover">
-<td onclick="sort_laundry(0)">Name</td>
-<td onclick="sort_laundry(1)">Quantity</td>
-</tr>';
-foreach ($users as $row)
-{
-echo "<tr data-id=".json_encode($row['id'])." id='laundryroomtr_" . $row['id'] . "' onclick=\"item('" . $row['id'] . "', '" . decrypt($row['name']) . "', '" . decrypt($row['qty']) . "', '" . decrypt($row['price']) . "', 'https://smartlist.ga/dashboard/rooms/laundry/', 'laundryroom', '" . $row['star'] . "')";
-if ($row['star'] == 1)
-{
-echo "\" style='border-left: 3px solid #f57f17'>";
+try {
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = "SELECT * FROM laundry WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
+    $users = $dbh->query($sql);
+    $lr_count = $users->rowCount();
+    if ($lr_count > 0) {
+        echo '<table class="table" id="sort_laundry">
+        <tr class="hover">
+        <td onclick="sort_laundry(0)">Name</td>
+        <td onclick="sort_laundry(1)">Quantity</td>
+        </tr>';
+        foreach ($users as $row) {
+            echo "<tr class='".($row['login_id'] !== $_SESSION['id'] ? "sync_tr" : "")."' data-id=".json_encode($row['id'])." id='laundryroomtr_" . $row['id'] . "' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(decrypt($row['price'])).", \"laundry\")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">\n
+                    <td>".htmlspecialchars(decrypt($row['name']))."</td><td> ".htmlspecialchars(decrypt($row['qty']))." </td>\n
+                  </tr>\n";
+        }
+        $dbh = null;
+    }
+    else {
+        echo "<img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p>";
+    }
 }
-else
-{
-echo "\">";
-}
-print "<td>" . decrypt($row["name"]) . "</td><td>" . decrypt($row["qty"]) . "";
-if ($row['login_id'] != $_SESSION['id'])
-{
-echo "<span clas='badge red' style='float:right;color:white;padding: 4px;border-radius: 2px;background: #00695c !Important'>SYNCED</span>";
-}
-echo "</td></tr>";
-}
-$dbh = null;
-}
-else
-{
-echo "<img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p>";
-}
-}
-catch(PDOexception $e)
-{
-echo "Error is: " . $e->etmessage();
+catch(PDOexception $e) {
+    echo "Error is: " . $e->etmessage();
 }
 ?>
 </table>

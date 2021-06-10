@@ -9,6 +9,7 @@ include('../../cred.php');
         <p>Kitchen</p>
       <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/kitchen.php')">CSV</a>
       <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/kitchen.php')">PDF</a>
+      <a class="btn green darken-3" href="https://smartlist.ga/dashboard/user/settings/backup/upload/">Upload CSV</a>
     </li>
     <li class="collection-item">
         <p>Bedroom</p>

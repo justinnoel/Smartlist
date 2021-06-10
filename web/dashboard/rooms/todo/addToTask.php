@@ -9,7 +9,7 @@ try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sql = "INSERT INTO todo(name, qty, price, login_id, descs)
-  VALUES(".json_encode($name).",'1', ".json_encode($price).", '$loginId', ".json_encode($descs).")";
+  VALUES(".json_encode($name).", '3', ".json_encode($price).", '$loginId', ".json_encode($descs).")";
   $conn->exec($sql);
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

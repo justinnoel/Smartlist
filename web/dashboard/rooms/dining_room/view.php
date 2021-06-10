@@ -17,21 +17,9 @@ echo '<table class="table" id="sort_dining">
 </tr>';
 foreach ($users as $row)
 {
-echo "<tr data-id=".json_encode($row['id'])." id='dining_roomtr_" . $row['id'] . "' onclick=\"item('" . $row['id'] . "', '" . decrypt($row['name']) . "', '" . decrypt($row['qty']) . "', '" . decrypt($row['price']) . "', 'https://smartlist.ga/dashboard/rooms/dining_room/', 'dining_room', '" . $row['star'] . "')";
-if ($row['star'] == 1)
-{
-echo "\" style='border-left: 3px solid #f57f17'>";
-}
-else
-{
-echo "\">";
-}
-print "<td>" . decrypt($row["name"]) . "</td><td>" . decrypt($row["qty"]) . "";
-if ($row['login_id'] != $_SESSION['id'])
-{
-echo "<span class='sync'>Synced</span>";
-}
-echo "</td>";
+echo "<tr class='".($row['login_id'] !== $_SESSION['id'] ? "sync_tr" : "")."' data-id=".json_encode($row['id'])." id='dining_roomtr_" . $row['id'] . "' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(decrypt($row['price'])).", \"dining_room\")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">
+<td>".htmlspecialchars(decrypt($row['name']))."</td><td> ".htmlspecialchars(decrypt($row['qty']))." </td>
+</tr>";
 }
 $dbh = null;
 }

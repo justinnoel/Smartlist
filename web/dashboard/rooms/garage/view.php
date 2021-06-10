@@ -20,7 +20,7 @@ try
     foreach ($users as $row)
     {
         echo "
-        <tr id='garagetr_".$row['id']."' data-id='".$row['id']."' onclick='item(".$row['id'].", ".json_encode(decrypt($row['name'])).", ".json_encode(decrypt($row['qty'])).", \"\", \"https://smartlist.ga/dashboard/rooms/garage/\", \"garage\", ".($row['star'] == 1 ? json_encode(1) : json_encode(0)).")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").")> 
+        <tr class='".($row['login_id'] !== $_SESSION['id'] ? "sync_tr" : "")."' id='garagetr_".$row['id']."' data-id='".$row['id']."' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(decrypt($row['price'])).", \"garage\")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">
             <td>".htmlspecialchars(decrypt($row['name']))."</td>
             <td>".htmlspecialchars(decrypt($row['qty']))."</td>
         </tr>";

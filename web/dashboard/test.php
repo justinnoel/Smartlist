@@ -207,25 +207,18 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!--<link rel="stylesheet" href="./resources/style.css?v=<?php echo rand(0, 9999999); ?>">-->
-  <link rel="stylesheet" href="./resources/style.css">
-  <!-- Hotjar Tracking Code for smartlist.ga -->
-  <script>
-    (function(h, o, t, j, a, r) {
-      h.hj = h.hj || function() {
-        (h.hj.q = h.hj.q || []).push(arguments)
-      };
-      h._hjSettings = {
-        hjid: 2386239,
-        hjsv: 6
-      };
-      a = o.getElementsByTagName('head')[0];
-      r = o.createElement('script');
-      r.async = 1;
-      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-      a.appendChild(r);
-    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-  </script>
+  <link rel="stylesheet" href="./resources/style.css?v=<?php echo rand(0, 9999999); ?>">
+  <!--<link rel="stylesheet" href="./resources/style.css">-->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:2386239,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
   <style>
     .cursor-pointer {
       cursor: pointer;
@@ -233,6 +226,21 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
 
     .pagination_container {
       text-align: right;
+    }
+    .card.waves-effect {
+        width: 100%;
+    }
+    @media only screen and (min-width: 300px) {
+        #addNote,#noteView {
+         width: 70% !important;
+         margin: auto !important;
+          height: 90vh !important;
+      }
+    }
+    @media only screen and (max-width: 300px) {
+        #addNote,#noteView {
+            width: 100% !important;
+        }
     }
 
     * {
@@ -448,7 +456,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Dashboard');sm_page('News');AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');" id="defaultOpen"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested');AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="<?php if (!admin()) { ?>sidenav_highlight(this); <?php } ?>change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">money</i>Budget Dashboard <span class="new-badge">New!</span></a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">money</i>Budget Dashboard <span class="new-badge">New!</span></a></li>
     <li class="links" style="display:none"><a class="waves-effect" onclick="change_title('Loading...');sm_page('loader');"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li style="pointer-events:none">
       <div class="divider"></div>
@@ -498,6 +506,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </li>
     <li class="links"><a class="subheader" href="javascript:void(0)" rel='nofollow'>Other</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './rooms/grocerylist/view.php');change_title('Grocery List')"><i class="material-icons-round">local_grocery_store</i>Grocery list</a></li>
+    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './user/notes/index.php');change_title('Notes')"><i class="material-icons-round">sticky_note_2</i>Notes / Documents</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage<span class="new-badge">New!</span></a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
     <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance</a></li>
@@ -718,7 +727,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 $users = $dbh->query($sql);
                 echo "<div class='card' id='todo_container'><div class='card-content'><h5 style='margin-top:0'>Todo <a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#todo_container', './rooms/todo/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
                 foreach ($users as $todo_listx) {
-                  echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/todo/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . $todo_listx['name'] . '</b><br>Priority: ' . $todo_listx['qty'] . '<br>Due on: ' . $todo_listx['price'] . '<br><div style="padding-left: 35px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Description: ' . $todo_listx['descs'] . '</div></span></label></p>';
+                  echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/todo/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . htmlspecialchars($todo_listx['name']) . '</b><br>Priority: ' . htmlspecialchars($todo_listx['qty']) . '<br>Due on: ' . $todo_listx['price'] . '<br><div style="padding-left: 35px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Description: ' . htmlspecialchars($todo_listx['descs']) . '</div></span></label></p>';
                 }
                 echo "</div></div>";
                 $dbh = null;
@@ -750,7 +759,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       $users = $dbh->query($sql);
                                       echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List<a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
                                       foreach ($users as $todo_listx) {
-                                        echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . $todo_listx['name'] . '</b><br>Quantity: ' . $todo_listx['qty'] . '</span></label></p>';
+                                        echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . htmlspecialchars($todo_listx['name']) . '</b><br>Quantity: ' . htmlspecialchars($todo_listx['qty']) . '</span></label></p>';
                                       }
                                       echo "</div></div>";
                                     } catch (PDOexception $e) {
@@ -933,6 +942,30 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
               <button type="button" onclick='var x = document.getElementById("edit_item_qty");x.value = parseInt(x.value) - 1' class="btn waves-effect" style="background: #<?php echo $theme; ?>"><i class="material-icons-round">remove</i></button>
             </div>
           </div>
+          <select name="price"> 
+            <option disabled>Categories</option>
+                <option selected value="No Category Specified">No Category Specified</option> 
+                <option disabled>Other</option>
+                <?php
+                try
+                {
+                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                    $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
+                    $users = $dbh->query($sql);
+                        foreach ($users as $row){
+                            ?>
+                            <option value=<?=json_encode($row['name'])?>> <?=htmlspecialchars($row['name'])?> </option>
+                            <?php
+                    }
+                        $dbh = null;
+                }
+                catch(PDOexception $e)
+                {
+                    echo "Error is: " . $e->etmessage();
+                }
+            ?>
+            </select>
+            <br>
           <button name="submit" class="btn waves-effect" style="background:#<?php echo $theme; ?>">Update</button>
           <button name="button" type="button" class="btn btn-flat waves-effect" style="color:gray" onclick="document.getElementById('editback').click()">Cancel</button>
           <input type="hidden" name="id" id="edit_item_id">
@@ -946,7 +979,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <div class="hide-on-med-and-down" style="margin-top: 50px;"></div>
         <h3 id="item_title" onclick="copyToClipboard(this.innerText)" class="fade-up" style="cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></h3>
         <h5 id="item_qty" class="fade-up" style="animation-delay: .1s" onclick="copyToClipboard(this.innerText)"></h5>
-        <p class="flow-text fade-up" style="animation-delay: .2s;display: block" id="item_desc"></p>
+        <br>
+        <div class="flow-text fade-up" style="animation-delay: .2s;display: block" id="item_desc"></div>
+        <br>
         <div class="collection z-depth-2 fade-up" style="animation-delay: .3s;padding:0" id="item_options">
           <a href="javascript:void(0)" class="collection-item waves-effect" id="action_edit" style="color:gray"><i class="material-icons-round left">edit</i>Edit</a>
           <a href="javascript:void(0)" class="collection-item waves-effect" style="color:gray" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a>
@@ -1031,6 +1066,25 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <div class="modal-footer"> <a href="javascript:void(0)" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a> </div>
   </div>
   <!--CONTENT ENDS-->
+  <div id="addNote" class="modal modal-fixed-footer bottom-sheet" style="margin: auto !important;height: 90vh">
+  <div class="modal-content">
+    <h4>Add a note</h4>
+    <form method="POST" action="./user/notes/add.php" id="addNoteForm">
+      <div class="input-field">
+        <label for="content">Note title</label>
+        <input name="title" autocomplete="off" type="text" required class="validate" data-length="50">
+      </div>
+      <div class="input-field">
+        <label for="content">Note Content (Max: 1000 Characters)</label>
+        <textarea name="content" style="min-height: 300px;" required class="materialize-textarea validate" data-length="1000"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a onclick="$('#addNoteForm').submit()" href="javascript:void(0)" class="btn btn-flat waves-effect">Save</a>
+  </div>
+</div>
+<div id="noteView" class="modal modal-fixed-footer bottom-sheet" style="margin: auto !important;height: 90vh"></div>
   </div>
 
   <audio id="syncalert" preload="none">
@@ -1045,8 +1099,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <a href="javascript:void(0)" id="rclick_delete" class="modal-close waves-effect"><i class="material-icons-round left">delete</i> Delete</a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/js/materialize.min.js"></script>
-  <!--<script src="./js/app.js?t=<?php echo rand(0, 9999999); ?>"></script>-->
-  <script src="./js/app.js"></script>
+  <script src="./js/app.js?t=<?php echo rand(0, 9999999); ?>"></script>
+  <!--<script src="./js/app.js"></script>-->
   <script defer>
     const user = {
       theme_top_color: "#<?php echo $theme_top; ?>",

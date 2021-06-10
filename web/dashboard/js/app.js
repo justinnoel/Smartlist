@@ -1,5 +1,4 @@
-var item_state, item_p;
-var editPopupRoom, editPopupRoom1;
+var item_state, item_p, editPopupRoom, editPopupRoom1;
 var page_title = 'News';
 var autocompleteData = {
     "Apple": null,
@@ -331,6 +330,7 @@ function edit_popup(id, name, qty, price, room) {
     var qty1 = document.getElementById('edit_item_qty');
     x.style.display = 'block';
     var form = document.getElementById('edit_form');
+    var room1;
     switch (room) {
         case 'bedroom':
             room1 = 'Home';
@@ -391,26 +391,140 @@ function edit_back(data) {
     sm_page(data);
 }
 
-function item(id, name, qty, price, directory, room, star) {
-    document.getElementById('action_qr').href = "https://api.qrserver.com/v1/create-qr-code/?size=1500x1500&data=" + encodeURI("I currently have " + qty + " " + name + " in my inventory");
-    var nav_star_i = document.querySelector('#nav_star i');
-    var edit_fab = document.getElementById('editfab');
-    var action_recipe = document.getElementById('action_recipe');
-    var navedit = document.getElementById('nav_edit');
-    edit_fab.style.display = 'block';
-    edit_fab.style.transform = 'scale(0)';
-    setTimeout(function() {
-        edit_fab.style.display = 'block';
-        edit_fab.style.transform = 'scale(1)';
-    }, 10);
-    edit_fab.onclick = function() {
-        setTimeout(function() {
-            edit_popup(id, name, qty, price, room);
-        }, 0.001);
+function htmlspecialchars(str) {
+    if (typeof(str) == "string") {
+        str = str.replace(/&/g, "&amp;"); /* must do &amp; first */
+        str = str.replace(/"/g, "&quot;");
+        str = str.replace(/'/g, "&#039;");
+        str = str.replace(/</g, "&lt;");
+        str = str.replace(/>/g, "&gt;");
+    }
+    return str;
+}
+
+function item(el, star, label, room) {
+    document.querySelector("meta[name=theme-color]").setAttribute("content", "#191918");
+    sm_page("item_popup");
+    secondary();
+    item_state = 'item_popup';
+
+    var name = el.getElementsByTagName("td")[0].innerHTML;
+    var qty = el.getElementsByTagName("td")[1].innerHTML;
+    var id = el.getAttribute("data-id");
+    document.getElementById("FLOATING_ACTION_BUTTON").style.display = "none";
+    const actions = {
+        editFab: document.getElementById('editfab'),
+        menu: {
+            del: document.getElementById("action_delete"),
+            recipe: document.getElementById("action_recipe"),
+            qrCode: document.getElementById("action_qr"),
+            task: document.getElementById("action_task"),
+            share: document.getElementById("action_share_p"),
+        },
+        navbar: {
+            del: document.getElementById('nav_delete'),
+            edit: document.getElementById('nav_edit'),
+            star: document.getElementById('nav_star'),
+        },
     };
-    document.body.style.overflow = 'hidden';
-    document.getElementById('nav_star').style.display = '';
-    document.getElementById('action_share_p').onclick = function() {
+
+    if (star === 1) {
+        actions.navbar.star.getElementsByTagName("i")[0].innerHTML = "star";
+    } else {
+        actions.navbar.star.getElementsByTagName("i")[0].innerHTML = "star_outline";
+    }
+
+    switch (room) {
+        case 'bedroom':
+            page_title = 'Home';
+            dir = "./rooms/bedroom/";
+            break;
+        case 'kitchen':
+            page_title = 'Contact';
+            dir = "./rooms/kitchen/";
+            break;
+        case 'bathroom':
+            page_title = 'bathroom';
+            dir = "./rooms/bathroom/";
+            break;
+        case 'garage':
+            page_title = 'About';
+            dir = "./rooms/garage/";
+            break;
+        case 'family':
+            page_title = 'family';
+            dir = "./rooms/family/";
+            break;
+        case 'storage':
+            page_title = 'storage';
+            dir = "./rooms/storage/";
+            break;
+        case 'dining_room':
+            page_title = 'dining_room';
+            dir = "./rooms/dining_room/";
+            break;
+        case 'laundry':
+            page_title = 'laundryroom';
+            dir = "./rooms/laundry/";
+            break;
+        case 'camping':
+            page_title = 'cs';
+            dir = "./rooms/camping/";
+            break;
+        case 'custom_room':
+            page_title = 'custom_room';
+            dir = "./rooms/custom_room/";
+            break;
+    }
+
+    if (room !== 'kitchen') {
+        action_recipe.style.display = 'none';
+    } else if (room == 'kitchen') {
+        action_recipe.style.display = '';
+        actions.menu.recipe.href = "https://www.google.com/search?q=recipes+with+" + encodeURI(name);
+    }
+    actions.menu.task.onclick = function() {
+        $('#div1').load('./rooms/todo_qadd.php?name=' + encodeURI(name), function() {
+            M.toast({
+                html: "Added to grocery list"
+            })
+        })
+    }
+
+    actions.navbar.star.onclick = function() {
+        if (actions.navbar.star.getElementsByTagName("i")[0].innerHTML == "star") {
+            el.style.borderLeft = "none";
+            actions.navbar.star.getElementsByTagName("i")[0].innerHTML = "star_outline";
+            el.onclick = function() {
+                item(el, 0, label, room);
+            };
+        } else {
+            el.style.borderLeft = "3px solid #f57f17";
+            actions.navbar.star.getElementsByTagName("i")[0].innerHTML = "star";
+            el.onclick = function() {
+                item(el, 1, label, room);
+            };
+        }
+        $("#div1").load(dir + "star.php?id=" + id)
+    }
+
+    actions.navbar.del.onclick = function() {
+        sm_page(page_title)
+        M.toast({
+            html: 'Deleted!'
+        });
+        el.remove();
+        $("#div1").load(dir + "delete.php?id=" + id)
+    }
+    actions.menu.del.onclick = function() {
+        sm_page(page_title)
+        M.toast({
+            html: 'Deleted!'
+        });
+        el.remove();
+        $("#div1").load(dir + "delete.php?id=" + id)
+    }
+    actions.menu.share.onclick = function() {
         if (navigator.share) {
             document.getElementById('action_share_p').style.display = "block";
             navigator.share({
@@ -420,384 +534,31 @@ function item(id, name, qty, price, directory, room, star) {
             }).then(() => console.log('Successful share')).catch(error => console.log('Error sharing:', error));
         }
     };
-    document.getElementById("FLOATING_ACTION_BUTTON").style.display = "none";
-    document.querySelector("meta[name=theme-color]").setAttribute("content", "#1f1f1f");
-    switch (room) {
-        case 'bedroom':
-            page_title = 'Home';
-            break;
-        case 'kitchen':
-            page_title = 'Contact';
-            break;
-        case 'bathroom':
-            page_title = 'bathroom';
-            break;
-        case 'garage':
-            page_title = 'About';
-            break;
-        case 'garage':
-            page_title = 'About';
-            break;
-        case 'family':
-            page_title = 'family';
-            break;
-        case 'storage':
-            page_title = 'storage';
-            break;
-        case 'dining_room':
-            page_title = 'dining_room';
-            break;
-        case 'laundryroom':
-            page_title = 'laundryroom';
-            break;
-        case 'camping':
-            page_title = 'cs';
-            break;
-        case 'custom_room':
-            page_title = 'custom_room';
-            break;
-    }
-    item_state = 'item_popup';
-    item_p = 1;
-    document.getElementById("action_delete").onclick = function() {
-        document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
-        document.getElementById(room + 'tr_' + id).remove();
-        if (room == 'kitchen') {
-            toast(name, qty);
-        } else {
-            M.toast({
-                html: 'Deleted!'
-            });
-        }
-        $("#div1").load(directory + "delete.php?id=" + id);
-        sm_page(page_title, '', '');
-        document.getElementById("FLOATING_ACTION_BUTTON").style.display = "";
-        document.getElementById("fab").style.display = "";
-    };
-    document.getElementById("nav_delete").onclick = function() {
-        document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
-        document.getElementById(room + 'tr_' + id).remove();
-        if (room == 'kitchen') {
-            toast(name, qty);
-        } else {
-            M.toast({
-                html: 'Deleted "' + name + '"'
-            });
-        }
-        $("#div1").load(directory + "delete.php?id=" + id);
-        sm_page(page_title, '', '');
-        document.getElementById("FLOATING_ACTION_BUTTON").style.display = "block";
-    };
-    if (star == 0) {
-        nav_star_i.innerHTML = 'star_outline';
-    } else {
-        nav_star_i.innerHTML = 'star';
-    }
-    var _navstar = document.getElementById("nav_star");
-    switch (room) {
-        case 'kitchen':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/kitchen/star.php?id=' + id);
-                    document.getElementById('kitchentr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('kitchentr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/kitchen/star.php?id=' + id);
-                    document.getElementById('kitchentr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('kitchentr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'custom_room':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/custom_room/star.php?id=' + id);
-                    document.getElementById('croomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('croomtr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/custom_room/star.php?id=' + id);
-                    document.getElementById('croomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('croomtr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'bedroom':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/bedroom/star.php?id=' + id);
-                    document.getElementById('bedroomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('bedroomtr_' + id).style.borderLeft = '';
-                    M.toast({
-                        html: 'Un-Starred item'
-                    });
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/bedroom/star.php?id=' + id);
-                    document.getElementById('bedroomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('bedroomtr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'garage':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/garage/star.php?id=' + id);
-                    document.getElementById('garagetr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('garagetr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/garage/star.php?id=' + id);
-                    document.getElementById('garagetr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('garagetr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'camping':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/camping/star.php?id=' + id);
-                    document.getElementById('campingtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('campingtr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/camping/star.php?id=' + id);
-                    document.getElementById('campingtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('campingtr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'bathroom':
-            document.getElementById("nav_star").onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/bathroom/star.php?id=' + id);
-                    document.getElementById('bathroomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('bathroomtr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/bathroom/star.php?id=' + id);
-                    document.getElementById('bathroomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('bathroomtr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'family':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/family/star.php?id=' + id);
-                    document.getElementById('familytr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('familytr_' + id).style.borderLeft = '';
-                    M.toast({
-                        html: 'Un-Starred item'
-                    });
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/family/star.php?id=' + id);
-                    document.getElementById('familytr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('familytr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'storage':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/storage/star.php?id=' + id);
-                    document.getElementById('storagetr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('storagetr_' + id).style.borderLeft = '';
-                    M.toast({
-                        html: 'Un-Starred item'
-                    });
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/storage/star.php?id=' + id);
-                    document.getElementById('storagetr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('storagetr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'laundryroom':
-            _navstar.onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/laundry/star.php?id=' + id);
-                    document.getElementById('laundryroomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('laundryroomtr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/laundry/star.php?id=' + id);
-                    document.getElementById('laundryroomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('laundryroomtr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-        case 'dining_room':
-            document.getElementById("nav_star").onclick = function() {
-                if (nav_star_i.innerHTML == 'star') {
-                    nav_star_i.innerHTML = 'star_outline';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/dining_room/star.php?id=' + id);
-                    document.getElementById('dining_roomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 0);
-                    };
-                    document.getElementById('dining_roomtr_' + id).style.borderLeft = '';
-                } else {
-                    nav_star_i.innerHTML = 'star';
-                    $('#div1').load('https://smartlist.ga/dashboard/rooms/dining_room/star.php?id=' + id);
-                    document.getElementById('dining_roomtr_' + id).onclick = function() {
-                        item(id, name, qty, price, directory, room, 1);
-                    };
-                    document.getElementById('dining_roomtr_' + id).style.borderLeft = '3px solid #f57f17';
-                }
-                return false;
-            };
-            break;
-    }
-    document.getElementById('nav_edit').onclick = function() {
-        setTimeout(function() {
-            document.getElementById('editfab').click();
-        }, 100);
-    };
-    document.getElementById('action_edit').onclick = function() {
-        setTimeout(function() {
-            document.getElementById('editfab').click();
-        }, 100);
-    };
-    action_recipe.href = "https://www.google.com/search?q=recipes+with+" + encodeURI(name);
-    if (room !== 'kitchen') {
-        action_recipe.style.display = 'none';
-    } else if (room == 'kitchen') {
-        action_recipe.style.display = '0';
-    }
-    document.getElementById('item_title').innerHTML = name;
-    document.getElementById('item_qty').innerHTML = "Quantity: " + qty;
+    document.getElementById("item_title").innerHTML = htmlspecialchars(name);
+    document.getElementById("item_qty").innerHTML = "Quantity: " + htmlspecialchars(qty);
     document.getElementById('action_mail').href = "mailto:hello@homebase.rf.gd?subject=My%20Inventory%20Status%20%7C%20Smartlist&body=Hi%20_____%2C%0D%0AI'm%20currently%20having%20" + encodeURI(qty) + "%20" + encodeURI(name) + "%20in%20my%20" + encodeURI(room) + ".%0D%0A%0D%0AThank%20you%2C%0D%0ASincerely%2C%0D%0A________";
-    document.getElementById('item_desc').innerHTML = "<div onclick=\"copyToClipboard(this.innerText)\" class='chip waves-effect'>Category: " + price + "</div><div class='chip waves-effect' onclick=\"copyToClipboard(this.innerText)\">Room: " + room + "</div>";
-    document.getElementById('item_desc').style.display = 'block';
-    if (id == 'KITCHEN_IDENTIFY_BY_NAME') {
-        document.getElementById("action_delete").onclick = function() {
-            document.getElementById('KITCHEN_tr_' + name).style.display = 'none';
-            toast(name, qty);
-            $("#div1").load("https://smartlist.ga/dashboard/rooms/kitchen/quickdelete.php?name=" + encodeURI(name) + "&qty=" + encodeURI(qty) + "&price=" + encodeURI(price));
-            sm_page(page_title, '', '');
-        };
-        document.getElementById("nav_delete").onclick = function() {
-            document.getElementById('KITCHEN_tr_' + name).style.display = 'none';
-            toast(name, qty);
-            $("#div1").load("https://smartlist.ga/dashboard/rooms/kitchen/quickdelete.php?name=" + encodeURI(name) + "&qty=" + encodeURI(qty) + "&price=" + encodeURI(price));
-            sm_page(page_title, '', '');
-        };
-    } else if (id == 'BEDROOM_IDENTIFY_BY_NAME') {
-        document.getElementById("action_delete").onclick = function() {
-            document.getElementById('BEDROOM_tr' + name).style.display = 'none';
-            M.toast({
-                html: 'Deleted!'
-            });
-            $("#div1").load("https://smartlist.ga/dashboard/rooms/bedroom/quickdelete.php?name=" + encodeURI(name) + "&qty=" + encodeURI(qty));
-            sm_page(page_title, '', '');
-        };
-        document.getElementById("nav_delete").onclick = function() {
-            document.getElementById('BEDROOM_tr' + name).style.display = 'none';
-            M.toast({
-                html: 'Deleted!'
-            });
-            $("#div1").load("https://smartlist.ga/dashboard/rooms/bedroom/quickdelete.php?name=" + encodeURI(name) + "&qty=" + encodeURI(qty));
-            sm_page(page_title, '', '');
-        };
-    }
-    if (id == 'BATHROOM_IDENTIFY_BY_NAME') {
-        document.getElementById("action_delete").onclick = function() {
-            document.getElementById('BATHROOM_tr' + name).style.display = 'none';
-            M.toast({
-                html: 'Deleted!'
-            });
-            $("#div1").load("https://smartlist.ga/dashboard/rooms/bathroom/quickdelete.php?name=" + encodeURI(name) + "&qty=" + encodeURI(qty));
-            sm_page(page_title, '', '');
-        };
-        document.getElementById("nav_delete").onclick = function() {
-            document.getElementById('BATHROOM_tr' + name).style.display = 'none';
-            M.toast({
-                html: 'Deleted!'
-            });
-            $("#div1").load("https://smartlist.ga/dashboard/rooms/bathroom/quickdelete.php?name=" + encodeURI(name) + "&qty=" + encodeURI(qty));
-            sm_page(page_title, '', '');
-        };
-    }
-    document.getElementById('action_share').href = "https://smartlist.ga/dashboard/rooms/share/?name=" + encodeURI(name) + "&itemqty=" + encodeURI(qty) + "&room=kitchen&id=" + id + "&new=true" + id;
-    sm_page('item_popup');
-    secondary();
-    if (room == 'custom_room') {
-        document.getElementById('nav_delete').onclick = function() {
-            document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
-            $('#div1').load('./rooms/custom_room/custom_item_delete.php?id=' + id);
-            sm_page('custom_room');
-            document.getElementById('croomtr_' + id).style.background = 'rgba(235, 185, 181, .5)';
-            setTimeout(function() {
-                document.getElementById('croomtr_' + id).remove();
-            }, 1000);
-        };
-        document.getElementById('action_delete').onclick = function() {
-            document.querySelector("meta[name=theme-color]").setAttribute("content", user.theme_top_color);
-            $('#div1').load('./rooms/custom_room/custom_item_delete.php?id=' + id);
-            sm_page('custom_room');
-            document.getElementById('croomtr_' + id).style.background = 'rgba(235, 185, 181, .5)';
-            setTimeout(function() {
-                document.getElementById('croomtr_' + id).remove();
-            }, 1000);
-        };
-    }
+    document.getElementById("item_desc").innerHTML = `<div class="chip waves-effect" onclick="copyToClipboard(this.innerText)">Category: ${label}</div><div class="chip waves-effect" onclick="copyToClipboard(this.innerText)">Room: ${room}</div> ${(el.classList.contains("sync_tr") ? `<div class="chip waves-effect green white-text darken-3">Synced</div>` : "")} ${(star == 1 ? `<div class="orange darken-3 white-text chip waves-effect">Starred</div>` : "")}`;
+
+    actions.menu.qrCode.href = "https://api.qrserver.com/v1/create-qr-code/?size=1500x1500&data=" + encodeURI("I currently have " + qty + " " + name + " in my inventory");
+    actions.editFab.style.display = 'block';
+    actions.editFab.style.transform = 'scale(0)';
+    setTimeout(function() {
+        actions.editFab.style.transform = 'scale(1)';
+    }, 10);
+
+    actions.editFab.onclick = function() {
+        setTimeout(function() {
+            edit_popup(id, name, qty, label, room);
+        }, 0.001);
+    };
+
+    actions.navbar.edit.onclick = function() {
+        setTimeout(function() {
+            edit_popup(id, name, qty, label, room);
+        }, 0.001);
+    };
+
+    // End function 
 }
 
 function __bmevents() {
@@ -1150,7 +911,7 @@ $(document).ready(function() {
             document.getElementById('budgetmetermodala').classList.remove('addheight');
         }
     });
-     $('#key').modal({
+    $('#key').modal({
         endingTop: '50%'
     });
     $('.sidenav').sidenav({
@@ -1614,943 +1375,7 @@ window.addEventListener('keyup', function(e) {
 });
 
 /*BEGIN Swipe*/
-(function(a) {
-    if (typeof define === "function" && define.amd && define.amd.jQuery) {
-        define(["jquery"], a)
-    } else {
-        a(jQuery)
-    }
-}(function(f) {
-    var y = "1.6.12",
-        p = "left",
-        o = "right",
-        e = "up",
-        x = "down",
-        c = "in",
-        A = "out",
-        m = "none",
-        s = "auto",
-        l = "swipe",
-        t = "pinch",
-        B = "tap",
-        j = "doubletap",
-        b = "longtap",
-        z = "hold",
-        E = "horizontal",
-        u = "vertical",
-        i = "all",
-        r = 10,
-        g = "start",
-        k = "move",
-        h = "end",
-        q = "cancel",
-        a = "ontouchstart" in window,
-        v = window.navigator.msPointerEnabled && !window.navigator.pointerEnabled,
-        d = window.navigator.pointerEnabled || window.navigator.msPointerEnabled,
-        C = "TouchSwipe";
-    var n = {
-        fingers: 1,
-        threshold: 75,
-        cancelThreshold: null,
-        pinchThreshold: 20,
-        maxTimeThreshold: null,
-        fingerReleaseThreshold: 250,
-        longTapThreshold: 500,
-        doubleTapThreshold: 200,
-        swipe: null,
-        swipeLeft: null,
-        swipeRight: null,
-        swipeUp: null,
-        swipeDown: null,
-        swipeStatus: null,
-        pinchIn: null,
-        pinchOut: null,
-        pinchStatus: null,
-        click: null,
-        tap: null,
-        doubleTap: null,
-        longTap: null,
-        hold: null,
-        triggerOnTouchEnd: true,
-        triggerOnTouchLeave: false,
-        allowPageScroll: "auto",
-        fallbackToMouseEvents: true,
-        excludedElements: "label, button, input, select, textarea, a, .noSwipe",
-        preventDefaultEvents: true
-    };
-    f.fn.swipe = function(H) {
-        var G = f(this),
-            F = G.data(C);
-        if (F && typeof H === "string") {
-            if (F[H]) {
-                return F[H].apply(this, Array.prototype.slice.call(arguments, 1))
-            } else {
-                f.error("Method " + H + " does not exist on jQuery.swipe")
-            }
-        } else {
-            if (F && typeof H === "object") {
-                F.option.apply(this, arguments)
-            } else {
-                if (!F && (typeof H === "object" || !H)) {
-                    return w.apply(this, arguments)
-                }
-            }
-        }
-        return G
-    };
-    f.fn.swipe.version = y;
-    f.fn.swipe.defaults = n;
-    f.fn.swipe.phases = {
-        PHASE_START: g,
-        PHASE_MOVE: k,
-        PHASE_END: h,
-        PHASE_CANCEL: q
-    };
-    f.fn.swipe.directions = {
-        LEFT: p,
-        RIGHT: o,
-        UP: e,
-        DOWN: x,
-        IN: c,
-        OUT: A
-    };
-    f.fn.swipe.pageScroll = {
-        NONE: m,
-        HORIZONTAL: E,
-        VERTICAL: u,
-        AUTO: s
-    };
-    f.fn.swipe.fingers = {
-        ONE: 1,
-        TWO: 2,
-        THREE: 3,
-        FOUR: 4,
-        FIVE: 5,
-        ALL: i
-    };
-
-    function w(F) {
-        if (F && (F.allowPageScroll === undefined && (F.swipe !== undefined || F.swipeStatus !== undefined))) {
-            F.allowPageScroll = m
-        }
-        if (F.click !== undefined && F.tap === undefined) {
-            F.tap = F.click
-        }
-        if (!F) {
-            F = {}
-        }
-        F = f.extend({}, f.fn.swipe.defaults, F);
-        return this.each(function() {
-            var H = f(this);
-            var G = H.data(C);
-            if (!G) {
-                G = new D(this, F);
-                H.data(C, G)
-            }
-        })
-    }
-
-    function D(a4, au) {
-        var au = f.extend({}, au);
-        var az = (a || d || !au.fallbackToMouseEvents),
-            K = az ? (d ? (v ? "MSPointerDown" : "pointerdown") : "touchstart") : "mousedown",
-            ax = az ? (d ? (v ? "MSPointerMove" : "pointermove") : "touchmove") : "mousemove",
-            V = az ? (d ? (v ? "MSPointerUp" : "pointerup") : "touchend") : "mouseup",
-            T = az ? null : "mouseleave",
-            aD = (d ? (v ? "MSPointerCancel" : "pointercancel") : "touchcancel");
-        var ag = 0,
-            aP = null,
-            ac = 0,
-            a1 = 0,
-            aZ = 0,
-            H = 1,
-            ap = 0,
-            aJ = 0,
-            N = null;
-        var aR = f(a4);
-        var aa = "start";
-        var X = 0;
-        var aQ = {};
-        var U = 0,
-            a2 = 0,
-            a5 = 0,
-            ay = 0,
-            O = 0;
-        var aW = null,
-            af = null;
-        try {
-            aR.bind(K, aN);
-            aR.bind(aD, a9)
-        } catch (aj) {
-            f.error("events not supported " + K + "," + aD + " on jQuery.swipe")
-        }
-        this.enable = function() {
-            aR.bind(K, aN);
-            aR.bind(aD, a9);
-            return aR
-        };
-        this.disable = function() {
-            aK();
-            return aR
-        };
-        this.destroy = function() {
-            aK();
-            aR.data(C, null);
-            aR = null
-        };
-        this.option = function(bc, bb) {
-            if (typeof bc === "object") {
-                au = f.extend(au, bc)
-            } else {
-                if (au[bc] !== undefined) {
-                    if (bb === undefined) {
-                        return au[bc]
-                    } else {
-                        au[bc] = bb
-                    }
-                } else {
-                    if (!bc) {
-                        return au
-                    } else {
-                        f.error("Option " + bc + " does not exist on jQuery.swipe.options")
-                    }
-                }
-            }
-            return null
-        };
-
-        function aN(bd) {
-            if (aB()) {
-                return
-            }
-            if (f(bd.target).closest(au.excludedElements, aR).length > 0) {
-                return
-            }
-            var be = bd.originalEvent ? bd.originalEvent : bd;
-            var bc, bf = be.touches,
-                bb = bf ? bf[0] : be;
-            aa = g;
-            if (bf) {
-                X = bf.length
-            } else {
-                if (au.preventDefaultEvents !== false) {
-                    bd.preventDefault()
-                }
-            }
-            ag = 0;
-            aP = null;
-            aJ = null;
-            ac = 0;
-            a1 = 0;
-            aZ = 0;
-            H = 1;
-            ap = 0;
-            N = ab();
-            S();
-            ai(0, bb);
-            if (!bf || (X === au.fingers || au.fingers === i) || aX()) {
-                U = ar();
-                if (X == 2) {
-                    ai(1, bf[1]);
-                    a1 = aZ = at(aQ[0].start, aQ[1].start)
-                }
-                if (au.swipeStatus || au.pinchStatus) {
-                    bc = P(be, aa)
-                }
-            } else {
-                bc = false
-            }
-            if (bc === false) {
-                aa = q;
-                P(be, aa);
-                return bc
-            } else {
-                if (au.hold) {
-                    af = setTimeout(f.proxy(function() {
-                        aR.trigger("hold", [be.target]);
-                        if (au.hold) {
-                            bc = au.hold.call(aR, be, be.target)
-                        }
-                    }, this), au.longTapThreshold)
-                }
-                an(true)
-            }
-            return null
-        }
-
-        function a3(be) {
-            var bh = be.originalEvent ? be.originalEvent : be;
-            if (aa === h || aa === q || al()) {
-                return
-            }
-            var bd, bi = bh.touches,
-                bc = bi ? bi[0] : bh;
-            var bf = aH(bc);
-            a2 = ar();
-            if (bi) {
-                X = bi.length
-            }
-            if (au.hold) {
-                clearTimeout(af)
-            }
-            aa = k;
-            if (X == 2) {
-                if (a1 == 0) {
-                    ai(1, bi[1]);
-                    a1 = aZ = at(aQ[0].start, aQ[1].start)
-                } else {
-                    aH(bi[1]);
-                    aZ = at(aQ[0].end, aQ[1].end);
-                    aJ = aq(aQ[0].end, aQ[1].end)
-                }
-                H = a7(a1, aZ);
-                ap = Math.abs(a1 - aZ)
-            }
-            if ((X === au.fingers || au.fingers === i) || !bi || aX()) {
-                aP = aL(bf.start, bf.end);
-                ak(be, aP);
-                ag = aS(bf.start, bf.end);
-                ac = aM();
-                aI(aP, ag);
-                if (au.swipeStatus || au.pinchStatus) {
-                    bd = P(bh, aa)
-                }
-                if (!au.triggerOnTouchEnd || au.triggerOnTouchLeave) {
-                    var bb = true;
-                    if (au.triggerOnTouchLeave) {
-                        var bg = aY(this);
-                        bb = F(bf.end, bg)
-                    }
-                    if (!au.triggerOnTouchEnd && bb) {
-                        aa = aC(k)
-                    } else {
-                        if (au.triggerOnTouchLeave && !bb) {
-                            aa = aC(h)
-                        }
-                    }
-                    if (aa == q || aa == h) {
-                        P(bh, aa)
-                    }
-                }
-            } else {
-                aa = q;
-                P(bh, aa)
-            }
-            if (bd === false) {
-                aa = q;
-                P(bh, aa)
-            }
-        }
-
-        function M(bb) {
-            var bc = bb.originalEvent ? bb.originalEvent : bb,
-                bd = bc.touches;
-            if (bd) {
-                if (bd.length && !al()) {
-                    G();
-                    return true
-                } else {
-                    if (bd.length && al()) {
-                        return true
-                    }
-                }
-            }
-            if (al()) {
-                X = ay
-            }
-            a2 = ar();
-            ac = aM();
-            if (ba() || !am()) {
-                aa = q;
-                P(bc, aa)
-            } else {
-                if (au.triggerOnTouchEnd || (au.triggerOnTouchEnd == false && aa === k)) {
-                    if (au.preventDefaultEvents !== false) {
-                        bb.preventDefault()
-                    }
-                    aa = h;
-                    P(bc, aa)
-                } else {
-                    if (!au.triggerOnTouchEnd && a6()) {
-                        aa = h;
-                        aF(bc, aa, B)
-                    } else {
-                        if (aa === k) {
-                            aa = q;
-                            P(bc, aa)
-                        }
-                    }
-                }
-            }
-            an(false);
-            return null
-        }
-
-        function a9() {
-            X = 0;
-            a2 = 0;
-            U = 0;
-            a1 = 0;
-            aZ = 0;
-            H = 1;
-            S();
-            an(false)
-        }
-
-        function L(bb) {
-            var bc = bb.originalEvent ? bb.originalEvent : bb;
-            if (au.triggerOnTouchLeave) {
-                aa = aC(h);
-                P(bc, aa)
-            }
-        }
-
-        function aK() {
-            aR.unbind(K, aN);
-            aR.unbind(aD, a9);
-            aR.unbind(ax, a3);
-            aR.unbind(V, M);
-            if (T) {
-                aR.unbind(T, L)
-            }
-            an(false)
-        }
-
-        function aC(bf) {
-            var be = bf;
-            var bd = aA();
-            var bc = am();
-            var bb = ba();
-            if (!bd || bb) {
-                be = q
-            } else {
-                if (bc && bf == k && (!au.triggerOnTouchEnd || au.triggerOnTouchLeave)) {
-                    be = h
-                } else {
-                    if (!bc && bf == h && au.triggerOnTouchLeave) {
-                        be = q
-                    }
-                }
-            }
-            return be
-        }
-
-        function P(bd, bb) {
-            var bc, be = bd.touches;
-            if ((J() && W()) || (Q() && aX())) {
-                if (J() && W()) {
-                    bc = aF(bd, bb, l)
-                }
-                if ((Q() && aX()) && bc !== false) {
-                    bc = aF(bd, bb, t)
-                }
-            } else {
-                if (aG() && bc !== false) {
-                    bc = aF(bd, bb, j)
-                } else {
-                    if (ao() && bc !== false) {
-                        bc = aF(bd, bb, b)
-                    } else {
-                        if (ah() && bc !== false) {
-                            bc = aF(bd, bb, B)
-                        }
-                    }
-                }
-            }
-            if (bb === q) {
-                if (W()) {
-                    bc = aF(bd, bb, l)
-                }
-                if (aX()) {
-                    bc = aF(bd, bb, t)
-                }
-                a9(bd)
-            }
-            if (bb === h) {
-                if (be) {
-                    if (!be.length) {
-                        a9(bd)
-                    }
-                } else {
-                    a9(bd)
-                }
-            }
-            return bc
-        }
-
-        function aF(be, bb, bd) {
-            var bc;
-            if (bd == l) {
-                aR.trigger("swipeStatus", [bb, aP || null, ag || 0, ac || 0, X, aQ]);
-                if (au.swipeStatus) {
-                    bc = au.swipeStatus.call(aR, be, bb, aP || null, ag || 0, ac || 0, X, aQ);
-                    if (bc === false) {
-                        return false
-                    }
-                }
-                if (bb == h && aV()) {
-                    aR.trigger("swipe", [aP, ag, ac, X, aQ]);
-                    if (au.swipe) {
-                        bc = au.swipe.call(aR, be, aP, ag, ac, X, aQ);
-                        if (bc === false) {
-                            return false
-                        }
-                    }
-                    switch (aP) {
-                        case p:
-                            aR.trigger("swipeLeft", [aP, ag, ac, X, aQ]);
-                            if (au.swipeLeft) {
-                                bc = au.swipeLeft.call(aR, be, aP, ag, ac, X, aQ)
-                            }
-                            break;
-                        case o:
-                            aR.trigger("swipeRight", [aP, ag, ac, X, aQ]);
-                            if (au.swipeRight) {
-                                bc = au.swipeRight.call(aR, be, aP, ag, ac, X, aQ)
-                            }
-                            break;
-                        case e:
-                            aR.trigger("swipeUp", [aP, ag, ac, X, aQ]);
-                            if (au.swipeUp) {
-                                bc = au.swipeUp.call(aR, be, aP, ag, ac, X, aQ)
-                            }
-                            break;
-                        case x:
-                            aR.trigger("swipeDown", [aP, ag, ac, X, aQ]);
-                            if (au.swipeDown) {
-                                bc = au.swipeDown.call(aR, be, aP, ag, ac, X, aQ)
-                            }
-                            break
-                    }
-                }
-            }
-            if (bd == t) {
-                aR.trigger("pinchStatus", [bb, aJ || null, ap || 0, ac || 0, X, H, aQ]);
-                if (au.pinchStatus) {
-                    bc = au.pinchStatus.call(aR, be, bb, aJ || null, ap || 0, ac || 0, X, H, aQ);
-                    if (bc === false) {
-                        return false
-                    }
-                }
-                if (bb == h && a8()) {
-                    switch (aJ) {
-                        case c:
-                            aR.trigger("pinchIn", [aJ || null, ap || 0, ac || 0, X, H, aQ]);
-                            if (au.pinchIn) {
-                                bc = au.pinchIn.call(aR, be, aJ || null, ap || 0, ac || 0, X, H, aQ)
-                            }
-                            break;
-                        case A:
-                            aR.trigger("pinchOut", [aJ || null, ap || 0, ac || 0, X, H, aQ]);
-                            if (au.pinchOut) {
-                                bc = au.pinchOut.call(aR, be, aJ || null, ap || 0, ac || 0, X, H, aQ)
-                            }
-                            break
-                    }
-                }
-            }
-            if (bd == B) {
-                if (bb === q || bb === h) {
-                    clearTimeout(aW);
-                    clearTimeout(af);
-                    if (Z() && !I()) {
-                        O = ar();
-                        aW = setTimeout(f.proxy(function() {
-                            O = null;
-                            aR.trigger("tap", [be.target]);
-                            if (au.tap) {
-                                bc = au.tap.call(aR, be, be.target)
-                            }
-                        }, this), au.doubleTapThreshold)
-                    } else {
-                        O = null;
-                        aR.trigger("tap", [be.target]);
-                        if (au.tap) {
-                            bc = au.tap.call(aR, be, be.target)
-                        }
-                    }
-                }
-            } else {
-                if (bd == j) {
-                    if (bb === q || bb === h) {
-                        clearTimeout(aW);
-                        O = null;
-                        aR.trigger("doubletap", [be.target]);
-                        if (au.doubleTap) {
-                            bc = au.doubleTap.call(aR, be, be.target)
-                        }
-                    }
-                } else {
-                    if (bd == b) {
-                        if (bb === q || bb === h) {
-                            clearTimeout(aW);
-                            O = null;
-                            aR.trigger("longtap", [be.target]);
-                            if (au.longTap) {
-                                bc = au.longTap.call(aR, be, be.target)
-                            }
-                        }
-                    }
-                }
-            }
-            return bc
-        }
-
-        function am() {
-            var bb = true;
-            if (au.threshold !== null) {
-                bb = ag >= au.threshold
-            }
-            return bb
-        }
-
-        function ba() {
-            var bb = false;
-            if (au.cancelThreshold !== null && aP !== null) {
-                bb = (aT(aP) - ag) >= au.cancelThreshold
-            }
-            return bb
-        }
-
-        function ae() {
-            if (au.pinchThreshold !== null) {
-                return ap >= au.pinchThreshold
-            }
-            return true
-        }
-
-        function aA() {
-            var bb;
-            if (au.maxTimeThreshold) {
-                if (ac >= au.maxTimeThreshold) {
-                    bb = false
-                } else {
-                    bb = true
-                }
-            } else {
-                bb = true
-            }
-            return bb
-        }
-
-        function ak(bb, bc) {
-            if (au.preventDefaultEvents === false) {
-                return
-            }
-            if (au.allowPageScroll === m) {
-                bb.preventDefault()
-            } else {
-                var bd = au.allowPageScroll === s;
-                switch (bc) {
-                    case p:
-                        if ((au.swipeLeft && bd) || (!bd && au.allowPageScroll != E)) {
-                            bb.preventDefault()
-                        }
-                        break;
-                    case o:
-                        if ((au.swipeRight && bd) || (!bd && au.allowPageScroll != E)) {
-                            bb.preventDefault()
-                        }
-                        break;
-                    case e:
-                        if ((au.swipeUp && bd) || (!bd && au.allowPageScroll != u)) {
-                            bb.preventDefault()
-                        }
-                        break;
-                    case x:
-                        if ((au.swipeDown && bd) || (!bd && au.allowPageScroll != u)) {
-                            bb.preventDefault()
-                        }
-                        break
-                }
-            }
-        }
-
-        function a8() {
-            var bc = aO();
-            var bb = Y();
-            var bd = ae();
-            return bc && bb && bd
-        }
-
-        function aX() {
-            return !!(au.pinchStatus || au.pinchIn || au.pinchOut)
-        }
-
-        function Q() {
-            return !!(a8() && aX())
-        }
-
-        function aV() {
-            var be = aA();
-            var bg = am();
-            var bd = aO();
-            var bb = Y();
-            var bc = ba();
-            var bf = !bc && bb && bd && bg && be;
-            return bf
-        }
-
-        function W() {
-            return !!(au.swipe || au.swipeStatus || au.swipeLeft || au.swipeRight || au.swipeUp || au.swipeDown)
-        }
-
-        function J() {
-            return !!(aV() && W())
-        }
-
-        function aO() {
-            return ((X === au.fingers || au.fingers === i) || !a)
-        }
-
-        function Y() {
-            return aQ[0].end.x !== 0
-        }
-
-        function a6() {
-            return !!(au.tap)
-        }
-
-        function Z() {
-            return !!(au.doubleTap)
-        }
-
-        function aU() {
-            return !!(au.longTap)
-        }
-
-        function R() {
-            if (O == null) {
-                return false
-            }
-            var bb = ar();
-            return (Z() && ((bb - O) <= au.doubleTapThreshold))
-        }
-
-        function I() {
-            return R()
-        }
-
-        function aw() {
-            return ((X === 1 || !a) && (isNaN(ag) || ag < au.threshold))
-        }
-
-        function a0() {
-            return ((ac > au.longTapThreshold) && (ag < r))
-        }
-
-        function ah() {
-            return !!(aw() && a6())
-        }
-
-        function aG() {
-            return !!(R() && Z())
-        }
-
-        function ao() {
-            return !!(a0() && aU())
-        }
-
-        function G() {
-            a5 = ar();
-            ay = event.touches.length + 1
-        }
-
-        function S() {
-            a5 = 0;
-            ay = 0
-        }
-
-        function al() {
-            var bb = false;
-            if (a5) {
-                var bc = ar() - a5;
-                if (bc <= au.fingerReleaseThreshold) {
-                    bb = true
-                }
-            }
-            return bb
-        }
-
-        function aB() {
-            return !!(aR.data(C + "_intouch") === true)
-        }
-
-        function an(bb) {
-            if (bb === true) {
-                aR.bind(ax, a3);
-                aR.bind(V, M);
-                if (T) {
-                    aR.bind(T, L)
-                }
-            } else {
-                aR.unbind(ax, a3, false);
-                aR.unbind(V, M, false);
-                if (T) {
-                    aR.unbind(T, L, false)
-                }
-            }
-            aR.data(C + "_intouch", bb === true)
-        }
-
-        function ai(bd, bb) {
-            var bc = {
-                start: {
-                    x: 0,
-                    y: 0
-                },
-                end: {
-                    x: 0,
-                    y: 0
-                }
-            };
-            bc.start.x = bc.end.x = bb.pageX || bb.clientX;
-            bc.start.y = bc.end.y = bb.pageY || bb.clientY;
-            aQ[bd] = bc;
-            return bc
-        }
-
-        function aH(bb) {
-            var bd = bb.identifier !== undefined ? bb.identifier : 0;
-            var bc = ad(bd);
-            if (bc === null) {
-                bc = ai(bd, bb)
-            }
-            bc.end.x = bb.pageX || bb.clientX;
-            bc.end.y = bb.pageY || bb.clientY;
-            return bc
-        }
-
-        function ad(bb) {
-            return aQ[bb] || null
-        }
-
-        function aI(bb, bc) {
-            bc = Math.max(bc, aT(bb));
-            N[bb].distance = bc
-        }
-
-        function aT(bb) {
-            if (N[bb]) {
-                return N[bb].distance
-            }
-            return undefined
-        }
-
-        function ab() {
-            var bb = {};
-            bb[p] = av(p);
-            bb[o] = av(o);
-            bb[e] = av(e);
-            bb[x] = av(x);
-            return bb
-        }
-
-        function av(bb) {
-            return {
-                direction: bb,
-                distance: 0
-            }
-        }
-
-        function aM() {
-            return a2 - U
-        }
-
-        function at(be, bd) {
-            var bc = Math.abs(be.x - bd.x);
-            var bb = Math.abs(be.y - bd.y);
-            return Math.round(Math.sqrt(bc * bc + bb * bb))
-        }
-
-        function a7(bb, bc) {
-            var bd = (bc / bb) * 1;
-            return bd.toFixed(2)
-        }
-
-        function aq() {
-            if (H < 1) {
-                return A
-            } else {
-                return c
-            }
-        }
-
-        function aS(bc, bb) {
-            return Math.round(Math.sqrt(Math.pow(bb.x - bc.x, 2) + Math.pow(bb.y - bc.y, 2)))
-        }
-
-        function aE(be, bc) {
-            var bb = be.x - bc.x;
-            var bg = bc.y - be.y;
-            var bd = Math.atan2(bg, bb);
-            var bf = Math.round(bd * 180 / Math.PI);
-            if (bf < 0) {
-                bf = 360 - Math.abs(bf)
-            }
-            return bf
-        }
-
-        function aL(bc, bb) {
-            var bd = aE(bc, bb);
-            if ((bd <= 45) && (bd >= 0)) {
-                return p
-            } else {
-                if ((bd <= 360) && (bd >= 315)) {
-                    return p
-                } else {
-                    if ((bd >= 135) && (bd <= 225)) {
-                        return o
-                    } else {
-                        if ((bd > 45) && (bd < 135)) {
-                            return x
-                        } else {
-                            return e
-                        }
-                    }
-                }
-            }
-        }
-
-        function ar() {
-            var bb = new Date();
-            return bb.getTime()
-        }
-
-        function aY(bb) {
-            bb = f(bb);
-            var bd = bb.offset();
-            var bc = {
-                left: bd.left,
-                right: bd.left + bb.outerWidth(),
-                top: bd.top,
-                bottom: bd.top + bb.outerHeight()
-            };
-            return bc
-        }
-
-        function F(bb, bc) {
-            return (bb.x > bc.left && bb.x < bc.right && bb.y > bc.top && bb.y < bc.bottom)
-        }
-    }
-}));
-$(function() {
-    $(".modal").swipe({
-        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
-            if (direction == "left") {}
-            if (direction == "right") {
-                //   M.toast({html: `Finger Count: ${fingerCount} <br> Distance: ${distance} <br>Duration: ${duration} <br> Data: ${JSON.stringify(fingerData)}`})
-            }
-            if (direction == "down") {
-                $('.modal').modal('close');
-                // $(".modal.bottom-sheet").addClass('addheight')
-            }
-            if (direction == "up") {}
-        },
-        //Default is 75px, set to 0 for demo so any distance triggers swipe
-        threshold: 0
-    });
-});
+!function(e){"function"==typeof define&&define.amd&&define.amd.jQuery?define(["jquery"],e):e(jQuery)}(function(e){var n="left",t="right",r="up",i="down",l="in",o="out",a="none",u="auto",s="swipe",c="pinch",p="tap",h="doubletap",f="longtap",d="horizontal",g="vertical",w="all",v=10,T="start",b="move",E="end",S="cancel",m="ontouchstart"in window,y=window.navigator.msPointerEnabled&&!window.navigator.pointerEnabled,O=window.navigator.pointerEnabled||window.navigator.msPointerEnabled,x="TouchSwipe";function M(M,D){D=e.extend({},D);var P=m||O||!D.fallbackToMouseEvents,L=P?O?y?"MSPointerDown":"pointerdown":"touchstart":"mousedown",R=P?O?y?"MSPointerMove":"pointermove":"touchmove":"mousemove",k=P?O?y?"MSPointerUp":"pointerup":"touchend":"mouseup",A=P?null:"mouseleave",I=O?y?"MSPointerCancel":"pointercancel":"touchcancel",U=0,N=null,j=0,H=0,_=0,Q=1,C=0,F=0,X=null,Y=e(M),q="start",V=0,W={},$=0,z=0,G=0,Z=0,B=0,J=null,K=null;try{Y.bind(L,ee),Y.bind(I,re)}catch(n){e.error("events not supported "+L+","+I+" on jQuery.swipe")}function ee(l){if(!0!==Y.data(x+"_intouch")&&!(e(l.target).closest(D.excludedElements,Y).length>0)){var o,a=l.originalEvent?l.originalEvent:l,u=a.touches,s=u?u[0]:a;return q=T,u?V=u.length:!1!==D.preventDefaultEvents&&l.preventDefault(),U=0,N=null,F=null,j=0,H=0,_=0,Q=1,C=0,X=function(){var e={};return e[n]=Le(n),e[t]=Le(t),e[r]=Le(r),e[i]=Le(i),e}(),ye(),Me(0,s),!u||V===D.fingers||D.fingers===w||fe()?($=Ae(),2==V&&(Me(1,u[1]),H=_=ke(W[0].start,W[1].start)),(D.swipeStatus||D.pinchStatus)&&(o=ae(a,q))):o=!1,!1===o?(ae(a,q=S),o):(D.hold&&(K=setTimeout(e.proxy(function(){Y.trigger("hold",[a.target]),D.hold&&(o=D.hold.call(Y,a,a.target))},this),D.longTapThreshold)),xe(!0),null)}}function ne(s){var c=s.originalEvent?s.originalEvent:s;if(q!==E&&q!==S&&!Oe()){var p,h=c.touches,f=De(h?h[0]:c);if(z=Ae(),h&&(V=h.length),D.hold&&clearTimeout(K),q=b,2==V&&(0==H?(Me(1,h[1]),H=_=ke(W[0].start,W[1].start)):(De(h[1]),_=ke(W[0].end,W[1].end),W[0].end,W[1].end,F=Q<1?o:l),Q=function(e,n){return(n/e*1).toFixed(2)}(H,_),C=Math.abs(H-_)),V===D.fingers||D.fingers===w||!h||fe()){if(function(e,l){if(!1===D.preventDefaultEvents)return;if(D.allowPageScroll===a)e.preventDefault();else{var o=D.allowPageScroll===u;switch(l){case n:(D.swipeLeft&&o||!o&&D.allowPageScroll!=d)&&e.preventDefault();break;case t:(D.swipeRight&&o||!o&&D.allowPageScroll!=d)&&e.preventDefault();break;case r:(D.swipeUp&&o||!o&&D.allowPageScroll!=g)&&e.preventDefault();break;case i:(D.swipeDown&&o||!o&&D.allowPageScroll!=g)&&e.preventDefault()}}}(s,N=function(e,l){var o=function(e,n){var t=e.x-n.x,r=n.y-e.y,i=Math.atan2(r,t),l=Math.round(180*i/Math.PI);l<0&&(l=360-Math.abs(l));return l}(e,l);return o<=45&&o>=0?n:o<=360&&o>=315?n:o>=135&&o<=225?t:o>45&&o<135?i:r}(f.start,f.end)),U=function(e,n){return Math.round(Math.sqrt(Math.pow(n.x-e.x,2)+Math.pow(n.y-e.y,2)))}(f.start,f.end),j=Re(),function(e,n){n=Math.max(n,Pe(e)),X[e].distance=n}(N,U),(D.swipeStatus||D.pinchStatus)&&(p=ae(c,q)),!D.triggerOnTouchEnd||D.triggerOnTouchLeave){var v=!0;if(D.triggerOnTouchLeave){var T=function(n){var t=(n=e(n)).offset();return{left:t.left,right:t.left+n.outerWidth(),top:t.top,bottom:t.top+n.outerHeight()}}(this);v=function(e,n){return e.x>n.left&&e.x<n.right&&e.y>n.top&&e.y<n.bottom}(f.end,T)}!D.triggerOnTouchEnd&&v?q=oe(b):D.triggerOnTouchLeave&&!v&&(q=oe(E)),q!=S&&q!=E||ae(c,q)}}else ae(c,q=S);!1===p&&ae(c,q=S)}}function te(e){var n=e.originalEvent?e.originalEvent:e,t=n.touches;if(t){if(t.length&&!Oe())return G=Ae(),Z=event.touches.length+1,!0;if(t.length&&Oe())return!0}return Oe()&&(V=Z),z=Ae(),j=Re(),ce()||!se()?ae(n,q=S):D.triggerOnTouchEnd||0==D.triggerOnTouchEnd&&q===b?(!1!==D.preventDefaultEvents&&e.preventDefault(),ae(n,q=E)):!D.triggerOnTouchEnd&&Ee()?ue(n,q=E,p):q===b&&ae(n,q=S),xe(!1),null}function re(){V=0,z=0,$=0,H=0,_=0,Q=1,ye(),xe(!1)}function ie(e){var n=e.originalEvent?e.originalEvent:e;D.triggerOnTouchLeave&&ae(n,q=oe(E))}function le(){Y.unbind(L,ee),Y.unbind(I,re),Y.unbind(R,ne),Y.unbind(k,te),A&&Y.unbind(A,ie),xe(!1)}function oe(e){var n=e,t=pe(),r=se(),i=ce();return!t||i?n=S:!r||e!=b||D.triggerOnTouchEnd&&!D.triggerOnTouchLeave?!r&&e==E&&D.triggerOnTouchLeave&&(n=S):n=E,n}function ae(e,n){var t,r=e.touches;return ve()&&we()||de()&&fe()?(ve()&&we()&&(t=ue(e,n,s)),de()&&fe()&&!1!==t&&(t=ue(e,n,c))):me()&&Se()&&!1!==t?t=ue(e,n,h):j>D.longTapThreshold&&U<v&&D.longTap&&!1!==t?t=ue(e,n,f):1!==V&&m||!(isNaN(U)||U<D.threshold)||!Ee()||!1===t||(t=ue(e,n,p)),n===S&&(we()&&(t=ue(e,n,s)),fe()&&(t=ue(e,n,c)),re()),n===E&&(r&&r.length||re()),t}function ue(a,u,d){var g;if(d==s){if(Y.trigger("swipeStatus",[u,N||null,U||0,j||0,V,W]),D.swipeStatus&&!1===(g=D.swipeStatus.call(Y,a,u,N||null,U||0,j||0,V,W)))return!1;if(u==E&&ge()){if(Y.trigger("swipe",[N,U,j,V,W]),D.swipe&&!1===(g=D.swipe.call(Y,a,N,U,j,V,W)))return!1;switch(N){case n:Y.trigger("swipeLeft",[N,U,j,V,W]),D.swipeLeft&&(g=D.swipeLeft.call(Y,a,N,U,j,V,W));break;case t:Y.trigger("swipeRight",[N,U,j,V,W]),D.swipeRight&&(g=D.swipeRight.call(Y,a,N,U,j,V,W));break;case r:Y.trigger("swipeUp",[N,U,j,V,W]),D.swipeUp&&(g=D.swipeUp.call(Y,a,N,U,j,V,W));break;case i:Y.trigger("swipeDown",[N,U,j,V,W]),D.swipeDown&&(g=D.swipeDown.call(Y,a,N,U,j,V,W))}}}if(d==c){if(Y.trigger("pinchStatus",[u,F||null,C||0,j||0,V,Q,W]),D.pinchStatus&&!1===(g=D.pinchStatus.call(Y,a,u,F||null,C||0,j||0,V,Q,W)))return!1;if(u==E&&he())switch(F){case l:Y.trigger("pinchIn",[F||null,C||0,j||0,V,Q,W]),D.pinchIn&&(g=D.pinchIn.call(Y,a,F||null,C||0,j||0,V,Q,W));break;case o:Y.trigger("pinchOut",[F||null,C||0,j||0,V,Q,W]),D.pinchOut&&(g=D.pinchOut.call(Y,a,F||null,C||0,j||0,V,Q,W))}}return d==p?u!==S&&u!==E||(clearTimeout(J),clearTimeout(K),Se()&&!me()?(B=Ae(),J=setTimeout(e.proxy(function(){B=null,Y.trigger("tap",[a.target]),D.tap&&(g=D.tap.call(Y,a,a.target))},this),D.doubleTapThreshold)):(B=null,Y.trigger("tap",[a.target]),D.tap&&(g=D.tap.call(Y,a,a.target)))):d==h?u!==S&&u!==E||(clearTimeout(J),B=null,Y.trigger("doubletap",[a.target]),D.doubleTap&&(g=D.doubleTap.call(Y,a,a.target))):d==f&&(u!==S&&u!==E||(clearTimeout(J),B=null,Y.trigger("longtap",[a.target]),D.longTap&&(g=D.longTap.call(Y,a,a.target)))),g}function se(){var e=!0;return null!==D.threshold&&(e=U>=D.threshold),e}function ce(){var e=!1;return null!==D.cancelThreshold&&null!==N&&(e=Pe(N)-U>=D.cancelThreshold),e}function pe(){return!D.maxTimeThreshold||!(j>=D.maxTimeThreshold)}function he(){var e=Te(),n=be(),t=null===D.pinchThreshold||C>=D.pinchThreshold;return e&&n&&t}function fe(){return!!(D.pinchStatus||D.pinchIn||D.pinchOut)}function de(){return!(!he()||!fe())}function ge(){var e=pe(),n=se(),t=Te(),r=be();return!ce()&&r&&t&&n&&e}function we(){return!!(D.swipe||D.swipeStatus||D.swipeLeft||D.swipeRight||D.swipeUp||D.swipeDown)}function ve(){return!(!ge()||!we())}function Te(){return V===D.fingers||D.fingers===w||!m}function be(){return 0!==W[0].end.x}function Ee(){return!!D.tap}function Se(){return!!D.doubleTap}function me(){if(null==B)return!1;var e=Ae();return Se()&&e-B<=D.doubleTapThreshold}function ye(){G=0,Z=0}function Oe(){var e=!1;G&&(Ae()-G<=D.fingerReleaseThreshold&&(e=!0));return e}function xe(e){!0===e?(Y.bind(R,ne),Y.bind(k,te),A&&Y.bind(A,ie)):(Y.unbind(R,ne,!1),Y.unbind(k,te,!1),A&&Y.unbind(A,ie,!1)),Y.data(x+"_intouch",!0===e)}function Me(e,n){var t={start:{x:0,y:0},end:{x:0,y:0}};return t.start.x=t.end.x=n.pageX||n.clientX,t.start.y=t.end.y=n.pageY||n.clientY,W[e]=t,t}function De(e){var n=void 0!==e.identifier?e.identifier:0,t=function(e){return W[e]||null}(n);return null===t&&(t=Me(n,e)),t.end.x=e.pageX||e.clientX,t.end.y=e.pageY||e.clientY,t}function Pe(e){if(X[e])return X[e].distance}function Le(e){return{direction:e,distance:0}}function Re(){return z-$}function ke(e,n){var t=Math.abs(e.x-n.x),r=Math.abs(e.y-n.y);return Math.round(Math.sqrt(t*t+r*r))}function Ae(){return(new Date).getTime()}this.enable=function(){return Y.bind(L,ee),Y.bind(I,re),Y},this.disable=function(){return le(),Y},this.destroy=function(){le(),Y.data(x,null),Y=null},this.option=function(n,t){if("object"==typeof n)D=e.extend(D,n);else if(void 0!==D[n]){if(void 0===t)return D[n];D[n]=t}else{if(!n)return D;e.error("Option "+n+" does not exist on jQuery.swipe.options")}return null}}e.fn.swipe=function(n){var t=e(this),r=t.data(x);if(r&&"string"==typeof n){if(r[n])return r[n].apply(this,Array.prototype.slice.call(arguments,1));e.error("Method "+n+" does not exist on jQuery.swipe")}else if(r&&"object"==typeof n)r.option.apply(this,arguments);else if(!(r||"object"!=typeof n&&n))return function(n){!n||void 0!==n.allowPageScroll||void 0===n.swipe&&void 0===n.swipeStatus||(n.allowPageScroll=a);void 0!==n.click&&void 0===n.tap&&(n.tap=n.click);n||(n={});return n=e.extend({},e.fn.swipe.defaults,n),this.each(function(){var t=e(this),r=t.data(x);r||(r=new M(this,n),t.data(x,r))})}.apply(this,arguments);return t},e.fn.swipe.version="1.6.12",e.fn.swipe.defaults={fingers:1,threshold:75,cancelThreshold:null,pinchThreshold:20,maxTimeThreshold:null,fingerReleaseThreshold:250,longTapThreshold:500,doubleTapThreshold:200,swipe:null,swipeLeft:null,swipeRight:null,swipeUp:null,swipeDown:null,swipeStatus:null,pinchIn:null,pinchOut:null,pinchStatus:null,click:null,tap:null,doubleTap:null,longTap:null,hold:null,triggerOnTouchEnd:!0,triggerOnTouchLeave:!1,allowPageScroll:"auto",fallbackToMouseEvents:!0,excludedElements:"label, button, input, select, textarea, a, .noSwipe",preventDefaultEvents:!0},e.fn.swipe.phases={PHASE_START:T,PHASE_MOVE:b,PHASE_END:E,PHASE_CANCEL:S},e.fn.swipe.directions={LEFT:n,RIGHT:t,UP:r,DOWN:i,IN:l,OUT:o},e.fn.swipe.pageScroll={NONE:a,HORIZONTAL:d,VERTICAL:g,AUTO:u},e.fn.swipe.fingers={ONE:1,TWO:2,THREE:3,FOUR:4,FIVE:5,ALL:w}}),$(function(){$(".modal").swipe({swipe:function(e,n,t,r,i,l){"down"==n&&$(".modal").modal("close")},threshold:0})});
 /*END Swipe*/
 function _settingsLoad(el, data) {
     var i, tabcontent, tablinks;
@@ -2595,6 +1420,40 @@ window.addEventListener('load', function() {
         }
     }
 });
+if ((!('innerText' in document.createElement('a'))) && ('getSelection' in window)) {
+    HTMLElement.prototype.__defineGetter__("innerText", function() {
+        var selection = window.getSelection(),
+            ranges = [],
+            str;
+
+        // Save existing selections.
+        for (var i = 0; i < selection.rangeCount; i++) {
+            ranges[i] = selection.getRangeAt(i);
+        }
+
+        // Deselect everything.
+        selection.removeAllRanges();
+
+        // Select `el` and all child nodes.
+        // 'this' is the element .innerText got called on
+        selection.selectAllChildren(this);
+
+        // Get the string representation of the selected nodes.
+        str = selection.toString();
+
+        // Deselect everything. Again.
+        selection.removeAllRanges();
+
+        // Restore all formerly existing selections.
+        for (var i = 0; i < ranges.length; i++) {
+            selection.addRange(ranges[i]);
+        }
+
+        // Oh look, this is what we wanted.
+        // String representation of the element, close to as rendered.
+        return str;
+    })
+}
 //addEventListener polyfill 1.0 / Eirik Backer / MIT Licence
 (function(win, doc) {
     if (win.addEventListener) return; //No need to polyfill

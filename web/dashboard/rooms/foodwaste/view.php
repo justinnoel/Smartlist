@@ -109,8 +109,8 @@ var foodWaste = new Chart(ctx, {
   foreach ($users as $row)
   {
     echo "<tr>
-            <td>".$row['date']."</td>
-            <td>".$row['amount']."</td>
+            <td>".htmlspecialchars($row['date'])."</td>
+            <td>".htmlspecialchars($row['amount'])."</td>
             <td><a href='javascript:void(0)' onclick='sm_page(\"ajax_loader\");$(\"#div1\").load(\"./rooms/foodwaste/delete.php?id=".$row['id']."\", function() { sm_page(\"foodwaste\");AJAX_LOAD(\"#foodwaste\", \"./rooms/foodwaste/view.php\");change_title(\"Food Waste\")})'><i class='material-icons'>delete</i></a></td>
         </tr>";
   }

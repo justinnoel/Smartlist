@@ -10,8 +10,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: main
-      - name: Dalfox scan
-        uses: hahwul/action-dalfox@main
+      - name: XSS Scanner
+        uses: Smartlist-app/Smartlist@main
         id: xss-result
         with:
           target: 'https://xss-game.appspot.com/level1/frame'

@@ -220,6 +220,17 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
   <style>
+  h5 {
+      margin-bottom: 5px;
+  }
+  .chip-suggestions {
+    width: 100%;
+    overflow-y: visible !important;
+  overflow-x: auto;
+  white-space: nowrap; 
+  padding: 5px 0;
+  position:relative;
+  }
     .cursor-pointer {
       cursor: pointer;
     }
@@ -386,6 +397,14 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <p>Enter how much you spent today</p>
         <div class="input-field"> <i class="material-icons-round prefix">attach_money</i> <label>Amount you
             spent</label> <input type="number" name="qty" required id="bm_amount" autocomplete='off' autofocus> </div>
+            <div>
+                <select id="bm_select">
+                    <option value="Grocery Shopping">Grocery Shopping</option>
+                    <option value="Clothes Shopping">Clothes Shopping</option>
+                    <option value="Bills">Bills</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
         <p style="margin-top: 20px"><i class="material-icons-round left">verified</i> We take your privacy very
           seriously, and we will never sell your data. <a href="https://support.smartlist.ga/docs/#/privacy-policy" class="blue-text">Read our Privacy Statement</a></p><br>
         <input type="submit" name="Submit" value="Add" class="btn purple darken-3">
@@ -1099,14 +1118,22 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <a href="javascript:void(0)" id="rclick_delete" class="modal-close waves-effect"><i class="material-icons-round left">delete</i> Delete</a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/js/materialize.min.js"></script>
-  <script src="./js/app.js?t=<?php echo rand(0, 9999999); ?>"></script>
-  <!--<script src="./js/app.js"></script>-->
-  <script defer>
+  <script>
     const user = {
       theme_top_color: "#<?php echo $theme_top; ?>",
       theme_color: "#<?php echo $theme; ?> ",
       bmBorderColor: "<?php echo $bmBorderColor; ?>",
       bmBgColor: "<?php echo $bmBgColor; ?>",
+    }
+  </script>
+  <script src="./js/app.js"></script>
+  <script defer>
+      function chipValue(el) {
+        var input = el.parentElement.parentElement.getElementsByTagName('input')[0];
+        input.focus();
+        input.value = el.innerText
+        el.parentElement.parentElement.getElementsByTagName('input')[1].focus();
+        el.parentElement.parentElement.getElementsByTagName('input')[1].value = 1;
     }
     var __bmglobal = {
         <?php echo "labels: [";

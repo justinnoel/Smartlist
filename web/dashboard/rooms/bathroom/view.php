@@ -10,13 +10,6 @@ $users = $dbh->query($sql);
 $bath_count = $users->rowCount();
 if ($bath_count > 0)
 {
-}
-else
-{
-echo "<div id='bathroom_table_var' style='height: 90vh'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p></div>";
-}
-if ($bath_count > 0)
-{
 echo '<table class="table"  id="bathroom_table">
 <tr class="hover">
 <td onclick="bathroom_table_sort(0)">Name</td>

@@ -17,9 +17,9 @@ try {
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC";
 $users = $dbh->query($sql);
-echo '<table class="table"> <tr> <td>Date</td> <td>Quantity</td>  <td style="width:10%">Actions</td> </tr><tr id="bm_items"></tr>';
+echo '<table class="table"> <tr> <td>Date</td> <td>Quantity</td> <td>Spent On</td>  <td style="width:10%">Actions</td> </tr><tr id="bm_items"></tr>';
 foreach ($users as $row) {
-echo "<tr> <td> ".($row['login_id'] !== $_SESSION['id'] ? '<span class="sync">Synced</span>' : '')." ".decrypt($row['name'])." </td> <td> ".decrypt($row['qty'])." </td> <td><a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bm/delete.php?id=".$row['id']."\");this.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons left'>delete</i></a></td> </tr>";
+echo "<tr> <td> ".($row['login_id'] !== $_SESSION['id'] ? '<span class="sync">Synced</span>' : '')." ".decrypt($row['name'])." </td> <td> ".decrypt($row['qty'])." </td><td> ".decrypt($row['price'])." </td> <td><a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bm/delete.php?id=".$row['id']."\");this.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons left'>delete</i></a></td> </tr>";
 $dbh = null;
 }
 }

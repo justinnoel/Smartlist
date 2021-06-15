@@ -654,7 +654,8 @@ const __bmconfig = {
 
 function bm_add() {
     var x = document.getElementById('bm_amount');
-    $('#div1').load('https://smartlist.ga/dashboard/rooms/bm/addx.php?n=' + x.value);
+    var e = document.getElementById('bm_select');
+    $('#div1').load('https://smartlist.ga/dashboard/rooms/bm/addx.php?n=' + encodeURI(x.value) + "&label=" + encodeURI(e.value));
     addData(budgetMeter, new Date().toJSON().slice(0, 10).split('-').reverse().join('/'), x.value);
     x.value = '';
     sm_page('News');

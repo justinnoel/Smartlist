@@ -4,12 +4,12 @@ include('../../cred.php');
 ?>
 <h5>Backup</h5>
 <p>Here, you can backup your items. However, you will not be able to re-import your data back to Smartlist. You may use this as a tool to keep your items for records. Backups will be stored in a .csv file. </p>
+<a class="btn green darken-3" href="https://smartlist.ga/dashboard/user/settings/backup/upload/">Import CSV</a>
 <ul class="collection">
     <li class="collection-item">
         <p>Kitchen</p>
       <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/kitchen.php')">CSV</a>
       <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/kitchen.php')">PDF</a>
-      <a class="btn green darken-3" href="https://smartlist.ga/dashboard/user/settings/backup/upload/">Upload CSV</a>
     </li>
     <li class="collection-item">
         <p>Bedroom</p>

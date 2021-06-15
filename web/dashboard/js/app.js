@@ -1061,7 +1061,7 @@ function toast(name, qty) {
 }
 
 function changeValue() {
-    document.getElementById("sr").innerHTML = document.getElementById("search").value;
+    document.getElementById("sr").innerHTML = htmlspecialchars(document.getElementById("search").value);
 }
 
 function getCookie(cname) {

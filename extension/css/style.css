@@ -1,3 +1,6 @@
+* {
+    outline: 0;
+}
 webview {
     width: 100vw;
     background-color: #303030;

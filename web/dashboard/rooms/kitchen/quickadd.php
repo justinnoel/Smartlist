@@ -6,13 +6,13 @@ $chips = array_map('ucfirst', $chips);
 
 $rand_keys = array_rand($chips, 15);
 ?>
-<br><br> 
+<br><br>
 <div class="container">
     <form action="https://smartlist.ga/dashboard/rooms/kitchen/addx.php" method="POST" id="kitchen_add_form">
         <a href="./scan/live" target="_blank" class="btn right blue-grey darken-2 waves-effect waves-light"><i class="material-icons-round">compare</i></a>
         <h5>Add an item (Kitchen)</h5> 
         <div class="input-field">
-            <label>Name</label>
+            <label onclick="this.nextElementSibling.focus()">Name</label>
             <input type="text" name="name" class="validate" id="addKitchenName" data-length="150" autofocus autocomplete="off" required>
         </div>
         <div class="chip-suggestions">
@@ -33,8 +33,8 @@ $rand_keys = array_rand($chips, 15);
             <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[14]];?></div>
         </div>
         <div class="input-field">
-            <label>Quantity</label>
-            <input type="text" name="qty" class="validate" autocomplete="off" data-length="20" required>
+            <label onclick="this.nextElementSibling.focus()">Quantity</label>
+            <input type="text" name="qty" value="1" class="validate" autocomplete="off" data-length="20" required>
         </div>
         <div class="input-field">
             <select name="price"> 
@@ -66,7 +66,7 @@ $rand_keys = array_rand($chips, 15);
         </div> 
 
         <button class="btn blue-grey darken-3">
-            Submit
+            <i class="material-icons-round left">save</i> Save
         </button>
     </form>
 </div>

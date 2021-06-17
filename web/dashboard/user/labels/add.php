@@ -23,6 +23,9 @@ else {
         <label>Label Name</label>
         <input autocomplete="off" name="name" type="text" class="validate" data-length="50" required>
     </div>
+    <div>
+        <p>Examples: Canned Food, Appliances</p>
+    </div>
     <button name="submit" class="btn blue-grey darken-2 waves-effect waves-light">Save</button>
 </form>
 <script>

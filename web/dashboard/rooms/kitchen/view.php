@@ -14,11 +14,12 @@ include('../../cred.php');
     {
       echo "<div id='KITCHEN_VAR_COUNT' style='height: 90vh'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p></div>";
     }
-    echo '<table class="table container" id="kitchen_table">
-      <div class="container"><input type="search" style="display:none" id="kitchen_search" placeholder="Search..."></div></div>
+    echo '
+    <table class="table container" id="kitchen_table">
+      <div class="container"><input type="search" style="display:none" id="kitchen_search" placeholder="Search..."></div>
       <tr class="hover">
         <td onclick="sortTable(0)" style="width: 50%"><b>Name</b></td>
-        <td onclick="sortTable(1)" style="width: 50%"><b>Quantity</b></td>
+        <td onclick="sortTable(1)" style="width: 50%;te"><b>Quantity</b></td>
       </tr>
 ';
 foreach ($users as $row)
@@ -27,6 +28,12 @@ foreach ($users as $row)
       <td>".htmlspecialchars(decrypt($row['name']))."</td><td> ".htmlspecialchars(decrypt($row['qty']))." </td>
       </tr>";
     }
+    ?>
+    </table>
+     <div class="container">
+         <p>Showing <?=$KITCHEN_VAR_COUNT;?>/<?=$KITCHEN_VAR_COUNT;?> items in your kitchen</p>
+     </div>
+     <?php
     $dbh = null;
   }
   catch(PDOexception $e)
@@ -76,6 +83,6 @@ function sortTable(n) {
     }
   }
 }
-  addPagerToTables('#kitchen_table', 15);
+//   addPagerToTables('#kitchen_table', 15);
 
   </script>

@@ -2,12 +2,13 @@
 session_start(); 
 include('../../cred.php');
 ?>
+<br><br>
 <div class="container">
 <form action="https://smartlist.ga/dashboard/rooms/custom_room/custom_room_adder.php?room=<?php echo $_GET['room']; ?>" method="POST" id="croom_form">
         <h5>Add an item</h5>
         <div class="input-field">
             <label>Name</label>
-            <input type="text" name="name" autofocus autocomplete="off" class="validate" required data-length="150">
+            <input type="text" name="name" autofocus autocomplete="off" class="validate autocomplete" required data-length="150">
         </div>
         <div class="input-field">
             <label>Quantity</label>
@@ -38,14 +39,19 @@ include('../../cred.php');
             ?>
             </select>
         <button class="btn blue-grey darken-3">
-            Submit
+            <i class="material-icons-round left">save</i> Save
         </button>
     </form>
 </div>
 <script>
  $(document).ready(function() {
     $('.validate').characterCounter();
-    $("select").formSelect()
+    $("select").formSelect();
+    $('input.autocomplete').autocomplete({
+      // specify options here
+      data: autocompleteData,
+      limit: 5,
+    });
   });
     $("#croom_form").submit(function(e) {
         e.preventDefault();

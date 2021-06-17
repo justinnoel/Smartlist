@@ -4,7 +4,7 @@ include "../../cred.php";
 ?>
 <div class="container">
   <br><br>
-  <a href="#addNote" class="modal-trigger" onclick="$('.validate').characterCounter()">Add note</a>
+  <a href="#addNote" class="btn right modal-trigger waves-effect waves-light blue-grey" onclick="$('.validate').characterCounter()"><i class="material-icons-round left ">add</i>Add note</a><br><br>
   <div class="row">
     <?php
     try {

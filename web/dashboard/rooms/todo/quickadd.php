@@ -1,7 +1,7 @@
 <div class="container">
 <form action="https://smartlist.ga/dashboard/rooms/todo/add.php" method="POST" id="todo_form">
         <h5>Add an task</h5>
-        <div class='input-field'><label>Task title</label>
+        <div class='input-field'><label onclick="this.nextElementSibling.focus()">Task title</label>
         <input type="text" name="name" class="form-control" autocomplete="off">
         </div>
         <div class="input-field">
@@ -13,8 +13,8 @@
           <option value="High">High</option>
         </select>
         </div>
-        <div class="input-field"><label>Description</label><textarea type="text" name="decs" class="materialize-textarea" autocomplete="off"></textarea></div>
-        <div class='input-field'><label>Due Date</label><input type="text" id="date" name="price" class="datepicker" autocomplete="off"></div>
+        <div class="input-field"><label onclick="this.nextElementSibling.focus()">Description</label><textarea type="text" name="decs" class="materialize-textarea" autocomplete="off"></textarea></div>
+        <div class='input-field'><label onclick="this.nextElementSibling.focus()">Due Date</label><input type="text" id="date" name="price" class="datepicker" autocomplete="off"></div>
         <button type="submit" name="Submit" value="Add" class="btn purple waves-effect">Add</button>
     </form>
 </div>

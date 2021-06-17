@@ -241,15 +241,15 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     .card.waves-effect {
         width: 100%;
     }
-    @media only screen and (min-width: 300px) {
+    @media only screen and (min-width: 500px) {
         #addNote,#noteView {
          width: 70% !important;
          margin: auto !important;
           height: 90vh !important;
       }
     }
-    @media only screen and (max-width: 300px) {
-        #addNote,#noteView {
+    @media only screen and (max-width: 500px) {
+        #addNote,#noteView,#editNoteForm {
             width: 100% !important;
         }
     }
@@ -291,12 +291,16 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       color: white;
       background: #212121 !important;
     }
-
+.drag-target {
+    width: 10px !important;
+}
     @media only screen and (max-width:900px) {
       .nav_btn_menu {
         top: -2px !important;
       }
-
+.chart_container {
+    margin-top: 10px
+}
       #toast-container {
         top: auto !important;
         right: auto !important;

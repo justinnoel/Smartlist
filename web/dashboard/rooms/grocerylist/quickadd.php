@@ -1,6 +1,6 @@
 <div class="container">
 <form action="https://smartlist.ga/dashboard/rooms/grocerylist/add.php" method="POST" id="grocerylist_add_form">
-        <h5>Add an item (Grocery List)</h5>
+        <h5>Add an item (Shopping List)</h5>
         <div class="input-field">
             <label onclick="this.nextElementSibling.focus()">Name</label>
             <input type="text" name="name" autofocus autocomplete="off" required>

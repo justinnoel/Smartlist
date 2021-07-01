@@ -59,7 +59,12 @@ include('../../cred.php');
             success: function(data) {
                 sm_page('camping_add');
                 document.getElementById('camping_add_form').reset();
-                M.toast({html: 'Added item successfully. You can keep adding more'});
+                if(data == "Item Already Exists!") {
+                    M.toast({html: "Item Already Exists!"});
+                }
+                else {
+                    M.toast({html: 'Added item successfully. You can keep adding more'});
+                }
             }
         });
     });

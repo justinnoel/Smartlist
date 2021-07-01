@@ -22,7 +22,7 @@ include('../../cred.php');
             $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $sql = "SELECT * FROM grocerylist WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
             $users = $dbh->query($sql);
-            echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List<a href=\"#\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
+            echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List<a href=\"#\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
             foreach ($users as $todo_listx)
             {
               echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . $todo_listx['name'] . '</b><br>Quantity: ' . $todo_listx['qty'] . '</span></label></p>';

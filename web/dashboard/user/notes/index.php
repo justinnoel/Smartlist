@@ -13,7 +13,7 @@ include "../../cred.php";
       $users = $dbh->query($sql);
       foreach ($users as $row){
     ?>
-    <div class="col s6 m4">
+    <div class="col s12 m4">
       <div class="card waves-effect" onclick="viewNote('<?=$row['id'];?>')">
         <div class="card-content">
           <span class="card-title" style="font-weight:bold !important"><?=$row['title'];?></span>

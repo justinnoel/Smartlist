@@ -43,6 +43,7 @@ switch ($theme) {
     $theme_light = '4527a0';
     $bmBgColor = 'rgba(81, 45, 168,.2)';
     $bmBorderColor = 'rgba(81, 45, 168,.8)';
+    $overlayColor = "rgba(81, 45, 168,.4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEVFJ6D////Exu4TAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case 'B00020':
@@ -51,6 +52,7 @@ switch ($theme) {
     $theme_light = 'c20225';
     $bmBgColor = 'rgba(176, 0, 32, .1)';
     $bmBorderColor = 'rgba(176, 0, 32, .7)';
+    $overlayColor = "rgba(176, 0, 32, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEWwACD///8fISOWAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '00695c':
@@ -59,6 +61,7 @@ switch ($theme) {
     $theme_light = '007a6b';
     $bmBgColor = 'rgba(0, 89, 78, .2)';
     $bmBorderColor = 'rgba(0, 89, 78, .8)';
+    $overlayColor = 'rgba(0, 89, 78, .4)';
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUAaVz///+wIDr7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '6200ea':
@@ -67,6 +70,7 @@ switch ($theme) {
     $theme_light = '6802f5';
     $bmBgColor = 'rgba(90, 2, 212, .2)';
     $bmBorderColor = 'rgba(90, 2, 212, .8)';
+    $overlayColor = "rgba(90, 2, 212, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEViAOr///9ZJ5DQAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '00838f':
@@ -75,6 +79,7 @@ switch ($theme) {
     $theme_light = '00919e';
     $bmBgColor = 'rgba(1, 108, 117, .2)';
     $bmBorderColor = 'rgba(1, 108, 117, .8)';
+    $overlayColor = "rgba(1, 108, 117, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUAg4/////mpfPyAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '0277bd':
@@ -83,6 +88,7 @@ switch ($theme) {
     $theme_light = '027fc9';
     $bmBgColor = 'rgba(2, 103, 163, .2)';
     $bmBorderColor = 'rgba(2, 103, 163, .8)';
+    $overlayColor = "rgba(2, 103, 163, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUCd73///9M+5ROAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '2e7d32':
@@ -91,6 +97,7 @@ switch ($theme) {
     $theme_light = '328c37';
     $bmBgColor = 'rgba(39, 107, 42, .2)';
     $bmBorderColor = 'rgba(39, 107, 42, .8)';
+    $overlayColor = "rgba(39, 107, 42, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUufTL////DH+/PAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case 'f9a825':
@@ -98,6 +105,7 @@ switch ($theme) {
     $theme = 'f9a825';
     $theme_light = 'ffac26';
     $bmBgColor = 'rgba(230, 154, 32, .2)';
+    $overlayColor = "rgba(230, 154, 32, .4)";
     $bmBorderColor = 'rgba(230, 154, 32, .8)';
     break;
   case 'ef6c00':
@@ -106,6 +114,7 @@ switch ($theme) {
     $theme_light = 'f5852a';
     $bmBgColor = 'rgba(219, 100, 2, .2)';
     $bmBorderColor = 'rgba(219, 100, 2, .8)';
+    $overlayColor = "rgba(219, 100, 2, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEXvbAD///8eCazGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case 'ad1457':
@@ -114,6 +123,7 @@ switch ($theme) {
     $theme_light = 'b8165d';
     $bmBgColor = 'rgba(150, 18, 76, .2)';
     $bmBorderColor = 'rgba(150, 18, 76, .8)';
+    $overlayColor = "rgba(150, 18, 76, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEWtFFf////D4Zu0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '37474f':
@@ -122,6 +132,7 @@ switch ($theme) {
     $theme_light = '4d636e';
     $bmBgColor = 'rgba(41, 53, 59, .2)';
     $bmBorderColor = 'rgba(41, 53, 59, .8)';
+    $overlayColor = "rgba(41, 53, 59, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEU3R0////+VAmT6AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
   case '212121':
@@ -130,6 +141,7 @@ switch ($theme) {
     $theme_light = '404040';
     $bmBgColor = 'rgba(23, 23, 23, .2)';
     $bmBorderColor = 'rgba(23, 23, 23, .8)';
+    $overlayColor = "rgba(23, 23, 23, .4)";
     break;
   default:
     $theme_top = '171717';
@@ -220,152 +232,44 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
   <style>
-  h5 {
-      margin-bottom: 5px;
-  }
-  .chip-suggestions {
-    width: 100%;
-    overflow-y: visible !important;
-  overflow-x: auto;
-  white-space: nowrap; 
-  padding: 5px 0;
-  position:relative;
-  }
-    .cursor-pointer {
-      cursor: pointer;
-    }
-
-    .pagination_container {
-      text-align: right;
-    }
-    .card.waves-effect {
-        width: 100%;
-    }
-    @media only screen and (min-width: 500px) {
-        #addNote,#noteView {
-         width: 70% !important;
-         margin: auto !important;
-          height: 90vh !important;
-      }
-    }
-    @media only screen and (max-width: 500px) {
-        #addNote,#noteView,#editNoteForm {
-            width: 100% !important;
-        }
-    }
-
-    * {
-      user-drag: none
-    }
-
-    .sync_tr {
-      background: rgba(0, 121, 107, .1) !important;
-    }
-
-    .pagination_btn {
-      padding: 15px;
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      border-radius: 9999px;
-      cursor: pointer;
-      transition: all .2s;
-      background: transparent;
-      border: 0;
-    }
-
-    tr.hover {
-      display: table-row !important;
-    }
-
-    .pagination_btn:not(.paginationActive):focus {
-      background: transparent;
-      color: inherit;
-    }
-
-    .pagination_container button {
-      padding: 10px;
-    }
-
-    .paginationActive {
-      color: white;
-      background: #212121 !important;
-    }
-.drag-target {
-    width: 10px !important;
-}
-    @media only screen and (max-width:900px) {
-      .nav_btn_menu {
-        top: -2px !important;
-      }
-.chart_container {
-    margin-top: 10px
-}
-      #toast-container {
-        top: auto !important;
-        right: auto !important;
-        bottom: 0;
-        left: 0;
-        width: calc(100% - 30px) !important
-      }
-
-      #accounts {
-        width: 100%
-      }
-
-      .hover td::after {
-        display: none
-      }
-
-      .menu.gray-text {
-        padding: 0 !important;
-      }
-
-      .name {
-        color: var(--font-color) !important
-      }
-
-      .email {
-        color: #aaa !important
-      }
-
-      .chart_container,
-      canvas {
-        height: 55vh !important
-      }
-
-      .__dropdown {
-        color: gray !important
-      }
-
-      .background {
-        border-bottom: 1px solid rgba(200, 200, 200, .3)
-      }
-
-      #settingsContainer {
-        width: 100% !important
-      }
-
-      #settingsContainer .row {
-        margin-top: 0 !important
-      }
-    }
-
-    .collection-item b {
-      transition: all .2s;
-    }
-
     :root {
       --sidenavbg-color: <?php echo htmlspecialchars($bmBgColor);
                           ?>;
       --navbar-color: #<?php echo htmlspecialchars($theme);
                         ?> !important
     }
+    [data-theme=dark] {
+      --navbar-color: #303030!important;
+      --bg-color: #1a1a1a!important
+    }
+    [data-theme=dark] #item_options {
+        background: rgba(255, 255, 255, .1)!important;
+    }
+    .dark_theme_sidebar .sidenav {
+        background: #212121 !important;
+    }
+    .dark_theme_sidebar .waves-ripple {
+        background: rgba(255, 255, 255, .3) !important;
+    }
+    .dark_theme_sidebar .sidenav-active {
+        color: white !important;
+        background: rgba(255, 255, 255, .1) !important;
+    }
+    .dark_theme_sidebar .sidenav-active i {
+        color: white !important;
+    }
+    .dark_theme_sidebar .no-padding * {
+        background: transparent !important;
+    }
+    .sidenav .waves-ripple {
+        background: <?php echo $overlayColor;?> !important;
+    }
+    @media only screen and (max-width:600px) { .navbar_btn i { line-height: 50px !important; } #search_close { padding-top: 0px !important; } } .collection-item.green { border-color: #1b5e20 !important; } h5 { margin-bottom: 5px; } .chip-suggestions { width: 100%; overflow-y: visible !important; overflow-x: auto; white-space: nowrap; padding: 5px 0; position:relative; } .cursor-pointer { cursor: pointer; } .pagination_container { text-align: right; } .card.waves-effect { width: 100%; } @media only screen and (min-width: 500px) { #addNote,#noteView { width: 70% !important; margin: auto !important; height: 90vh !important; } } @media only screen and (max-width: 500px) { #addNote,#noteView,#editNoteForm { width: 100% !important; } } * { user-drag: none } .sync_tr { background: rgba(0, 121, 107, .1) !important; } .pagination_btn { padding: 15px; width: 40px; height: 40px; text-align: center; border-radius: 9999px; cursor: pointer; transition: all .2s; background: transparent; border: 0; } tr.hover { display: table-row !important; } .pagination_btn:not(.paginationActive):focus { background: transparent; color: inherit; } .pagination_container button { padding: 10px; } .paginationActive { color: white; background: #212121 !important; } .drag-target { width: 20px !important; } @media only screen and (max-width:900px) { .nav_btn_menu { top: -2px !important; } .chart_container { margin-top: 10px } #toast-container { top: auto !important; right: auto !important; bottom: 0; left: 0; width: calc(100% - 30px) !important } #accounts { width: 100% } .hover td::after { display: none } .menu.gray-text { padding: 0 !important; } .name { color: var(--font-color) !important } .email { color: #aaa !important } .chart_container, canvas { height: 55vh !important } .__dropdown { color: gray !important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100% !important } #settingsContainer .row { margin-top: 0 !important } } .collection-item b { transition: all .2s; }
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0PH6N0Z7E"></script>
 </head>
 
-<body>
+<body <?php if($_SESSION['dtheme_sidebar'] == 1) {?>class="dark_theme_sidebar"<?php } ?>>
   <a href="#CONTENT" class="ctnt">Skip to content</a>
   <nav style="position:fixed;background: var(--navbar-color) ;z-index:9999;top:0;display:none;box-shadow:none !important" id="searchbar">
     <div class="nav-wrapper">
@@ -387,16 +291,16 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </li>
       </ul>
       <ul class="right" id="nav_ul_notification">
-        <li> <a id="notification" data-position="bottom" class="right tooltippeda waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" style="margin-top: 6% !important;margin-right: 0 !important;" data-tooltip='Notifications'> <i class="material-icons-round animate-zoom">notifications</i>
+        <li> <a id="notification" data-position="bottom" class="right tooltippeda waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" style="margin-top: 6% !important;margin-right: 0 !important;" data-tooltip='Notifications'> <i class="material-icons-round">notifications</i>
             <div id="hide_notification"></div>
           </a> </li>
-        <li><a style="margin-top: 6% !important;margin-left: 0 !important;margin-right: 3px !important" class="right waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" id="search_toggle"><i class="material-icons-round animate-zoom" style="animation-delay:100ms">search</i></a></li>
+        <li><a style="margin-top: 6% !important;margin-left: 0 !important;margin-right: 3px !important" class="right waves-effect waves-light navbar_btn btn-floating btn-large btn-flat" id="search_toggle"><i class="material-icons-round">search</i></a></li>
       </ul>
     </div>
   </nav>
   <div id="bmmodal" class="bottom-sheet modal">
     <div class="modal-content">
-      <form onsubmit="bm_add();return false;" method="post" name="form1"> <input type="hidden" name="name" value="<?php echo date('m/d/Y'); ?>" readonly>
+      <form onsubmit="bm_add();M.toast({html: 'Added data successfully!'});return false;" method="post" name="form1"> <input type="hidden" name="name" value="<?php echo date('m/d/Y'); ?>" readonly>
         <h4>Add a point</h4>
         <p>Enter how much you spent today</p>
         <div class="input-field"> <i class="material-icons-round prefix">attach_money</i> <label>Amount you
@@ -419,7 +323,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <div id="budgetmetermodala" onscroll="this.classList.add('addheight')" class="modal modal-fixed-s  bottom-sheet" style="width:60%">
     <div class="modal-content" id="CTRLS_CTNT" style="cursor: auto">
       <b>
-        <h5 class="center">Add an item <span class="hide-on-med-and-down">(CTRL S)</span></h5>
+        <h5 class="center">Add an item <span class="hide-on-med-and-down">(<kbd>CTRL</kbd> + <kbd>S</kbd>)</span></h5>
       </b>
       <p class="center">Please select a room</p>
       <div class="collection">
@@ -471,7 +375,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <div class="background">
           <img src="<?php echo $imageURI; ?>" width="100%" class="hide-on-med-and-down" id="imageid" alt='Background'>
         </div>
-        <a href="#avarar" class="waves-effect avatar_img waves-light circle modal-trigger"><img class="circle" src="<?php echo $_SESSION['avatar'] ?>" width="50px" height="50px" alt='image'></a>
+        <a href="#avarar" style="opacity: 1 !important" class="waves-effect avatar_img waves-light circle modal-trigger"><img class="circle lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gODIK/9sAQwAGBAQFBAQGBQUFBgYGBwkOCQkICAkSDQ0KDhUSFhYVEhQUFxohHBcYHxkUFB0nHR8iIyUlJRYcKSwoJCshJCUk/9sAQwEGBgYJCAkRCQkRJBgUGCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk/8AAEQgB9AH0AwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A9cpaKK1MgooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooopgFFFFIAooooAKKKKACiiigAooooAKKKKACiiigAoozRmgAoozRmgAoozRmgAoozRmgAoozRmgAoozRmgAoozRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUlABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABS0lLQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRTAKKKKQBRRQaACikooAWikopgLRSUUALRSUUALRSUUgCiiigAooooAKKKKACiiigAooooAKKKKAClpKWgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiimAUUUUgCg0UUAFFFFABSUtJTAWkoooAKWkooAKKKKACij8aPxpAFFH40fjQAUUfjR+NABRR+NH40AFFH40fjQAUUfjR+NABS0n40tABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABQKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UUAFFFFABSUtJTAKKKKACiiloASiiigA/Cj8KKKQB+FH4UUUAH4UfhRRQAfhR+FFFAB+FH4UUUAH4UfhRRQAfhS0lL3oAKKKKACiiigAoo70UAFFFFABRRR3oAKKKKACiiigAoo70UAFFFFABRRR3oAKKKKACiiigAoo70CgAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoASiiigAooopgFFFFABRRRQAUUUvWkAlFLijFACUUuKMUAJRS4oxQAlFLijFACUUuKMUAJRS4oxQAlLRiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooo6UAFFGaM0AFFGaM0AFFGaM0AFFGaM0AFFGaKACiiigAoNFBoASiiigAooooAKKKKACiiigApRSUooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UGgAooooAKSlpKAFooooAKKKKACiiigAooooAKDRQaAEooooAKKKKACiiigAooooAKUUlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoAKKSigBaSiigBaKSigBaKSigBaKKKACiiigAoNFBoASiiigAooooAKKKKACiiigApRSUooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UGgAooooAKSlpKAFooooAKKKKACiiigAooooAKDRQaAEooooAKKKKACiiigAooooAKUUlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoAKKKKACkpaSgBaKKKACiiigAooooAKKKKACg0UGgBKKKKACiiigAooooAKKKKAClFJSigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKDRQaAEopaKAEopaSgAopaKAEopaKACiiigAooooAKDRQaAEooooAKKKKACiiigAooooAKUUlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoAKKKKACkpaSgBaKKKACiiigAooooAKKKKACg0UUAJRS0UAJRS0UAJRS0UAJRS0UAJSiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKDRRQAUUlFAC0lFFAC0UlFAC0UlFAC0UlFAC0UUUAFFFFABRRRQAUUUUAFFH40UAFFFH40AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFJRQAtFJRQAtFJRQAtFJRQAtFJRQAtFFFABRRRQAUUUUAFFFFAB+FFFFABR+FFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFBoASloooASlopKAFpKWigApKWigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooASilooASilooASilooASilooASilooAKKKKACiiigAooooAKKKKAD8aKPwooAKPxoo/CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBKKKWgBKKKWgBKKWkoAKKWkoAKKWigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UUAFFJRQAtJRRQAtFJRQAtFJRQAtFJRQAtFFFABRRRQAUUUUAFFFFABRR+NFABRRR+NABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRSUUALRSUUALRSUUALRSUUALRSUUALRRRQAUUUUAFFFFABRRRQAfhRRRQAUfhRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRQaAEpaKKAEpaKSgBaSlooAKSlooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAEopaKAEopaKAEopaKAEopaKAEopaKACiiigAooooAKKKKACiiigA/Gij8KKACj8aKPwoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooASiiloASiiloASilpKACilpKACilooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFFABRSUUALSUUUALRSUUALRSUUALRSUUALRRRQAUUUUAFFFFABRRRQAUUfjRQAUUUfjQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUlFAC0UlFAC0UlFAC0UlFAC0UlFAC0UUUAFFFFABRRRQAUUUUAH4UUUUAFH4UUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUGgBKWiigBKWikoAWkpaKACkpaKACiiigAooooAKKKKACiiigAooooAKKMUUAFFFGKACiijpQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUUZoAKKM0ZoAKKM0UAFFGaM0AFFGaM0AFFFGaACijNGaACijNFABRRmjNABRRmjNABRRRmgAoozRQAlFLRQAlFLRQAlFLRQAlFLRQAlFLRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUGig0AFFFFABSUtJQAtFFFABRRRQAlLSUtABRRRQAUlLSUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFLSUtABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFBooNABRSUUALSUUUALRSUUALRSUUAFLSUUALRSUUALSUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFLSUtABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFBooNABRRRQAUlLSUALRRRQAUUUUAJS0lLQAUUUUAFJS0lABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABS0lLQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABQaKDQAUUUUAFJS0lAC0UUUAFFFFACUtJS0AFFFFABSUtJQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUtJS0AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUGiigAooooAKKKKACiiigAooooAKKKKACiiigApKKKAFpKKKACloooASloooASiiigBaSiigBaSiigApaKKAEpaKKAEooooAWkoooAWkoooAKWiigBKWiigAooooAKKKKACiiigAooooAKKKKAP/9k=" data-src="<?php echo $_SESSION['avatar'] ?>" width="50px" height="50px" alt='image'></a>
         <span class="white-text name" style="font-size: 20px;margin-bottom:5px"><?php echo $_SESSION['name'] ?></span>
         <span href="#accounts" class="right waves-effect circle waves-center modal-trigger" style="width:25px;height:25px;line-height:1 !important"><i class="material-icons-round __dropdown">arrow_drop_down</i></span>
         <span class="white-text email"><?php echo $_SESSION['email'] ?></span>
@@ -528,7 +432,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="divider"></div>
     </li>
     <li class="links"><a class="subheader" href="javascript:void(0)" rel='nofollow'>Other</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './rooms/grocerylist/view.php');change_title('Grocery List')"><i class="material-icons-round">local_grocery_store</i>Grocery list</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './user/notes/index.php');change_title('Notes')"><i class="material-icons-round">sticky_note_2</i>Notes / Documents</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage<span class="new-badge">New!</span></a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
@@ -592,7 +495,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <ul>
       <li data-position="left" data-tooltip="Task" class="tooltipped"><a class="btn-floating" href="javascript:void(0)" onclick="sm_page('todo_add');AJAX_LOAD('#todo_add', './rooms/todo/quickadd.php')" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">check</i></a></li>
       <li data-position="left" data-tooltip="Item" class="tooltipped"><a class="btn-floating modal-trigger" href="#budgetmetermodala" style="background: #<?php echo $theme_light; ?> !important"><i class="material-icons-round" style="color:white !important">category</i></a></li>
-      <li data-position="left" data-tooltip="Grocery List" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('grocerylist_add');AJAX_LOAD('#grocerylist_add', './rooms/grocerylist/quickadd.php')" class="text-center float-right btn-floating" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">receipt_long</i></a></li>
+      <li data-position="left" data-tooltip="Shopping List" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('grocerylist_add');AJAX_LOAD('#grocerylist_add', './rooms/grocerylist/quickadd.php')" class="text-center float-right btn-floating" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">receipt_long</i></a></li>
       <li data-position="left" data-tooltip="Food Waste" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('fw_add');AJAX_LOAD('#fw_add', './rooms/foodwaste/quickadd.php')" class="text-center float-right btn-floating" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">no_food</i></a></li>
     </ul>
   </div>
@@ -722,7 +625,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
               if ($row_count == 0) {
                 echo "<h6 class='center' style='margin: 0;color: gray'>No data in budget meter to display<br><a href='https://support.smartlist.ga/docs/#/no-data-in-budget-meter-to-display' style='color: #aaa' class='center'>More Info</a></h6>";
               } else { ?>
-                <h5 style="margin-top: 0;">My Expenses</h5><br>
+                <h5 style="margin-top: 0;">My Expenses <a href="#bmmodal" class="modal-trigger right btn btn-flat waves-effect btn-floating"><i class='material-icons refresh' style="transform: none !important">add</i></a></h5><br>
                 <!--<canvas id="myChart" style="width: 100%;display: none" class="ree"></canvas>-->
                 <canvas id="budgetMeter" style="width: 100%;"></canvas>
                 <div id="chart"> </div>
@@ -761,7 +664,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
               echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Todo</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div></div>";
             }
             ?>
-            <?php include('./rooms/starred.php'); ?>
+            <div class="hide-on-small-only">
+            <?php 
+                include('./rooms/starred.php'); 
+            ?>
+            </div>
           </div>
         </div>
         <div class="col s12 m6">
@@ -780,7 +687,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                                       $sql = "SELECT * FROM grocerylist WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
                                       $users = $dbh->query($sql);
-                                      echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List<a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
+                                      echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List<a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
                                       foreach ($users as $todo_listx) {
                                         echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . htmlspecialchars($todo_listx['name']) . '</b><br>Quantity: ' . htmlspecialchars($todo_listx['qty']) . '</span></label></p>';
                                       }
@@ -789,7 +696,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       echo "Error is: " . $e->getmessage();
                                     }
                                   } else {
-                                    echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Nothing in your grocery list.... Good Job! </p></div></div>";
+                                    echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Nothing in your Shopping List.... Good Job! </p></div></div>";
                                   }
                                   ?>
           </div>
@@ -932,9 +839,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="nav-wrapper">
         <a href="javascript:void(0)" class="brand-logo left hide-on-large-only" onclick="back();" style="margin-left: 7px !important;margin-top: 0 !important"><i class="material-icons-round">arrow_back</i> <span style="font-size: 20px;position: relative;top: -3px;">Details</span></a>
         <ul class="right snav">
-          <li><a href="javascript:void(0)" id="nav_star" class="animate-zoom waves-effect waves-yellow" data-position="bottom" data-tooltip="Star item"><i class="material-icons-round">star_outline</i></a></li>
-          <li><a style="animation-delay:100ms" href="javascript:void(0)" id="nav_edit" class="animate-zoom waves-effect waves-light" data-position="bottom" data-tooltip="Edit item"><i class="material-icons-round">edit</i></a></li>
-          <li><a style="animation-delay:200ms" href="javascript:void(0)" id="nav_delete" class="animate-zoom waves-effect waves-light"><i class="material-icons-round">delete</i></a></li>
+          <li><a href="javascript:void(0)" id="nav_star" class=" waves-effect waves-yellow" data-position="bottom" data-tooltip="Star item"><i class="material-icons-round">star_outline</i></a></li>
+          <li><a style="animation-delay:100ms" href="javascript:void(0)" id="nav_edit" class="waves-effect waves-light" data-position="bottom" data-tooltip="Edit item"><i class="material-icons-round">edit</i></a></li>
+          <li><a style="animation-delay:200ms" href="javascript:void(0)" id="nav_delete" class="waves-effect waves-light"><i class="material-icons-round">delete</i></a></li>
         </ul>
       </div>
     </nav>
@@ -960,7 +867,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 <input id="edit_item_qty" type="text" name="qty">
               </div>
             </div>
-            <div class="col s12 m3">
+            <div class="col s12 m3" style="padding: 0 !important">
               <button type="button" onclick='var x = document.getElementById("edit_item_qty");x.value = parseInt(x.value) + 1' class="btn waves-effect" style="background: #<?php echo $theme; ?>"><i class="material-icons-round">add</i></button>
               <button type="button" onclick='var x = document.getElementById("edit_item_qty");x.value = parseInt(x.value) - 1' class="btn waves-effect" style="background: #<?php echo $theme; ?>"><i class="material-icons-round">remove</i></button>
             </div>
@@ -999,26 +906,24 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <div id="item_popup" style="animation: fade .2s forwards" class="tabcontent">
       <!--ITEM_POPUP-->
       <div class="container">
-        <div class="hide-on-med-and-down" style="margin-top: 50px;"></div>
-        <h3 id="item_title" onclick="copyToClipboard(this.innerText)" class="fade-up" style="cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></h3>
-        <h5 id="item_qty" class="fade-up" style="animation-delay: .1s" onclick="copyToClipboard(this.innerText)"></h5>
+        <div class="hide-on-med-and-doawn" style="margin-top: 10vh;"></div>
+        <h3 id="item_title" onclick="copyToClipboard(this.innerText)" class="fade-up" style="cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;overflow-y:visible"></h3>
+        <h5 id="item_qty" class="fade-up" style="animation-delay: .05s;cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;overflow-y:visible" onclick="copyToClipboard(this.innerText)"></h5>
         <br>
-        <div class="flow-text fade-up" style="animation-delay: .2s;display: block" id="item_desc"></div>
+        <div class="flow-text fade-up" style="animation-delay: .1s;display: block" id="item_desc"></div>
         <br>
         <div class="collection z-depth-2 fade-up" style="animation-delay: .3s;padding:0" id="item_options">
-          <a href="javascript:void(0)" class="collection-item waves-effect" id="action_edit" style="color:gray"><i class="material-icons-round left">edit</i>Edit</a>
-          <a href="javascript:void(0)" class="collection-item waves-effect" style="color:gray" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a>
-          <a href="javascript:void(0)" target="_blank" class="collection-item waves-effect" id="action_qr" style="color:gray"><i class="material-icons-round left">qr_code</i>Generate QR code</a>
-          <a href="javascript:void(0)" class="collection-item waves-effect" id="action_share" target="_blank" style="color:gray"><i class="material-icons-round left">forum</i>Invite collaborators &amp;
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .1s"id="action_edit"><i class="material-icons-round left">edit</i>Edit</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .15s" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .2s" id="action_qr" target="_blank"><i class="material-icons-round left">qr_code</i>Generate QR code</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .25s" id="action_share" target="_blank"><i class="material-icons-round left">forum</i>Invite collaborators &amp;
             comment</a>
-          <a href="javascript:void(0)" class="collection-item waves-effect" id="action_mail" target="_blank" style="color:gray"><i class="material-icons-round left">email</i>Share via email</a>
-          <a href="javascript:void(0)" class="collection-item waves-effect" id="action_share_p" style="color:gray;"><i class="material-icons-round left">share</i>Share (Mobile Only)</a>
-          <a href="javascript:void(0)" class="collection-item waves-effect" id="action_recipe" target="_blank" style="color:gray"><i class="material-icons-round left">auto_awesome</i>Find a recipe</a>
-          <a href="javascript:void(0)" class="collection-item waves-effect" id="action_ev" style="color:gray;opacity:.7;pointer-events:none"><i class="material-icons-round left">event</i>Push
-            to Smartlist Events</a>
-          <a href="javascript:void(0)" class="collection-item red-text waves-effect waves-red" id="action_delete"><i class="material-icons-round left">delete</i>Delete</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .3s" id="action_mail" target="_blank"><i class="material-icons-round left">email</i>Share via email</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .35s" id="action_share_p"><i class="material-icons-round left">share</i>Share (Mobile Only)</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .4s" id="action_recipe" target="_blank"><i class="material-icons-round left">auto_awesome</i>Find a recipe</a>
+          <a href="javascript:void(0)" class="fade-up collection-item red-text waves-effect waves-red" style="animation-delay: .45s" id="action_delete"><i class="material-icons-round left">delete</i>Delete</a>
         </div>
-        <a href="javascript:void(0)" onclick="back();" class="hide-on-small-only btn waves-effect" style="background: #<?php echo htmlspecialchars($theme_light); ?>"><i class="material-icons-round left">arrow_back</i>Back</a>
+        <a href="javascript:void(0)" onclick="back();" class="fade-up hide-on-small-only btn waves-effect" style="animation-delay: .15s;background: #212121"><i class="material-icons-round left">arrow_back</i>Back</a>
       </div>
     </div>
 
@@ -1064,12 +969,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
 
 
     <div id="ajax_loader" class="tabcontent" style="margin-top: 0 !important">
-      <!--<center><br><br><br><svg class='circular' height='50' width='50'>-->
-      <!--    <circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />-->
-      <!--  </svg><br></center>-->
-      <center style="padding:10px;padding-top: 30vh">
-        <div class="shapes-5" style="color: var(--navbar-color)"></div>
-      </center>
+      <center style="padding:10px;padding-top: 35vh"><br><br><br><svg class='circular' height='50' width='50'>
+          <circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />
+        </svg><br></center>
+      <!--<center style="padding:10px;padding-top: 30vh">-->
+      <!--  <div class="shapes-5" style="color: var(--navbar-color)"></div>-->
+      <!--</center>-->
     </div>
   </div>
   <div id="key" class="modal modal-fixed-footera">
@@ -1081,7 +986,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <p>CTRL S - Add item</p>
       <p>CTRL L - Add task</p>
       <p>CTRL L - Add task</p>
-      <p>CTRL G - Add Grocery List Item</p>
+      <p>CTRL G - Add Shopping List Item</p>
       <p>CTRL , (Comma) - Open settings</p>
       <p><a href="https://community.smartlist.ga/" class='blue-text'>Want a new keyboard shortcut? Request one in the
           community forum!</a></p>
@@ -1115,23 +1020,43 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </audio>
   <div id="right_click_modal" class="modal bottom-sheet">
     <a href="javascript:void(0)" id="rclick_edit" class="modal-close waves-effect"><i class="material-icons-round left">edit</i> Edit</a>
-    <a href="javascript:void(0)" id="rclick_add" class="modal-close waves-effect"><i class="material-icons-round left">local_grocery_store</i> Add to grocery List</a>
+    <a href="javascript:void(0)" id="rclick_add" class="modal-close waves-effect"><i class="material-icons-round left">local_grocery_store</i> Add to Shopping List</a>
     <a href="javascript:void(0)" id="rclick_share" class="modal-close waves-effect"><i class="material-icons-round left">share</i> Share</a>
     <a href="javascript:void(0)" id="rclick_recipe" target="_blank" class="modal-close waves-effect"><i class="material-icons-round left">auto_awesome</i> Find recipe</a>
     <a href="javascript:void(0)" id="rclick_mail" target="_blank" class="modal-close waves-effect"><i class="material-icons-round left">email</i> Email</a><a href="javascript:void(0)" id="rclick_qr" target="_blank" class="waves-effect"><i class="material-icons-round left">qr_code</i> Generate QR code</a>
     <a href="javascript:void(0)" id="rclick_delete" class="modal-close waves-effect"><i class="material-icons-round left">delete</i> Delete</a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/js/materialize.min.js"></script>
-  <script>
+  <script defer>
     const user = {
       theme_top_color: "#<?php echo $theme_top; ?>",
       theme_color: "#<?php echo $theme; ?> ",
       bmBorderColor: "<?php echo $bmBorderColor; ?>",
       bmBgColor: "<?php echo $bmBgColor; ?>",
     }
+    window.addEventListener('load', function(){
+        var interval = setInterval(function() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                   if(xhttp.responseText.toString() !== "true") {
+                       window.location = "https://smartlist.ga/dashboard/login.php?inactive"
+                   }
+                }
+            };
+            xhttp.open("GET", "https://smartlist.ga/dashboard/user/check_if_loggd_in.php", true);
+            xhttp.send();
+        }, 60000)
+    })
   </script>
   <script src="./js/app.js"></script>
   <script defer>
+    /*! jQuery & Zepto Lazy v1.7.10 - http://jquery.eisbehr.de/lazy - MIT&GPL-2.0 license - Copyright 2012-2018 Daniel 'Eisbehr' Kern */
+    !function(t,e){"use strict";function r(r,a,i,u,l){function f(){L=t.devicePixelRatio>1,i=c(i),a.delay>=0&&setTimeout(function(){s(!0)},a.delay),(a.delay<0||a.combined)&&(u.e=v(a.throttle,function(t){"resize"===t.type&&(w=B=-1),s(t.all)}),u.a=function(t){t=c(t),i.push.apply(i,t)},u.g=function(){return i=n(i).filter(function(){return!n(this).data(a.loadedName)})},u.f=function(t){for(var e=0;e<t.length;e++){var r=i.filter(function(){return this===t[e]});r.length&&s(!1,r)}},s(),n(a.appendScroll).on("scroll."+l+" resize."+l,u.e))}function c(t){var i=a.defaultImage,o=a.placeholder,u=a.imageBase,l=a.srcsetAttribute,f=a.loaderAttribute,c=a._f||{};t=n(t).filter(function(){var t=n(this),r=m(this);return!t.data(a.handledName)&&(t.attr(a.attribute)||t.attr(l)||t.attr(f)||c[r]!==e)}).data("plugin_"+a.name,r);for(var s=0,d=t.length;s<d;s++){var A=n(t[s]),g=m(t[s]),h=A.attr(a.imageBaseAttribute)||u;g===N&&h&&A.attr(l)&&A.attr(l,b(A.attr(l),h)),c[g]===e||A.attr(f)||A.attr(f,c[g]),g===N&&i&&!A.attr(E)?A.attr(E,i):g===N||!o||A.css(O)&&"none"!==A.css(O)||A.css(O,"url('"+o+"')")}return t}function s(t,e){if(!i.length)return void(a.autoDestroy&&r.destroy());for(var o=e||i,u=!1,l=a.imageBase||"",f=a.srcsetAttribute,c=a.handledName,s=0;s<o.length;s++)if(t||e||A(o[s])){var g=n(o[s]),h=m(o[s]),b=g.attr(a.attribute),v=g.attr(a.imageBaseAttribute)||l,p=g.attr(a.loaderAttribute);g.data(c)||a.visibleOnly&&!g.is(":visible")||!((b||g.attr(f))&&(h===N&&(v+b!==g.attr(E)||g.attr(f)!==g.attr(F))||h!==N&&v+b!==g.css(O))||p)||(u=!0,g.data(c,!0),d(g,h,v,p))}u&&(i=n(i).filter(function(){return!n(this).data(c)}))}function d(t,e,r,i){++z;var o=function(){y("onError",t),p(),o=n.noop};y("beforeLoad",t);var u=a.attribute,l=a.srcsetAttribute,f=a.sizesAttribute,c=a.retinaAttribute,s=a.removeAttribute,d=a.loadedName,A=t.attr(c);if(i){var g=function(){s&&t.removeAttr(a.loaderAttribute),t.data(d,!0),y(T,t),setTimeout(p,1),g=n.noop};t.off(I).one(I,o).one(D,g),y(i,t,function(e){e?(t.off(D),g()):(t.off(I),o())})||t.trigger(I)}else{var h=n(new Image);h.one(I,o).one(D,function(){t.hide(),e===N?t.attr(C,h.attr(C)).attr(F,h.attr(F)).attr(E,h.attr(E)):t.css(O,"url('"+h.attr(E)+"')"),t[a.effect](a.effectTime),s&&(t.removeAttr(u+" "+l+" "+c+" "+a.imageBaseAttribute),f!==C&&t.removeAttr(f)),t.data(d,!0),y(T,t),h.remove(),p()});var m=(L&&A?A:t.attr(u))||"";h.attr(C,t.attr(f)).attr(F,t.attr(l)).attr(E,m?r+m:null),h.complete&&h.trigger(D)}}function A(t){var e=t.getBoundingClientRect(),r=a.scrollDirection,n=a.threshold,i=h()+n>e.top&&-n<e.bottom,o=g()+n>e.left&&-n<e.right;return"vertical"===r?i:"horizontal"===r?o:i&&o}function g(){return w>=0?w:w=n(t).width()}function h(){return B>=0?B:B=n(t).height()}function m(t){return t.tagName.toLowerCase()}function b(t,e){if(e){var r=t.split(",");t="";for(var a=0,n=r.length;a<n;a++)t+=e+r[a].trim()+(a!==n-1?",":"")}return t}function v(t,e){var n,i=0;return function(o,u){function l(){i=+new Date,e.call(r,o)}var f=+new Date-i;n&&clearTimeout(n),f>t||!a.enableThrottle||u?l():n=setTimeout(l,t-f)}}function p(){--z,i.length||z||y("onFinishedAll")}function y(t,e,n){return!!(t=a[t])&&(t.apply(r,[].slice.call(arguments,1)),!0)}var z=0,w=-1,B=-1,L=!1,T="afterLoad",D="load",I="error",N="img",E="src",F="srcset",C="sizes",O="background-image";"event"===a.bind||o?f():n(t).on(D+"."+l,f)}function a(a,o){var u=this,l=n.extend({},u.config,o),f={},c=l.name+"-"+ ++i;return u.config=function(t,r){return r===e?l[t]:(l[t]=r,u)},u.addItems=function(t){return f.a&&f.a("string"===n.type(t)?n(t):t),u},u.getItems=function(){return f.g?f.g():{}},u.update=function(t){return f.e&&f.e({},!t),u},u.force=function(t){return f.f&&f.f("string"===n.type(t)?n(t):t),u},u.loadAll=function(){return f.e&&f.e({all:!0},!0),u},u.destroy=function(){return n(l.appendScroll).off("."+c,f.e),n(t).off("."+c),f={},e},r(u,l,a,f,c),l.chainable?a:u}var n=t.jQuery||t.Zepto,i=0,o=!1;n.fn.Lazy=n.fn.lazy=function(t){return new a(this,t)},n.Lazy=n.lazy=function(t,r,i){if(n.isFunction(r)&&(i=r,r=[]),n.isFunction(i)){t=n.isArray(t)?t:[t],r=n.isArray(r)?r:[r];for(var o=a.prototype.config,u=o._f||(o._f={}),l=0,f=t.length;l<f;l++)(o[t[l]]===e||n.isFunction(o[t[l]]))&&(o[t[l]]=i);for(var c=0,s=r.length;c<s;c++)u[r[c]]=t[0]}},a.prototype.config={name:"lazy",chainable:!0,autoDestroy:!0,bind:"load",threshold:500,visibleOnly:!1,appendScroll:t,scrollDirection:"both",imageBase:null,defaultImage:"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",placeholder:null,delay:-1,combined:!1,attribute:"data-src",srcsetAttribute:"data-srcset",sizesAttribute:"data-sizes",retinaAttribute:"data-retina",loaderAttribute:"data-loader",imageBaseAttribute:"data-imagebase",removeAttribute:!0,handledName:"handled",loadedName:"loaded",effect:"show",effectTime:0,enableThrottle:!0,throttle:250,beforeLoad:e,afterLoad:e,onError:e,onFinishedAll:e},n(t).on("load",function(){o=!0})}(window);
+    
+    $(document).ready(function() {
+        $('.lazy').lazy();
+    });
       function chipValue(el) {
         var input = el.parentElement.parentElement.getElementsByTagName('input')[0];
         input.focus();

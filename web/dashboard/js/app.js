@@ -1,4 +1,4 @@
-var item_state, item_p, editPopupRoom, editPopupRoom1;
+var item_state, item_p, editPopupRoom, editPopupRoom1, cr_id;
 var page_title = 'News';
 var autocompleteData = {
   "Wing chair": null,
@@ -365,6 +365,7 @@ async function handleSubmit(event) {
   var name1 = document.getElementById('edit_item_name');
   var qty1 = document.getElementById('edit_item_qty');
   x.style.display = 'block';
+  console.log(id)
   var form = document.getElementById('edit_form');
   var room1;
   switch (room) {
@@ -405,10 +406,12 @@ async function handleSubmit(event) {
   form.action = './rooms/camping/edit.php';
   break;
   case 'custom_room':
-  room1 = 'custom_room';
-  form.action = './rooms/custom_room/custom_item_edit.php';
+      room1 = 'custom_room';
+      form.action = './rooms/custom_room/custom_item_edit.php';
   break;
 }
+document.getElementById('edit_item_id').value = id;
+
          editPopupRoom = room1;
          editPopupRoom1 = room;
          document.getElementById('edit_item_id').value = id;
@@ -440,7 +443,8 @@ function htmlspecialchars(str) {
 
 function item(el, star, label, room) {
   document.querySelector("meta[name=theme-color]").setAttribute("content", "#191918");
-  sm_page("item_popup");
+//   sm_page("item_popup");
+  sm_page('item_popup')
   secondary();
   item_state = 'item_popup';
   
@@ -545,7 +549,7 @@ function item(el, star, label, room) {
   }
   
   actions.navbar.del.onclick = function() {
-    sm_page(page_title)
+    back();
     M.toast({
       html: 'Deleted!'
     });
@@ -553,7 +557,7 @@ function item(el, star, label, room) {
     $("#div1").load(dir + "delete.php?id=" + id)
   }
   actions.menu.del.onclick = function() {
-    sm_page(page_title)
+    back();
     M.toast({
       html: 'Deleted!'
     });
@@ -724,7 +728,7 @@ var _color = document.getElementById("color");
 function AJAX_LOAD(el, data, style = '') {
   document.body.style.overflow = 'hidden';
   if (style !== 'box') {
-    document.querySelector(el).innerHTML = '<center><br><br><br><svg class=\'circular\' height=\'50\' width=\'50\'> <circle class=\'path\' cx=\'25\' cy=\'25\' r=\'20\' fill=\'none\' stroke-width=\'3\' stroke-miterlimit=\'10\' /> </svg><br></center>';
+    document.querySelector(el).innerHTML = '<center style="padding:10px;padding-top: 35vh"><br><br><br><svg class=\'circular\' height=\'50\' width=\'50\'> <circle class=\'path\' cx=\'25\' cy=\'25\' r=\'20\' fill=\'none\' stroke-width=\'3\' stroke-miterlimit=\'10\' /> </svg><br></center>';
   } else {
     document.querySelector(el).innerHTML = `<div class="progress settings_progress" style="background: #fff59d" id="settings_progress"><div style="background:#ff9800" class="indeterminate"></div></div>`;
   }
@@ -1065,17 +1069,21 @@ if (currentTheme) {
     toggleSwitch.checked = true;
     metaThemeColor = document.querySelector("meta[name=theme-color]");
     metaThemeColor.setAttribute("content", "#191918");
-    // document.getElementById("imageid").src = "https://www.whatswithtech.com/wp-content/uploads/2015/09/black-and-blue-material-design-wallpaper.png";
+    user.bmBorderColor = '#fff';
+    user.bmBgColor = 'rgba(255, 255, 255, .2)';
+    // budgetMeter.update();
   }
 }
 
 function switchTheme(e) {
   if (e.target.checked) {
+    user.bmBorderColor = '#fff';
+    user.bmBgColor = 'rgba(255, 255, 255, .2)';
+    // budgetMeter.update();
     document.documentElement.setAttribute('data-theme', 'dark');
     localStorage.setItem('theme', 'dark');
     metaThemeColor = document.querySelector("meta[name=theme-color]");
     metaThemeColor.setAttribute("content", "#191918");
-    // document.getElementById("imageid").src = "https://www.whatswithtech.com/wp-content/uploads/2015/09/black-and-blue-material-design-wallpaper.png";
   } else {
     document.documentElement.setAttribute('data-theme', 'light');
     localStorage.setItem('theme', 'light');
@@ -1088,8 +1096,12 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
   document.documentElement.setAttribute('data-theme', 'dark');
   metaThemeColor = document.querySelector("meta[name=theme-color]");
   metaThemeColor.setAttribute("content", "#191918");
+  user.bmBorderColor = '#fff';
+  user.bmBgColor = 'rgba(255, 255, 255, .2)';
 }
-
+if (window.matchMedia && window.matchMedia('(prefers-contrast: more)').matches) {
+    document.body.classList.add("dark_theme_sidebar")
+}
 function toast(name, qty) {
   M.toast({
     html: "Deleted \"" + name + '" <a class="btn-flat toast-action waves-effect waves-orange text-white" style="color: white !important" href="https://smartlist.ga/dashboard/exe.php?name=' + encodeURI(name) + '&qty=' + qty + '&price=1">Undo</a>'
@@ -1178,11 +1190,13 @@ document.addEventListener('keydown', function(e) {
   // &&e.altKey
 });
 
-function load_croom(data, name) {
+function load_croom(data, name = null) {
   document.getElementById('custom_room').innerHTML = '<center><br><br><br><svg class=\'circular\' height=\'50\' width=\'50\'> <circle class=\'path\' cx=\'25\' cy=\'25\' r=\'20\' fill=\'none\' stroke-width=\'3\' stroke-miterlimit=\'10\' /> </svg><br></center>';
   $('#custom_room').load('https://smartlist.ga/dashboard/rooms/custom_room/ajax_croom_loader.php?room=' + encodeURI(data));
   sm_page('custom_room');
-  change_title(name);
+  if(name !== null) {
+      change_title(name);
+  }
 }
 
 function w_title(data) {
@@ -1679,12 +1693,14 @@ $("#edit_form").submit(function(e) {
     url: url,
     data: form.serialize(),
     success: function(data) {
+        console.log(data)
       document.getElementById('edit_form').reset();
       sm_page(editPopupRoom);
       if (editPopupRoom !== "custom_room") {
-        AJAX_LOAD("#" + editPopupRoom, "./rooms/" + editPopupRoom1 + "/view.php");
+        AJAX_LOAD("#" + editPopupRoom, "./rooms/" + editPopupRoom1 + "/view.php", back());
       } else {
         //   load_croom(editPopupRoom1, "");
+        // load_croom(cr_id)
       }
     }
   });
@@ -1863,10 +1879,10 @@ var mouseUpHandler = function() {
   document.removeEventListener('mousemove', mouseMoveHandler);
   document.removeEventListener('mouseup', mouseUpHandler);
 };
-
+if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 // Attach the handler
 ele.addEventListener('mousedown', mouseDownHandler);
-
+}
 function copyToClipboard(data) {
   console.log(data)
   var copyText = document.getElementById("copyToClipboard");

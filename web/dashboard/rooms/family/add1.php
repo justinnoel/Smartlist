@@ -5,7 +5,7 @@ $chips = array("Wing chair", "TV stand", "Sofa", "Cushion", "Telephone", "Televi
 $chips = array_map('ucfirst', $chips);
 
 $rand_keys = array_rand($chips, 15);
-?>
+?><br><br>
 <div class="container">
     <form action="https://smartlist.ga/dashboard/rooms/family/add.php" method="POST" id="family_add_form">
         <h5>Add an item (Family room)</h5>
@@ -79,7 +79,12 @@ $rand_keys = array_rand($chips, 15);
             success: function(data) {
                 sm_page('add_family');
                 document.getElementById('family_add_form').reset()
-                M.toast({html: 'Added item successfully. You can keep adding more'});
+                if(data == "Item Already Exists!") {
+                    M.toast({html: "Item Already Exists!"});
+                }
+                else {
+                    M.toast({html: 'Added item successfully. You can keep adding more'});
+                }
             }
         });
     });

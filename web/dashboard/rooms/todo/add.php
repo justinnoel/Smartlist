@@ -5,6 +5,21 @@ $qty = $_POST['qty'];
 $price = $_POST['price'];
 $descs = $_POST['decs'];
 $loginId = $_SESSION['id'];
+
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM todo WHERE login_id=" . $_SESSION['id'];
+$users = $dbh->query($sql);
+foreach ($users as $row) {
+  if(decrypt($row['name']) == $_POST['name']) {
+      echo "Item Already Exists!";
+      exit();
+  }
+}
+
+
+
+
+
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception

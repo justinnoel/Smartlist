@@ -124,13 +124,16 @@ catch (PDOexception $e) {
                         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                         $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'];
                         $users = $dbh->query($sql);
-                        $moneyGS = $moneyCS = 0;
+                        $moneyGS = $moneyCS = $moneyBS = 0;
                         foreach($users as $row) {
                             if(strtolower(decrypt($row['price'])) == "grocery shopping") {
                                 $moneyGS += decrypt($row['qty']);
                             }
                             elseif(strtolower(decrypt($row['price'])) == "clothes shopping") {
                                 $moneyCS += decrypt($row['qty']);
+                            }
+                            elseif(strtolower(decrypt($row['price'])) == "Bills") {
+                                $moneyBS += decrypt($row['qty']);
                             }
                         }
                         }
@@ -140,7 +143,7 @@ catch (PDOexception $e) {
                           ?>
                          <p><b>$<?=$moneyGS;?></b> Spent on Groceries</p>
                          <p><b>$<?=$moneyCS;?></b> Spent on Clothes</p>
-                         <p><b>$<?=$moneyCS;?></b> Spent on Bills</p>
+                         <p><b>$<?=$moneyBS;?></b> Spent on Bills</p>
                          <p><b>$<?=$moneyCS;?></b> Spent on Other</p>
                   </div>
               </div>

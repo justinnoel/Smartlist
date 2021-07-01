@@ -116,7 +116,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
         position: fixed;
         top: 0;
         left: 0;
-        height: 5px;
+        height: 3px;
         background: #1565c0;
         width: 0%;
         transition: all 20s;
@@ -359,6 +359,14 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       window.onload=function() {M.toast({text: 'Successfully logged out of your account'})}
     </script>
     <?php } ?>
+    
+    <?php if(isset($_GET['inactive'])) {?>
+    <script>
+      window.onload=function() {M.toast({text: 'You have been logged out due to inactivity!'})}
+    </script>
+    <?php } ?>
+    
+    
     <?php if(isset($_GET['reg'])) {?>
     <script>
       window.onload=function() {M.toast({text: 'Successfully signed up! Please log in to your account!'})}

@@ -32,7 +32,12 @@
             success: function(data) {
                 sm_page('todo_add');
                 document.getElementById('todo_form').reset();
-                M.toast({html: 'Added task successfully! You can keep adding more'});
+                if(data == "Item Already Exists!") {
+                    M.toast({html: "Task Already Exists!"});
+                }
+                else {
+                    M.toast({html: 'Added task successfully. You can keep adding more'});
+                }
             }
         });
     });

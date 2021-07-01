@@ -40,7 +40,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <a href='javascript:void(0)'><b>". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Kitchen</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -63,7 +63,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <b><a href='javascript:void(0)' onclick=\"change_title('Garage');sm_page('About');AJAX_LOAD('#About', './rooms/garage/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Garage</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -86,7 +86,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <b><a href='javascript:void(0)' onclick=\"change_title('Bedroom');sm_page('Home');AJAX_LOAD('#Home', './rooms/bedroom/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Bedroom</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -109,7 +109,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <b><a href='javascript:void(0)'onclick=\" change_title('Bathroom');sm_page('bathroom');AJAX_LOAD('#bathroom', './rooms/bathroom/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Bathroom</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -132,7 +132,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <b><a href='javascript:void(0)' onclick=\"change_title('Family Room');sm_page('family');AJAX_LOAD('#family', './rooms/family/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Family Room</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -155,7 +155,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <b><a href='javascript:void(0)' onclick=\"change_title('Storage Room');sm_page('storage');AJAX_LOAD('#storage', './rooms/storage/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Storage Room</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -178,7 +178,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <a href='javascript:void(0)'><b>". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Laundry</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;
@@ -201,7 +201,7 @@ print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query']
             <a href='javascript:void(0)'><b>". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Dining Room</span>
             <br>
-            ".($row["price"] !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
+            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
        </li>";
 }
 $dbh = null;

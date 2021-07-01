@@ -14,7 +14,7 @@ try {
              <td class="d-none">Price</td>
             </tr>';
   foreach ($users as $row) {
-      echo "<tr class='".($row['login_id'] != $_SESSION['id'] ? "sync" : "")."' id='croomtr_".$row['id']."' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(decrypt($row['price'])).", \"custom_room\")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">";
+      echo "<tr data-id='".$row['id']."' class='".($row['login_id'] != $_SESSION['id'] ? "sync" : "")."' id='croomtr_".$row['id']."' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(decrypt($row['price'])).", \"custom_room\")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">";
       print "<td>".decrypt(htmlspecialchars($row["name"])) . "</td><td>" . decrypt(htmlspecialchars($row["qty"]))."</td>";
   }
   $dbh = null;
@@ -66,4 +66,6 @@ function croom_sort(n) {
     }
   }
 }
+
+var cr_id = <?php echo $_GET['room'];?>
 </script>

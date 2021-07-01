@@ -17,5 +17,4 @@ try {
 }
 
 $conn = null;
-header("Location: https://smartlist.ga/dashboard/beta");
 ?>

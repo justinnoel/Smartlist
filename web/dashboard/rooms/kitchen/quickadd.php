@@ -87,7 +87,12 @@ $rand_keys = array_rand($chips, 15);
                 sm_page('addkitchen');
                 document.getElementById('kitchen_add_form').reset();
                 document.getElementById('addKitchenName').focus();
-                M.toast({html: 'Added item successfully. You can keep adding more'});
+                if(data == "Item Already Exists!") {
+                    M.toast({html: "Item Already Exists!"});
+                }
+                else {
+                    M.toast({html: 'Added item successfully. You can keep adding more'});
+                }
             }
         });
     });

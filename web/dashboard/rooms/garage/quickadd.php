@@ -79,7 +79,12 @@ window.onbeforeunload = function() {return "Close?";};
                 sm_page('garage_add');
                 window.onbeforeunload = null;
                 document.getElementById('garage_add_form').reset()
-                M.toast({html: 'Added item successfully. You can keep adding more'});
+                if(data == "Item Already Exists!") {
+                    M.toast({html: "Item Already Exists!"});
+                }
+                else {
+                    M.toast({html: 'Added item successfully. You can keep adding more'});
+                }
             }
         });
     });

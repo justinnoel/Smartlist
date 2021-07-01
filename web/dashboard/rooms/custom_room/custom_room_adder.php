@@ -2,6 +2,20 @@
 session_start();
 include('../../cred.php');
 $loginId = $_SESSION['id'];
+
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM custom_room_items WHERE login_id=" . $_SESSION['id'];
+$users = $dbh->query($sql);
+foreach ($users as $row) {
+  if(decrypt($row['name']) == $_POST['name'] && $_POST['price'] == decrypt($row['price'])) {
+      echo "Item Already Exists!";
+      exit();
+  }
+}
+
+
+
+
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

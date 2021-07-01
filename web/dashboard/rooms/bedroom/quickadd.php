@@ -81,7 +81,12 @@ $rand_keys = array_rand($chips, 15);
                 sm_page('bedroom_add');
                 document.getElementById('autofocus1').focus()
                 document.getElementById('bedroom_add_form').reset()
-                M.toast({html: 'Added item successfully. You can keep adding more'});
+                if(data == "Item Already Exists!") {
+                    M.toast({html: "Item Already Exists!"});
+                }
+                else {
+                    M.toast({html: 'Added item successfully. You can keep adding more'});
+                }
             }
         });
     });

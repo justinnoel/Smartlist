@@ -16,20 +16,13 @@ $dbh = null;
 catch (PDOexception $e) { echo "Error is: " . $e-> etmessage(); }
 if($USERNAME_OCCIPIED > 0) {
 header('Location: https://smartlist.ga/dashboard/register.php?exists');
-exit;
+exit();
 }
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $u_name = $_POST['name'];
 $u_email = $_POST['email'];
 $u_uname = $_POST['uname'];
 $u_pwd = password_hash($_POST['pass'], PASSWORD_ARGON2I);
-$check_email = "SELECT * FROM login WHERE username = ':username'";
-$check_email = $conn->prepare($check_email);
-$check_email->execute(array(':username'=>$u_uname));
-if($check_email->rowCount() !== 0){
-echo "Username exists";
-exit();
-}
 // echo $check_email->rowCount();
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

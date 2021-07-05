@@ -2,7 +2,7 @@
 include('cred.php');?>
 <div class="card">
     <div class="card-content">
-        <h5 style="margin:0;">Starred</h5><br>
+        <h5 style="margin:0;">Starred Items</h5><br>
 <?php
    try {
        $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

@@ -78,13 +78,13 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       /*  padding: 0 4px;*/
       /*  display: inline-block;*/
       /*}*/
-      /*input:focus {*/
-      /*  border-color: #6727ab !important;*/
-      /*  box-shadow: 0px 0px 0px 1px rgba(103,39,171,1) inset !important;*/
-      /*}*/
-      /*.input-field input:focus + label.active {*/
-      /*  color: #6727ab !important;*/
-      /*}*/
+      input:focus {
+        border-color: #6727ab !important;
+        box-shadow:  0px -1px 0px 0px rgba(103,39,171,1) inset !important;
+      }
+      .input-field input:focus + label.active {
+        color: #6727ab !important;
+      }
       /*label.active {*/
       /*  margin-left: 7px !important;*/
       /*  margin-top: 8px !important*/
@@ -154,6 +154,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
  .logo {
         float: right;
         padding: 15px;
+        padding-top: 30px;
     }
       .checkbox-orange[type="checkbox"].filled-in:checked + label:after{
         border: 2px solid #ff9800;
@@ -201,6 +202,10 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
           transform: rotate(0deg)
         }
       }
+      .darkTheme .l_a, .darkTheme .l_a * {
+          color: white !important;
+          stroke: white;
+      }
     </style>
   </head>
   <body>
@@ -209,7 +214,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       <div class="col s12 m6 bg grey lighten-3 hide-on-small-only"></div>
       <div class="col s12 m6 white">
           <div class="logo">
-              <a href="https://smartlist.ga" style="font-weight:bold;color: #212121"><img src="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg" width="30px" style="display:inline-block;margin: 0 10px;vertical-align: middle">Smartlist</a>
+              <a href="https://smartlist.ga" style="font-weight:bold;color: #212121" class="l_a"><img src="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg" width="30px" id="logoImg" style="display:inline-block;margin: 0 10px;vertical-align: middle">Smartlist</a>
           </div>
         <div class="consadftainer">
           <h4><b>Hi there, Welcome back! <img class="right hello" src="https://i.pinimg.com/originals/d8/32/10/d83210d052f3e7e4a7e78bfd16a6f23e.png" width="40px"></b></h4>
@@ -292,6 +297,7 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       }
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         $('html').addClass("darkTheme");
+        document.getElementById("logoImg").src = "data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.2' baseProfile='tiny' width='270.4838718484766' height='263.7741935731965' style=''%3E%3Crect id='backgroundrect' width='100%25' height='100%25' x='0' y='0' fill='none' stroke='none' class='selected' style=''/%3E%3Cmetadata%3E%3Crdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns:rdfs='http://www.w3.org/2000/01/rdf-schema%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Crdf:Description about='https://iconscout.com/legal%23licenses' dc:title='roofing,contractor' dc:description='roofing,contractor' dc:publisher='Iconscout' dc:date='2017-09-24' dc:format='image/svg+xml' dc:language='en'%3E%3Cdc:creator%3E%3Crdf:Bag%3E%3Crdf:li%3EScott De Jonge%3C/rdf:li%3E%3C/rdf:Bag%3E%3C/dc:creator%3E%3C/rdf:Description%3E%3C/rdf:RDF%3E%3C/metadata%3E%3Cg class='currentLayer' style=''%3E%3Ctitle%3ELayer 1%3C/title%3E%3Cpath d='M90.02969540151386,106.6231528191286 h17.361412403869622 l-0.15184073554539457,9.5813841632138 l-17.209571668324223,14.488660919254208 v-24.070045082468013 zm48.01032162773054,-5.30393265986017 L69.54838562011719,157.83196602375125 L76.7679828573699,165.4193502380333 l61.55279628665656,-50.798756763511705 L199.86211575252864,165.4193502380333 L207.0645234725498,157.83196602375125 L138.58435174157697,101.31922015926843 L138.3064545463335,101.09677124023438 l-0.26643751708908836,0.22244891903405475 z' id='svg_1' class='' stroke='%23fff' fill='%23fff'/%3E%3Crect fill='none' stroke-dashoffset='' fill-rule='nonzero' id='svg_3' x='6.419353485107422' y='4.387096881866455' width='257.70965576171875' height='257' style='color: %23fff;' class='' stroke='%23fff' stroke-opacity='1' stroke-width='3' rx='29' ry='29'/%3E%3C/g%3E%3C/svg%3E";
       }
       function reset() {
         document.getElementById('u1').innerHTML = "";

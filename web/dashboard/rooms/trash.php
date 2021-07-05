@@ -6,8 +6,8 @@ include_once("../cred.php");?>
 <div class="alert" style="border-bottom: 1px solid rgba(0, 0, 0, .1)">
   <div class="row">
     <div class="col s10">
-      <h4>All Items in trash will be deleted weekly</h4>  
-      <p>To maintain our servers and provide the best experience, all items in your trash will be deleted weekly on Friday 12:00</p>
+      <h4>All items in trash will be deleted weekly</h4>  
+      <p>To maintain our servers and provide the best possible experience for you, all items in your trash will be deleted weekly on Friday 12:00</p>
     </div>
     <div class="col s2">
       <img src="https://freeiconshop.com/wp-content/uploads/edd/trash-var-flat.png" style="width: 100%">

@@ -15,17 +15,6 @@ include('../../cred.php');
       echo "<div id='KITCHEN_VAR_COUNT' style='height: 90vh'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p></div>";
     }
     echo '
-    <br><br>
-    <div class="container">
-        <div class="card white-text" style="background: url(https://i.ytimg.com/vi/bY2i46N2TpM/maxresdefault.jpg) !important;background-size: cover">
-            <div class="card-content">
-                <h4>Kitchen</h4>
-                <br>
-                <button class="btn blue-grey waves-effect waves-light" onclick="sm_page(\'addkitchen\'); AJAX_LOAD(\'#addkitchen\', \'./rooms/kitchen/quickadd.php\')">Add Item</button>
-            </div>
-        </div>
-        <h5>Items</h5>
-    </div>
     <table class="table container" id="kitchen_table">
       <div class="container"><input type="search" style="display:none" id="kitchen_search" placeholder="Search..."></div>
       <tr class="hover">

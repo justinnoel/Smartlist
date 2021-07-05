@@ -90,14 +90,14 @@ catch (PDOexception $e) {
     </div>
     
     <div class="row">
-        <div class="col s12 m6">
+        <div class="col s12">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title" style="font-weight: bold !important"><b>Amount spent overall</b></span>
                     <?php
                         try {
                             $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                            $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC LIMIT 17";
+                            $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC";
                             $users = $dbh->query($sql);
                             echo '<table class="table" style="animation: none"> <tr style="border:0;height:0;overflow;hidden;display: none"><td></td><td></td> <td></td>';
                                 foreach ($users as $row) {
@@ -114,39 +114,6 @@ catch (PDOexception $e) {
                     To view more results, go to the <a href="javascript:void(0)" class="blue-text" onclick=" sm_page('budgetmetermodal');change_title('Budget Meter');AJAX_LOAD('#budgetmetermodal', './rooms/bm/index.php')">budget meter</a>
                 </div>
             </div>
-        </div>
-        <div class="col s12 m6">
-              <div class="card">
-                  <div class="card-content">
-                    <span class="card-title" style="font-weight: bold !important"><b>Detailed Breakdown</b></span>
-                      <?php
-                        try {
-                        $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                        $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'];
-                        $users = $dbh->query($sql);
-                        $moneyGS = $moneyCS = $moneyBS = 0;
-                        foreach($users as $row) {
-                            if(strtolower(decrypt($row['price'])) == "grocery shopping") {
-                                $moneyGS += decrypt($row['qty']);
-                            }
-                            elseif(strtolower(decrypt($row['price'])) == "clothes shopping") {
-                                $moneyCS += decrypt($row['qty']);
-                            }
-                            elseif(strtolower(decrypt($row['price'])) == "Bills") {
-                                $moneyBS += decrypt($row['qty']);
-                            }
-                        }
-                        }
-                        catch (PDOexception $e) {
-                        echo "Error is: " . $e->getmessage();
-                        }
-                          ?>
-                         <p><b>$<?=$moneyGS;?></b> Spent on Groceries</p>
-                         <p><b>$<?=$moneyCS;?></b> Spent on Clothes</p>
-                         <p><b>$<?=$moneyBS;?></b> Spent on Bills</p>
-                         <p><b>$<?=$moneyCS;?></b> Spent on Other</p>
-                  </div>
-              </div>
         </div>
     </div>
     <div class="container">

@@ -238,6 +238,19 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       --navbar-color: #<?php echo htmlspecialchars($theme);
                         ?> !important
     }
+    .fab_btn {
+         background: #<?php echo htmlspecialchars($theme_light); ?> !important
+    }
+    [data-theme="dark"] #item_options {
+        box-shadow: none !important;
+        background: rgba(255, 255, 255, .05) !important;
+    }
+    [data-theme="dark"] .fab_btn {
+        background: #5c5c5c !important;
+    }
+    strong {
+        font-weight: bold !important;
+    }
     [data-theme=dark] {
       --navbar-color: #303030!important;
       --bg-color: #1a1a1a!important
@@ -261,7 +274,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     .dark_theme_sidebar .no-padding * {
         background: transparent !important;
     }
-    .sidenav .waves-ripple {
+    html:not([data-theme="dark"]) .sidenav .waves-ripple {
         background: <?php echo $overlayColor;?> !important;
     }
     @media only screen and (max-width:600px) { .navbar_btn i { line-height: 50px !important; } #search_close { padding-top: 0px !important; } } .collection-item.green { border-color: #1b5e20 !important; } h5 { margin-bottom: 5px; } .chip-suggestions { width: 100%; overflow-y: visible !important; overflow-x: auto; white-space: nowrap; padding: 5px 0; position:relative; } .cursor-pointer { cursor: pointer; } .pagination_container { text-align: right; } .card.waves-effect { width: 100%; } @media only screen and (min-width: 500px) { #addNote,#noteView { width: 70% !important; margin: auto !important; height: 90vh !important; } } @media only screen and (max-width: 500px) { #addNote,#noteView,#editNoteForm { width: 100% !important; } } * { user-drag: none } .sync_tr { background: rgba(0, 121, 107, .1) !important; } .pagination_btn { padding: 15px; width: 40px; height: 40px; text-align: center; border-radius: 9999px; cursor: pointer; transition: all .2s; background: transparent; border: 0; } tr.hover { display: table-row !important; } .pagination_btn:not(.paginationActive):focus { background: transparent; color: inherit; } .pagination_container button { padding: 10px; } .paginationActive { color: white; background: #212121 !important; } .drag-target { width: 20px !important; } @media only screen and (max-width:900px) { .nav_btn_menu { top: -2px !important; } .chart_container { margin-top: 10px } #toast-container { top: auto !important; right: auto !important; bottom: 0; left: 0; width: calc(100% - 30px) !important } #accounts { width: 100% } .hover td::after { display: none } .menu.gray-text { padding: 0 !important; } .name { color: var(--font-color) !important } .email { color: #aaa !important } .chart_container, canvas { height: 55vh !important } .__dropdown { color: gray !important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100% !important } #settingsContainer .row { margin-top: 0 !important } } .collection-item b { transition: all .2s; }
@@ -322,9 +335,9 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </div>
   <div id="budgetmetermodala" onscroll="this.classList.add('addheight')" class="modal modal-fixed-s  bottom-sheet" style="width:60%">
     <div class="modal-content" id="CTRLS_CTNT" style="cursor: auto">
-      <b>
+      <strong>
         <h5 class="center">Add an item <span class="hide-on-med-and-down">(<kbd>CTRL</kbd> + <kbd>S</kbd>)</span></h5>
-      </b>
+      </strong>
       <p class="center">Please select a room</p>
       <div class="collection">
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('addkitchen'); AJAX_LOAD('#addkitchen', './rooms/kitchen/quickadd.php')"><i class="material-icons-round left">blender</i>Kitchen</a>
@@ -337,7 +350,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('camping_add'); AJAX_LOAD('#camping_add', './rooms/camping/quickadd.php');"><i class="material-icons-round left">landscape</i>Camping Supplies</a>
         <a class="collection-item modal-close waves-effect" href="javascript:void(0)" onclick="sm_page('laundry_room_add'); AJAX_LOAD('#laundry_room_add', './rooms/laundry/quickadd.php')"><i class="material-icons-round left">local_laundry_service</i>Laundry room</a>
         <a href="javascript:void(0)" class="collection-item" style="color: gray !important;border: 0">
-          <b>Custom Rooms</b>
+          <strong>Custom Rooms</strong>
         </a>
         <?php try {
           $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -382,8 +395,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       </div>
     </li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Dashboard');sm_page('News');AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');" id="defaultOpen"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested');AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">money</i>Budget Dashboard <span class="new-badge">New!</span></a></li>
+    <!--<li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested');AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>-->
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">money</i>My Finances</a></li>
     <li class="links" style="display:none"><a class="waves-effect" onclick="change_title('Loading...');sm_page('loader');"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li style="pointer-events:none">
       <div class="divider"></div>
@@ -432,11 +445,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="divider"></div>
     </li>
     <li class="links"><a class="subheader" href="javascript:void(0)" rel='nofollow'>Other</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './user/notes/index.php');change_title('Notes')"><i class="material-icons-round">sticky_note_2</i>Notes / Documents</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage<span class="new-badge">New!</span></a></li>
+    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './user/notes/index.php');change_title('Notes')"><i class="material-icons-round">sticky_note_2</i>Notes / Documents <span class="new-badge">New!</span></a></li>
+    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
     <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator <span class="new-badge">New!</span></a></li>
+    <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('budgetmetermodal');change_title('Budget Meter');AJAX_LOAD('#budgetmetermodal', './rooms/bm/index.php')"><i class="material-icons-round">payments</i>My budget meter</a></li>
     <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
     <li style="pointer-events:none">
@@ -493,10 +506,10 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <span>Add</span>
     </a>
     <ul>
-      <li data-position="left" data-tooltip="Task" class="tooltipped"><a class="btn-floating" href="javascript:void(0)" onclick="sm_page('todo_add');AJAX_LOAD('#todo_add', './rooms/todo/quickadd.php')" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">check</i></a></li>
-      <li data-position="left" data-tooltip="Item" class="tooltipped"><a class="btn-floating modal-trigger" href="#budgetmetermodala" style="background: #<?php echo $theme_light; ?> !important"><i class="material-icons-round" style="color:white !important">category</i></a></li>
-      <li data-position="left" data-tooltip="Shopping List" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('grocerylist_add');AJAX_LOAD('#grocerylist_add', './rooms/grocerylist/quickadd.php')" class="text-center float-right btn-floating" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">receipt_long</i></a></li>
-      <li data-position="left" data-tooltip="Food Waste" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('fw_add');AJAX_LOAD('#fw_add', './rooms/foodwaste/quickadd.php')" class="text-center float-right btn-floating" style="background: #<?php echo htmlspecialchars($theme_light); ?> !important"><i class="material-icons-round" style="color:white !important">no_food</i></a></li>
+      <li data-position="left" data-tooltip="Task" class="tooltipped"><a class="fab_btn btn-floating" href="javascript:void(0)" onclick="sm_page('todo_add');AJAX_LOAD('#todo_add', './rooms/todo/quickadd.php')"><i class="material-icons-round" style="color:white !important">check</i></a></li>
+      <li data-position="left" data-tooltip="Item" class="tooltipped"><a class="fab_btn btn-floating modal-trigger" href="#budgetmetermodala"><i class="material-icons-round" style="color:white !important">category</i></a></li>
+      <li data-position="left" data-tooltip="Shopping List" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('grocerylist_add');AJAX_LOAD('#grocerylist_add', './rooms/grocerylist/quickadd.php')" class="fab_btn text-center float-right btn-floating"><i class="material-icons-round" style="color:white !important">receipt_long</i></a></li>
+      <li data-position="left" data-tooltip="Food Waste" class="tooltipped"> <a href="javascript:void(0)" onclick="sm_page('fw_add');AJAX_LOAD('#fw_add', './rooms/foodwaste/quickadd.php')" class="fab_btn text-center float-right btn-floating"><i class="material-icons-round" style="color:white !important">no_food</i></a></li>
     </ul>
   </div>
   <!--CONTENT BEGINS-->
@@ -582,7 +595,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 </label>
               </div>
               <div class="collection">
-                <a class='dropdown-trigger collection-item waves-effect' href='javascript:void(0)' data-target='dropdown1'><b>Theme</b><span style="color:gray"><br>Fair warning (for mobile
+                <a class='dropdown-trigger collection-item waves-effect' href='javascript:void(0)' data-target='dropdown1'><strong>Theme</strong><span style="color:gray"><br>Fair warning (for mobile
                     users only): Changing the theme color can have unexpected results.</span></a>
                 <ul id='dropdown1' class='dropdown-content' style='min-width: 30vw;max-height: 300px;min-height: 300px;position:fixed !important;z-index:99999'>
                   <li><a onclick='_color.value = "41308a";document.getElementById("__colorform").submit()' href="javascript:void(0)">Default <img loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEVFJ6D////Exu4TAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=" width="20px" class='circle right' /></a></li>
@@ -653,7 +666,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 $users = $dbh->query($sql);
                 echo "<div class='card' id='todo_container'><div class='card-content'><h5 style='margin-top:0'>Todo <a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#todo_container', './rooms/todo/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
                 foreach ($users as $todo_listx) {
-                  echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/todo/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . htmlspecialchars($todo_listx['name']) . '</b><br>Priority: ' . htmlspecialchars($todo_listx['qty']) . '<br>Due on: ' . $todo_listx['price'] . '<br><div style="padding-left: 35px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Description: ' . htmlspecialchars($todo_listx['descs']) . '</div></span></label></p>';
+                  echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/todo/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><strong>' . htmlspecialchars($todo_listx['name']) . '</strong><br>Priority: ' . htmlspecialchars($todo_listx['qty']) . '<br>'.(!empty(trim($todo_listx['price'])) ? 'Due on: ' . $todo_listx['price'] . '<br>' : '').'<div style="padding-left: 35px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'.(!empty($todo_listx['descs']) ? 'Description: ' . htmlspecialchars($todo_listx['descs']) : ""). '</div></span></label></p>';
                 }
                 echo "</div></div>";
                 $dbh = null;
@@ -689,7 +702,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       $users = $dbh->query($sql);
                                       echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List<a href=\"javascript:void(0)\" class=\"right btn btn-flat waves-effect btn-floating\" onclick=\"AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');\"><i class='material-icons refresh'>refresh</i></a></h5><br>";
                                       foreach ($users as $todo_listx) {
-                                        echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><b>' . htmlspecialchars($todo_listx['name']) . '</b><br>Quantity: ' . htmlspecialchars($todo_listx['qty']) . '</span></label></p>';
+                                        echo '<p><label><input type="checkbox" onchange=\'$("#div1").load("https://smartlist.ga/dashboard/rooms/grocerylist/delete.php?id=' . $todo_listx['id'] . '");this.disabled=true;this.nextElementSibling.style.color = "gray";\'/><span><strong>' . htmlspecialchars($todo_listx['name']) . '</strong><br>Quantity: ' . htmlspecialchars($todo_listx['qty']) . '</span></label></p>';
                                       }
                                       echo "</div></div>";
                                     } catch (PDOexception $e) {
@@ -708,22 +721,22 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
               <div class="collection" style="margin-top: 10px">
                 <?php $month = date('M');
                 switch ($month) {
-                  case 'Jan': ?> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your stove</b><br>Clean your stove. It's probably messy
-                      after a year</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean couches</b><br>Clean your couches. Wash any throws and
-                      pillow cases</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your car</b><br>Take your car to a car wash!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Strip
-                        the entire bedding of your home</b><br>Wash every single blanket, pillow, and bed sheets
-                      in your home</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Inspect your pipes</b><br>Inspect your pipes. Make sure nothing is
-                      leaking!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean shower heads</b><br>Clean shower heads using vinegar. Make
+                  case 'Jan': ?> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your stove</strong><br>Clean your stove. It's probably messy
+                      after a year</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean couches</strong><br>Clean your couches. Wash any throws and
+                      pillow cases</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your car</strong><br>Take your car to a car wash!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Strip
+                        the entire bedding of your home</strong><br>Wash every single blanket, pillow, and bed sheets
+                      in your home</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Inspect your pipes</strong><br>Inspect your pipes. Make sure nothing is
+                      leaking!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean shower heads</strong><br>Clean shower heads using vinegar. Make
                       sure there isn't any hair/soap on it</a>
                   <?php
                     break;
                   case 'Feb': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Remove
-                        expired food</b><br>Remove any stale/expired food</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your pantry</b><br>Organize your
-                      entire pantry!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your fridge</b><br>Make sure to clean your entire
-                      fridge!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your shelves/countertops</b><br>Wipe down shelves and
-                      countertops</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your dining table</b><br>Remove any food stains</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        your rooms</b><br>Scan for any dust and debris in your rooms</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Remove
+                        expired food</strong><br>Remove any stale/expired food</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your pantry</strong><br>Organize your
+                      entire pantry!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your fridge</strong><br>Make sure to clean your entire
+                      fridge!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your shelves/countertops</strong><br>Wipe down shelves and
+                      countertops</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your dining table</strong><br>Remove any food stains</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        your rooms</strong><br>Scan for any dust and debris in your rooms</a>
                   <?php
                     break;
                   case 'Mar': ?>
@@ -732,34 +745,34 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                   <?php
                     break;
                   case 'Apr': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Spring
-                        Cleaning</b><br>Make sure to check every room in your home and clean out the clutter!</a>
-                    <a class="collection-item" href="javascript:void(0)"> <b>Clean out your mail</b><br>Throw out
-                      any junk mail that is unnecessary<br> </a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check AC/heat filter</b><br>Make sure
-                      your AC filters are working properly</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check Sprinklers</b><br>Make sure all
-                      your sprinklers are fully functional.</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Dust your TV</b><br>You wouldn't want
-                      dust on your TV when you're watching your favorite show!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Descale
-                        Coffee maker</b><br>Make sure you descale your coffee maker every year!</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Spring
+                        Cleaning</strong><br>Make sure to check every room in your home and clean out the clutter!</a>
+                    <a class="collection-item" href="javascript:void(0)"> <strong>Clean out your mail</strong><br>Throw out
+                      any junk mail that is unnecessary<br> </a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check AC/heat filter</strong><br>Make sure
+                      your AC filters are working properly</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check Sprinklers</strong><br>Make sure all
+                      your sprinklers are fully functional.</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Dust your TV</strong><br>You wouldn't want
+                      dust on your TV when you're watching your favorite show!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Descale
+                        Coffee maker</strong><br>Make sure you descale your coffee maker every year!</a>
                   <?php
                     break;
                   case 'May': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Make
-                        your beds</b><br>Wash and fold your blankets</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Do your laundry</b><br>Fold the clothes
-                      in your laundry room</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check and Vacuum floors</b><br>Make sure that there aren't any
-                      loose tiles in your flooring</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your gutters</b><br>Remove any dirt from your gutters</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        your windows</b><br>Use glass cleaning spray, and wipe down your windows!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Prune
-                        your plants</b><br>Remove any excess branches or dying branches. Let them grow the
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Make
+                        your beds</strong><br>Wash and fold your blankets</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Do your laundry</strong><br>Fold the clothes
+                      in your laundry room</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check and Vacuum floors</strong><br>Make sure that there aren't any
+                      loose tiles in your flooring</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your gutters</strong><br>Remove any dirt from your gutters</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        your windows</strong><br>Use glass cleaning spray, and wipe down your windows!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Prune
+                        your plants</strong><br>Remove any excess branches or dying branches. Let them grow the
                       upcoming months</a>
                   <?php
                     break;
                   case 'Jun': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        your washing machine</b><br>Run your washing machine empty with vinegar</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Remove
-                        weeds</b><br>Pull weeds out in your garden</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your nightstands</b><br>Remove
-                      dust from your nightstand</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Remove lint from your dryer</b><br>Pull the lint out from your
-                      dryer's lint compartment</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your bathroom</b><br>Clean the shower, toilet, and sink</a>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        your storage room</b><br>Sort out everything in your storage room</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        your washing machine</strong><br>Run your washing machine empty with vinegar</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Remove
+                        weeds</strong><br>Pull weeds out in your garden</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your nightstands</strong><br>Remove
+                      dust from your nightstand</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Remove lint from your dryer</strong><br>Pull the lint out from your
+                      dryer's lint compartment</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your bathroom</strong><br>Clean the shower, toilet, and sink</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        your storage room</strong><br>Sort out everything in your storage room</a>
                   <?php
                     break;
                   case 'Jul': ?>
@@ -768,25 +781,25 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                   <?php
                     break;
                   case 'Aug': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Fall
-                        cleaning!</b><br>Make sure to check every room in your home and clean out the clutter!</a>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        out your mail</b><br>Throw out any junk mail that is unnecessary</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check
-                        AC/heat filter</b><br>Make sure your AC filters are working properly</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check
-                        Sprinklers</b><br>Make sure all your sprinklers are fully functional. </a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Dust
-                        your TV</b><br>You wouldn't want dust on your TV when you're watching your favorite
-                      show!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Descale Coffee maker</b><br>Make sure you descale your coffee
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Fall
+                        cleaning!</strong><br>Make sure to check every room in your home and clean out the clutter!</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        out your mail</strong><br>Throw out any junk mail that is unnecessary</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check
+                        AC/heat filter</strong><br>Make sure your AC filters are working properly</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check
+                        Sprinklers</strong><br>Make sure all your sprinklers are fully functional. </a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Dust
+                        your TV</strong><br>You wouldn't want dust on your TV when you're watching your favorite
+                      show!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Descale Coffee maker</strong><br>Make sure you descale your coffee
                       maker every year!</a>
                   <?php
                     break;
                   case 'Sep': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Scan for
-                        loose shingles</b><br>Scan for loose shingles on your roof</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        your grill</b>Scrub all corners of the grill<br></a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your fireplace</b><br>Make sure
-                      there isn't any ash in your fireplace</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Drain garden hoses</b><br>Drain your
-                      garden hose</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Water your plants</b><br>Make sure your plants don't dry out!</a>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Replace
-                        your car's emergency kit</b><br>This way, you're going to be prepared for any
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Scan for
+                        loose shingles</strong><br>Scan for loose shingles on your roof</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        your grill</strong>Scrub all corners of the grill<br></a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your fireplace</strong><br>Make sure
+                      there isn't any ash in your fireplace</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Drain garden hoses</strong><br>Drain your
+                      garden hose</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Water your plants</strong><br>Make sure your plants don't dry out!</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Replace
+                        your car's emergency kit</strong><br>This way, you're going to be prepared for any
                       disaster!</a>
                   <?php
                     break;
@@ -796,22 +809,22 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                   <?php
                     break;
                   case 'Nov': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Remove
-                        expired food</b><br>Remove stale/expired food</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your pantry</b><br>Organize your
-                      entire pantry!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your fridge</b><br>Make sure to clean your entire
-                      fridge!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your shelves/countertops</b><br>Wipe down shelves and
-                      countertops</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean your dining table</b><br>Remove any food stains</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        your rooms</b><br>Scan for any dust and debris in your rooms</a>
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Remove
+                        expired food</strong><br>Remove stale/expired food</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your pantry</strong><br>Organize your
+                      entire pantry!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your fridge</strong><br>Make sure to clean your entire
+                      fridge!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your shelves/countertops</strong><br>Wipe down shelves and
+                      countertops</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean your dining table</strong><br>Remove any food stains</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        your rooms</strong><br>Scan for any dust and debris in your rooms</a>
                   <?php
                     break;
                   case 'Dec': ?>
-                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Winter
-                        cleaning!</b><br>Is this even a thing? But still, clean your rooms!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Clean
-                        out your mail</b><br>Throw out any junk mail that is unnecessary</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check
-                        AC/heat filter</b><br>Make sure your AC filters are working properly</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Check
-                        Sprinklers</b><br>Make sure all your sprinklers are fully functional.</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Dust
-                        your TV</b><br>You wouldn't want dust on your TV when you're watching your favorite
-                      show!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><b>Descale Coffee maker</b><br>Make sure you descale your coffee
+                    <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Winter
+                        cleaning!</strong><br>Is this even a thing? But still, clean your rooms!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Clean
+                        out your mail</strong><br>Throw out any junk mail that is unnecessary</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check
+                        AC/heat filter</strong><br>Make sure your AC filters are working properly</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Check
+                        Sprinklers</strong><br>Make sure all your sprinklers are fully functional.</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Dust
+                        your TV</strong><br>You wouldn't want dust on your TV when you're watching your favorite
+                      show!</a> <a class="collection-item mtoggle" href="javascript:void(0)" onclick="mtoggle(this)"><strong>Descale Coffee maker</strong><br>Make sure you descale your coffee
                       maker every year!</a>
                 <?php
                     break;
@@ -837,7 +850,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </div>
     <nav style="position:fixed;background: #212121;z-index:10000;top:0;display:none;overflow:visible;overflow-y: hidden" id="secondary_nav">
       <div class="nav-wrapper">
-        <a href="javascript:void(0)" class="brand-logo left hide-on-large-only" onclick="back();" style="margin-left: 7px !important;margin-top: 0 !important"><i class="material-icons-round">arrow_back</i> <span style="font-size: 20px;position: relative;top: -3px;">Details</span></a>
+        <a href="javascript:void(0)" class="brand-logo left hide-on-large-only" onclick="back();" style="margin-left: 7px !important;margin-top: 0 !important"><i class="material-icons-round">arrow_back</i> <span style="font-size: 20px;position: relative;top: -3px;"></span></a>
         <ul class="right snav">
           <li><a href="javascript:void(0)" id="nav_star" class=" waves-effect waves-yellow" data-position="bottom" data-tooltip="Star item"><i class="material-icons-round">star_outline</i></a></li>
           <li><a style="animation-delay:100ms" href="javascript:void(0)" id="nav_edit" class="waves-effect waves-light" data-position="bottom" data-tooltip="Edit item"><i class="material-icons-round">edit</i></a></li>
@@ -908,11 +921,11 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="container">
         <div class="hide-on-med-and-doawn" style="margin-top: 10vh;"></div>
         <h3 id="item_title" onclick="copyToClipboard(this.innerText)" class="fade-up" style="cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;overflow-y:visible"></h3>
-        <h5 id="item_qty" class="fade-up" style="animation-delay: .05s;cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;overflow-y:visible" onclick="copyToClipboard(this.innerText)"></h5>
+        <h5 id="item_qty" class="fade-up" style="animation-delay: .01s;cursor:pointer;width: 100%;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;overflow-y:visible" onclick="copyToClipboard(this.innerText)"></h5>
         <br>
-        <div class="flow-text fade-up" style="animation-delay: .1s;display: block" id="item_desc"></div>
+        <div class="flow-text fade-up" style="animation-delay: .02s;display: block" id="item_desc"></div>
         <br>
-        <div class="collection z-depth-2 fade-up" style="animation-delay: .3s;padding:0" id="item_options">
+        <div class="collection z-depth-2 fade-up" style="animation-delay: .05s;padding:0" id="item_options">
           <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .1s"id="action_edit"><i class="material-icons-round left">edit</i>Edit</a>
           <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .15s" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a>
           <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .2s" id="action_qr" target="_blank"><i class="material-icons-round left">qr_code</i>Generate QR code</a>
@@ -1027,7 +1040,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <a href="javascript:void(0)" id="rclick_delete" class="modal-close waves-effect"><i class="material-icons-round left">delete</i> Delete</a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/js/materialize.min.js"></script>
-  <script defer>
+  <script>
     const user = {
       theme_top_color: "#<?php echo $theme_top; ?>",
       theme_color: "#<?php echo $theme; ?> ",
@@ -1139,7 +1152,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
           } ?> <?php if (isset($_GET['pair_accept'])) { ?>
       $(document).ready(function() {
         M.toast({
-          html: 'Granted access. To remove access, just click revoke in step #3. <b>Changes will take time to update, please tell the other user to log out and log back in to view the changes</b>'
+          html: 'Granted access. To remove access, just click revoke in step #3. <strong>Changes will take time to update, please tell the other user to log out and log back in to view the changes</strong>'
         });
       });
     <?php

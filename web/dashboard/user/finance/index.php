@@ -53,6 +53,20 @@ catch (PDOexception $e) {
         border-radius: 999px;
         margin-right: 10px;
     }
+    @media only screen and (min-width: 992px) {
+    .del_fade .del {
+        width: 5%;
+    }
+    .del_fade .del i {
+        opacity: 0;
+        transform: scale(.5);
+        transition: all .2s;
+    }
+    .del_fade:hover .del i{
+        opacity: 1;
+        transform: scale(1);
+    }
+    }
 </style>
 <div class="container" style="padding-top: 20px;width: 90% !important">
     <?php if($moneyToday > $goal) {?>
@@ -91,7 +105,7 @@ catch (PDOexception $e) {
     
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="card" style="overflow-x:auto">
                 <div class="card-content">
                     <span class="card-title" style="font-weight: bold !important"><b>Amount spent overall</b></span>
                     <?php
@@ -99,9 +113,11 @@ catch (PDOexception $e) {
                             $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                             $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC";
                             $users = $dbh->query($sql);
-                            echo '<table class="table" style="animation: none"> <tr style="border:0;height:0;overflow;hidden;display: none"><td></td><td></td> <td></td>';
+                            echo '<table class="table" style="animation: none"> <tr style="border:0;height:0;overflow;hidden;display: none"><td></td><td></td> <td></td><td style="width: 5%"></td>';
                                 foreach ($users as $row) {
-                                echo "<tr> <td> ".(decrypt($row['qty']) > $goal ? '<div class="red darken-3 status"></div>' : ""). (decrypt($row['qty']) == $goal ? '<div class="orange darken-3 status"></div>' : ""). (decrypt($row['qty']) < $goal ? '<div class="green darken-3 status"></div>' : "")."".($row['login_id'] !== $_SESSION['id'] ? '<span class="sync">Synced</span>' : '')." ".decrypt($row['name'])." </td> <td> ".decrypt($row['qty'])." </td><td>".decrypt($row['price'])."</td></tr>";
+                                echo "<tr class='del_fade'> <td> ".(decrypt($row['qty']) > $goal ? '<div class="red darken-3 status"></div>' : ""). (decrypt($row['qty']) == $goal ? '<div class="orange darken-3 status"></div>' : ""). (decrypt($row['qty']) < $goal ? '<div class="green darken-3 status"></div>' : "")."".($row['login_id'] !== $_SESSION['id'] ? '<span class="sync">Synced</span>' : '')." ".decrypt($row['name'])." </td> <td> ".decrypt($row['qty'])." </td><td><div class='chip'>".decrypt($row['price'])."</div></td>
+                                <td class='del'><a onclick='$(\"#div1\").load(\"https://smartlist.ga/dashboard/rooms/bm/delete.php?id=".$row['id']."\");this.parentElement.parentElement.style.display=\"none\";' class='waves-effect'><i class='material-icons left'>delete</i></a></td>
+                                </tr>";
                                 $dbh = null;
                                 }
                             }

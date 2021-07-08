@@ -1257,7 +1257,7 @@ canvas {
   }
   .chart_container,
   canvas {
-    height: 55vh !important;
+    height: 45vh !important;
   }
   .__dropdown {
     color: gray !important;
@@ -1612,7 +1612,7 @@ tr.hover {
 
   .chart_container,
   canvas {
-    height: 55vh !important;
+    height: 45vh !important;
   }
 
   .__dropdown {

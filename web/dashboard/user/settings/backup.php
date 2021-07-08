@@ -10,6 +10,7 @@ include('../../cred.php');
         <p>Kitchen</p>
       <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/kitchen.php')">CSV</a>
       <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/kitchen.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="./user/settings/backup/JSON/kitchen.php">JSON</a>
     </li>
     <li class="collection-item">
         <p>Bedroom</p>

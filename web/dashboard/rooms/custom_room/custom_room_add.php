@@ -13,6 +13,7 @@ include('../../cred.php');
         <div class="input-field">
             <label>Quantity</label>
             <input type="text" name="qty" autocomplete="off" class="validate" data-length="20">
+            <?php include('../suggestion_count.php'); ?>
         </div>
         <input type="hidden" name="price" value="<?php echo $_GET['room']; ?>" autocomplete="off" required>
         <select name="label"> 

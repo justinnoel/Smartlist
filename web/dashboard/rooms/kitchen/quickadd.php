@@ -35,6 +35,7 @@ $rand_keys = array_rand($chips, 15);
         <div class="input-field">
             <label onclick="this.nextElementSibling.focus()">Quantity</label>
             <input type="text" name="qty" value="1" class="validate" autocomplete="off" data-length="20" required>
+            <?php include('../suggestion_count.php'); ?>
         </div>
         <div class="input-field">
             <select name="price"> 

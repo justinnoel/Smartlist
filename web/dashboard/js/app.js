@@ -1712,6 +1712,8 @@ function mtoggle(el) {
   el.classList.toggle('white-text');
 }
 $("#search_bar").submit(function(e) {
+console.log("Search In Process...");
+showsearch();
   e.preventDefault();
   var form = $(this);
   sm_page('ajax_loader');
@@ -1734,7 +1736,7 @@ window.addEventListener('load', function() {
   for (i = 0; i < btns.length; i++) {
     btns[i].addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
-        event.preventDefault();
+        // event.preventDefault();
         this.click();
       }
     });
@@ -1824,6 +1826,14 @@ function qq() {
   for (i = 0; i < li.length; i++) {
     a = li[i].getElementsByTagName("a")[0];
     txtValue = a.textContent || a.innerText;
+    if(input.value.startsWith("category:")) {
+        if(a.getElementsByClassName('chip')[1]){
+            txtValue = a.getElementsByClassName('chip')[1].innerText;
+        }
+    }
+    else {
+        li[i].remove()
+    }
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       li[i].classList.remove('hide')
     } else {

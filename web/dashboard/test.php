@@ -277,7 +277,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     html:not([data-theme="dark"]) .sidenav .waves-ripple {
         background: <?php echo $overlayColor;?> !important;
     }
-    @media only screen and (max-width:600px) { .navbar_btn i { line-height: 50px !important; } #search_close { padding-top: 0px !important; } } .collection-item.green { border-color: #1b5e20 !important; } h5 { margin-bottom: 5px; } .chip-suggestions { width: 100%; overflow-y: visible !important; overflow-x: auto; white-space: nowrap; padding: 5px 0; position:relative; } .cursor-pointer { cursor: pointer; } .pagination_container { text-align: right; } .card.waves-effect { width: 100%; } @media only screen and (min-width: 500px) { #addNote,#noteView { width: 70% !important; margin: auto !important; height: 90vh !important; } } @media only screen and (max-width: 500px) { #addNote,#noteView,#editNoteForm { width: 100% !important; } } * { user-drag: none } .sync_tr { background: rgba(0, 121, 107, .1) !important; } .pagination_btn { padding: 15px; width: 40px; height: 40px; text-align: center; border-radius: 9999px; cursor: pointer; transition: all .2s; background: transparent; border: 0; } tr.hover { display: table-row !important; } .pagination_btn:not(.paginationActive):focus { background: transparent; color: inherit; } .pagination_container button { padding: 10px; } .paginationActive { color: white; background: #212121 !important; } .drag-target { width: 20px !important; } @media only screen and (max-width:900px) { .nav_btn_menu { top: -2px !important; } .chart_container { margin-top: 10px } #toast-container { top: auto !important; right: auto !important; bottom: 0; left: 0; width: calc(100% - 30px) !important } #accounts { width: 100% } .hover td::after { display: none } .menu.gray-text { padding: 0 !important; } .name { color: var(--font-color) !important } .email { color: #aaa !important } .chart_container, canvas { height: 55vh !important } .__dropdown { color: gray !important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100% !important } #settingsContainer .row { margin-top: 0 !important } } .collection-item b { transition: all .2s; }
+    @media only screen and (max-width:600px) { .navbar_btn i { line-height: 50px !important; } #search_close { padding-top: 0px !important; } } .collection-item.green { border-color: #1b5e20 !important; } h5 { margin-bottom: 5px; } .chip-suggestions { width: 100%; overflow-y: visible !important; overflow-x: auto; white-space: nowrap; padding: 5px 0; position:relative; } .cursor-pointer { cursor: pointer; } .pagination_container { text-align: right; } .card.waves-effect { width: 100%; } @media only screen and (min-width: 500px) { #addNote,#noteView { width: 70% !important; margin: auto !important; height: 90vh !important; } } @media only screen and (max-width: 500px) { #addNote,#noteView,#editNoteForm { width: 100% !important; } } * { user-drag: none } .sync_tr { background: rgba(0, 121, 107, .1) !important; } .pagination_btn { padding: 15px; width: 40px; height: 40px; text-align: center; border-radius: 9999px; cursor: pointer; transition: all .2s; background: transparent; border: 0; } tr.hover { display: table-row !important; } .pagination_btn:not(.paginationActive):focus { background: transparent; color: inherit; } .pagination_container button { padding: 10px; } .paginationActive { color: white; background: #212121 !important; } .drag-target { width: 20px !important; } @media only screen and (max-width:900px) { .nav_btn_menu { top: -2px !important; } .chart_container { margin-top: 20px } #toast-container { top: auto !important; right: auto !important; bottom: 0; left: 0; width: calc(100% - 30px) !important } #accounts { width: 100% } .hover td::after { display: none } .menu.gray-text { padding: 0 !important; } .name { color: var(--font-color) !important } .email { color: #aaa !important } .chart_container, canvas { height: 45vh  !important } .__dropdown { color: gray !important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100% !important } #settingsContainer .row { margin-top: 0 !important } } .collection-item b { transition: all .2s; }
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0PH6N0Z7E"></script>
 </head>
@@ -287,7 +287,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <nav style="position:fixed;background: var(--navbar-color) ;z-index:9999;top:0;display:none;box-shadow:none !important" id="searchbar">
     <div class="nav-wrapper">
       <form method="POST" action="./user/search.php" id="search_bar">
-        <div class="input-field"> <input id="search" type="search" onblur="this.focus()" name="query" class="autocomplete1" autocomplete="off" placeholder="Search items, rooms, actions, etc." value="<?php echo htmlspecialchars($_GET['query']); ?>"> <label class="label-icon" for="search"><i class="material-icons-round __search">search</i></label> <i class="material-icons material-icons-round waves-effect navbar_btn btn-flat btn-floating btn-large" id="search_close" style="margin-right: -5px !important;font-size: 24px;margin-top: 5px !important;">close</i> </div>
+        <div class="input-field"> <input id="search" type="search" onblur="showsearch()" name="query" class="autocomplete1" autocomplete="off" placeholder="Search items, rooms, actions, etc." value="<?php echo htmlspecialchars($_GET['query']); ?>"> <label class="label-icon" for="search"><i class="material-icons-round __search">search</i></label> <i class="material-icons material-icons-round waves-effect navbar_btn btn-flat btn-floating btn-large" id="search_close" style="margin-right: -5px !important;font-size: 24px;margin-top: 5px !important;">close</i> </div>
       </form>
     </div>
   </nav>
@@ -390,13 +390,13 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         </div>
         <a href="#avarar" style="opacity: 1 !important" class="waves-effect avatar_img waves-light circle modal-trigger"><img class="circle lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gODIK/9sAQwAGBAQFBAQGBQUFBgYGBwkOCQkICAkSDQ0KDhUSFhYVEhQUFxohHBcYHxkUFB0nHR8iIyUlJRYcKSwoJCshJCUk/9sAQwEGBgYJCAkRCQkRJBgUGCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk/8AAEQgB9AH0AwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A9cpaKK1MgooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooopgFFFFIAooooAKKKKACiiigAooooAKKKKACiiigAoozRmgAoozRmgAoozRmgAoozRmgAoozRmgAoozRmgAoozRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUlABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABS0lLQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRTAKKKKQBRRQaACikooAWikopgLRSUUALRSUUALRSUUgCiiigAooooAKKKKACiiigAooooAKKKKAClpKWgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiimAUUUUgCg0UUAFFFFABSUtJTAWkoooAKWkooAKKKKACij8aPxpAFFH40fjQAUUfjR+NABRR+NH40AFFH40fjQAUUfjR+NABS0n40tABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABQKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UUAFFFFABSUtJTAKKKKACiiloASiiigA/Cj8KKKQB+FH4UUUAH4UfhRRQAfhR+FFFAB+FH4UUUAH4UfhRRQAfhS0lL3oAKKKKACiiigAoo70UAFFFFABRRR3oAKKKKACiiigAoo70UAFFFFABRRR3oAKKKKACiiigAoo70CgAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoASiiigAooopgFFFFABRRRQAUUUvWkAlFLijFACUUuKMUAJRS4oxQAlFLijFACUUuKMUAJRS4oxQAlLRiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooo6UAFFGaM0AFFGaM0AFFGaM0AFFGaM0AFFGaKACiiigAoNFBoASiiigAooooAKKKKACiiigApRSUooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UGgAooooAKSlpKAFooooAKKKKACiiigAooooAKDRQaAEooooAKKKKACiiigAooooAKUUlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoAKKSigBaSiigBaKSigBaKSigBaKKKACiiigAoNFBoASiiigAooooAKKKKACiiigApRSUooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UGgAooooAKSlpKAFooooAKKKKACiiigAooooAKDRQaAEooooAKKKKACiiigAooooAKUUlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoAKKKKACkpaSgBaKKKACiiigAooooAKKKKACg0UGgBKKKKACiiigAooooAKKKKAClFJSigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKDRQaAEopaKAEopaSgAopaKAEopaKACiiigAooooAKDRQaAEooooAKKKKACiiigAooooAKUUlKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFBoAKKKKACkpaSgBaKKKACiiigAooooAKKKKACg0UUAJRS0UAJRS0UAJRS0UAJRS0UAJSiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKDRRQAUUlFAC0lFFAC0UlFAC0UlFAC0UlFAC0UUUAFFFFABRRRQAUUUUAFFH40UAFFFH40AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFJRQAtFJRQAtFJRQAtFJRQAtFJRQAtFFFABRRRQAUUUUAFFFFAB+FFFFABR+FFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFBoASloooASlopKAFpKWigApKWigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooASilooASilooASilooASilooASilooAKKKKACiiigAooooAKKKKAD8aKPwooAKPxoo/CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBKKKWgBKKKWgBKKWkoAKKWkoAKKWigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg0UUAFFJRQAtJRRQAtFJRQAtFJRQAtFJRQAtFFFABRRRQAUUUUAFFFFABRR+NFABRRR+NABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRSUUALRSUUALRSUUALRSUUALRSUUALRRRQAUUUUAFFFFABRRRQAfhRRRQAUfhRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRQaAEpaKKAEpaKSgBaSlooAKSlooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAEopaKAEopaKAEopaKAEopaKAEopaKACiiigAooooAKKKKACiiigA/Gij8KKACj8aKPwoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooASiiloASiiloASilpKACilpKACilooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoNFFABRSUUALSUUUALRSUUALRSUUALRSUUALRRRQAUUUUAFFFFABRRRQAUUfjRQAUUUfjQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUlFAC0UlFAC0UlFAC0UlFAC0UlFAC0UUUAFFFFABRRRQAUUUUAH4UUUUAFH4UUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUGgBKWiigBKWikoAWkpaKACkpaKACiiigAooooAKKKKACiiigAooooAKKMUUAFFFGKACiijpQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUZozQAUUUZoAKKM0ZoAKKM0UAFFGaM0AFFGaM0AFFFGaACijNGaACijNFABRRmjNABRRmjNABRRRmgAoozRQAlFLRQAlFLRQAlFLRQAlFLRQAlFLRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUGig0AFFFFABSUtJQAtFFFABRRRQAlLSUtABRRRQAUlLSUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFLSUtABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFBooNABRSUUALSUUUALRSUUALRSUUAFLSUUALRSUUALSUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFLSUtABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFBooNABRRRQAUlLSUALRRRQAUUUUAJS0lLQAUUUUAFJS0lABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABS0lLQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABQaKDQAUUUUAFJS0lAC0UUUAFFFFACUtJS0AFFFFABSUtJQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUtJS0AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUGiigAooooAKKKKACiiigAooooAKKKKACiiigApKKKAFpKKKACloooASloooASiiigBaSiigBaSiigApaKKAEpaKKAEooooAWkoooAWkoooAKWiigBKWiigAooooAKKKKACiiigAooooAKKKKAP/9k=" data-src="<?php echo $_SESSION['avatar'] ?>" width="50px" height="50px" alt='image'></a>
         <span class="white-text name" style="font-size: 20px;margin-bottom:5px"><?php echo $_SESSION['name'] ?></span>
-        <span href="#accounts" class="right waves-effect circle waves-center modal-trigger" style="width:25px;height:25px;line-height:1 !important"><i class="material-icons-round __dropdown">arrow_drop_down</i></span>
+        <span href="#accounts" tabindex="0" class="right waves-effect circle waves-center modal-trigger"  onkeypress="javascript: if(event.keyCode == 13) this.click()" style="width:25px;height:25px;line-height:1 !important"><i class="material-icons-round __dropdown">arrow_drop_down</i></span>
         <span class="white-text email"><?php echo $_SESSION['email'] ?></span>
       </div>
     </li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Dashboard');sm_page('News');AJAX_LOAD('#grocery_list', './rooms/grocerylist/index.php');" id="defaultOpen"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <!--<li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Suggested');sm_page('suggested');AJAX_LOAD('#suggested', './rooms/suggested.php')"><i class="material-icons-round">assistant</i>Suggested items</a></li>-->
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">money</i>My Finances</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" onclick="sidenav_highlight(this); change_title('Finances');sm_page('finances');AJAX_LOAD('#finances', './user/finance/index.php')"><i class="material-icons-round">payments</i>My Finances</a></li>
     <li class="links" style="display:none"><a class="waves-effect" onclick="change_title('Loading...');sm_page('loader');"><i class="material-icons-round">dashboard</i>Dashboard</a></li>
     <li style="pointer-events:none">
       <div class="divider"></div>
@@ -445,13 +445,12 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       <div class="divider"></div>
     </li>
     <li class="links"><a class="subheader" href="javascript:void(0)" rel='nofollow'>Other</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './user/notes/index.php');change_title('Notes')"><i class="material-icons-round">sticky_note_2</i>Notes / Documents <span class="new-badge">New!</span></a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
-    <li class="links" style="overflow: visible"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('budgetmetermodal');change_title('Budget Meter');AJAX_LOAD('#budgetmetermodal', './rooms/bm/index.php')"><i class="material-icons-round">payments</i>My budget meter</a></li>
-    <li class="links"><a class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('gl');AJAX_LOAD('#gl', './user/notes/index.php');change_title('Notes')"><i class="material-icons-round">sticky_note_2</i>Notes / Documents <span class="new-badge">New!</span></a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
+    <li class="links" style="overflow: visible"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
     <li style="pointer-events:none">
       <div class="divider">
       </div>
@@ -631,7 +630,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </div>
     <div id="News" class="tabcontent" style="background:var(--bg-color);animation:tab .2s forwards !important;padding: 10px;padding-top: 70px">
       <div class="row" style="margin-bottom: 0 !important">
-        <div class="chart_container col s12 m12" style="<?= (($row_count !== 0) ? "background:var(--chart-color) !important;" : "") ?>height: auto !important;">
+        <div class="c col s12 m12" style="<?= (($row_count !== 0) ? "background:var(--chart-color) !important;" : "") ?>height: auto !important;">
           <div class="card" <?= (($row_count == 0) ? "style='padding: 100px !important'" : "") ?>>
             <div class="card-content">
               <?php
@@ -832,6 +831,35 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                     break;
                 } ?>
               </div>
+            </div>
+          </div>
+          <div class="card fade-up">
+            <div class="card-content">
+              <h5>Categories</h5>
+              <br>
+              <div class="chip waves-effect" onclick="var e=document.getElementById('search');showsearch();e.focus();e.value=this.innerText;e.click()"> Fruits, Veggies, etc. </div>
+              <div class="chip waves-effect" onclick="var e=document.getElementById('search');showsearch();e.focus();e.value=this.innerText;e.click()"> Pots/Pans </div>
+              <div class="chip waves-effect" onclick="var e=document.getElementById('search');showsearch();e.focus();e.value=this.innerText;e.click()"> Cutlery </div>
+              <div class="chip waves-effect" onclick="var e=document.getElementById('search');showsearch();e.focus();e.value=this.innerText;e.click()"> Bottles and Cups </div>
+              <div class="chip waves-effect" onclick="var e=document.getElementById('search');showsearch();e.focus();e.value=this.innerText;e.click()"> Bowls and Plates </div>
+              <?php
+                try
+                {
+                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                    $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
+                    $users = $dbh->query($sql);
+                        foreach ($users as $row){
+                            ?>
+                            <div class="chip waves-effect" onclick="var e=document.getElementById('search');showsearch();e.focus();e.value=this.innerText;e.click()"> <?=htmlspecialchars($row['name'])?> </div>
+                            <?php
+                    }
+                        $dbh = null;
+                }
+                catch(PDOexception $e)
+                {
+                    echo "Error is: " . $e->etmessage();
+                }
+            ?>
             </div>
           </div>
           <div class="card fade-up" style="border: 2px solid #4caf50;border-radius: 4px">
@@ -1046,10 +1074,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
       theme_color: "#<?php echo $theme; ?> ",
       bmBorderColor: "<?php echo $bmBorderColor; ?>",
       bmBgColor: "<?php echo $bmBgColor; ?>",
-    }
-    window.addEventListener('load', function(){
-        var interval = setInterval(function() {
-            var xhttp = new XMLHttpRequest();
+      loggedIn: function() {
+          var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                    if(xhttp.responseText.toString() !== "true") {
@@ -1059,8 +1085,17 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
             };
             xhttp.open("GET", "https://smartlist.ga/dashboard/user/check_if_loggd_in.php", true);
             xhttp.send();
+      }
+    }
+    window.addEventListener('load', function(){
+        var interval = setInterval(function() {
+            user.loggedIn()
         }, 60000)
     })
+    window.onfocus = function() {
+        user.loggedIn();
+        console.log("Awaiting response...")
+    }
   </script>
   <script src="./js/app.js"></script>
   <script defer>

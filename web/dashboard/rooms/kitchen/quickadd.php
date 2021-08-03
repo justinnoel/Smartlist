@@ -37,34 +37,7 @@ $rand_keys = array_rand($chips, 15);
             <input type="text" name="qty" value="1" class="validate" autocomplete="off" data-length="20" required>
             <?php include('../suggestion_count.php'); ?>
         </div>
-        <div class="input-field">
-            <select name="price"> 
-            <option disabled>Categories</option>
-                <option value="Pots and Pans">Pots/Pans</option> 
-                <option value="Fruits, Veggies, etc." selected>Fruits, Veggies, etc.</option> 
-                <option value="Cutlery">Cutlery</option> <option value="Bottles and Cups">Bottles and Cups</option> 
-                <option value="Bowls and Plates">Bowls and Plates</option> 
-                <option disabled>Other</option>
-                <?php
-                try
-                {
-                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                    $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
-                    $users = $dbh->query($sql);
-                        foreach ($users as $row){
-                            ?>
-                            <option value=<?=json_encode($row['name'])?>> <?=htmlspecialchars($row['name'])?> </option>
-                            <?php
-                    }
-                        $dbh = null;
-                }
-                catch(PDOexception $e)
-                {
-                    echo "Error is: " . $e->etmessage();
-                }
-            ?>
-            </select>
-        </div> 
+        <?php include('../category_select.php');?>
 
         <button class="btn blue-grey darken-3">
             <i class="material-icons-round left">save</i> Save
@@ -88,6 +61,7 @@ $rand_keys = array_rand($chips, 15);
                 sm_page('addkitchen');
                 document.getElementById('kitchen_add_form').reset();
                 document.getElementById('addKitchenName').focus();
+                $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }
                 if(data == "Item Already Exists!") {
                     M.toast({html: "Item Already Exists!"});
                 }
@@ -97,5 +71,4 @@ $rand_keys = array_rand($chips, 15);
             }
         });
     });
-    $('select').formSelect();
 </script>

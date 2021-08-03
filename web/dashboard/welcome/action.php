@@ -20,7 +20,7 @@ foreach($_POST['items'] as $items) {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO $room (name, qty, price, login_id, star)
-      VALUES (".json_encode(encrypt($items)).", ".json_encode(encrypt(1)).", ".json_encode(encrypt(1)).", ".json_encode($_SESSION['id']).", ".json_encode(0).")";
+      VALUES (".json_encode(encrypt(ucfirst($items))).", ".json_encode(encrypt(1)).", ".json_encode(encrypt(1)).", ".json_encode($_SESSION['id']).", ".json_encode(0).")";
       $conn->exec($sql);
     } catch(PDOException $e) {
         echo $sql . "<br>" . $e->getMessage();

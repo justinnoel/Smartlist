@@ -79,7 +79,7 @@ catch (PDOexception $e) {
         Great Job!!! You're spending less than your budget!
     </div>
     <?php } ?>
-    <?php if($moneyToday == $goal) {?>
+    <?php if($moneyToday == $goal && $moneyToday !== 0) {?>
     <div class="alert orange white-text darken-4">
         Haha you spent exactly the same amount of money as your budget. Try to spend less! <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/76/face-with-stuck-out-tongue-and-winking-eye_1f61c.png" width="24px" style="vertical-align: middle">
     </div>
@@ -113,6 +113,7 @@ catch (PDOexception $e) {
                             $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                             $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'] . " ORDER by id DESC";
                             $users = $dbh->query($sql);
+                            if($users->rowCount() !== 0) {
                             echo '<table class="table" style="animation: none"> <tr style="border:0;height:0;overflow;hidden;display: none"><td></td><td></td> <td></td><td style="width: 5%"></td>';
                                 foreach ($users as $row) {
                                 echo "<tr class='del_fade'> <td> ".(decrypt($row['qty']) > $goal ? '<div class="red darken-3 status"></div>' : ""). (decrypt($row['qty']) == $goal ? '<div class="orange darken-3 status"></div>' : ""). (decrypt($row['qty']) < $goal ? '<div class="green darken-3 status"></div>' : "")."".($row['login_id'] !== $_SESSION['id'] ? '<span class="sync">Synced</span>' : '')." ".decrypt($row['name'])." </td> <td> ".decrypt($row['qty'])." </td><td><div class='chip'>".decrypt($row['price'])."</div></td>
@@ -120,22 +121,29 @@ catch (PDOexception $e) {
                                 </tr>";
                                 $dbh = null;
                                 }
+                                echo '</table>
+                    <br><br>';
+                            }
+                            else {
+                                echo 'No expenses!';
+                            }
                             }
                         catch (PDOexception $e) {
                             echo "Error is: " . $e->getmessage();
                         }
                     ?>
-                    </table>
-                    <br><br>
-                    To view more results, go to the <a href="javascript:void(0)" class="blue-text" onclick=" sm_page('budgetmetermodal');change_title('Budget Meter');AJAX_LOAD('#budgetmetermodal', './rooms/bm/index.php')">budget meter</a>
+                    
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="row">
+    <div class="col s12">
+    <div class="card">
+    <div class="card-content">
         <div class="section">
-            <h5>Set a Budget</h5>
-            <p>Try not to spend more than this!</p>
+            <span class="card-title" style="font-weight: bold !important"><b>Set a goal</b></span>
+            <p>Drag the slider below to edit the goal for your budget</p>
               <form action="./rooms/bm/setGoal.php" id="setGoal" method="POST">
                 <p class="range-field">
                   <input type="range" id="test5" min="0" max="500" value="<?=$goal?>" name="goal"/>
@@ -143,6 +151,9 @@ catch (PDOexception $e) {
                 <button class="btn blue-grey darken-3 waves-effect waves-light">Set Goal!</button>
               </form>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 </div>
 <script>
@@ -159,7 +170,7 @@ catch (PDOexception $e) {
                data: form.serialize(), // serializes the form's elements.
                success: function(data)
                {
-                   M.toast({html: "Successfully Updated Goal!"})
+                   M.toast({html: "Successfully Updated Goal! Reload to see the changes"})
                }
              });
     });

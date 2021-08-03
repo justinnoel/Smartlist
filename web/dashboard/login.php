@@ -102,6 +102,22 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
       .darkTheme input {
         color: white !important;
       }
+      @keyframes fade-up
+      {
+        0% {
+          transform: translateY(5px);
+          opacity: 0
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1
+        }
+      }
+      .fade-up {
+        animation: fade-up .2s forwards;
+        opacity: 0;
+        transform: translateY(5px)
+      }
       .darkTheme input:not(:focus) {
         border-color: #303030 !important
       }
@@ -213,32 +229,32 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
     <div class="row">
       <div class="col s12 m6 bg grey lighten-3 hide-on-small-only"></div>
       <div class="col s12 m6 white">
-          <div class="logo">
+          <div class="logo fade-up">
               <a href="https://smartlist.ga" style="font-weight:bold;color: #212121" class="l_a"><img src="https://res.cloudinary.com/smartlist/image/upload/v1617905788/logo_z3yoqm.svg" width="30px" id="logoImg" style="display:inline-block;margin: 0 10px;vertical-align: middle">Smartlist</a>
           </div>
         <div class="consadftainer">
-          <h4><b>Hi there, Welcome back! <img class="right hello" src="https://i.pinimg.com/originals/d8/32/10/d83210d052f3e7e4a7e78bfd16a6f23e.png" width="40px"></b></h4>
-          <p>Log in to access your inventory, tasks, lists, and more!</p>
+          <h4 class="fade-up" style="animation-delay: .05s"><b>Hi there, Welcome back! <img class="right hello" src="https://i.pinimg.com/originals/d8/32/10/d83210d052f3e7e4a7e78bfd16a6f23e.png" width="40px"></b></h4>
+          <p class="fade-up" style="animation-delay: .1s">Log in to access your inventory, tasks, lists, and more!</p>
           <form method="POST" id="__login" action="https://smartlist.ga/dashboard/login_auth.php">
-            <div class="input-field" onclick="this.getElementsByTagName('input')[0].focus()">
-              <input type="text" id="u1" name='username' autocomplete="off" spellcheck="off" autofocus>
+            <div class="fade-up input-field" style="animation-delay: .15s" onclick="this.getElementsByTagName('input')[0].focus()">
+              <input type="text" id="u1" name='username' autocomplete="off" spellcheck="off">
               <label>Username</label>
             </div>
-            <div class="input-field" onclick="this.getElementsByTagName('input')[0].focus()">
+            <div class="input-field fade-up" style="animation-delay: .2s" onclick="this.getElementsByTagName('input')[0].focus()">
               <input type="password" id="u2" name='password' autocomplete="off" spellcheck="off">
               <label>Password</label>
             </div>
-            <label style="margin-bottom: 20px;margin-left: -3px !important" class="checkbox-orange">
+            <label style="margin-bottom: 20px;animation-delay:.25s;margin-left: -3px !important" class="checkbox-orange fade-up">
               <input type="checkbox" oninput="showPassword()">
               <span>Show password</span>
             </label>
             <br><br>
-            <button class="btn purple btn-large darken-3 ripple" style="width: 100%;height: 50px;line-height: 40px" id="submitBtn" name='submitBtnLogin'>Login</button>
+            <button class="fade-up btn purple btn-large darken-3 ripple" style="animation-delay: .3s;width: 100%;height: 50px;line-height: 40px" id="submitBtn" name='submitBtnLogin'>Login</button>
           </form>
           <br><br>
           <div class="col s12">
-            <span class='hide-on-small-only'>Don't have an account yet? </span><a href="https://smartlist.ga/signup">Sign up!</a> 
-            <div class="right">
+            <span class='fade-up hide-on-small-only' style="animation-delay: .35s">Don't have an account yet? <a href="https://smartlist.ga/signup">Sign up!</a> </span>
+            <div class="right fade-up" style="animation-delay: .4s">
               <a href="https://smartlist.ga/dashboard/resources/fp.php">Forgot Password?</a>
             </div>
           </div>
@@ -286,12 +302,14 @@ if(!isset($_COOKIE['attempts'])) {setcookie('attempts', 0, time() + (86400 * 30)
           }
         });
       });
+      if($(window).width() > 922) {
       $(document).ready(function(){
         var classCycle = ['i1','i2', 'i3', 'i4', 'i5', 'i6', 'i6', 'i7', 'i8', 'i9', 'i10', 'i11'];
         var randomNumber = Math.floor(Math.random() * classCycle.length);
         var classToAdd = classCycle[randomNumber];
         $('.bg').addClass(classToAdd);
       });
+      }
       if(localStorage.getItem('theme') == "dark") {
         $('html').addClass("darkTheme")
       }

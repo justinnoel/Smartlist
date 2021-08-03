@@ -65,15 +65,15 @@
             <h1 class="fade-up" style="margin-top:0;animation-delay: 100ms">
               <?php echo $_SESSION['name']; ?>, what's<br> your favorite color?
             </h1>
-            <div class="circle __navI fade-up zoom" style="background: #41308a;animation-delay: 300ms;" onclick="color('41308a');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #6200ea;animation-delay: 350ms;" onclick="color('6200ea');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #B00020;animation-delay: 400ms;" onclick="color('B00020');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #00695c;animation-delay: 450ms;" onclick="color('00695c');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #00838f;animation-delay: 500ms;" onclick="color('00838f');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #0277bd;animation-delay: 550ms;" onclick="color('0277bd');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #2e7d32;animation-delay: 600ms;" onclick="color('2e7d32');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #ef6c00;animation-delay: 700ms;" onclick="color('ef6c00');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #ad1457;animation-delay: 750ms;" onclick="color('ad1457');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #41308a;animation-delay: 300ms;" onclick="colorInputV('41308a');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #6200ea;animation-delay: 350ms;" onclick="colorInputV('6200ea');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #B00020;animation-delay: 400ms;" onclick="colorInputV('B00020');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #00695c;animation-delay: 450ms;" onclick="colorInputV('00695c');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #00838f;animation-delay: 500ms;" onclick="colorInputV('00838f');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #0277bd;animation-delay: 550ms;" onclick="colorInputV('0277bd');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #2e7d32;animation-delay: 600ms;" onclick="colorInputV('2e7d32');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #ef6c00;animation-delay: 700ms;" onclick="colorInputV('ef6c00');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #ad1457;animation-delay: 750ms;" onclick="colorInputV('ad1457');"></div>
             <input name="color" type="hidden" value="41308a" id="__colorInput">
             <input name='id' type='hidden' value="<?php echo $_SESSION['id']; ?>">
           </div>
@@ -204,7 +204,7 @@
         M.toast({html: 'Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber});
         return true;
       }
-      function color(data) {
+      function colorInputV(data) {
         document.getElementById('__colorInput').value = data;
         __smPage('w2');
       }

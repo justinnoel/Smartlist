@@ -35,30 +35,8 @@ $rand_keys = array_rand($chips, 15);
             <input type="text" name="qty" autocomplete="off">
             <?php include('../suggestion_count.php'); ?>
         </div>
-<select name="price"> 
-            <option disabled>Categories</option>
-                <option selected value="No Category Specified">No Category Specified</option> 
-                <option disabled>Other</option>
-                <?php
-                try
-                {
-                    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                    $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
-                    $users = $dbh->query($sql);
-                        foreach ($users as $row){
-                            ?>
-                            <option value=<?=json_encode($row['name'])?>> <?=htmlspecialchars($row['name'])?> </option>
-                            <?php
-                    }
-                        $dbh = null;
-                }
-                catch(PDOexception $e)
-                {
-                    echo "Error is: " . $e->etmessage();
-                }
-            ?>
-            </select>
-            <script>$('select').formSelect();</script>
+                <?php include('../category_select.php');?>
+
             <button class="btn blue-grey darken-3">
             Submit
         </button>
@@ -77,6 +55,7 @@ $rand_keys = array_rand($chips, 15);
             success: function(data) {
                 sm_page('laundry_room_add');
                 document.getElementById('laundry_room_add_form').reset()
+                $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }
                 if(data == "Item Already Exists!") {
                     M.toast({html: "Item Already Exists!"});
                 }

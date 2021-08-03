@@ -1,12 +1,12 @@
 <?php
-ini_set('session.gc_maxlifetime', 180000);
+ini_set('session.gc_maxlifetime', 65535);
 session_start();
 $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 if ($actual_link == "https://smartlist.ga/dashboard/beta/") {
   header("Location: https://smartlist.ga/dashboard/beta");
 }
 if (!isset($_SESSION['valid'])) {
-  header('Location: https://smartlist.ga/dashboard/auth');
+  header('Location: https://smartlist.ga/daaction_editshboard/auth');
   exit();
 }
 include_once("cred.php");
@@ -22,7 +22,7 @@ try {
 } catch (PDOexception $e) {
   echo "Error is: " . $e->getmessage();
 }
-$notifications = $_SESSION['notifications'];
+define('user_notifications', $_SESSION['notifications']);
 $number_notify = $_SESSION['number_notify'];
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 $sql = "SELECT * FROM login WHERE id=" . $_SESSION['id'];
@@ -150,8 +150,25 @@ switch ($theme) {
     break;
 }
 $dbh = null;
-?>
-<?php
+
+// Get last of budget meter
+try {
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id']. " ORDER BY id DESC LIMIT 1";
+    $users = $dbh->query($sql);
+    $moneyToday;
+    foreach($users as $row) {
+            $moneyToday = decrypt($row['qty']);
+    }
+}
+catch (PDOexception $e) {
+    echo "Error is: " . $e->getmessage();
+}
+if(empty($moneyToday) || !isset($moneyToday)) {
+    $moneyToday = 0;
+}
+
+// Welcome popup
 if ($welcome != 1 || isset($_GET['tuts'])) {
   try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -217,7 +234,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <meta name="language" content="English">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="stylesheet" href="./resources/style.css?v=<?php echo rand(0, 9999999); ?>">
   <!--<link rel="stylesheet" href="./resources/style.css">-->
@@ -258,6 +275,24 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     [data-theme=dark] #item_options {
         background: rgba(255, 255, 255, .1)!important;
     }
+    @media only screen and (max-width: 992px) {
+       .datepicker-modal {
+           /*bottom: 0 !important;*/
+           width: 100% !important;
+           top: auto !important;
+           /*height: 300px !important;*/
+           transform: none !important;
+           animation: m .2s forwards;
+       }   
+        @keyframes m {
+            0% {
+                bottom: -100px;
+            }
+            100% {
+                bottom: 0;
+            }
+        }       
+      }
     .dark_theme_sidebar .sidenav {
         background: #212121 !important;
     }
@@ -275,7 +310,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         background: transparent !important;
     }
     html:not([data-theme="dark"]) .sidenav .waves-ripple {
-        background: <?php echo $overlayColor;?> !important;
+        /*background: <?php echo $overlayColor;?> !important;*/
+        background: rgba(0, 0, 0, .2) !important;
     }
     @media only screen and (max-width:600px) { .navbar_btn i { line-height: 50px !important; } #search_close { padding-top: 0px !important; } } .collection-item.green { border-color: #1b5e20 !important; } h5 { margin-bottom: 5px; } .chip-suggestions { width: 100%; overflow-y: visible !important; overflow-x: auto; white-space: nowrap; padding: 5px 0; position:relative; } .cursor-pointer { cursor: pointer; } .pagination_container { text-align: right; } .card.waves-effect { width: 100%; } @media only screen and (min-width: 500px) { #addNote,#noteView { width: 70% !important; margin: auto !important; height: 90vh !important; } } @media only screen and (max-width: 500px) { #addNote,#noteView,#editNoteForm { width: 100% !important; } } * { user-drag: none } .sync_tr { background: rgba(0, 121, 107, .1) !important; } .pagination_btn { padding: 15px; width: 40px; height: 40px; text-align: center; border-radius: 9999px; cursor: pointer; transition: all .2s; background: transparent; border: 0; } tr.hover { display: table-row !important; } .pagination_btn:not(.paginationActive):focus { background: transparent; color: inherit; } .pagination_container button { padding: 10px; } .paginationActive { color: white; background: #212121 !important; } .drag-target { width: 20px !important; } @media only screen and (max-width:900px) { .nav_btn_menu { top: -2px !important; } .chart_container { margin-top: 20px } #toast-container { top: auto !important; right: auto !important; bottom: 0; left: 0; width: calc(100% - 30px) !important } #accounts { width: 100% } .hover td::after { display: none } .menu.gray-text { padding: 0 !important; } .name { color: var(--font-color) !important } .email { color: #aaa !important } .chart_container, canvas { height: 45vh  !important } .__dropdown { color: gray !important } .background { border-bottom: 1px solid rgba(200, 200, 200, .3) } #settingsContainer { width: 100% !important } #settingsContainer .row { margin-top: 0 !important } } .collection-item b { transition: all .2s; }
   </style>
@@ -287,7 +323,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   <nav style="position:fixed;background: var(--navbar-color) ;z-index:9999;top:0;display:none;box-shadow:none !important" id="searchbar">
     <div class="nav-wrapper">
       <form method="POST" action="./user/search.php" id="search_bar">
-        <div class="input-field"> <input id="search" type="search" onblur="showsearch()" name="query" class="autocomplete1" autocomplete="off" placeholder="Search items, rooms, actions, etc." value="<?php echo htmlspecialchars($_GET['query']); ?>"> <label class="label-icon" for="search"><i class="material-icons-round __search">search</i></label> <i class="material-icons material-icons-round waves-effect navbar_btn btn-flat btn-floating btn-large" id="search_close" style="margin-right: -5px !important;font-size: 24px;margin-top: 5px !important;">close</i> </div>
+        <div class="input-field"> <input id="search" type="search" onblur="this.focus()" name="query" class="autocomplete1" autocomplete="off" placeholder="Search items, rooms, actions, etc." value="<?php echo htmlspecialchars($_GET['query']); ?>"> <label class="label-icon" for="search"><i class="material-icons-round __search">search</i></label> <i class="material-icons material-icons-round waves-effect navbar_btn btn-flat btn-floating btn-large" id="search_close" style="margin-right: -5px !important;font-size: 24px;margin-top: 5px !important;">close</i> </div>
       </form>
     </div>
   </nav>
@@ -331,7 +367,6 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <input type="submit" name="Submit" value="Add" class="btn purple darken-3">
       </form>
     </div>
-  </div>
   </div>
   <div id="budgetmetermodala" onscroll="this.classList.add('addheight')" class="modal modal-fixed-s  bottom-sheet" style="width:60%">
     <div class="modal-content" id="CTRLS_CTNT" style="cursor: auto">
@@ -449,7 +484,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('foodwaste');AJAX_LOAD('#foodwaste', './rooms/foodwaste/view.php');change_title('Food Waste')"><i class="material-icons-round">no_food</i>Food Wastage</a></li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Starred'); AJAX_LOAD('#STARRED_ITEMS', './rooms/starred-items.php')"><i class="material-icons-round">star</i>Starred</a></li>
     <li class="links" style="overflow: visible"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('STARRED_ITEMS');change_title('Maintenance'); AJAX_LOAD('#STARRED_ITEMS', './rooms/maintenance.php?card')"><i class="material-icons-round">construction</i>Maintenance</a></li>
-    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator</a></li>
+    <li class="links"><a tabindex="0" class="waves-effect sidenav-close" rel="noreferrer" href="https://recipe-generator.smartlist.ga/" target="_blank"><i class="material-icons-round">casino</i>Recipe Generator</a></li>
     <li class="links"><a tabindex="0" class="waves-effect sidenav-close" href="javascript:void(0)" onclick="sidenav_highlight(this); sm_page('trash_c');AJAX_LOAD('#trash_c', './rooms/trash.php');change_title('Trash');"><i class="material-icons-round">delete</i>Trash</a></li>
     <li style="pointer-events:none">
       <div class="divider">
@@ -457,7 +492,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     </li>
     <li class="links"><a class="subheader" href="javascript:void(0)" rel='nofollow'>Events</a></li>
     <li class="links"><a tabindex="0" target="_blank" class="waves-effect sidenav-close" rel="noopener" href="https://events.smartlist.ga/"><i class="material-icons-round">event</i>Join event</a></li>
-    <li class="links"><a tabindex="0" target="_blank" class="waves-effect sidenav-close" rel="noopener" href="https://events.smartlist.ga/dash/event/add.php"><i class="material-icons-round">open_in_new</i>Create
+    <li class="links"><a tabindex="0" target="_blank" class="waves-effect sidenav-close" rel="noopener" href="https://events.smartlist.ga/add.php"><i class="material-icons-round">open_in_new</i>Create
         event</a></li>
     <li class="links" style="pointer-events:none">
       <div class="divider">
@@ -472,7 +507,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
   </ul>
   <div id="accounts" class="modal bottom-sheet" style="margin: auto !important">
     <div class="modal-close">
-      <a href="javascript:void(0)" onclick="sm_page('modal1')" class="waves-effect" style="width: 100%;padding: 15px">Settings</a>
+      <a href="javascript:void(0)" onclick="sm_page('modal1');meta_theme_color('#1f1f1f')" class="waves-effect" style="width: 100%;padding: 15px">Settings</a>
       <a href="javascript:void(0)" onclick="sm_page('modal1')" class="waves-effect" style="width: 100%;padding: 15px">Account</a>
       <a href="#_feedback" class="modal-trigger waves-effect" style="width: 100%;padding: 15px">Feedback</a>
       <a href="javascript:void(0)" onclick="document.getElementById('notification').click()" class="waves-effect" style="width: 100%;padding: 15px">Notifications</a>
@@ -574,8 +609,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
               </div>
               <div class="switch" style="margin-bottom: 10px">
                 <label>
-                  Dark Sidenav (Coming Soon!)
-                  <input type="checkbox" value="dark" id="darksidenav" disabled>
+                  Dark Sidenav
+                  <input type="checkbox" value="dark" id="darksidenav" oninput="if(this.checked==true){document.documentElement.classList.add('dark_theme_sidebar')} else {document.documentElement.classList.remove('dark_theme_sidebar')}">
                   <span class="lever right"></span>
                 </label>
               </div>
@@ -637,7 +672,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
               if ($row_count == 0) {
                 echo "<h6 class='center' style='margin: 0;color: gray'>No data in budget meter to display<br><a href='https://support.smartlist.ga/docs/#/no-data-in-budget-meter-to-display' style='color: #aaa' class='center'>More Info</a></h6>";
               } else { ?>
-                <h5 style="margin-top: 0;">My Expenses <a href="#bmmodal" class="modal-trigger right btn btn-flat waves-effect btn-floating"><i class='material-icons refresh' style="transform: none !important">add</i></a></h5><br>
+                <h5 style="margin-top: 0;">My Expenses <?php if ($moneyToday > $goal) { echo '<i class="material-icons red-text tooltipped" data-tooltip="Expenditures are exceeding your goal" style="vertical-align: middle">warning</i>'; }?><?php if ($moneyToday <= $goal) { echo '<i class="material-icons green-text tooltipped" data-tooltip="Expenditures are below your goal" style="vertical-align: middle">check_circle</i>'; }?> <a href="#bmmodal" class="modal-trigger right btn btn-flat waves-effect btn-floating"><i class='material-icons refresh' style="transform: none !important">add</i></a></h5><br>
                 <!--<canvas id="myChart" style="width: 100%;display: none" class="ree"></canvas>-->
                 <canvas id="budgetMeter" style="width: 100%;"></canvas>
                 <div id="chart"> </div>
@@ -673,7 +708,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                 echo "Error is: " . $e->getmessage();
               }
             } else {
-              echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Todo</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div></div>";
+              echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Todo</h5><div class='container'><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'></div></div><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div></div>";
             }
             ?>
             <div class="hide-on-small-only">
@@ -708,7 +743,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                                       echo "Error is: " . $e->getmessage();
                                     }
                                   } else {
-                                    echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Nothing in your Shopping List.... Good Job! </p></div></div>";
+                                    echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List</h5><div class='container'><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'></div></div><br><p class='center'>Nothing in your Shopping List.... Good Job! </p></div></div>";
                                   }
                                   ?>
           </div>
@@ -954,17 +989,18 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
         <div class="flow-text fade-up" style="animation-delay: .02s;display: block" id="item_desc"></div>
         <br>
         <div class="collection z-depth-2 fade-up" style="animation-delay: .05s;padding:0" id="item_options">
-          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .1s"id="action_edit"><i class="material-icons-round left">edit</i>Edit</a>
-          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .15s" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a>
+          <!--<a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .1s"id="action_edit"><i class="material-icons-round left">edit</i>Edit</a>-->
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .15s" id="action_task"><i class="material-icons-round left">task_alt</i>Add item to todo list</a> 
           <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .2s" id="action_qr" target="_blank"><i class="material-icons-round left">qr_code</i>Generate QR code</a>
           <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .25s" id="action_share" target="_blank"><i class="material-icons-round left">forum</i>Invite collaborators &amp;
             comment</a>
           <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .3s" id="action_mail" target="_blank"><i class="material-icons-round left">email</i>Share via email</a>
-          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .35s" id="action_share_p"><i class="material-icons-round left">share</i>Share (Mobile Only)</a>
-          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .4s" id="action_recipe" target="_blank"><i class="material-icons-round left">auto_awesome</i>Find a recipe</a>
-          <a href="javascript:void(0)" class="fade-up collection-item red-text waves-effect waves-red" style="animation-delay: .45s" id="action_delete"><i class="material-icons-round left">delete</i>Delete</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .35s" id="action_wa" onclick="window.open(`https://api.whatsapp.com/send/?phone&text=${encodeURIComponent('I currently have' + document.getElementById('item_qty').innerHTML.replace('Quantity: ', '') + ' ' + document.getElementById('item_title').innerHTML.toLowerCase().plural() + ' in the ' + document.getElementById('item_desc').getElementsByClassName('chip')[1].innerText.toLowerCase().replace('room: ', ''))}&app_absent=0`);"><i class="material-icons-round left">chat</i>Share via WhatsApp</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .4s" id="action_share_p"><i class="material-icons-round left">share</i>Share (Mobile Only)</a>
+          <a href="javascript:void(0)" class="fade-up collection-item waves-effect" style="color:gray;animation-delay: .45s" id="action_recipe" target="_blank"><i class="material-icons-round left">auto_awesome</i>Find a recipe</a>
+          <a href="javascript:void(0)" class="fade-up collection-item red-text waves-effect waves-red" style="animation-delay: .5s" id="action_delete"><i class="material-icons-round left">delete</i>Delete</a>
         </div>
-        <a href="javascript:void(0)" onclick="back();" class="fade-up hide-on-small-only btn waves-effect" style="animation-delay: .15s;background: #212121"><i class="material-icons-round left">arrow_back</i>Back</a>
+        <a href="javascript:void(0)" onclick="back();" class="fade-up hide-on-small-only btn waves-effect" style="animation-delay: .6s;background: #212121"><i class="material-icons-round left">arrow_back</i>Back</a>
       </div>
     </div>
 
@@ -1098,20 +1134,8 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
     }
   </script>
   <script src="./js/app.js"></script>
+  <script src="./js/lazyLoad.js"></script>
   <script defer>
-    /*! jQuery & Zepto Lazy v1.7.10 - http://jquery.eisbehr.de/lazy - MIT&GPL-2.0 license - Copyright 2012-2018 Daniel 'Eisbehr' Kern */
-    !function(t,e){"use strict";function r(r,a,i,u,l){function f(){L=t.devicePixelRatio>1,i=c(i),a.delay>=0&&setTimeout(function(){s(!0)},a.delay),(a.delay<0||a.combined)&&(u.e=v(a.throttle,function(t){"resize"===t.type&&(w=B=-1),s(t.all)}),u.a=function(t){t=c(t),i.push.apply(i,t)},u.g=function(){return i=n(i).filter(function(){return!n(this).data(a.loadedName)})},u.f=function(t){for(var e=0;e<t.length;e++){var r=i.filter(function(){return this===t[e]});r.length&&s(!1,r)}},s(),n(a.appendScroll).on("scroll."+l+" resize."+l,u.e))}function c(t){var i=a.defaultImage,o=a.placeholder,u=a.imageBase,l=a.srcsetAttribute,f=a.loaderAttribute,c=a._f||{};t=n(t).filter(function(){var t=n(this),r=m(this);return!t.data(a.handledName)&&(t.attr(a.attribute)||t.attr(l)||t.attr(f)||c[r]!==e)}).data("plugin_"+a.name,r);for(var s=0,d=t.length;s<d;s++){var A=n(t[s]),g=m(t[s]),h=A.attr(a.imageBaseAttribute)||u;g===N&&h&&A.attr(l)&&A.attr(l,b(A.attr(l),h)),c[g]===e||A.attr(f)||A.attr(f,c[g]),g===N&&i&&!A.attr(E)?A.attr(E,i):g===N||!o||A.css(O)&&"none"!==A.css(O)||A.css(O,"url('"+o+"')")}return t}function s(t,e){if(!i.length)return void(a.autoDestroy&&r.destroy());for(var o=e||i,u=!1,l=a.imageBase||"",f=a.srcsetAttribute,c=a.handledName,s=0;s<o.length;s++)if(t||e||A(o[s])){var g=n(o[s]),h=m(o[s]),b=g.attr(a.attribute),v=g.attr(a.imageBaseAttribute)||l,p=g.attr(a.loaderAttribute);g.data(c)||a.visibleOnly&&!g.is(":visible")||!((b||g.attr(f))&&(h===N&&(v+b!==g.attr(E)||g.attr(f)!==g.attr(F))||h!==N&&v+b!==g.css(O))||p)||(u=!0,g.data(c,!0),d(g,h,v,p))}u&&(i=n(i).filter(function(){return!n(this).data(c)}))}function d(t,e,r,i){++z;var o=function(){y("onError",t),p(),o=n.noop};y("beforeLoad",t);var u=a.attribute,l=a.srcsetAttribute,f=a.sizesAttribute,c=a.retinaAttribute,s=a.removeAttribute,d=a.loadedName,A=t.attr(c);if(i){var g=function(){s&&t.removeAttr(a.loaderAttribute),t.data(d,!0),y(T,t),setTimeout(p,1),g=n.noop};t.off(I).one(I,o).one(D,g),y(i,t,function(e){e?(t.off(D),g()):(t.off(I),o())})||t.trigger(I)}else{var h=n(new Image);h.one(I,o).one(D,function(){t.hide(),e===N?t.attr(C,h.attr(C)).attr(F,h.attr(F)).attr(E,h.attr(E)):t.css(O,"url('"+h.attr(E)+"')"),t[a.effect](a.effectTime),s&&(t.removeAttr(u+" "+l+" "+c+" "+a.imageBaseAttribute),f!==C&&t.removeAttr(f)),t.data(d,!0),y(T,t),h.remove(),p()});var m=(L&&A?A:t.attr(u))||"";h.attr(C,t.attr(f)).attr(F,t.attr(l)).attr(E,m?r+m:null),h.complete&&h.trigger(D)}}function A(t){var e=t.getBoundingClientRect(),r=a.scrollDirection,n=a.threshold,i=h()+n>e.top&&-n<e.bottom,o=g()+n>e.left&&-n<e.right;return"vertical"===r?i:"horizontal"===r?o:i&&o}function g(){return w>=0?w:w=n(t).width()}function h(){return B>=0?B:B=n(t).height()}function m(t){return t.tagName.toLowerCase()}function b(t,e){if(e){var r=t.split(",");t="";for(var a=0,n=r.length;a<n;a++)t+=e+r[a].trim()+(a!==n-1?",":"")}return t}function v(t,e){var n,i=0;return function(o,u){function l(){i=+new Date,e.call(r,o)}var f=+new Date-i;n&&clearTimeout(n),f>t||!a.enableThrottle||u?l():n=setTimeout(l,t-f)}}function p(){--z,i.length||z||y("onFinishedAll")}function y(t,e,n){return!!(t=a[t])&&(t.apply(r,[].slice.call(arguments,1)),!0)}var z=0,w=-1,B=-1,L=!1,T="afterLoad",D="load",I="error",N="img",E="src",F="srcset",C="sizes",O="background-image";"event"===a.bind||o?f():n(t).on(D+"."+l,f)}function a(a,o){var u=this,l=n.extend({},u.config,o),f={},c=l.name+"-"+ ++i;return u.config=function(t,r){return r===e?l[t]:(l[t]=r,u)},u.addItems=function(t){return f.a&&f.a("string"===n.type(t)?n(t):t),u},u.getItems=function(){return f.g?f.g():{}},u.update=function(t){return f.e&&f.e({},!t),u},u.force=function(t){return f.f&&f.f("string"===n.type(t)?n(t):t),u},u.loadAll=function(){return f.e&&f.e({all:!0},!0),u},u.destroy=function(){return n(l.appendScroll).off("."+c,f.e),n(t).off("."+c),f={},e},r(u,l,a,f,c),l.chainable?a:u}var n=t.jQuery||t.Zepto,i=0,o=!1;n.fn.Lazy=n.fn.lazy=function(t){return new a(this,t)},n.Lazy=n.lazy=function(t,r,i){if(n.isFunction(r)&&(i=r,r=[]),n.isFunction(i)){t=n.isArray(t)?t:[t],r=n.isArray(r)?r:[r];for(var o=a.prototype.config,u=o._f||(o._f={}),l=0,f=t.length;l<f;l++)(o[t[l]]===e||n.isFunction(o[t[l]]))&&(o[t[l]]=i);for(var c=0,s=r.length;c<s;c++)u[r[c]]=t[0]}},a.prototype.config={name:"lazy",chainable:!0,autoDestroy:!0,bind:"load",threshold:500,visibleOnly:!1,appendScroll:t,scrollDirection:"both",imageBase:null,defaultImage:"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",placeholder:null,delay:-1,combined:!1,attribute:"data-src",srcsetAttribute:"data-srcset",sizesAttribute:"data-sizes",retinaAttribute:"data-retina",loaderAttribute:"data-loader",imageBaseAttribute:"data-imagebase",removeAttribute:!0,handledName:"handled",loadedName:"loaded",effect:"show",effectTime:0,enableThrottle:!0,throttle:250,beforeLoad:e,afterLoad:e,onError:e,onFinishedAll:e},n(t).on("load",function(){o=!0})}(window);
-    
-    $(document).ready(function() {
-        $('.lazy').lazy();
-    });
-      function chipValue(el) {
-        var input = el.parentElement.parentElement.getElementsByTagName('input')[0];
-        input.focus();
-        input.value = el.innerText
-        el.parentElement.parentElement.getElementsByTagName('input')[1].focus();
-        el.parentElement.parentElement.getElementsByTagName('input')[1].value = 1;
-    }
     var __bmglobal = {
         <?php echo "labels: [";
         try {
@@ -1196,7 +1220,7 @@ if ($welcome != 1 || isset($_GET['tuts'])) {
                       //  echo "$(document).ready(function() { $('#bmmodal').modal('open'); document.getElementById('bm_amount').focus() });";
                       ?>
   </script>
-  <?php if (!empty($notifications)) { ?>
+  <?php if (!empty(user_notifications)) { ?>
     <script defer>
       var notify_cookie;
       var notify_cookie = getCookie("NOTIFY_ALREADY_CLOSED");

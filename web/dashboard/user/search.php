@@ -3,6 +3,12 @@ session_start();
 include('../cred.php');
 $q = str_replace('"', '', trim($_POST['query']));
 ?>
+<style>
+   #search_results .collection-item {
+      display: block;
+      width: 100%
+   }
+</style>
 <br>
 <div class="container">
 <h5 id="noSearchResultsHeading">Search results for "<?php echo htmlspecialchars($q); ?>"</h5><br>
@@ -17,7 +23,7 @@ $users = $dbh->query($sql);
 $c1 = $users->rowCount();
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
             <a href='javascript:void(0)'><b>". htmlspecialchars(($row["name"])). "</b></a>
             <br><span>Room</span>
        </li>";
@@ -35,13 +41,17 @@ $users = $dbh->query($sql);
 $c2 = $users->rowCount();
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "")." onclick=\"change_title('Kitchen');sm_page('Contact');AJAX_LOAD('#Contact', './rooms/kitchen/view.php');\">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "")." onclick=\"new loadPage('./rooms/kitchen/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})   \">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
             <a href='javascript:void(0)'><b>". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Kitchen</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -57,14 +67,18 @@ $c3 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <b><a href='javascript:void(0)' onclick=\"change_title('Garage');sm_page('About');AJAX_LOAD('#About', './rooms/garage/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
+            <b><a href='javascript:void(0)' onclick=\" new loadPage('./rooms/garage/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})    \">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Garage</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -80,14 +94,18 @@ $c4 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <b><a href='javascript:void(0)' onclick=\"change_title('Bedroom');sm_page('Home');AJAX_LOAD('#Home', './rooms/bedroom/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
+            <b><a href='javascript:void(0)' onclick=\" new loadPage('./rooms/bedroom/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})    \">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Bedroom</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -103,14 +121,18 @@ $c5 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <b><a href='javascript:void(0)'onclick=\" change_title('Bathroom');sm_page('bathroom');AJAX_LOAD('#bathroom', './rooms/bathroom/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
+            <b><a href='javascript:void(0)'onclick=\"  new loadPage('./rooms/bathroom/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})     \">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Bathroom</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -126,14 +148,18 @@ $c6 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <b><a href='javascript:void(0)' onclick=\"change_title('Family Room');sm_page('family');AJAX_LOAD('#family', './rooms/family/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
+            <b><a href='javascript:void(0)' onclick=\" new loadPage('./rooms/family/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})     \">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Family Room</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -149,14 +175,18 @@ $c7 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <b><a href='javascript:void(0)' onclick=\"change_title('Storage Room');sm_page('storage');AJAX_LOAD('#storage', './rooms/storage/view.php')\">". htmlspecialchars(decrypt($row["name"])). "</b>
+            <b><a href='javascript:void(0)' onclick=\"new loadPage('./rooms/storage/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})   \">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Storage Room</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -172,14 +202,18 @@ $c8 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <a href='javascript:void(0)'><b>". htmlspecialchars(decrypt($row["name"])). "</b>
+            <a href='javascript:void(0)'  onclick=\"new loadPage('./rooms/laundry/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})   \"><b>". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Laundry</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -195,14 +229,18 @@ $c9 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
         ".($row['star'] == "1" ? '<i class="material-icons-round right">star</i>' : "")."
 
-            <a href='javascript:void(0)'><b>". htmlspecialchars(decrypt($row["name"])). "</b>
+        <a href='javascript:void(0)'  onclick=\"new loadPage('./rooms/dining_room/view.php', '#app', { callback: function() {setTimeout(() => {scrollInto(".$row['id']."), 200})}})   \"><b>". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Dining Room</span>
-            <br>
-            ".(decrypt($row["price"]) !== "No Category Specified" && !empty($row["price"]) && isset($row["price"]) ? '<div class="chip" style="margin-top: 5px;">'.htmlspecialchars(decrypt($row['price'])).'</div>' : "")."</a>
-       </li>";
+            <br>";
+            if(!empty($row['price'] && $row['price'] !== "No Category Specified")) {
+               foreach(explode(",", decrypt($row['price'])) as $this1) {
+                  echo "<div class='chip'>".$this1."</div>";
+               }
+            }
+       echo "</a> </li>";
 }
 $dbh = null;
 }
@@ -218,9 +256,9 @@ $c10 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
             <a href='javascript:void(0)'><b>". htmlspecialchars(($row["name"])). "</b>
-            <br><span>Grocery List</span>
+            <br><span>Shopping List</span>
        </li>";
 }
 $dbh = null;
@@ -237,9 +275,9 @@ $c11 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
             <a href='javascript:void(0)'><b>". htmlspecialchars(($row["name"])). "</b>
-            <br><span>Room</span>
+            <br><span>Custom Room</span>
        </li>";
 }
 $dbh = null;
@@ -256,7 +294,7 @@ $c4 = $users->rowCount();
 
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
             <b><a href='javascript:void(0)' onclick=\"sm_page('News');\">". htmlspecialchars(($row["name"])). "</b>
             <br><span>Todo</span>
        </li>";
@@ -274,7 +312,7 @@ $users = $dbh->query($sql);
 $c12 = $users->rowCount();
 foreach ($users as $row)
 {
-print "<li class=\"collection-item\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
+print "<li class=\"collection-item waves-effect modal-close\" ".(decrypt($row['name']) == $_POST['query'] ? 'style="border-left: 4px solid #1b5e20 !important"' : "").">
             <b><a href='javascript:void(0)' onclick=\"load_croom('" . str_replace('"', '', str_replace("'", "", $row['price'])) . "', '" . str_replace('"', '', str_replace("'", "", decrypt($row['name']))) . "')\"\">". htmlspecialchars(decrypt($row["name"])). "</b>
             <br><span>Custom room Item</span>
             <br>

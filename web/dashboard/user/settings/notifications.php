@@ -1,6 +1,16 @@
 <?php 
 session_start();
 include('../../cred.php');
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM login WHERE id=" . $_SESSION['id'];
+$users = $dbh->query($sql);
+foreach ($users as $row) {
+  $goal = $row["goal"];
+  $welcome = $row['welcome'];
+  $_SESSION['avatar'] = $row['user_avatar'];
+  $theme = $row['theme'];
+  $_SESSION["number_notify"] = $row['remind'];
+}
 ?>
 <h5>Notifications</h5><br> <form action="./user/turn_on_notifications.php">  <div class="switch">
 <label style="display: block;margin-bottom: 10px;">

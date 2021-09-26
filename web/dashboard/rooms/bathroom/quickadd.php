@@ -46,7 +46,6 @@ $rand_keys = array_rand($chips, 15);
 window.onbeforeunload = function() {return "Close?";};
     $("#bathroom_add_form").submit(function(e) {
         e.preventDefault();
-        sm_page('ajax_loader');
         var form = $(this);
         var url = form.attr('action');
         $.ajax({
@@ -54,7 +53,6 @@ window.onbeforeunload = function() {return "Close?";};
             url: url,
             data: form.serialize(),
             success: function(data) {
-                sm_page('bathroom_add');
                 window.onbeforeunload = null;
                 document.getElementById('bathroom_add_form').reset();
                 $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }

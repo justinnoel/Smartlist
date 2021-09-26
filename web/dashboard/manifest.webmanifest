@@ -16,7 +16,7 @@
     "Smartlist home inventory app"
   ],
   "short_name": "Smartlist",
-  "theme_color": "#2a1782",
+  "theme_color": "#fff",
   "icons": [
     {
       "src": "icon/icon_192x192.png",

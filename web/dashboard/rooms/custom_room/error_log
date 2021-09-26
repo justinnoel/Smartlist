@@ -1,0 +1,58 @@
+[22-Aug-2021 21:26:32 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 6
+[22-Aug-2021 21:26:32 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 70
+[22-Aug-2021 21:54:48 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:48 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:48 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:54:59 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:58:31 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:58:31 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 21:58:31 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:32 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:32 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:32 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:38 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:38 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:02:51 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:03:02 UTC] PHP Warning:  Undefined array key "confirm" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/custom_room_delete.php on line 4
+[22-Aug-2021 22:03:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:03:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:03:13 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 1 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
+[22-Aug-2021 22:13:16 UTC] PHP Warning:  Undefined array key "confirm" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/custom_room_delete.php on line 4
+[22-Aug-2021 23:48:14 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 6
+[22-Aug-2021 23:48:14 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 70
+[22-Aug-2021 23:49:48 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 6
+[22-Aug-2021 23:49:48 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 70
+[23-Aug-2021 01:55:00 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 6
+[23-Aug-2021 01:55:00 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 70
+[25-Aug-2021 02:53:15 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 6
+[25-Aug-2021 02:53:15 UTC] PHP Warning:  Undefined array key "room" in /home/bcxkspna/public_html/dashboard/rooms/custom_room/ajax_croom_loader.php on line 70

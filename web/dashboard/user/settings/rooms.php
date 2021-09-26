@@ -6,7 +6,7 @@ include('../../cred.php');
 <h5>Rooms</h5><br> <?php try
 {
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM roomnames WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
+$sql = "SELECT * FROM roomnames WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt($_SESSION['syncid']));
 $users = $dbh->query($sql);
 foreach ($users as $row)
 {

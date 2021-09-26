@@ -1,7 +1,18 @@
 <?php 
 session_start();
 include('../cred.php');
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM login WHERE id=" . $_SESSION['id'];
+$users = $dbh->query($sql);
+foreach ($users as $row) {
+  $goal = $row["goal"];
+  $welcome = $row['welcome'];
+  $_SESSION['avatar'] = $row['user_avatar'];
+  $theme = $row['theme'];
+  $_SESSION["number_notify"] = $row['remind'];
+}
 $number_notify = $_SESSION['number_notify'];
+$number_notify = 12;
 $month = date('M');
 ?>
 <style>
@@ -106,7 +117,7 @@ $month = date('M');
     </div>
 <style>.mcard span { font-weight: bold !important } .mcard .card-image img { height: 250px !important; object-fit: cover; }</style>
 <div class="container">
-<?php switch($montha) {
+<?php switch($month) {
   case "Jan": break;?>
  <?php
     break;

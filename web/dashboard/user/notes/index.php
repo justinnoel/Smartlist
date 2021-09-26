@@ -11,16 +11,36 @@ include "../../cred.php";
       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $sql = "SELECT * FROM notes WHERE login_id= " . $_SESSION['id'];
       $users = $dbh->query($sql);
+      if($users->rowCount() == 0) {
+        ?>
+        <center> No notes! Create one? </center>
+        <?php
+        return false;
+      }
       foreach ($users as $row){
+          if(!empty($row['banner'])) {
     ?>
-    <div class="col s12 m4">
-      <div class="card waves-effect" onclick="viewNote('<?=$row['id'];?>')">
-        <div class="card-content">
-          <span class="card-title" style="font-weight:bold !important"><?=$row['title'];?></span>
-        </div>
+    <div class="col s12 m6">
+      <div class="card waves-effect waves-light" onclick="viewNote('<?=$row['id'];?>')">
+          <div class="card-image">
+              <img src="<?=$row['banner'];?>" style="max-height: 100px;object-fit:cover">
+              <span class="card-title" style="font-weight:bold !important"><?=$row['title'];?></span>
+          </div>
       </div>
     </div>
     <?php
+          }
+          else {
+              ?>
+               <div class="col s12 m6">
+      <div class="card waves-effect" onclick="viewNote('<?=$row['id'];?>')">
+          <div class="card-content">
+              <span class="card-title" style="font-weight:bold !important"><?=$row['title'];?></span>
+          </div>
+      </div>
+    </div>
+              <?php
+          }
       }
       $dbh = null;
     }
@@ -52,6 +72,12 @@ include "../../cred.php";
     });
   });
   function viewNote(id) {
+   $("#noteView").modal({ 
+      dismissible: false, 
+      onCloseEnd: function() {
+      window.onbeforeunload = function() {return "";}
+   } 
+})
     $('#noteView').modal('open');
     document.getElementById("noteView").innerHTML = `
 <div class="modal-content center">

@@ -36,6 +36,6 @@ include('../../cred.php');
         }
         else
         {
-          echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Grocery List</h5><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'><br><p class='center'>Nothing in your grocery list.... Good Job! </p></div></div>";
+                                    echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Shopping List</h5><div class='container'><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853654/b21f813da2e0c122d2950bf1b449106a-winter-woman-shopping-illustration-by-vexels_xszuie.png'width='100%' style='display:block;margin:auto;'></div></div><br><p class='center'>Nothing in your Shopping List.... Good Job! </p></div></div>";
         }
         ?>

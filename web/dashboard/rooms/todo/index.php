@@ -26,6 +26,6 @@ if ($todo_row_count > 0) {
     echo "Error is: " . $e->getmessage();
   }
 } else {
-  echo "<div class='card-content'><h5 style='margin-top:0'>Todo</h5><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'></div><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div>";
+  echo "<div class='card'><div class='card-content'><h5 style='margin-top:0'>Todo</h5><div class='container'><div class='container'><img alt='image' loading='lazy' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='100%' style='display:block;margin:auto;'></div></div><br><p class='center'>Great job - you finished all tasks! Why not take this time to drink some coffee or go for a walk?</p></div></div>";
 }
 ?>

@@ -4,7 +4,7 @@
 try
 {
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM family WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
+$sql = "SELECT * FROM family WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt($_SESSION['syncid']));
 $users = $dbh->query($sql);
 $family_count = $users->rowCount();
 if ($family_count > 0)

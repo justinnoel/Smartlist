@@ -1,16 +1,53 @@
 <?php
 session_start(); 
 $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-if($_GET['confirm'] == 'true') {
+if(isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
     include("../../cred.php");
     $id = $_GET['id'];
     $name = $_GET['name'];
-    $result= mysqli_query($mysqli, "DELETE FROM roomnames WHERE id=$id AND login_id=".$_SESSION['id']);
-    $result1= mysqli_query($mysqli, "DELETE FROM custom_room_items WHERE price='$name' AND login_id=".$_SESSION['id']);
-    header('Location: https://smartlist.ga/dashboard/beta');
+    
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+      // sql to delete a record
+      $sql = "DELETE FROM roomnames WHERE id=".$_GET['id']. " AND login_id=".$_SESSION['id'];
+    
+      // use exec() because no results are returned
+      $conn->exec($sql);
+      
+    } catch(PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+    
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+      // sql to delete a record
+      $sql = "DELETE FROM custom_room_items WHERE price=".$_GET['id']. " AND login_id=".$_SESSION['id'];
+    
+      // use exec() because no results are returned
+      $conn->exec($sql);
+      
+    } catch(PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+    $conn = null;
+    
+    header('Location: ../../');
+    
+    
+    
 }
-?><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0PH6N0Z7E"></script>
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0PH6N0Z7E"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -90,10 +127,15 @@ width: 95vw
 }
 }
 </style>
+</head>
+<body>
 <div style="text-align:center;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);font-family: 'Open Sans', sans-serif;" >
 <form>
     <h2>Delete?</h2>
+    <p>This action is <strong>irreversible</strong>! All items in this room will be deleted</p>
 <a href="<?php echo $actual_link;?>&confirm=true" class="blue">Delete</a>
 <a href="https://smartlist.ga/dashboard/beta" class="gray">Back</a>
 </form>
 </div>
+</body>
+</html>

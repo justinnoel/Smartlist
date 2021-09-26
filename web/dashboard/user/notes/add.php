@@ -6,8 +6,8 @@ try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO notes (title, content, login_id)
-  VALUES (".json_encode($_POST['title']).", ".json_encode($_POST['content']).", ".json_encode($_SESSION['id']).")";
+  $sql = "INSERT INTO notes (title, content, login_id, banner)
+  VALUES (".json_encode($_POST['title']).", ".json_encode($_POST['content']).", ".json_encode($_SESSION['id']).", ".json_encode($_POST['url']).")";
   $conn->exec($sql);
   echo "Note created successfully";
 } catch(PDOException $e) {

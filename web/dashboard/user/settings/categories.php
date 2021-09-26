@@ -10,12 +10,12 @@ include("../../cred.php");
     try
     {
         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
+        $sql = "SELECT * FROM labels WHERE login= " . json_encode(decrypt($_SESSION['syncid']));
         $users = $dbh->query($sql);
             foreach ($users as $row){
                 ?>
                 <li class="collection-item"> 
-                    <a href="javascript:void(0)" class="right btn waves-effect btn-flat" onclick="$('#div1').load('./user/labels/delete.php?id=<?=$row['id'];?>', function(){AJAX_LOAD('#_smSettingsPage_categories', './user/settings/categories.php')})"><i class="material-icons">delete</i></a>
+                    <a href="javascript:void(0)" class="right btn waves-effect btn-flat" onclick="$('#ajaxLoader').load('./user/labels/delete.php?id=<?=$row['id'];?>', getHashPage)"><i class="material-icons">delete</i></a>
                     <b><?=htmlspecialchars($row['name'])?></b>
                     <br>
                     <br>
@@ -31,7 +31,7 @@ include("../../cred.php");
  ?>
 </ul>
 <div class="fixed-action-btn">
-    <a href="javascript:void(0)" class="btn-fixed btn blue-grey darken-3 btn-large btn-floating" onclick="AJAX_LOAD('#_smSettingsPage_categories', './user/labels/add.php', 'box')">
+    <a href="javascript:void(0)" class="btn-fixed btn blue-grey darken-3 btn-large btn-floating" onclick="$('#settingsContainer').load('./user/labels/add.php')">
         <i class="material-icons">add</i>
-    </a>
+    </a> 
 </div>

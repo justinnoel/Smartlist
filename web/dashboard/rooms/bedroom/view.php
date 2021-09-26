@@ -4,7 +4,7 @@
 try
 {
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM bedroom WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid']. " ORDER BY id DESC";
+$sql = "SELECT * FROM bedroom WHERE login_id=" . $_SESSION['id'] . " OR login_id= " .json_encode(decrypt($_SESSION['syncid'])). " ORDER BY id DESC";
 $users = $dbh->query($sql);
 $bedroom_row_count = $users->rowCount();
 if ($bedroom_row_count > 0)

@@ -9,11 +9,20 @@ header('Content-Type: application/json');
         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $sql = "SELECT * FROM products WHERE login_id=" . $_SESSION['id'];
         $users = $dbh->query($sql);
-        foreach ($users as $row) {
+		$usersKey = $users->rowCount() - 1;
+        foreach ($users as $k=>$row) {
+          if($usersKey !== $k) {
           echo "
           { \"name\": ". json_encode(trim(decrypt($row['name']))) . ",  \"qty\": ". json_encode(trim(decrypt($row['qty']))). 
           "},
 ";
+          }
+             else {
+             echo "
+          { \"name\": ". json_encode(trim(decrypt($row['name']))) . ",  \"qty\": ". json_encode(trim(decrypt($row['qty']))). 
+          "}
+";
+             }
         }
         $dbh = null;
         ?>

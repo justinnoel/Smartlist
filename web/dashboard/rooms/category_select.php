@@ -1,10 +1,12 @@
 <?php
-session_start();
-include('../cred.php');
+// session_start();
+// include "../cred.php";
+// echo get_include_path();
 ?>
-<select name="price" id="categorySelect"> 
+<input type="hidden" name="price" id="price1">
+<select id="categorySelect" multiple> 
 <option disabled>Categories</option>
-    <option selected value="No Category Specified">No Category Specified</option> 
+    <option selected id="nc" value="No Category Specified">No Category Specified</option> 
     <option disabled>Other</option>
     <?php
     try
@@ -40,5 +42,10 @@ include('../cred.php');
         var sel = document.getElementById('categorySelect');
         localStorage.setItem("categorySelect", sel.value)
         console.log(localStorage.getItem("categorySelect"))
+        var price = document.getElementById('price1')
+        price.value = $('#categorySelect').val().toString();
+        console.log(price.value)
+        document.getElementById('nc').selected = false
+        $('select').formSelect();
     }
 </script>

@@ -1,0 +1,5 @@
+[23-Aug-2021 01:26:39 UTC] PHP Fatal error:  Uncaught ValueError: explode(): Argument #1 ($separator) cannot be empty in /home/bcxkspna/public_html/dashboard/user/search.php:206
+Stack trace:
+#0 /home/bcxkspna/public_html/dashboard/user/search.php(206): explode('', ',')
+#1 {main}
+  thrown in /home/bcxkspna/public_html/dashboard/user/search.php on line 206

@@ -58,14 +58,11 @@ include('../../cred.php');
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action');
-        sm_page('ajax_loader');
         $.ajax({
             type: "POST",
             url: url,
             data: form.serialize(),
             success: function(data) {
-                sm_page('croom_add');
-                // $('.collapsible').collapsible('open')
                 document.getElementById('croom_form').reset();
                 if(data == "Item Already Exists!") {
                     M.toast({html: "Item Already Exists!"});

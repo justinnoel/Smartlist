@@ -7,7 +7,7 @@ include('../../cred.php');
 try
 {
   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $sql = "SELECT * FROM garage WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . $_SESSION['syncid'];
+  $sql = "SELECT * FROM garage WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt($_SESSION['syncid']));
   $users = $dbh->query($sql);
   $garage_count = $users->rowCount();
   if ($garage_count > 0)

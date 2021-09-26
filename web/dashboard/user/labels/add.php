@@ -41,7 +41,7 @@ $("#addCategory").submit(function(e) {
        data: form.serialize(),
        success: function(data)
        {
-           AJAX_LOAD('#_smSettingsPage_categories', './user/settings/categories.php')
+           $('#settingsContainer').load("./user/settings/categories.php")
        }
      });
 });

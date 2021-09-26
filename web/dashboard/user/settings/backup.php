@@ -8,49 +8,49 @@ include('../../cred.php');
 <ul class="collection">
     <li class="collection-item">
         <p>Kitchen</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/kitchen.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/kitchen.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/kitchen.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/kitchen.php')">PDF</a>
       <a class="btn blue-grey darken-3" href="./user/settings/backup/JSON/kitchen.php">JSON</a>
     </li>
     <li class="collection-item">
         <p>Bedroom</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/bedroom.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/bedroom.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/bedroom.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/bedroom.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Bathroom</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/bathroom.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/bathroom.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/bathroom.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/bathroom.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Garage</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/garage.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/garage.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/garage.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/garage.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Living Room</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/livingroom.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/livingroom.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/livingroom.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/livingroom.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Storage Room</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/storageroom.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/storageroom.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/storageroom.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/storageroom.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Camping Supplies</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/camping.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/camping.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/camping.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/camping.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Dining Room</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/diningroom.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/diningroom.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/diningroom.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/diningroom.php')">PDF</a>
     </li>
     <li class="collection-item">
         <p>Laundry Room</p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/laundryroom.php')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/laundryroom.php')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/laundryroom.php')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/laundryroom.php')">PDF</a>
     </li>
 </ul>
 <br>
@@ -62,12 +62,12 @@ include('../../cred.php');
     $sql = "SELECT * FROM roomnames WHERE login_id=" . $_SESSION['id'];
     $users = $dbh->query($sql);
     foreach ($users as $row) {
-    //   echo "<li class=\"collection-item\" href=\"javascript:void(0)\" onclick=\"$('#div1').load('./user/settings/backup/custom_room.php?id=".$row['id']."')\">Download ".htmlspecialchars($row['name'])."</li>";
+    //   echo "<li class=\"collection-item\" href=\"javascript:void(0)\" onclick=\"$('#ajaxLoader').load('./user/settings/backup/custom_room.php?id=".$row['id']."')\">Download ".htmlspecialchars($row['name'])."</li>";
     ?>
     <li class="collection-item">
         <p><?=$row['name'];?></p>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/custom_room.php?id=<?=$row['id'];?>')">CSV</a>
-      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#div1').load('./user/settings/backup/PDF/custom_room.php?id=<?=$row['id'];?>')">PDF</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/custom_room.php?id=<?=$row['id'];?>')">CSV</a>
+      <a class="btn blue-grey darken-3" href="javascript:void(0)" onclick="$('#ajaxLoader').load('./user/settings/backup/PDF/custom_room.php?id=<?=$row['id'];?>')">PDF</a>
     </li>
     <?php
     }
@@ -79,11 +79,11 @@ catch(PDOexception $e) { echo "Error is: " . $e->etmessage(); }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script src="https://unpkg.com/jspdf-autotable@3.5.14/dist/jspdf.plugin.autotable.js"></script>
 <script>
-  function downloadFile(fileName, urlData) {
-    var aLink = document.createElement('a');
-    aLink.download = fileName;
-    aLink.href = urlData;
-    var event = new MouseEvent('click');
-    aLink.dispatchEvent(event);
-  }
+function downloadFile(fileName, urlData) {
+  var aLink = document.createElement('a');
+  aLink.download = fileName;
+  aLink.href = urlData;
+  var event = new MouseEvent('click');
+  aLink.dispatchEvent(event);
+}
 </script>

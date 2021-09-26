@@ -9,7 +9,7 @@ try {
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sql = "INSERT INTO grocerylist(name, qty, price, login_id) 
-  VALUES('$name','$qty','$price', '$loginId')";
+  VALUES(".json_encode($name).",'$qty','$price', '$loginId')";
   $conn->exec($sql);
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

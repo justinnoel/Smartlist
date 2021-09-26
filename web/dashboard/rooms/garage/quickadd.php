@@ -54,7 +54,6 @@ window.onbeforeunload = function() {return "Close?";};
             url: url,
             data: form.serialize(),
             success: function(data) {
-                sm_page('garage_add');
                 window.onbeforeunload = null;
                 document.getElementById('garage_add_form').reset()
                 $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }

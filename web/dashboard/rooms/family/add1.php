@@ -50,13 +50,11 @@ $rand_keys = array_rand($chips, 15);
         e.preventDefault();
         var form = $(this);
         var url = form.attr('action');
-        sm_page('ajax_loader');
         $.ajax({
             type: "POST",
             url: url,
             data: form.serialize(),
             success: function(data) {
-                sm_page('add_family');
                 document.getElementById('family_add_form').reset()
                 $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }
                 if(data == "Item Already Exists!") {

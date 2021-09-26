@@ -8,67 +8,74 @@ $rand_keys = array_rand($chips, 15);
 ?>
 <br><br>
 <div class="container">
-    <form action="https://smartlist.ga/dashboard/rooms/kitchen/addx.php" method="POST" id="kitchen_add_form">
-        <a href="./scan/live" target="_blank" class="btn right blue-grey darken-2 waves-effect waves-light"><i class="material-icons-round">compare</i></a>
-        <h5>Add an item (Kitchen)</h5> 
-        <div class="input-field">
-            <label onclick="this.nextElementSibling.focus()">Name</label>
-            <input type="text" name="name" class="validate" id="addKitchenName" data-length="150" autofocus autocomplete="off" required>
-        </div>
-        <div class="chip-suggestions">
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[0]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[1]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[2]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[3]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[4]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[5]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[6]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[7]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[8]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[9]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[10]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[11]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[12]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[13]];?></div>
-            <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[14]];?></div>
-        </div>
-        <div class="input-field">
-            <label onclick="this.nextElementSibling.focus()">Quantity</label>
-            <input type="text" name="qty" value="1" class="validate" autocomplete="off" data-length="20" required>
-            <?php include('../suggestion_count.php'); ?>
-        </div>
-        <?php include('../category_select.php');?>
+  <form action="https://smartlist.ga/dashboard/rooms/kitchen/addx.php" method="POST" id="kitchen_add_form">
+    <a href="./scan/live" target="_blank" class="btn right blue-grey darken-2 waves-effect waves-light"><i class="material-icons-round">compare</i></a>
+    <h5>Add an item (Kitchen)</h5> 
+    <div class="input-field">
+      <label class="active" onclick="this.nextElementSibling.focus()">Name</label>
+      <input type="text" name="name" class="validate" id="addKitchenName" data-length="150" autofocus autocomplete="off" required>
+    </div>
+    <div class="chip-suggestions">
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[0]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[1]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[2]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[3]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[4]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[5]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[6]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[7]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[8]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[9]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[10]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[11]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[12]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[13]];?></div>
+      <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[14]];?></div>
+    </div>
+    <div class="input-field">
+      <label class="active" onclick="this.nextElementSibling.focus()">Quantity</label>
+      <input type="text" id="addKitchenQty" name="qty" value="1" class="validate" autocomplete="off" data-length="20" required>
+      <?php include('../suggestion_count.php'); ?>
+    </div>
+    <?php include('../category_select.php');?>
 
-        <button class="btn blue-grey darken-3">
-            <i class="material-icons-round left">save</i> Save
-        </button>
-    </form>
+    <button class="btn blue-grey darken-3">
+      <i class="material-icons-round left">save</i> Save
+    </button>
+  </form>
 </div>
 <script>
- $(document).ready(function() {
+  document.getElementById('addKitchenName').addEventListener("keyup", () => 
+                                                             localStorage.setItem("addKitchenName", document.getElementById('addKitchenName').value))
+  document.getElementById('addKitchenName').value = localStorage.getItem('addKitchenName') || ""
+  
+   document.getElementById('addKitchenQty').addEventListener("keyup", () => 
+                                                             localStorage.setItem("addKitchenQty", document.getElementById('addKitchenQty').value))
+  document.getElementById('addKitchenQty').value = localStorage.getItem('addKitchenQty') || ""
+  $(document).ready(function() {
     $('.validate').characterCounter();
   });
-    $("#kitchen_add_form").submit(function(e) {
-        e.preventDefault();
-        var form = $(this);
-        sm_page('ajax_loader');
-        var url = form.attr('action');
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: form.serialize(),
-            success: function(data) {
-                sm_page('addkitchen');
-                document.getElementById('kitchen_add_form').reset();
-                document.getElementById('addKitchenName').focus();
-                $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }
-                if(data == "Item Already Exists!") {
-                    M.toast({html: "Item Already Exists!"});
-                }
-                else {
-                    M.toast({html: 'Added item successfully. You can keep adding more'});
-                }
-            }
-        });
+  $("#kitchen_add_form").submit(function(e) {
+    e.preventDefault();
+    var form = $(this);
+    var url = form.attr('action');
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(),
+      success: function(data) {
+        localStorage.setItem('addKitchenQty', "")
+        localStorage.setItem('addKitchenName', "")
+        document.getElementById('kitchen_add_form').reset();
+        document.getElementById('addKitchenName').focus();
+        $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }
+        if(data == "Item Already Exists!") {
+          M.toast({html: "Item Already Exists!"});
+        }
+        else {
+          M.toast({html: 'Added item successfully. You can keep adding more'});
+        }
+      }
     });
+  });
 </script>

@@ -1,94 +1,65 @@
 <?php
 session_start();
 include('../../cred.php');
-try
-{
-  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $sql = "SELECT * FROM products WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt($_SESSION['syncid'])). " ORDER BY id DESC";
-  $users = $dbh->query($sql);
-  $KITCHEN_VAR_COUNT = $users->rowCount();
-  if ($KITCHEN_VAR_COUNT > 0)
-  {
-  }
-  else
-  {
-    echo "<div id='KITCHEN_VAR_COUNT' style='height: 90vh'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p></div>";
-  }
-?>
-
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM products WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt($_SESSION['syncid'])). " ORDER BY id DESC";
+$items = $dbh->query($sql);
+$inv = $items->fetchAll();
+$arr = array_map("decrypt_all",$inv);
+if($items->rowCount() == 0) {
+  echo "<div class='center'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br>No items here? Try <a href='#/add/kitchen'>adding something. </a></div>";
+  exit();
+}
+?> 
 <div class="container">
-  <div class="header">
-    <!--<h5>Kitchen</h5>-->
-    
-  </div>
-</div>
-<table class="table container" id="kitchen_table">
-  <tr class="hover">
-    <td onclick="sortTable(0)" style="width: 50%"><b>Name</b></td>
-    <td onclick="sortTable(1)" style="width: 50%;te"><b>Quantity</b></td>
-  </tr>
-  <?php 
-  foreach ($users as $row)
-  {
-    echo "<tr class=\"draggable".($row['login_id'] !== $_SESSION['id'] ? " sync_tr" : "")."\" tabindex='0' data-id='".intval($row['id'])."' id='kitchentr_".$row['id']."' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(decrypt($row['price'])).", \"kitchen\")' ".($row['star'] == 1 ? 'style=\'border-left: 3px solid #f57f17;\'' : '').">
-      <td>".htmlspecialchars(decrypt($row['name']))."</td><td> ".htmlspecialchars(decrypt($row['qty']))." </td>
-      </tr>";
-  }
-  echo '</table>';
-  ?>
-  <div class="container">
-    <p>Showing <?=$KITCHEN_VAR_COUNT;?>/<?=$KITCHEN_VAR_COUNT;?> items in your kitchen</p>
-  </div>
   <?php
-  $dbh = null;
-}
-catch(PDOexception $e)
-{
-  echo "Error is: " . $e->etmessage();
-}
+  if(in_array("Fridge", $arr) && in_array("Coffee Maker", $arr) && in_array("Cups", $arr) && in_array("Utensils", $arr) && in_array("Blender", $arr) && in_array("Microwave", $arr) && in_array("Bowls", $arr)&&in_array("Plate", $arr)) {} else{echo "<br><h6 class='orange-text'><i class=\"material-icons left\">auto_awesome</i>Suggested <span class='badge right new blue'></span></h6><br>";}
   ?>
-  <script>
-    $('#kitchen_table tr').contextmenu(function(event) {
-      event.preventDefault();
-      var e = this.getAttribute('data-id');
-      modal_open(e, this, 'kitchen');
-    });
-    function sortTable(n) {
-      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-      table = document.getElementById("kitchen_table");
-      switching = true;
-      dir = "asc";
-      while (switching) {
-        switching = false;
-        rows = table.querySelectorAll('tr:not(:last-child)');
-        for (i = 1; i < (rows.length - 1); i++) {
-          shouldSwitch = false;
-          x = rows[i].querySelectorAll("td")[n];
-          y = rows[i + 1].querySelectorAll("td")[n];
-          if (dir == "asc") {
-            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-              shouldSwitch = true;
-              break;
-            }
-          } else if (dir == "desc") {
-            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-              shouldSwitch = true;
-              break;
-            }
-          }
-        }
-        if (shouldSwitch) {
-          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-          switching = true;
-          switchcount ++;
-        } else {
-          if (switchcount == 0 && dir == "asc") {
-            dir = "desc";
-            switching = true;
-          }
-        }
-      }
-    }
-    //   addPagerToTables('#kitchen_table', 15);
+  <div class="chipSuggestions">
+    <?php 
+    if(!in_array("Fridge", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">kitchen</i>Fridge</a>';}
+    if(!in_array("Coffee Maker", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">coffee_maker</i>Coffee Maker</a>';}
+    if(!in_array("Cups", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">coffee</i>Cups</a>';}
+    if(!in_array("Utensils", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">flatware</i>Utensils</a>';}
+    if(!in_array("Blender", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">blender</i>Blender</a>';}
+    if(!in_array("Microwave", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">microwave</i>Microwave</a>';}
+    if(!in_array("Bowls", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">rice_bowl</i>Bowls</a>';}
+    if(!in_array("Plate", $arr)) {echo '<a href="#/add/kitchen" onclick="chipAdd(this)" class="chip chip_icon waves-effect"><i class="material-icons left">circle</i>Plate</a>';}
 
-  </script>
+    ?>
+  </div>
+  <table id="kitchen_table">
+    <tr class="hover">
+      <td>Name</td>
+      <td>Quantity</td>
+    </tr>
+
+    <?php
+    foreach($inv as $item) {
+    ?>
+    <tr 
+        class="<?=($item['login_id'] !== $_SESSION['id'] ? "sync_tr" : "")?>" 
+        data-date="<?=($item['date'])?>" 
+        tabindex='0' 
+        <?=($item['star'] == 1 ? 'style="border-left: 3px solid #f57f17;"' : '')?>
+        data-id="<?=intval($item['id'])?>" 
+        id="kitchentr_<?=intval($item['id']);?>" 
+        onclick="item(this,<?=$item['star']?>, '<?=strip_tags(decrypt($item['price']))?>', 'kitchen')">
+      <td><?=strip_tags(decrypt($item['name']));?></td>
+      <td><?=strip_tags(decrypt($item['qty']));?></td>
+    </tr>
+    <?php } ?>
+
+  </table>
+</div>
+<script>
+  function chipAdd(e) {
+    localStorage.setItem('addKitchenName', e.innerText.replace(e.getElementsByTagName("i")[0].innerText, ""))
+    localStorage.setItem('addKitchenQty', 1)
+  }
+  $('#app table tr').contextmenu(function(event) {
+    event.preventDefault();
+    var e = this.getAttribute('data-id');
+    modal_open(e, this, 'kitchen');
+  });
+</script>

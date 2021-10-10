@@ -8,7 +8,7 @@ $price = $_POST['price'];
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "UPDATE camping SET name=".json_encode(encrypt($name)).", qty=".json_encode(encrypt($qty)).", price=".json_encode(encrypt($_POST["price"]))." WHERE id=".json_encode($id);
+  $sql = "UPDATE camping SET name=".json_encode(encrypt($name)).", qty=".json_encode(encrypt($qty)).", date=".json_encode($_POST["date"]).", price=".json_encode(encrypt($_POST["price"]))." WHERE id=".json_encode($id);
   $stmt = $conn->prepare($sql);
   $stmt->execute();
 } catch(PDOException $e) {

@@ -1,4 +1,4 @@
-var autocompleteData = {
+const autocompleteData = {
    "Wing chair": null,
    "TV stand": null,
    "Sofa": null,

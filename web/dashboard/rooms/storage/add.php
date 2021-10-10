@@ -22,8 +22,8 @@ foreach ($users as $row) {
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO storageroom(name, qty, price, login_id) 
-  VALUES(".json_encode(encrypt($name)).",".json_encode(encrypt($qty)).", ".json_encode(encrypt($price)).", ".json_encode($loginId).")";
+  $sql = "INSERT INTO storageroom(name, qty, price, login_id, date) 
+  VALUES(".json_encode(encrypt($name)).",".json_encode(encrypt($qty)).", ".json_encode(encrypt($price)).", ".json_encode($loginId).", ".json_encode($_POST['date']).")";
   $conn->exec($sql);
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

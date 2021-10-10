@@ -3,49 +3,62 @@
 // include "../cred.php";
 // echo get_include_path();
 ?>
-<input type="hidden" name="price" id="price1">
-<select id="categorySelect" multiple> 
-<option disabled>Categories</option>
-    <option selected id="nc" value="No Category Specified">No Category Specified</option> 
-    <option disabled>Other</option>
-    <?php
+<div class="chips chips-autocomplete">
+  <input class="custom-class">
+</div>
+<input type="hidden" id="price" name="price">
+<script>
+  var acdata = {<?php
     try
     {
-        $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
-        $users = $dbh->query($sql);
-            foreach ($users as $row){
-                ?>
-                <option value=<?=json_encode($row['name'])?>> <?=htmlspecialchars($row['name'])?> </option>
-                <?php
-        }
-            $dbh = null;
+      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $sql = "SELECT * FROM labels WHERE login= " . $_SESSION['id'];
+      $users = $dbh->query($sql);
+      foreach ($users as $row){
+    ?>
+    <?=json_encode($row['name']);?>: null,
+    <?php
+      }
+      $dbh = null;
     }
     catch(PDOexception $e)
     {
-        echo "Error is: " . $e->etmessage();
+      echo "Error is: " . $e->etmessage();
     }
-?>
-</select>
-<script>
-    $('select').formSelect();
-    if(localStorage.getItem("categorySelect")) {
-        var x = document.getElementById('categorySelect');
-        $('select').formSelect();
-        x.value = null;
-        $('select').formSelect();
-        x.value = localStorage.getItem("categorySelect");
-        $('select').formSelect();
-        console.log(x.value)
-    }
-    document.getElementById('categorySelect').onchange = function() {
-        var sel = document.getElementById('categorySelect');
-        localStorage.setItem("categorySelect", sel.value)
-        console.log(localStorage.getItem("categorySelect"))
-        var price = document.getElementById('price1')
-        price.value = $('#categorySelect').val().toString();
-        console.log(price.value)
-        document.getElementById('nc').selected = false
-        $('select').formSelect();
-    }
+    ?>};
+
+  var categories = [];
+  $(document).ready(function(){
+    $('.chips').chips({
+      placeholder: "Categories...",
+      // specify options here
+      autocompleteOptions: {
+        data: acdata,
+        limit: Infinity,
+        minLength: 1
+      },
+      onChipAdd(e) {
+        var instance = M.Chips.getInstance(document.querySelector('.chips'));
+        categories = (instance.chipsData);
+        console.log(categories);
+        var val = "";
+        document.getElementById('price').value = ""
+        categories.forEach(val => {
+          document.getElementById('price').value += val.tag+", ";
+        });
+        document.getElementById('price').value = document.getElementById('price').value.substring(0, document.getElementById('price').value.length - 2)
+      },
+      onChipDelete(e) {
+        var instance = M.Chips.getInstance(document.querySelector('.chips'));
+        categories = instance.chipsData;
+        console.log(categories);
+        var val = "";
+        document.getElementById('price').value = ""
+        categories.forEach(val => {
+          document.getElementById('price').value += val.tag+", ";
+        });
+        document.getElementById('price').value = document.getElementById('price').value.substring(0, document.getElementById('price').value.length - 2)
+      },
+    });
+  });
 </script>

@@ -50,3 +50,4 @@ async function fetchText() {
 // fetchText();
 setInterval(() => {fetchText();}, 600000)
 // 1000 * 60 * 60 * 24
+// 600000

@@ -42,15 +42,16 @@ $rand_keys = array_rand($chips, 15);
     <button class="btn blue-grey darken-3">
       <i class="material-icons-round left">save</i> Save
     </button>
+    <input type="hidden" id="date" name="date">
   </form>
 </div>
 <script>
   document.getElementById('addKitchenName').addEventListener("keyup", () => 
                                                              localStorage.setItem("addKitchenName", document.getElementById('addKitchenName').value))
   document.getElementById('addKitchenName').value = localStorage.getItem('addKitchenName') || ""
-  
-   document.getElementById('addKitchenQty').addEventListener("keyup", () => 
-                                                             localStorage.setItem("addKitchenQty", document.getElementById('addKitchenQty').value))
+
+  document.getElementById('addKitchenQty').addEventListener("keyup", () => 
+                                                            localStorage.setItem("addKitchenQty", document.getElementById('addKitchenQty').value))
   document.getElementById('addKitchenQty').value = localStorage.getItem('addKitchenQty') || ""
   $(document).ready(function() {
     $('.validate').characterCounter();
@@ -67,8 +68,8 @@ $rand_keys = array_rand($chips, 15);
         localStorage.setItem('addKitchenQty', "")
         localStorage.setItem('addKitchenName', "")
         document.getElementById('kitchen_add_form').reset();
+        document.getElementById('date').value = `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} on ${new Date().getHours()}:${new Date().getMinutes()}`    
         document.getElementById('addKitchenName').focus();
-        $('select').formSelect(); if(localStorage.getItem("categorySelect")) { var x = document.getElementById('categorySelect'); $('select').formSelect(); x.value = ''; $('select').formSelect(); x.value = localStorage.getItem("categorySelect"); console.log(localStorage.getItem("categorySelect")); $('select').formSelect(); }
         if(data == "Item Already Exists!") {
           M.toast({html: "Item Already Exists!"});
         }
@@ -78,4 +79,5 @@ $rand_keys = array_rand($chips, 15);
       }
     });
   });
+  document.getElementById('date').value = `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} on ${new Date().getHours()}:${new Date().getMinutes()}`    
 </script>

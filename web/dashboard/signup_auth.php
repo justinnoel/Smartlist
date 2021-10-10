@@ -13,7 +13,7 @@ try {
       // set the PDO error mode to exception
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO login(name,email,username, password, syncid, avatar, user_avatar, welcome, theme, dark_mode, notifications, remind, goal, accept)
-VALUES (".json_encode(encrypt($_POST['name'])).", ".json_encode(encrypt($_POST['email'])).", ".json_encode($_POST['username']).", ".json_encode($userPassword).", -1, '', 'https://icon-library.com/images/google-user-icon/google-user-icon-21.jpg', '', '37474f', '37474f', '', 20, '0', 0)";
+VALUES (".json_encode(encrypt($_POST['name'])).", ".json_encode(encrypt($_POST['email'])).", ".json_encode($_POST['username']).", ".json_encode($userPassword).", -1, '', 'https://icon-library.com/images/google-user-icon/google-user-icon-21.jpg', '', '37474f', '37474f', '', 20, '0', 1)";
       // use exec() because no results are returned
       $conn->exec($sql);
       $USERID =  $conn->lastInsertId();

@@ -7,7 +7,7 @@ try {
   $sql = "UPDATE notes SET title=".json_encode($_POST["title"]).", content = ".json_encode($_POST["content"])." WHERE id=".$_POST['id'];
   $stmt = $conn->prepare($sql);
   $stmt->execute();
-  echo "Updated Note Successfully";
+  echo "Successfully saved note";
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }

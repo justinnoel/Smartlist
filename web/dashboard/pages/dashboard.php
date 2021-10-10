@@ -31,9 +31,9 @@ include("../colorSwitch.php");
 <div class="container" style="width: 95% !important">
   <div class="card">
     <div class="card-content">
-      <a class="waves-effect right chip modal-trigger" href="#bmmodal">+</a>
-      <div class="right chip waves-effect" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$5</div>
-      <div class="right chip waves-effect" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$10</div>
+      <a class="waves-effect right chip modal-trigger" href="#bmmodal"><b>Add</b></a>
+      <div class="right chip waves-effect hide-on-small-only" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$5</div>
+      <div class="right chip waves-effect hide-on-small-only" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$10</div>
       <div class="right chip waves-effect hide-on-small-only" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$15</div>
       <div class="right hide-on-small-only chip waves-effect" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$20</div>
       <div class="right chip waves-effect hide-on-small-only" onclick="document.getElementById('bm_amount').value=this.innerText.replace('$', '');bm_add();M.toast({html: 'Added data successfully!'});">$50</div>
@@ -356,6 +356,8 @@ include("../colorSwitch.php");
       ],
     },
     options: {
+      spanGaps: true,
+      normalized: true,
       animations: false,
       maintainAspectRatio: false,
       responsive: true,

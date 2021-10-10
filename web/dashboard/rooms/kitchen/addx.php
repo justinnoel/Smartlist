@@ -16,8 +16,8 @@ foreach ($users as $row) {
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO products(name, qty, price, login_id) 
-  VALUES(".json_encode($name).",".json_encode($qty).", ".json_encode($price).", '$loginId')";
+  $sql = "INSERT INTO products(name, qty, price, login_id, date) 
+  VALUES(".json_encode($name).",".json_encode($qty).", ".json_encode($price).", '$loginId', ".json_encode($_POST['date']).")";
   $conn->exec($sql);
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

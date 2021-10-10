@@ -2,7 +2,6 @@
 session_start();
 $servername = "localhost";
 $username = "bcxkspna";
-$password = '}G"-!gV&8"djcVgs-<y<ua\2pMk%(;Ax{^Tw#u=DJ,uG_)-xSV\+5U@bQuHryCBzR)&c/^L7D\[8R6MT';
 $dbname = "bcxkspna_test";
 include('../../cred.php');
 try {

@@ -18,3 +18,10 @@ catch(PDOexception $e)
 {
 echo "Error is: " . $e->etmessage();
 } ?> </ul> 
+<div class="fixed-action-btn">
+  <a class="btn-floating btn blue-grey btn-fixed btn-large darken-3" href="#/add/custom-room">
+    <i class="material-icons">
+      add
+    </i>
+  </a>
+</div>

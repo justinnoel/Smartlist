@@ -2,10 +2,13 @@
 session_start();
 if(!isset($_GET['email'])) { ?>
 <center>
+  <script>window.location.href="https://smartlist.ga/dashboard/"</script>
   <img src="https://img.icons8.com/fluency/2x/mail.png">
   <h5>Verify your email</h5>
-  <P>We've sent a verification email. Please click on the link. </P>
-  <p>Didn't recieve an email? <a href="#" class="blue-text" onclick="$('#ajaxLoader').load('email.php?id=<?=$_SESSION['re_id'];?>&email')" style="color:blue!important">Resend</a></p>
+  <P>We've sent a verification email to <b><?=$_SESSION['re_email'];?></b>. Please click on the link. Make sure to check your spam if it did not arraive</P>
+  <p>Didn't recieve an email? <a href="#" class="blue-text" onclick="$('#ajaxLoader').load('email.php?id=<?=$_SESSION['re_id'];?>&email',() => {M.toast({html:'Sent email!'})})" style="color:blue!important">Resend</a></p>
+  <p>Incorrect email? <a href="#" class="blue-text" onclick="$('#ajaxLoader').load('https://smartlist.ga/dashboard/change-email.php?email='+prompt('Enter your email'), () => {M.toast({html:'Updated email!'})})" style="color:blue!important">Change</a></p>
+  <div id="ajaxLoader"></div>
 </center>
 <?php } else {
   $to = ($_SESSION['re_email']);

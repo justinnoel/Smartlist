@@ -10,13 +10,16 @@ include("../../cred.php");
     try
     {
         $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $sql = "SELECT * FROM labels WHERE login= " . json_encode(decrypt($_SESSION['syncid']));
+        $sql = "SELECT * FROM labels WHERE login= " . json_encode(decrypt($_SESSION['id']));
         $users = $dbh->query($sql);
             foreach ($users as $row){
                 ?>
                 <li class="collection-item"> 
                     <a href="javascript:void(0)" class="right btn waves-effect btn-flat" onclick="$('#ajaxLoader').load('./user/labels/delete.php?id=<?=$row['id'];?>', getHashPage)"><i class="material-icons">delete</i></a>
                     <b><?=htmlspecialchars($row['name'])?></b>
+                  <?php if(isset($row['image'] && !empty($row['image']) {?>
+                  <img src="<?=$row['image'];?>" style="width:100%">
+                  <?php } ?>
                     <br>
                     <br>
                 </li>

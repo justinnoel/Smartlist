@@ -62,7 +62,7 @@ include "../../cred.php";
       url: url,
       data: form.serialize(),
       success: function(data) {
-        M.toast({html: data});
+        M.toast({unsafeHTML: `<span>${data}</span><button class="btn-flat toast-action">Undo</button>`});
         $(".modal").modal("close");
         sm_page('gl');
         window.onbeforeunload = null;

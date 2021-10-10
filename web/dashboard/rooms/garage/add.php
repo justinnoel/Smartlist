@@ -22,8 +22,8 @@ foreach ($users as $row) {
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO garage(name, qty, price, login_id) 
-  VALUES(".json_encode(encrypt($name)).", ".json_encode(encrypt($qty)).", ".json_encode(encrypt($price)).", '$loginId')";
+  $sql = "INSERT INTO garage(name, qty, price, login_id, date) 
+  VALUES(".json_encode(encrypt($name)).", ".json_encode(encrypt($qty)).", ".json_encode(encrypt($price)).", '$loginId', ".json_encode($_POST['date']).")";
   $conn->exec($sql);
   $last_id = $conn->lastInsertId();
   echo $last_id;

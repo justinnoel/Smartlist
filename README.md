@@ -192,6 +192,22 @@ curl --location --request POST 'https://api.smartlist.ga/v1/test-key' \
 
 --header 'Authorization: Bearer key_here'
 ```
+#### Ruby
+```ruby
+require "uri"
+require "net/http"
 
+url = URI("https://api.smartlist.ga/v1/test-key")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Authorization"] = "Bearer c07cddf2684cea9928e37afa39ba2a21844db979ae37833f6f3e66a3e87ae7f5a7421d75a064ab42b309b863049c3d73a736bab2fb68bb05101f7da4eee17fef"
+
+response = https.request(request)
+puts response.read_body
+
+```
 <!--<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="100px">-->
 <img src="https://i.ibb.co/bvqb9qg/Screenshot-2021-04-23-11-45-58-AM.png" width="300px">

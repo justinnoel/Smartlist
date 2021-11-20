@@ -1,1 +1,4 @@
-*.php linguist-detectable=false
+* linguist-vendored
+*.js linguist-vendored=false
+*.php linguist-vendored=false
+*.css linguist-vendored=false

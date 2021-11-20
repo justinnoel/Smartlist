@@ -9,7 +9,7 @@ jobs:
     # Put steps here to build your site, deploy it to a service, etc.
 
     - name: Purge cache
-      uses: jakejarvis/cloudflare-purge-action@v0.3.0
+      uses: Smartlist-App/Smartlist@master
       env:
         # Zone is required by both authentication methods
         CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}

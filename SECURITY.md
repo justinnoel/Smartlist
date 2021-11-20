@@ -5,14 +5,19 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| Beta   | :white_check_mark: |
+| 4.0     | :white_check_mark: |
+| 3.0     | :x:                |
 | 2.0     | :x:                |
-| 1.0   | :white_check_mark: |
+| 1.0     | :x:                |
 | < 1.0   | :x:                |
 
-### What we are doing
-* We are using Cloudflare
-* PDO PHP 
-* Encrypted databases
-* Secure Socket Layer (SSL) 
-* HTTPS
+### Security specs
+
+* Argon2 Hashing
+* AES-256 encryption
+* Prepared SQL statements
+* SQL and XSS proof
+* Removes html characters
+* Uses HTTP/3
+* Uses Cloudflare
+* HSTS enabled

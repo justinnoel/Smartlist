@@ -57,3 +57,105 @@ This is the **official GitHub Repository** for Smartlist!
 ### How can I contribute?
 Want to contribute? 
 Visit: https://smartlist.ga/join
+
+### API
+Smartlist provides an easy-to-use API for free!
+Languages supported: JS, PHP, Python, Flutter, Swift, C++, Java, Kotlin
+* Log in to your Smartlist account. 
+* Go to your settings, and click on "Developer"
+* Click on the "API Dashboard" button
+* Click on the "API keys" in the side navigation menu
+* Create a key by filling out the form
+* Let's code!
+
+#### JS Usage: 
+```js
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://api.smartlist.ga/v1/test-key");
+xhr.setRequestHeader("Authorization", "Bearer key_here");
+
+xhr.send();
+```
+
+#### Python
+```pythonimport requests
+
+url = "https://api.smartlist.ga/v1/test-key"
+
+payload={}
+headers = {
+  'Authorization': 'Bearer key_here'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+#### Java
+```java
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("text/plain");
+RequestBody body = RequestBody.create(mediaType, "");
+Request request = new Request.Builder()
+  .url("https://api.smartlist.ga/v1/test-key")
+  .method("POST", body)
+  .addHeader("Authorization", "Bearer key_here")
+  .build();
+Response response = client.newCall(request).execute();
+```
+
+#### PHP
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.smartlist.ga/v1/test-key',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer key_here'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+#### Node.JS
+```js
+var axios = require('axios');
+
+var config = {
+  method: 'post',
+  url: 'https://api.smartlist.ga/v1/test-key',
+  headers: { 
+    'Authorization': 'Bearer key_here'
+  }
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+```

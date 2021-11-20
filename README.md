@@ -1,12 +1,11 @@
-<!--[![Image](https://i.ibb.co/PZr6Gdn/save-money-by-keeping-track-of-what-you-have-at-home-1.png)](https://smartlist.ga)-->
 
-<!--<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="100px">-->
-<img src="https://i.ibb.co/bvqb9qg/Screenshot-2021-04-23-11-45-58-AM.png" width="300px">
+[![Image](https://i.ibb.co/PZr6Gdn/save-money-by-keeping-track-of-what-you-have-at-home-1.png)](https://smartlist.ga)
+
 
 # Smartlist
 ## The sophisticated home inventory app
 Smartlist is a home inventory app that lets you keep track of what you home inventory app! Smartlist is free of cost and has no "Premium plans". Smartlist is made using HTML, CSS, JS, jQuery, PHP, SQL. This product is an open source projec
-##### [Want to volunteer?](https://smartlist.ga/join)
+##### [Join us!](https://smartlist.ga/join)
 ![CB](https://img.shields.io/badge/Contributors-20-yellow?style=flat)
 ![Frontend](https://img.shields.io/static/v1?label=Frontend&message=HTML,%20CSS,%20JS&color=%3CCOLOR%3E&style=flat)
 ![Backend](https://img.shields.io/static/v1?label=Backend&message=PHP,%20SQL&color=red&style=flat)
@@ -44,7 +43,6 @@ This is the **official GitHub Repository** for Smartlist!
 * **Smartlist Events** - Smartlist events is a great place to organize and keep track of what you need and have for a party, wedding, etc.
 * **Profile Pictures** - Personalize your account!
 * **Offline Access** - Access your inventory offline!
-* **Food Waste meter** - Track how much food you waste and prevent global food hunger!
 * **Invite collaborators and comment on items!** - You can create a shareable link for items, and then share it with others - even who don't have an account!
 * **Accessible to Everyone!**  - We ran the lighthouse test, and scored *100%* in accessibility!
 * **Keyboard Shortcuts** - For the pros - Ever wanted to quickly go to the next room and switch back to the previous room, or search an item quickly? You can now press CTRL F to search items, CTRL E to go to your settings, CTRL B to go to your budget meter, and CTRL S to add an item! 
@@ -86,7 +84,8 @@ xhr.send();
 ```
 
 #### Python
-```pythonimport requests
+```python
+import requests
 
 url = "https://api.smartlist.ga/v1/test-key"
 
@@ -159,3 +158,40 @@ axios(config)
   console.log(error);
 });
 ```
+
+#### Swift
+```swift
+import  Foundation
+#if canImport(FoundationNetworking)
+import  FoundationNetworking
+#endif
+var semaphore =  DispatchSemaphore  (value:  0)
+var request =  URLRequest(url:  URL(string:  "https://api.smartlist.ga/v1/test-key")!,timeoutInterval:  Double.infinity)
+request.addValue("Bearer key_here", forHTTPHeaderField:  "Authorization")
+
+request.httpMethod  =  "POST"
+
+let task =  URLSession.shared.dataTask(with: request)  { data, response, error in guard  let data = data else  {	
+print(String(describing: error))
+semaphore.signal()
+return
+}
+print(String(data: data, encoding: .utf8)!)
+semaphore.signal()
+}
+
+  
+
+task.resume()
+
+semaphore.wait()
+```
+#### cURL
+```curl
+curl --location --request POST 'https://api.smartlist.ga/v1/test-key' \
+
+--header 'Authorization: Bearer key_here'
+```
+
+<!--<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="100px">-->
+<img src="https://i.ibb.co/bvqb9qg/Screenshot-2021-04-23-11-45-58-AM.png" width="300px">

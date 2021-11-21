@@ -1,5 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target" : { "namespace": "android_app", "package_name": "ga.smartlist.twa",
-                   "sha256_cert_fingerprints": ["FD:2F:7B:DA:7C:D6:0C:CB:55:20:77:45:CA:66:98:EF:62:C5:4C:D1:24:C8:82:39:31:53:AF:2D:4F:87:CE:36"] }
-    }]

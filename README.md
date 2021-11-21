@@ -56,6 +56,11 @@ This is the **official GitHub Repository** for Smartlist!
 Want to contribute? 
 Visit: https://smartlist.ga/join
 
+
+### Where's the code?
+You can find the code for the dashboard under the `/web/dashboard` directory
+
+
 ### API
 Smartlist provides an easy-to-use API for free!
 Languages supported: JS, PHP, Python, Flutter, Swift, C++, Java, Kotlin

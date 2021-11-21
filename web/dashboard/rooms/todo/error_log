@@ -1,9 +1,0 @@
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 11 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  openssl_decrypt(): IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes, padding with \0 in /home/bcxkspna/public_html/dashboard/cred.php on line 30
-[22-Aug-2021 22:33:01 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/bcxkspna/public_html/dashboard/cred.php:30) in /home/bcxkspna/public_html/dashboard/rooms/todo/add.php on line 32

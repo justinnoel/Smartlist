@@ -38,8 +38,8 @@ This is the **official GitHub Repository** for Smartlist!
 * **PWA** - You can install this app via your browser!
 * **Notifications** - Get updates on items you're running out of
 
+<p float="left">
 <img src="https://user-images.githubusercontent.com/77016441/142774038-39ad7b4f-870c-47cf-80b6-159f044db680.png" style="width: 200px;display: inline;float:left">
-
 <img src="https://user-images.githubusercontent.com/77016441/142774055-327fd6a9-6108-4691-b197-40a18383fe8a.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774060-06155948-0a21-45bf-b004-f1828ddcbf1f.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774069-95c56035-5a64-464d-97fb-aa6a3bbcf484.png" style="width: 200px;display: inline;float:left">
@@ -56,7 +56,7 @@ This is the **official GitHub Repository** for Smartlist!
 <img src="https://user-images.githubusercontent.com/77016441/142774197-6d7baa84-e27d-437c-90d8-f57c1afba73a.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774203-1ef4b7e7-1b4d-41aa-8674-5c6bfdc208fb.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774215-a8c6a18a-a31c-4ace-b4ea-4a7a2f514124.png" style="width: 200px;display: inline;float:left">
-
+</p>
 
 ### How can I contribute?
 Want to contribute? 

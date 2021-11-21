@@ -38,30 +38,6 @@ This is the **official GitHub Repository** for Smartlist!
 * **PWA** - You can install this app via your browser!
 * **Notifications** - Get updates on items you're running out of
 
-<p float="left">
-<img src="https://user-images.githubusercontent.com/77016441/142774038-39ad7b4f-870c-47cf-80b6-159f044db680.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774055-327fd6a9-6108-4691-b197-40a18383fe8a.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774060-06155948-0a21-45bf-b004-f1828ddcbf1f.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774069-95c56035-5a64-464d-97fb-aa6a3bbcf484.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774074-88f4ffcc-a420-4197-a3dd-c924fb3037cf.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774103-77bf3eda-366b-44de-ae84-b183d3891fbd.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774106-48603cc3-b9cb-461e-bdc0-6d1c81e355de.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774121-ad6a6eab-4f6e-4515-8a63-f440da0cc6bf.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774146-81ba3c2a-28e4-449c-9d2b-e3b838d977c3.png" style="width: 200px;display: inline;float:left">
-  </p>
-  <p float="left">
-<img src="https://user-images.githubusercontent.com/77016441/142774164-982d8a04-a287-4fde-a185-2f1b7da1f715.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774167-7ddeb7fa-b024-4e2a-ad87-4d8bb6b3685a.png" style="width: 200px;display: inline;float:left">
-  </p>
-  <p float="left">
-<img src="https://user-images.githubusercontent.com/77016441/142774174-ccaa29ab-db59-4e4b-b4df-3269b1a5997a.png" style="width: 100px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774178-926ad2ad-81c9-441a-97cb-fa9c94c5c22c.png" style="width: 100px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774180-57899f21-c0b6-44ef-9f1e-9f7d399197ab.png" style="width: 100px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774197-6d7baa84-e27d-437c-90d8-f57c1afba73a.png" style="width: 100px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774203-1ef4b7e7-1b4d-41aa-8674-5c6bfdc208fb.png" style="width: 100px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774215-a8c6a18a-a31c-4ace-b4ea-4a7a2f514124.png" style="width: 100px;display: inline;float:left">
-</p>
-
 ### How can I contribute?
 Want to contribute? 
 Visit: https://smartlist.ga/join
@@ -226,3 +202,31 @@ puts response.read_body
 ```
 <!--<img src="https://i.ibb.co/FDqN0Vh/smartlist.png" width="100px">-->
 <img src="https://i.ibb.co/bvqb9qg/Screenshot-2021-04-23-11-45-58-AM.png" width="300px">
+
+
+
+### Screenshots
+
+<p float="left">
+<img src="https://user-images.githubusercontent.com/77016441/142774038-39ad7b4f-870c-47cf-80b6-159f044db680.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774055-327fd6a9-6108-4691-b197-40a18383fe8a.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774060-06155948-0a21-45bf-b004-f1828ddcbf1f.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774069-95c56035-5a64-464d-97fb-aa6a3bbcf484.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774074-88f4ffcc-a420-4197-a3dd-c924fb3037cf.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774103-77bf3eda-366b-44de-ae84-b183d3891fbd.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774106-48603cc3-b9cb-461e-bdc0-6d1c81e355de.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774121-ad6a6eab-4f6e-4515-8a63-f440da0cc6bf.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774146-81ba3c2a-28e4-449c-9d2b-e3b838d977c3.png" style="width: 200px;display: inline;float:left">
+  </p>
+  <p float="left">
+<img src="https://user-images.githubusercontent.com/77016441/142774164-982d8a04-a287-4fde-a185-2f1b7da1f715.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774167-7ddeb7fa-b024-4e2a-ad87-4d8bb6b3685a.png" style="width: 200px;display: inline;float:left">
+  </p>
+  <p float="left">
+<img src="https://user-images.githubusercontent.com/77016441/142774174-ccaa29ab-db59-4e4b-b4df-3269b1a5997a.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774178-926ad2ad-81c9-441a-97cb-fa9c94c5c22c.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774180-57899f21-c0b6-44ef-9f1e-9f7d399197ab.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774197-6d7baa84-e27d-437c-90d8-f57c1afba73a.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774203-1ef4b7e7-1b4d-41aa-8674-5c6bfdc208fb.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774215-a8c6a18a-a31c-4ace-b4ea-4a7a2f514124.png" style="width: 100px;display: inline;float:left">
+</p>

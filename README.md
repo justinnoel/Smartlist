@@ -54,12 +54,12 @@ This is the **official GitHub Repository** for Smartlist!
 <img src="https://user-images.githubusercontent.com/77016441/142774167-7ddeb7fa-b024-4e2a-ad87-4d8bb6b3685a.png" style="width: 200px;display: inline;float:left">
   </p>
   <p float="left">
-<img src="https://user-images.githubusercontent.com/77016441/142774174-ccaa29ab-db59-4e4b-b4df-3269b1a5997a.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774178-926ad2ad-81c9-441a-97cb-fa9c94c5c22c.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774180-57899f21-c0b6-44ef-9f1e-9f7d399197ab.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774197-6d7baa84-e27d-437c-90d8-f57c1afba73a.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774203-1ef4b7e7-1b4d-41aa-8674-5c6bfdc208fb.png" style="width: 200px;display: inline;float:left">
-<img src="https://user-images.githubusercontent.com/77016441/142774215-a8c6a18a-a31c-4ace-b4ea-4a7a2f514124.png" style="width: 200px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774174-ccaa29ab-db59-4e4b-b4df-3269b1a5997a.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774178-926ad2ad-81c9-441a-97cb-fa9c94c5c22c.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774180-57899f21-c0b6-44ef-9f1e-9f7d399197ab.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774197-6d7baa84-e27d-437c-90d8-f57c1afba73a.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774203-1ef4b7e7-1b4d-41aa-8674-5c6bfdc208fb.png" style="width: 100px;display: inline;float:left">
+<img src="https://user-images.githubusercontent.com/77016441/142774215-a8c6a18a-a31c-4ace-b4ea-4a7a2f514124.png" style="width: 100px;display: inline;float:left">
 </p>
 
 ### How can I contribute?

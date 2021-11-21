@@ -7,9 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: Smartlist-App/checkout@master
-    - name: send custom message with args
+    - name: send message
       uses: Smartlist-App/discord-action@master
       with:
         webhook_id: ${{ secrets.WEBHOOK_ID }}
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        args: The ${{ github.event_name }} event triggered first step.
+        color: "#48f442"
+        username: "GitHub Bot"
+        message: "A new commit has been pushed to Smartlist-App/Smartlist"

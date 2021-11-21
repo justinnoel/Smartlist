@@ -19,39 +19,45 @@ Smartlist is a home inventory app that lets you keep track of what you home inve
 Smartlist is a free home inventory app that lets you keep track of what you have in your home, and helps you save money. 
 This is the **official GitHub Repository** for Smartlist!
 ### Features
-* **Secure** - Our dashboard is highly secure, and immune against attacks
-* **Sync** - Sync your inventory with others you live with!
-* **Star items** - Star important items you edit usually
-* **Custom Rooms** - Create custom categories for items!
-* **Recipe generator** - Save time finding recipes!
-* **Scan rooms** - Scan your room to quickly build up your inventory
-* **Home Maintenance** - Reminders for common things you forget to clean
-* **Budget meter** - Track how much you spend using our budget meter
-* **Push notifications** - Get real time notifications on what you're missing!
-* **PWA** - Smartlist is a progressive web app!
-* **Themes** - Custom user-defined themes + dark mode
-* **Suggested items** - Get to know what you have, and what you need
-* **Todo List** - Be more productive using our todo list
-* **Grocery List** - Keep track of what you need next time you visit the grocery store
-* **Right click on items** (Or tap and hold on mobile) - You can now view an item's actions by right-clicking it, or tapping and holding it on mobile!
-* **Help Desk** - We have a forum and a knowledge base!
-* **Generate QR codes** - Want to share items? You can now generate QR codes, send emails, and more!
-* **Search your home!** - Search your home for items
-* **Keep a budget** - Know how much you spend, and try not to spend higher than your budget!
-* **Smartlist is a single page app!** No more redirects!
-* **Create, Update, Edit, Delete items** - You can Create, Update, Edit, Delete items!
-* **Smartlist Events** - Smartlist events is a great place to organize and keep track of what you need and have for a party, wedding, etc.
-* **Profile Pictures** - Personalize your account!
-* **Offline Access** - Access your inventory offline!
-* **Invite collaborators and comment on items!** - You can create a shareable link for items, and then share it with others - even who don't have an account!
-* **Accessible to Everyone!**  - We ran the lighthouse test, and scored *100%* in accessibility!
-* **Keyboard Shortcuts** - For the pros - Ever wanted to quickly go to the next room and switch back to the previous room, or search an item quickly? You can now press CTRL F to search items, CTRL E to go to your settings, CTRL B to go to your budget meter, and CTRL S to add an item! 
-### How is Smartlist different from other home inventory apps?
-* **Smartlist is free** - We don't believe in an nonsensical "Paid plans", and "Pricing"
-* **Smartlist is open source** - You can download the files from the GitHub repository. Please read our terms and conditions before doing so, though. 
-* **Smartlist is a single page app!** No more redirects!
-* **Budget meter** - This is the first home inventory app to create the budget meter! Keep track of how much you spend *visually!*
-* **Extremely fast load times** - Our app loads extremely fast
+* **Secure** - Smartlist uses 256-bit AES encryption to store the items
+* **Fast** - Smartlist uses the serviceWorker technology, and uses a fast and reliable CDN
+* **Collaborative** - You can sync your inventory with up to 1 person
+* **Enhanced finance tracking** - Smartlist can help you track your finances. Finance calculators, budget, finance plans are available!
+* **Star important items** - You can star important items which you edit frequently
+* **Recipe Generator** - Generate recipes based on the items you have, or just ger recipe ideas
+* **Share items** - Share items via WhatsApp, SMS, and email!
+* **Notes & documents** - Store encrypted text files for free
+* **Home maintenance** - Get reminders for home maintenance
+* **Email notifications** - Get daily / weekly emails about your inventory
+* **Customize your profile** - You can change the theme color, dark theme, and even change the branding!
+* **Search your home** - You can search your home!
+* **Shopping list and todo list** - You can add items to your shopping list to view in store
+* **Shopping assistant** - Easy for in-store use. Tap to change next item to buy
+* **Custom rooms and labels** - Along with default rooms, you can set custom rooms and categories
+* **Great design** - We implement the features of Material Design to make it easy for everyone to use
+* **PWA** - You can install this app via your browser!
+* **Notifications** - Get updates on items you're running out of
+
+<img src="https://user-images.githubusercontent.com/77016441/142774038-39ad7b4f-870c-47cf-80b6-159f044db680.png" style="width: 300px;">
+
+<img src="https://user-images.githubusercontent.com/77016441/142774055-327fd6a9-6108-4691-b197-40a18383fe8a.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774060-06155948-0a21-45bf-b004-f1828ddcbf1f.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774069-95c56035-5a64-464d-97fb-aa6a3bbcf484.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774074-88f4ffcc-a420-4197-a3dd-c924fb3037cf.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774103-77bf3eda-366b-44de-ae84-b183d3891fbd.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774106-48603cc3-b9cb-461e-bdc0-6d1c81e355de.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774121-ad6a6eab-4f6e-4515-8a63-f440da0cc6bf.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774146-81ba3c2a-28e4-449c-9d2b-e3b838d977c3.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774164-982d8a04-a287-4fde-a185-2f1b7da1f715.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774167-7ddeb7fa-b024-4e2a-ad87-4d8bb6b3685a.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774174-ccaa29ab-db59-4e4b-b4df-3269b1a5997a.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774178-926ad2ad-81c9-441a-97cb-fa9c94c5c22c.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774180-57899f21-c0b6-44ef-9f1e-9f7d399197ab.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774197-6d7baa84-e27d-437c-90d8-f57c1afba73a.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774203-1ef4b7e7-1b4d-41aa-8674-5c6bfdc208fb.png" style="width: 300px;">
+<img src="https://user-images.githubusercontent.com/77016441/142774215-a8c6a18a-a31c-4ace-b4ea-4a7a2f514124.png" style="width: 300px;">
+
+
 ### How can I contribute?
 Want to contribute? 
 Visit: https://smartlist.ga/join

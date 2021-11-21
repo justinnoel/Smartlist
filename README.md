@@ -194,7 +194,7 @@ https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
 request = Net::HTTP::Post.new(url)
-request["Authorization"] = "Bearer c07cddf2684cea9928e37afa39ba2a21844db979ae37833f6f3e66a3e87ae7f5a7421d75a064ab42b309b863049c3d73a736bab2fb68bb05101f7da4eee17fef"
+request["Authorization"] = "Bearer key_here"
 
 response = https.request(request)
 puts response.read_body

@@ -48,8 +48,12 @@ This is the **official GitHub Repository** for Smartlist!
 <img src="https://user-images.githubusercontent.com/77016441/142774106-48603cc3-b9cb-461e-bdc0-6d1c81e355de.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774121-ad6a6eab-4f6e-4515-8a63-f440da0cc6bf.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774146-81ba3c2a-28e4-449c-9d2b-e3b838d977c3.png" style="width: 200px;display: inline;float:left">
+  </p>
+  <p float="left">
 <img src="https://user-images.githubusercontent.com/77016441/142774164-982d8a04-a287-4fde-a185-2f1b7da1f715.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774167-7ddeb7fa-b024-4e2a-ad87-4d8bb6b3685a.png" style="width: 200px;display: inline;float:left">
+  </p>
+  <p float="left">
 <img src="https://user-images.githubusercontent.com/77016441/142774174-ccaa29ab-db59-4e4b-b4df-3269b1a5997a.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774178-926ad2ad-81c9-441a-97cb-fa9c94c5c22c.png" style="width: 200px;display: inline;float:left">
 <img src="https://user-images.githubusercontent.com/77016441/142774180-57899f21-c0b6-44ef-9f1e-9f7d399197ab.png" style="width: 200px;display: inline;float:left">

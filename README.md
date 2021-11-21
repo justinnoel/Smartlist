@@ -46,6 +46,12 @@ Visit: https://smartlist.ga/join
 ### Where's the code?
 You can find the code for the dashboard under the `/web/dashboard` directory
 
+### Top contributors
+Smartlist woudln't have been possible without the following people:
+
+* @ManuTheCoder
+* @WaterBottlesHydrate
+* @N-V-O
 
 ### API
 Smartlist provides an easy-to-use API for free!

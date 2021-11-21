@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../../cred.php");
-$dbname = "bcxkspna_smartlist_api";
+$dbname = "smartlis_api";
 ?>
 <style>.e {float:none !important;color: white !important;vertical-align:middle; margin-right: 10px;padding: 1px 10px;border-radius: 999px}</style>
 <br><br>
@@ -9,7 +9,7 @@ $dbname = "bcxkspna_smartlist_api";
 Warning - this section is for developers only. Don't change anything here unless you really know what you're doing...
 </div>
 <h5>Developer</h5>
-<a href="https://smartlist.ga/developer" class="btn blue-grey darken-3 waves-effect waves-light">API Dashboard</a>
+<a href="https://smartlist.ga/developer" class="btn-round btn blue-grey darken-3 waves-effect waves-light">API Dashboard</a>
 
 
 <table>
@@ -30,7 +30,7 @@ Warning - this section is for developers only. Don't change anything here unless
       ?>
       <tr>
         <td><?=$v['name'];?></td>
-        <td><?=$v['apiKey'];?></td>
+        <td onclick="navigator.clipboard.writeText(this.innerText);M.toast({html:'Copied key to clipboard'})"><?=$v['apiKey'];?></td>
       </tr>
       <?php
         }

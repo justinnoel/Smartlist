@@ -1,16 +1,31 @@
 <?php
+ini_set('display_errors', 1);
 session_start();
 include('../../cred.php');
+define("_roomName", "bm");
+
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO bm (name, qty, price, login_id)
-  VALUES (".json_encode(encrypt(date('m/d/Y'))).", ".json_encode(encrypt($_GET['n'])).", ".json_encode(encrypt($_GET['label'])).", ".json_encode($_SESSION['id']).")";
-  $conn->exec($sql);
-//   header('Location: https://smartlist.ga/dashboard/test.php?bm');
-} catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
-}
 
+  // prepare sql  and bind parameters
+  $stmt = $conn->prepare("INSERT INTO "._roomName."(name, qty, price, login_id)
+    VALUES (:name, :n, :label, :sessid)");
+  $stmt->bindParam(':name', $name);
+  $stmt->bindParam(':n', $n);
+  $stmt->bindParam(':label', $label);
+  $stmt->bindParam(':sessid', $id);
+
+  // insert a row
+  $name = encrypt($_GET['date']);
+  $n = encrypt($_GET['n']);
+  $label = encrypt($_GET['label']);
+  $id = $_SESSION['id'];
+  $stmt->execute();
+
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
 $conn = null;
 ?>

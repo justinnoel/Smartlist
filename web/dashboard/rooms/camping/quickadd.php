@@ -6,19 +6,19 @@ include('../../cred.php');
 <div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/camping/add.php" method="POST" id="camping_add_form">
     <h5>Add an item (Camping Supplies)</h5>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Name</label>
-      <input type="text" name="name" autofocus autocomplete="off" required class="validate" data-length="150">
+      <input type="text" name="name" autofocus autocomplete="off" required data-length="150">
     </div>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Quantity</label>
       <input type="text" name="qty" autocomplete="off">
       <?php include('../suggestion_count.php'); ?>
     </div>
     <?php include('../category_select.php');?>
     <input type="hidden" id="date" name="date">
-    <button class="btn blue-grey darken-3">
-      Submit
+    <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">
+      <i class="material-icons-round left">save</i> Save
     </button>
   </form>
 </div>

@@ -1,71 +1,59 @@
-<?php 
+<?php
+ini_set('display_errors', 1);
 session_start();
-include_once("../../cred.php");
-try {
-  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $sql = "SELECT * FROM custom_room_items WHERE login_id=".$_SESSION['id']." AND price = '".$_GET['room']."'";
-  $users = $dbh->query($sql);
-  $lr_count = $users->rowCount();
-  if($lr_count > 0) {
-  echo '<div class="container"><table class="table" id="croom_table">
-            <tr class="hover">
-             <td onclick="croom_sort(0)">Name</td>
-             <td onclick="croom_sort(1)">Quantity</td>
-             <td class="d-none">Price</td>
-            </tr>';
-  foreach ($users as $row) {
-      echo "<tr data-date='".($row['date'])."' data-id='".$row['id']."' class='".($row['login_id'] != $_SESSION['id'] ? "sync" : "")."' id='croomtr_".$row['id']."' onclick='item(this, ".($row['star'] == 1 ? 1 : 0).", ".json_encode(($row['label'])).", \"custom_room\")' ".($row['star'] == 1 ? "style='border-left: 3px solid #f57f17'" : "").">";
-      print "<td>".decrypt(htmlspecialchars($row["name"])) . "</td><td>" . decrypt(htmlspecialchars($row["qty"]))."</td>";
-  }
-  $dbh = null;
-}
-  else {
- echo "<img alt='image' src='https://i.ibb.co/KX0bKPk/gummy-coffee.png'width='300px' style='display:block;margin:auto;'><br><p class='center'>No items here! Why not try adding something...</p>";
- }
-}
-catch (PDOexception $e) {
-  echo "Error is: " . $e-> etmessage();
-}
-?>
-</table>
-</div>
-<script>
-function croom_sort(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("croom_table");
-  switching = true;
-  dir = "asc";
-  while (switching) {
-    switching = false;
-    rows = table.rows;
-    for (i = 1; i < (rows.length - 1); i++) {
-      shouldSwitch = false;
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      switchcount ++;
-    } else {
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
+include('../../cred.php');
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = $dbh->prepare("SELECT * FROM custom_room_items WHERE price=:room AND (login_id=:sessid OR login_id=:syncid )");
 
-var cr_id = <?php echo $_GET['room'];?>
+$sql->execute(array( ':sessid' => $_SESSION['id'], ':syncid' => $_SESSION['syncid'], ':room' => $_GET['room']));
+$inv = $sql->fetchAll();
+
+if(count($inv) == 0) {
+  echo "<div class='center'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br>No items here?<br> <a href='#/add/".intval($_GET['room'])."' class='btn blue-grey darken-3 waves-effect waves-light btn-round'>Add an item</a></div>";
+  exit();
+}
+?> 
+<div class="container">
+  <div style="text-align:right;padding: 10px">
+    <a class="btn dropdown-trigger btn-flat waves-effect btn-outline btn-large" data-target="orderBy" href="javascript:void(0)">Filter <i class="material-icons right">arrow_drop_down</i></a>
+  </div>
+  <table id="kitchen_table">
+    <tr>
+      <td>Name</td>
+      <td>Quantity</td>
+    </tr>
+
+    <?php
+    foreach($inv as $item) {
+    ?>
+    <tr 
+        class="<?=($item['login_id'] !== $_SESSION['id'] ? "sync_tr" : "")?>" 
+        data-date="<?=($item['date'])?>" 
+        tabindex='0' 
+        <?=($item['star'] == 1 ? 'style="border-left: 3px solid #f57f17;"' : '')?>
+        data-id="<?=intval($item['id'])?>" 
+        id="croomtr_<?=intval($item['id']);?>" 
+
+        onclick="item(this,<?=(empty(trim($item['star']))?0:$item['star'])?>, '<?=strip_tags(($item['label']))?>', 'custom_room')">
+      <td><?=strip_tags(decrypt($item['name']));?></td>
+      <td><?=strip_tags(decrypt($item['qty']));?></td>
+      <td class="hide"><?=trim(explode("on ", strip_tags(($item['date'])))[0]);?></td>
+    </tr>
+    <?php } ?>
+
+  </table>
+</div>
+<ul id='orderBy' class='dropdown-content'>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(0, document.getElementById('kitchen_table'), 'asc')">Alphabetical (A-Z)</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(0, document.getElementById('kitchen_table'), 'desc')">Alphabetical (Z-A)</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(2, document.getElementById('kitchen_table'), 'desc')">Date Updated</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(1, document.getElementById('kitchen_table'), 'asc')">Quantity</a></li>
+</ul>
+<script>
+  $('#app table tr').contextmenu(function(event) {
+    event.preventDefault();
+    var e = this.getAttribute('data-id');
+    modal_open(e, this, 'custom_room');
+  });
+  $('.dropdown-trigger').dropdown({coverTrigger:true,constrainWidth: false});
 </script>

@@ -1,21 +1,21 @@
 <?php 
+ini_set("display_errors", 1);
 session_start(); 
 include('../../cred.php');
-$id = $_POST['id'];
-$name = $_POST['name'];
-$qty = $_POST['qty'];
-$price = $_POST['price'];	
+
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "UPDATE family SET name=".json_encode(encrypt($name)).", qty=".json_encode(encrypt($qty)).", date=".json_encode($_POST["date"]).", price=".json_encode(encrypt($_POST["price"]))." WHERE id=".json_encode($id);
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-//   echo $stmt->rowCount() . " records UPDATED successfully";
+  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $sql = $dbh->prepare("UPDATE family SET name=:name, qty=:qty, price=:price, date=:date WHERE id=:id AND login_id=:sessid");
+
+  $sql->execute(array(
+      ':name' => encrypt($_POST['name']),
+      ':qty' => encrypt($_POST['qty']),
+      ':price' => encrypt($_POST['price']),
+      ':date' => intval($_POST['date']),
+      ':id' => intval($_POST['id']),
+      ':sessid' => intval($_SESSION['id'])
+  ));
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }
-
-$conn = null;
-header("Location: https://smartlist.ga/dashboard/beta");
 ?>

@@ -1,7 +1,7 @@
 <?php
+ini_set("display_errors", 1);
 session_start();
 include('../cred.php');
-// print_r($_POST['items']);
 foreach($_POST['items'] as $items) {
         switch($items) { 
             case 'fridge': $room = 'products'; break;
@@ -19,11 +19,15 @@ foreach($_POST['items'] as $items) {
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "INSERT INTO $room (name, qty, price, login_id, star)
-      VALUES (".json_encode(encrypt(ucfirst($items))).", ".json_encode(encrypt(1)).", ".json_encode(encrypt(1)).", ".json_encode($_SESSION['id']).", ".json_encode(0).")";
-      $conn->exec($sql);
+      $sql = $conn->prepare("INSERT INTO $room (name, qty, price, login_id, star, date)
+      VALUES (:name, 1, 1, :sessid, 0, :date)");
+      $sql->execute( array(
+        ":name" => encrypt(ucfirst($items)),
+        ":sessid" => $_SESSION['id'],
+        ":date" => date("m/d/Y")
+      ) );
     } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
+        echo "<br>" . $e->getMessage();
     }
 
     $conn = null;
@@ -31,10 +35,15 @@ foreach($_POST['items'] as $items) {
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "UPDATE login SET theme = ".json_encode(str_replace('#', '', $_POST['color'])). ", goal = ".json_encode($_POST['amount']).", welcome = '1' WHERE id = ".json_encode($_POST['id']);
-  $conn->exec($sql);
+  $sql = $conn->prepare("UPDATE login SET theme = :theme, goal = :goal, welcome = '1', purpose=:purpose WHERE id = :sessid");
+  $sql->execute(array(
+    ":theme" => str_replace('#', '', $_POST['color']),
+    ":goal" => $_POST['amount'],
+    ":purpose" => $_POST['purpose'],
+    ":sessid" => $_SESSION['id']
+  ));
 } catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
+  echo "<br>" . $e->getMessage();
 }
 $conn = null;
 header('Location: ../');

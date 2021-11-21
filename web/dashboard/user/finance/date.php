@@ -5,10 +5,12 @@
   <?php 
   try {
     $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $sql = "SELECT * FROM bm WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt( $_SESSION['syncid'])) . " ORDER by id DESC";
-    $users = $dbh->query($sql);
+    $sql = $dbh->prepare("SELECT * FROM bm WHERE login_id=:sessid");
+
+    $sql->execute(array( ':sessid' => $_SESSION['id'] ));
+    $users = $sql->fetchAll();
     foreach($users as $row) {
-      if((isset($_GET['d']) && decrypt($row['name']) == $_GET['d']) || !isset($_GET['d'])) {
+      if((isset($_GET['d']) && decrypt($row['name']) == $_GET['d']) || !isset($_GET['d']) || empty($_GET['d'])) {
         switch(decrypt($row['price'])) {
           case "Grocery Shopping": 
             $__icon__ = "local_grocery_store";

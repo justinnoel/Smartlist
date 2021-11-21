@@ -1,7 +1,7 @@
 <?php
-include_once "/home2/bcxkspna/domains/smartlist.ga/public_html/dashboard/cred.php";
-include_once '/home2/bcxkspna/domains/smartlist.ga/public_html/dashboard/lib/phpmailer/phpmailer.php';
-include_once '/home2/bcxkspna/domains/smartlist.ga/public_html/dashboard/lib/phpmailer/Exception.php';
+include_once "/home/smartlis/public_html/dashboard/cred.php";
+include_once '/home/smartlis/public_html/dashboard/lib/phpmailer/phpmailer.php';
+include_once '/home/smartlis/public_html/dashboard/lib/phpmailer/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;

@@ -3,43 +3,50 @@ session_start();
 include "../../cred.php";
 ?>
 <div class="container">
-  <br><br>
-  <a href="#addNote" class="btn right modal-trigger waves-effect waves-light blue-grey" onclick="$('.validate').characterCounter()"><i class="material-icons-round left ">add</i>Add note</a><br><br>
+<br><br>
+  <h5><b>Recent</b></h5>
+  <a href="#addNote" class="btn modal-trigger waves-effect waves-light blue-grey darken-3 btn-round" onclick="$('.validate').characterCounter()" style="margin-top: 10px!important"><i class="material-icons-round left ">add</i>Add note</a><br><br>
   <div class="row">
     <?php
     try {
-      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $sql = "SELECT * FROM notes WHERE login_id= " . $_SESSION['id'];
-      $users = $dbh->query($sql);
-      if($users->rowCount() == 0) {
-        ?>
-        <center> No notes! Create one? </center>
-        <?php
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = $dbh->prepare("SELECT * FROM notes WHERE login_id=:sessid");
+
+    $sql->execute(array( ':sessid' => $_SESSION['id'] ));
+    $users = $sql->fetchAll();
+      if(count($users) == 0) {
+    ?>
+    <center> No notes! Create one? </center>
+    <?php
         return false;
       }
       foreach ($users as $row){
-          if(!empty($row['banner'])) {
+        if(!empty(decrypt($row['banner'])) && file_get_contents(decrypt($row['banner']))) {
     ?>
-    <div class="col s12 m6">
+    <div class="col s12">
       <div class="card waves-effect waves-light" onclick="viewNote('<?=$row['id'];?>')">
-          <div class="card-image">
-              <img src="<?=$row['banner'];?>" style="max-height: 100px;object-fit:cover">
-              <span class="card-title" style="font-weight:bold !important"><?=$row['title'];?></span>
-          </div>
+        <div class="card-image">
+          <img src="<?=decrypt($row['banner']);?>" style="max-height: 100px;object-fit:cover">
+        </div>
+        <div class="card-content">
+          <span class="card-title" style="font-weight:bold !important"><?=decrypt($row['title']);?></span>
+          <p><?=substr(strip_tags(decrypt($row['content'])), 0, 40)?>...</p>
+        </div>
       </div>
     </div>
     <?php
           }
-          else {
-              ?>
-               <div class="col s12 m6">
+        else {
+    ?>
+    <div class="col s12">
       <div class="card waves-effect" onclick="viewNote('<?=$row['id'];?>')">
-          <div class="card-content">
-              <span class="card-title" style="font-weight:bold !important"><?=$row['title'];?></span>
-          </div>
+        <div class="card-content">
+          <span class="card-title" style="font-weight:bold !important"><?=decrypt($row['title']);?></span>
+          <p><?=substr(strip_tags(decrypt($row['content'])), 0, 40)?>...</p>
+        </div>
       </div>
     </div>
-              <?php
+    <?php
           }
       }
       $dbh = null;
@@ -53,31 +60,13 @@ include "../../cred.php";
 </div>
 
 <script>
-  $("#addNoteForm").submit(function(e) {
-    e.preventDefault();
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(),
-      success: function(data) {
-        M.toast({unsafeHTML: `<span>${data}</span><button class="btn-flat toast-action">Undo</button>`});
-        $(".modal").modal("close");
-        sm_page('gl');
-        window.onbeforeunload = null;
-        AJAX_LOAD('#gl', './user/notes/index.php');
-        change_title('Notes')
-      }
-    });
-  });
   function viewNote(id) {
-   $("#noteView").modal({ 
+    $("#noteView").modal({ 
       dismissible: false, 
       onCloseEnd: function() {
-      window.onbeforeunload = function() {return "";}
-   } 
-})
+        window.onbeforeunload = function() {return "";}
+      } 
+    })
     $('#noteView').modal('open');
     document.getElementById("noteView").innerHTML = `
 <div class="modal-content center">

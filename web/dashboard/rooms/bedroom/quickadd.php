@@ -10,9 +10,9 @@ $rand_keys = array_rand($chips, 15);
 <div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/bedroom/add.php" method="POST" id="bedroom_add_form">
     <h5>Add an item (Bedroom)</h5>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Name</label>
-      <input type="text" name="name" autofocus class="validate" id="autofocus1" data-length="150" autocomplete="off" required>
+      <input type="text" name="name" autofocus id="autofocus1" data-length="150" autocomplete="off" required>
     </div>
     <div class="chip-suggestions">
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[0]];?></div>
@@ -31,7 +31,7 @@ $rand_keys = array_rand($chips, 15);
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[13]];?></div>
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[14]];?></div>
     </div>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Quantity</label>
       <input type="text" name="qty" autocomplete="off" id="addBedroomQty">
       <?php include('../suggestion_count.php'); ?>
@@ -39,14 +39,14 @@ $rand_keys = array_rand($chips, 15);
     <?php include('../category_select.php');?> 
     <input type="hidden" id="date" name="date">
 
-    <button class="btn blue-grey darken-3">
+    <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">
       <i class="material-icons-round left">save</i> Save
     </button>
   </form>
 </div>
 <script>
   document.getElementById('autofocus1').addEventListener("keyup", () => 
-                                                             localStorage.setItem("addBedroomName", document.getElementById('autofocus1').value))
+                                                         localStorage.setItem("addBedroomName", document.getElementById('autofocus1').value))
   document.getElementById('autofocus1').value = localStorage.getItem('addBedroomName') || ""
 
   document.getElementById('addBedroomQty').addEventListener("keyup", () => 

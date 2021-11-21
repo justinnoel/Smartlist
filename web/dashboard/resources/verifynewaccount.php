@@ -1,17 +1,20 @@
 <?php
 session_start();
 include "../cred.php";
+$_SESSION['re_id'] = intval($_SESSION['re_id']);
 if(isset($_SESSION['re_id']) && hash('sha256', $_SESSION['re_id']) == $_GET['u']) {
   try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "UPDATE login SET accept='1' WHERE id=".$_SESSION['re_id'];
+    $sql = "UPDATE login SET accept='1' WHERE id=:sessid";
     // echo $_SESSION['re_id'];
     // Prepare statement
     $stmt = $conn->prepare($sql);
     // execute the query
-    $stmt->execute();
+    $stmt->execute(array(
+      ":sessid" => $_SESSION['re_id']
+    ));
     // echo $stmt->rowCount() . " records UPDATED successfully";
     // echo a message to say the UPDATE succeeded
     try {

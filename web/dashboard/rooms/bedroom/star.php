@@ -1,43 +1,20 @@
 <?php 
+ini_set('display_errors', 1);
 session_start();
+if(!isset($_SESSION['valid'])) {die("Forbidden");http_status_code(403);}
 include('../../cred.php');
 $id = $_GET['id'];
+$star=0;
+define("_roomName", "bedroom");
 try {
   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $sql = "SELECT * FROM bedroom WHERE id=".$id;
-  $users = $dbh->query($sql);
-  foreach ($users as $row) {
-      $star  = $row['star'];
-  }
-  $dbh = null;
-}
-catch (PDOexception $e) {
-  echo "Error is: " . $e-> etmessage();
-}
-if($star == 0) {
-     try {
-      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "UPDATE bedroom SET star='1' WHERE id=$id";
-      $stmt = $conn->prepare($sql);
-      $stmt->execute();
-    } catch(PDOException $e) {
-      echo $sql . "<br>" . $e->getMessage();
-    }
-    
-    $conn = null;
-}
-elseif($star == 1) {
-     try {
-      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "UPDATE bedroom SET star='0' WHERE id=$id";
-      $stmt = $conn->prepare($sql);
-      $stmt->execute();
-    } catch(PDOException $e) {
-      echo $sql . "<br>" . $e->getMessage();
-    }
-    
-    $conn = null;
+  $sql = $dbh->prepare("UPDATE "._roomName." SET star = star ^ 1 WHERE id=:id AND login_id=:sessid;");
+
+  $sql->execute(array(
+      ':id' => intval($_GET['id']),
+      ':sessid' => intval($_SESSION['id'])
+  ));
+} catch(PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
 }
 ?>

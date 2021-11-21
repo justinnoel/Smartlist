@@ -1,3 +1,4 @@
+// The `loadPage` constructor. You can load files directly into a `div` using: `new loadPage(file, el, options)`
 class loadPage {
   constructor(file, el, options) {
     this.file = file;
@@ -10,34 +11,35 @@ class loadPage {
     }
     if (options && options.loader === false) {
     } else {
-      document.getElementById("fab").style.display = "none";
       el.innerHTML = `
-<center>
-<div class="loader">
-<svg viewBox="0 0 32 32" width="42" height="42">
-<circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-</svg>
-</div>
-</center>`;
+      <center>
+        <div class="loader">
+          <svg viewBox="0 0 32 32" width="42" height="42">
+            <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+          </svg>
+        </div>
+      </center>`;
     }
     if (options && options.callback) {
       $(el).load(file, () => options.callback);
     } else {
-      $(el).load(file, function () {
-        document.getElementById("fab").style.display = "";
-      });
+      $(el).load(file);
     }
   }
 }
 
+// Create a new toast at the bottom of the page when there is an error
 window.onerror = function (msg, url, linenumber) {
+  // CloudFlare sometimes creates weird `DataCloneError` so hide any errors containing the word
   if (!msg.includes("DataCloneError")) {
-    alert("Error message: " + msg + "<br>Line Number: " + linenumber);
+    M.toast({html:"Error message: " + msg + "<br>Line Number: " + linenumber});
   }
   return true;
 };
 
-String.prototype.plural = function (revert) {
+// Stuff for making words plural
+// See: https://stackoverflow.com/a/27194360/14715255
+String.prototype.plural = (revert) => {
   var plural = {
     "(quiz)$": "$1zes",
     "^(ox)$": "$1en",
@@ -113,10 +115,8 @@ String.prototype.plural = function (revert) {
     "information",
     "equipment",
   ];
-
   // save some time in the case that singular and plural are the same
   if (uncountable.indexOf(this.toLowerCase()) >= 0) return this;
-
   // check for irregular forms
   for (word in irregular) {
     if (revert) {
@@ -131,7 +131,6 @@ String.prototype.plural = function (revert) {
 
   if (revert) var array = singular;
   else var array = plural;
-
   // check for matches using regular expressions
   for (reg in array) {
     var pattern = new RegExp(reg, "i");
@@ -142,7 +141,15 @@ String.prototype.plural = function (revert) {
   return this;
 };
 
-window.addEventListener("focus", () => getHashPage("hide"));
+// This removes tooltips when a user focuses on the window. This is because of a previous bug, where tooltips do not disappear.
+window.addEventListener("focus", () => {
+  if(document.querySelector(".material-tooltip")) {document.querySelectorAll(".material-tooltip").forEach(e=>e.remove())}
+  if(window.location.hash!=="#/settings") {
+    getHashPage("hide");
+  }
+});
+
+// Switches the page on the `popState` event
 window.addEventListener("popstate", (e) => {
   var a = true;
   if (!$(".modal").is(":visible")) {
@@ -156,14 +163,11 @@ window.addEventListener("popstate", (e) => {
   if (a === true) {
     history.pushState(null, null, window.location.href);
   }
-  var els = document.querySelectorAll(".sidenav-active");
-  if (els) {
-    for (i = 0; i < els.length; i++) {
-      els[i].classList.remove("sidenav-active");
-    }
-  }
+  $(".sidenav-active").removeClass("sidenav-active");
 });
 
+
+// Main code which opens item popups
 function item(el, star, label, room) {
   var id = el.getAttribute("data-id");
   switch (room) {
@@ -208,54 +212,46 @@ function item(el, star, label, room) {
       dir = "./rooms/custom_room/";
       break;
   }
+  document.getElementById("star").getElementsByTagName("i")[0].classList.remove("star-active")
   if (star === 1) {
+    document.getElementById("star").getElementsByTagName("i")[0].classList.add("star-active")
     document.getElementById("star").getElementsByTagName("i")[0].innerHTML =
       "star";
   } else {
+    document.getElementById("star").getElementsByTagName("i")[0].classList.remove("star-active")
     document.getElementById("star").getElementsByTagName("i")[0].innerHTML =
       "star_outline";
   }
   var form = document.getElementById("edit_form");
-  var room1;
   switch (room) {
     case "bedroom":
-      room1 = "Home";
       form.action = "./rooms/bedroom/edit.php";
       break;
     case "kitchen":
-      room1 = "Contact";
       form.action = "./rooms/kitchen/edit.php";
       break;
     case "bathroom":
-      room1 = "bathroom";
       form.action = "./rooms/bathroom/edit.php";
       break;
     case "garage":
-      room1 = "About";
       form.action = "./rooms/garage/edit.php";
       break;
-    case "garage":
-      room1 = "About";
-      form.action = "./rooms/garage/edit.php";
+    case "family":
+      form.action = "./rooms/family/edit.php";
       break;
     case "storage":
-      room1 = "storage";
       form.action = "./rooms/storage/edit.php";
       break;
     case "dining_room":
-      room1 = "dining_room";
       form.action = "./rooms/dining_room/edit.php";
       break;
     case "laundryroom":
-      room1 = "laundryroom";
       form.action = "./rooms/laundry/edit.php";
       break;
     case "camping":
-      room1 = "cs";
       form.action = "./rooms/camping/edit.php";
       break;
     case "custom_room":
-      room1 = "custom_room";
       form.action = "./rooms/custom_room/custom_item_edit.php";
       break;
   }
@@ -282,9 +278,23 @@ function item(el, star, label, room) {
       $('.sidenav-overlay').css("z-index", "9999")
       $('#item_sidenav').css("z-index", "9999999")
       itemState=1;
-      document
+      if($(window).width() < 992) {
+        if(document.documentElement.classList.contains("_darkTheme")) {
+document
         .querySelector('meta[name="theme-color"]')
-        .setAttribute("content", "#1c2429");
+        .setAttribute("content", "#212121");
+        }
+        else {
+          document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute("content", "#cfd8dc");
+        }
+      }
+      else {
+        document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute("content", user.themeDark);
+      }
     },
     onCloseStart() {
       if (document.documentElement.classList.contains("_darkTheme")) {
@@ -304,8 +314,8 @@ function item(el, star, label, room) {
   var qty = el.getElementsByTagName("td")[1].innerText;
   action_share.href = `https://smartlist.ga/s/${room}/${encodeURIComponent(name.replace(' ', '-').toLowerCase())}/${encodeURIComponent(qty.replace(' ', '-').toLowerCase())}/${encodeURIComponent(label)}/${id}`;
   actions.action_qr.href =
-    "https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=" +
-    encodeURI("I currently have " + qty + " " + name + " in my inventory");
+    "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" +
+    encodeURI("I currently have " + qty + " " + name + " in my inventory") + "&format=svg";
   actions.action_mail.href =
     "mailto:hello@smartlist.ga?subject=My%20Inventory%20Status%20%7C%20Smartlist&body=Hi%20_____%2C%0D%0AI'm%20currently%20having%20" +
     encodeURI(qty) +
@@ -351,6 +361,7 @@ function item(el, star, label, room) {
   actions.navbar.star.onclick = function () {
     if (actions.navbar.star.getElementsByTagName("i")[0].innerHTML == "star") {
       el.style.borderLeft = "none";
+      document.getElementById("star").getElementsByTagName("i")[0].classList.remove("star-active")
       actions.navbar.star.getElementsByTagName("i")[0].innerHTML =
         "star_outline";
       el.onclick = function () {
@@ -358,6 +369,7 @@ function item(el, star, label, room) {
       };
     } else {
       el.style.borderLeft = "3px solid #f57f17";
+      document.getElementById("star").getElementsByTagName("i")[0].classList.add("star-active")
       actions.navbar.star.getElementsByTagName("i")[0].innerHTML = "star";
       el.onclick = function () {
         item(el, 1, label, room);
@@ -402,8 +414,11 @@ function item(el, star, label, room) {
   }
 
 }
+
+// Register the serviceWorker
 navigator.serviceWorker.register("https://smartlist.ga/dashboard/sw.js");
 
+// Function for sending a desktop notification
 function showNotification(data) {
   Notification.requestPermission(function (result) {
     if (result === "granted") {
@@ -418,49 +433,14 @@ function showNotification(data) {
     }
   });
 }
-// showNotification("Hi!");
-document.body.onclick = function () {
-  // showNotification("Hi!!!");
-};
-CKEDITOR.replace("addNoteT", {
-  skin: "moono-lisa",
-  enterMode: CKEDITOR.ENTER_BR,
-  shiftEnterMode: CKEDITOR.ENTER_P,
-  toolbar: [
-    {
-      name: "basicstyles",
-      groups: ["basicstyles"],
-      items: ["Bold", "Italic", "Underline", "-", "TextColor", "BGColor"],
-    },
-    { name: "styles", items: ["Format", "Font", "FontSize"] },
-    { name: "scripts", items: ["Subscript", "Superscript"] },
-    {
-      name: "justify",
-      groups: ["blocks", "align"],
-      items: ["JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
-    },
-    {
-      name: "paragraph",
-      groups: ["list", "indent"],
-      items: ["NumberedList", "BulletedList", "-", "Outdent", "Indent"],
-    },
-    { name: "links", items: ["Link", "Unlink"] },
-    { name: "insert", items: ["Image"] },
-    { name: "spell", items: ["jQuerySpellChecker"] },
-    { name: "table", items: ["Table"] },
-  ],
-});
+
+// Highlights links in the side navigation menu
 function sidenav_highlight(el) {
-  var els = document.querySelectorAll(".sidenav-active");
-  if (els) {
-    for (i = 0; i < els.length; i++) {
-      els[i].classList.remove("sidenav-active");
-    }
-  }
-  setTimeout(function () {
-    el.classList.add("sidenav-active");
-  }, 1);
+  if(document.querySelector(".sidenav-active")) document.querySelectorAll(`sidenav-active`).forEach(e=>e.classList.remove("sidenav-active"))
+  setTimeout( function() {el.classList.add("sidenav-active")}, 1)
 }
+
+// Makes the navbar's box shadow greater on scroll
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
@@ -481,7 +461,7 @@ window.onscroll = function () {
       document
         .getElementById("fab")
         .getElementsByTagName("span")[0].style.opacity = 1;
-    }, 200);
+    }, 50);
   } else {
     document
       .getElementById("fab")
@@ -496,6 +476,8 @@ window.onscroll = function () {
   }
   prevScrollpos = currentScrollPos;
 };
+
+// Adds data to the budget meter
 function bm_add() {
   var x = document.getElementById("bm_amount");
   var e = document.getElementById("bm_select");
@@ -503,11 +485,16 @@ function bm_add() {
     "https://smartlist.ga/dashboard/rooms/bm/addx.php?n=" +
     encodeURI(x.value) +
     "&label=" +
-    encodeURI(e.value)
+    encodeURI(e.value) +
+    "&date="+ 
+    encodeURIComponent(document.getElementById('budgetDate').value)
   );
   x.value = "";
-  new loadPage("./pages/dashboard.php", "#app", { loader: false });
+  setTimeout(function() {
+    new loadPage("./pages/dashboard.php", "#app", { loader: false });
+  }, 200)
 }
+// Close the item sidenav when `ESC` is pressed
 window.addEventListener("keyup", (e) => {
   switch (
     e.keyCode
@@ -517,28 +504,32 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
-$(document).ready(function () {
-   $('#item_sidenav').sidenav({
+
+window.addEventListener("load", () => {
+  // Initialize item sidenav
+  $('#item_sidenav').sidenav({
     edge: "right",
     onOpenStart() {
       itemState = 1;
     },
     onCloseStart() {itemState = 0}
   });
-  if($(window).width() > 992) {
-    $(".sidenav").mCustomScrollbar({
-      theme:"minimal-dark",
-      scrollInertia: 300
-    });
-  }
   window.addEventListener('click', () => {document.getElementById('right_click_modal').classList.add('hide');document.getElementById('overlay').classList.add('hide')})
   window.addEventListener('keydown', (e) => {if(e.keyCode == 27) {document.getElementById('right_click_modal').classList.add('hide');document.getElementById('overlay').classList.add('hide')}})
   $(".tabs").tabs();
-  $("#feedbackBeta").modal({ dismissible: false, onOpenStart() { document .querySelector('meta[name="theme-color"]') .setAttribute( "content", document.documentElement.classList.contains("_darkTheme") ? "#101010" : user.themeDark ); }, onCloseStart() { document .querySelector('meta[name="theme-color"]') .setAttribute( "content", document.documentElement.classList.contains("_darkTheme") ? "#101010" : user.themeDark ); localStorage.setItem("s", "true"); }, }); if (!localStorage.getItem("s")) { $("#feedbackBeta").modal("open"); }
-  $(".fixed-action-btn").floatingActionButton();
-  $(".sidenav").sidenav();
-  $(".modal").modal({
-    onOpenStart() {
+  // Initialize version 4.0 modal
+  $("#feedbackBeta").modal({ dismissible: false, onOpenStart() { document .querySelector('meta[name="theme-color"]') .setAttribute( "content", document.documentElement.classList.contains("_darkTheme") ? "#101010" : user.themeDark ); }, onCloseStart() { document .querySelector('meta[name="theme-color"]') .setAttribute( "content", document.documentElement.classList.contains("_darkTheme") ? "#101010" : user.themeDark ); localStorage.setItem("feedbackBeta", "true"); }, }); 
+
+  if (!localStorage.getItem("feedbackBeta")) { 
+    setTimeout(function() {
+      $("#feedbackBeta").modal({ dismissible: false})
+       $("#feedbackBeta").modal("open");
+    }, 1000)
+  }
+  // Initialize sidenav
+  $(".sidenav").sidenav({
+    onCloseStart() {
+      // Change the top theme color on open
       document
         .querySelector('meta[name="theme-color"]')
         .setAttribute(
@@ -549,6 +540,33 @@ $(document).ready(function () {
       );
     },
     onCloseStart() {
+      // Change the top theme color on close
+      if (document.documentElement.classList.contains("_darkTheme")) {
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute("content", "#212121");
+      } else {
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute("content", user.themeTop);
+      }
+    }
+  });
+  // Initialize all modals
+  $(".modal").modal({
+    onOpenStart() {
+      // Change the top theme color on open
+      document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute(
+        "content",
+        document.documentElement.classList.contains("_darkTheme")
+        ? "#101010"
+        : user.themeDark
+      );
+    },
+    onCloseStart() {
+      // Change the top theme color on close
       if (document.documentElement.classList.contains("_darkTheme")) {
         document
           .querySelector('meta[name="theme-color"]')
@@ -560,21 +578,27 @@ $(document).ready(function () {
       }
     },
   });
+  // Initialize custom select options
   $("select").formSelect();
+  // Initialize autocomplete
+  // The variable `autocompleteData` is in /dashboard/js/autocomplete.js
   $("input.autocomplete").autocomplete({
     data: autocompleteData,
     limit: 6,
   });
 });
 
+// Function for copying text to clipboard
 function copyToClipboard(data) {
-  _e.copyText(data)
+  navigator.clipboard.writeText(data.toString())
+  // Show success message
   M.Toast.dismissAll();
   setTimeout(() => M.toast({
     html: "Copied text to Clipboard",
   }), 200)
 }
 
+// Handle the submit event for the feedback form
 var form = document.getElementById("feedback-form");
 async function handleSubmit(event) {
   event.preventDefault();
@@ -601,6 +625,7 @@ async function handleSubmit(event) {
 }
 form.addEventListener("submit", handleSubmit);
 
+// Really idiotic function name for filtering the search results
 function qq() {
   $("#noSearchResultsHeading").show();
   $("#noSearchResultsContainer").hide();
@@ -624,6 +649,7 @@ function qq() {
   }
 }
 
+// Function for toggling dark theme
 function dark_mode() {
   document.documentElement.classList.toggle("_darkTheme");
   localStorage.setItem(
@@ -634,6 +660,7 @@ function dark_mode() {
   );
 }
 
+// Function for toggling dark sidenav
 function darkSidenav() {
   document.documentElement.classList.toggle("_darkSidenav");
   localStorage.setItem(
@@ -644,6 +671,7 @@ function darkSidenav() {
   );
 }
 
+// Get dark themes from localStorage
 if (localStorage.getItem("theme") && localStorage.getItem("theme") == "true") {
   document.documentElement.classList.add("_darkTheme");
 }
@@ -654,6 +682,7 @@ if (
   document.documentElement.classList.add("_darkSidenav");
 }
 
+// This function is triggered when the user clicks on a chip under the name field when adding an item
 function chipValue(el) {
   var input = el.parentElement.parentElement.getElementsByTagName("input")[0];
   input.focus();
@@ -662,58 +691,7 @@ function chipValue(el) {
   el.parentElement.parentElement.getElementsByTagName("input")[1].value = 1;
 }
 
-var ele = document.documentElement;
-// ele.style.cursor = 'grab';
-
-let pos = {
-  top: 0,
-  left: 0,
-  x: 0,
-  y: 0,
-};
-
-var mouseDownHandler = function (e) {
-  // ele.style.cursor = 'grabbing';
-  ele.style.userSelect = "none";
-
-  pos = {
-    left: ele.scrollLeft,
-    top: ele.scrollTop,
-    // Get the current mouse position
-    x: e.clientX,
-    y: e.clientY,
-  };
-
-  document.addEventListener("mousemove", mouseMoveHandler);
-  document.addEventListener("mouseup", mouseUpHandler);
-};
-
-var mouseMoveHandler = function (e) {
-  // How far the mouse has been moved
-  var dx = e.clientX - pos.x;
-  var dy = e.clientY - pos.y;
-
-  // Scroll the element
-  ele.scrollTop = pos.top - dy;
-  ele.scrollLeft = pos.left - dx;
-};
-
-var mouseUpHandler = function () {
-  // ele.style.cursor = 'grab';
-  ele.style.removeProperty("user-select");
-
-  document.removeEventListener("mousemove", mouseMoveHandler);
-  document.removeEventListener("mouseup", mouseUpHandler);
-};
-if (
-  !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  )
-) {
-  // Attach the handler
-  ele.addEventListener("mousedown", mouseDownHandler);
-}
-
+// offline and events
 window.addEventListener("offline", () => {
   M.Toast.dismissAll();
   M.toast({ html: "You are offline. Please connect to the internet" });
@@ -723,6 +701,7 @@ window.addEventListener("online", () => {
   M.toast({ html: "Network connection restored!" });
 });
 
+// Handles the search form submission
 $("#searchForm").submit(function (e) {
   e.preventDefault();
 
@@ -741,7 +720,10 @@ $("#searchForm").submit(function (e) {
     },
   });
 });
+
+// Handles the form for for editing an item
 $("#edit_form").submit(function (e) {
+  document.getElementById("date1").value = moment().format("M/D/Y");
   e.preventDefault();
   var form = $(this);
   var url = form.attr("action");
@@ -752,16 +734,18 @@ $("#edit_form").submit(function (e) {
     success: function (data) {
       $("#edit_sidenav").sidenav("close");
       document.getElementById("title").innerHTML =
-        "<br>" + document.getElementById("edit_item_name").value;
+        "<br><br>" + document.getElementById("edit_item_name").value;
       document.getElementById("qty").innerHTML =
-        document.getElementById("edit_item_qty").value;
+        "Quantity: " + document.getElementById("edit_item_qty").value;
       document.getElementById("dateID").innerHTML =
-        document.getElementById("date1").value;
+        "<b>Last updated on: </b>"+ document.getElementById("date1").value;
       document.getElementById("edit_form").reset();
       getHashPage();
+      $("#item_sidenav").sidenav("close");
     },
   });
 });
+// Changes avatar via a form
 $("#avatarChangeForm").submit(function (e) {
   e.preventDefault();
   var form = $(this);
@@ -775,6 +759,7 @@ $("#avatarChangeForm").submit(function (e) {
     },
   });
 });
+// Uploads image to ImgBB (https://imgbb.com)
 function fileChange(el, callback = function (e) {}) {
   var file = el;
   var form = new FormData();
@@ -796,8 +781,10 @@ function fileChange(el, callback = function (e) {}) {
     callback(jx.data.url);
   });
 }
+// Initializes tabs
 $(".tabs").tabs();
 
+// Function which handles right clicking on items
 function modal_open(id, el, room) {
   var __el1 = el.getElementsByTagName("td")[0].innerHTML;
   var __el2 = el.getElementsByTagName("td")[1].innerHTML;
@@ -860,7 +847,7 @@ function modal_open(id, el, room) {
     case "storage":
       directory = "./rooms/storage/delete.php";
       break;
-    case "custom_room":
+    case "custom_room":	
       directory = "./rooms/custom_room/custom_item_delete.php";
       break;
   }
@@ -880,19 +867,18 @@ function modal_open(id, el, room) {
   };
 }
 
-var xPos = 0;
-var yPos = 0;
-document.body.addEventListener('mousemove', (e) => {
-  xPos = e.pageX;
-  yPos = e.pageY;
-});
-
+// Handles right clicking on custom rooms
 function croom_rclick(id) {
   document.getElementById("croom_rclick_id").innerHTML = 'Room ID: '+id
   $('#croom_rclick').modal('open');
+  document.getElementById('add_croom').href='#/add/'+id;
   document.getElementById('del_croom').href='https://smartlist.ga/dashboard/rooms/custom_room/custom_room_delete.php?id='+id+'&name=cgffg'
 }
+
+// Prevents links and images from being dragged
 setInterval(() => $('a,img').attr('draggable', 'false'), 200)
+
+// Filters the results
 function filterResults(el) {
   var value = el.innerText;
   document.querySelectorAll("#search_results li").forEach(el => {
@@ -904,41 +890,158 @@ function filterResults(el) {
     }
   })
 }
+
+// Updates the date when the user presses a key
 window.addEventListener('keyup', () => {
   document.getElementById('date1').value = `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} on ${new Date().getHours()}:${new Date().getMinutes()}`    
-
 })
 
+// Initializes item sidenavs. 
 $('#item_sidenav').sidenav({edge:'right'})
 $('#item_sidenav').sidenav("open")
 $('#item_sidenav').sidenav("close")
 setTimeout(() => {
   $('#item_sidenav').css("opacity", 1)
+  $('#item_sidenav').css("pointer-events", "unset")
 }, 500)
 
+// More functions when the document loads
 window.addEventListener('load', () => {
   getHashPage()
+  // initializes edit sidenav
   $('#edit_sidenav').sidenav({ 
-    edge:'right'
-  })
-  var addModal = document.getElementById('addItem');
-  var hammertime = new Hammer(addModal, {direction: Hammer.DIRECTION_ALL});
-
-  hammertime.on('pandown', function(ev) {
-    var y = ev.deltaY;
-    addModal.style.top = ev.deltaY+'px'
-    if(y > $(window).height() - 200) {
-      $(".modal").modal('close');
-      setTimeout(() => addModal.style.top = "", 200)
-    }
-    else {
-      if(ev.isFinal) {
-        addModal.style.top = "";
+    edge:'right',
+    onCloseStart() {
+      if (document.documentElement.classList.contains("_darkTheme")) {
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute("content", "#212121");
+      } else {
+        if(itemState == 0) {
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", user.themeTop);
+        }
       }
     }
-  });
-  
-  $('#edit_sidenav').sidenav({ 
-    edge:'right'
   })
 })
+
+// Function for sorting a table
+function sortTable(n, table, dir = "asc") {
+  var rows, switching, i, x, y, shouldSwitch, switchcount = 0;
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    // //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      //check if the two rows should switch place:
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+// Known bug: causes errors when the user scrolls
+document.documentElement.addEventListener('touchstart', (e) => {
+  if (e.pageX > 10 && e.pageX < window.innerWidth - 10) return;
+
+  // prevent swipe to navigate gesture
+  // e.preventDefault();
+});
+
+// Handles when the note create form is submitted
+$("#addNoteForm").submit(function(e) {
+  e.preventDefault();
+  var form = $(this);
+  var url = form.attr('action');
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(),
+    success: function(data) {
+      M.toast({unsafeHTML: `<span>${data}</span><button class="btn-flat toast-action">Undo</button>`});
+      $(".modal").modal("close");
+      window.onbeforeunload = null;
+      AJAX_LOAD('#gl', './user/notes/index.php');
+    }
+  });
+});
+
+
+// Function for scrolling into div
+function scrollInto(id) {
+  $('.modal').modal("close")
+  var el = document.querySelector(`[data-id='${id}']`);
+  el.scrollIntoView();
+  el.style.transition = "all .2s"
+  el.style.background = "rgba(0, 0, 0, .2)";
+  document.documentElement.scrollTop -= 200;
+  setTimeout(() => {
+    el.scrollIntoView();
+    document.documentElement.scrollTop -= 200;
+  }, 100)
+  setTimeout(() => {
+    el.style.background = ""
+    el.style.transition = "";
+  }, 2000)
+}
+
+function mtoggle(el) {
+  el.classList.toggle("green");
+  el.classList.toggle("white-text");
+}
+// Prompt the user to install the Smartlist PWA
+var buttonInstall = document.getElementById('pwaInstallPromptAddButton');
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  $('#pwaInstallPrompt').modal()
+  $('#pwaInstallPrompt').modal('open');
+  console.log(`'beforeinstallprompt' event was fired.`);
+});  
+buttonInstall.addEventListener('click', async () => {
+  /* Hide the app provided install promotion */
+  $('#pwaInstallPrompt').modal()
+  $('#pwaInstallPrompt').modal('close')
+  deferredPrompt.prompt();
+  /*Wait for the user to respond to the prompt
+  const { outcome } = await deferredPrompt.userChoice;
+  Optionally, send analytics event with outcome of user choice
+  console.log(`User response to the install prompt: ${outcome}`);*/
+  deferredPrompt = null;
+});

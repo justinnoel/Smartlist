@@ -7,21 +7,21 @@
         <p>Your subscriptions are NOT synced with anyone else</p>
       </div>
       <div class="col s12 m9">
-        <div class="input-field">
+        <div class="input-field input-border">
           <label>Subscription name</label>
           <input type="text" name="name" autocomplete="off" required onkeyup="savea(this)" id="s1">
         </div>
       </div>
 
       <div class="col s12 m3">
-        <div class="input-field">
+        <div class="input-field input-border">
           <label>Subscription price</label>
           <input type="number" name="price" autocomplete="off" required onkeyup="savea(this)" id="s2">
         </div>
       </div>
       <div class="col s12">
 
-        <div class="input-field">
+        <div class="input-field input-border">
           <label>Date of renewal</label>
           <input type="text" name="date" autocomplete="off" class="datepicker" onmousemove="savea(this)" id="s3">
         </div>
@@ -40,6 +40,23 @@
           <label onclick="this.querySelector('input').focus()">
             <input class="with-gap" name="type" type="radio" value="weekly" required />
             <span>Weekly</span>
+          </label>
+        </p>    
+
+        <p>
+          <label onclick="this.querySelector('input').focus()">
+            <input class="with-gap" name="paymentType" type="radio" value="bill" required />
+            <span>Bill</span>
+          </label>
+          <br>
+          <label onclick="this.querySelector('input').focus()">
+            <input class="with-gap" name="paymentType" type="radio" value="payment" required />
+            <span>Payment</span>
+          </label>
+          <br>
+          <label onclick="this.querySelector('input').focus()">
+            <input class="with-gap" name="paymentType" type="radio" value="subscription" required />
+            <span>Subscription</span>
           </label>
         </p>    
         <button class="btn blue-grey darken-3 waves-effect waves-light"><i class="material-icons left">add</i>Add</button>

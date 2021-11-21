@@ -3,8 +3,16 @@
 // include "../cred.php";
 // echo get_include_path();
 ?>
-<div class="chips chips-autocomplete">
-  <input class="custom-class">
+<style>
+  .chip_e {border-color: #aaa!important; box-shadow: 0px 0px 0px 1px #aaa inset !important;padding-left: 10px;border-radius: 4px}
+  .chip_e:hover {border-color: var(--navbar-color) !important; box-shadow: 0px 0px 0px 1px var(--navbar-color) inset !important;}
+  .chip_e:focus {border-color: var(--navbar-color) !important; box-shadow: 0px 0px 0px 1px var(--navbar-color) inset !important;}
+  .chip_e input::placeholder {color: var(--sidenavf-color)}
+</style>
+<div class="chip_e" tabindex=0>
+  <div class="chips chips-autocomplete input-aborder" style="border: 0 !important;box-shadow:none!important;width:100%">
+    <input class="custom-class">
+  </div>
 </div>
 <input type="hidden" id="price" name="price">
 <script>

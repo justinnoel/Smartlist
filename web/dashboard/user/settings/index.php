@@ -3,18 +3,27 @@ session_set_cookie_params(0, '/', ".raxsoft.com",false, false);
 include('../../header.php');
 include('../../cred.php');
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM login WHERE id=" . $_SESSION['id'];
-$users = $dbh->query($sql);
+$sql = $dbh->prepare("SELECT * FROM login WHERE id=:sessid");
+
+$sql->execute(array( ':sessid' => $_SESSION['id'] ));
+$users = $sql->fetchAll();
+
 foreach ($users as $row) {
-  $goal = $row["goal"];
-  $welcome = $row['welcome'];
-  $_SESSION['avatar'] = $row['user_avatar'];
-  $theme = $row['theme'];
+    $_SESSION['avatar'] = $row['user_avatar'];
+    $theme = $row['theme'];
+    $_SESSION['syncid'] = $row["syncid"];
+    $_SESSION["number_notify"] = $row['remind'];
+    $_SESSION["welcome"] = $row['welcome'];
+    $_SESSION["studentMode"] = $row['studentMode'];
+    $_SESSION['homePage'] = $row['defaultpage'];
+    $_SESSION['purpose'] = $row['purpose'];
+    $goal = $row["goal"];
 }
 ?>
 <style>
   .settingsContainer .collection-item:not(.borderVisible) {
     border: 0 !important;
+    border-radius: 28px;
   }
   .range-field span {
     color: white !important;
@@ -24,19 +33,25 @@ foreach ($users as $row) {
     width: calc(100% - 300px);
     left: 300px
   }
+  #settings_nav {transition: background .25s;}
+  #settings_nav:not(.blue-grey,._darkTheme #settings_nav) {background: var(--bg-color)!important}
   #Settings {transition: all .2s;opacity:0}
+  ._darkTheme #settings_nav:not(.blue-grey){background: var(--bg-color)!important}
+  ._darkTheme #settings_nav {background: var(--bg-color)!important}
+  ._darkTheme nav.blue-grey {backround: #303030 !important}
 </style>
 <div style="position: fixed;top:0;left: 0;z-index: 9999999;width: 100%;height: 100%;background: var(--bg-color);overflow-y: scroll" id="settingsCC">
-  <nav class="white">
+  <nav class="lighten-5 z-depth-0" id="settings_nav">
     <ul>
-      <li><a href="#/dashboard" class="teal-text" id="backBTN"><b><i class="material-icons left btn-floating btn btn-flat waves-effect teal-text">arrow_back</i><span id="Settings">Settings</span></b></a></li>
+    <li><a href="#/dashboard" id="backBTN" style="line-height: 40px!important" class="btn-floating btn btn-flat waves-effect nav_scaleIconOnHover"><i class="material-icons grey-text text-darken-1" style="line-height: 40px!important">arrow_back</i></a></li>
+      <li><a class="grey-text"><b><span id="Settings">Settings</span></b></a></li>
     </ul>
     <ul class="right">
-      <li><a href="javascript:void(0)" class="teal-text waves-effect" onclick="window.open('https://support.smartlist.ga')"><b><i class="material-icons">help</i></b></a></li>
-      <li><a href="javascript:void(0)" class="teal-text waves-effect" onclick="$('#searchSettings').removeClass('hide');$('#search234098').focus()"><b><i class="material-icons">search</i></b></a></li>
+      <li><a href="//support.smartlist.ga" target="_blank" style="line-height: 40px!important" class="nav_scaleIconOnHover btn-floating btn btn-flat waves-effect"><i class="material-icons grey-text text-darken-1" style="line-height: 40px!important;margin-right: 2px !important;">help</i></a></li>
+      <li><a href="javascript:void(0)"  class="nav_scaleIconOnHover btn-floating btn btn-flat waves-effect" onclick="$('#searchSettings').removeClass('hide');$('#search234098').focus()" style="line-height: 40px!important;margin-left: 0!important;"><b><i class="material-icons grey-text text-darken-1" style="line-height: 40px!important">search</i></b></a></li>
     </ul>
   </nav>
-  <nav class="hide white" id="searchSettings" style="left: 0!important;width: 100% !important;box-shadow: none !important">
+  <nav class="hide white" id="searchSettings" style="left: 0!important;width: 100% !important;">
     <div class="nav-wrapper">
       <form id="searchForm1">
         <div class="input-field">
@@ -48,18 +63,43 @@ foreach ($users as $row) {
     </div>
   </nav>
   <br><br><br>
-  <div class="container settingsContainer" id="settingsContainer"></div>
+  <div class="container settingsContainer" id="settingsContainer">
+  <center>
+    <div class="loader">
+    <svg viewBox="0 0 32 32" width="42" height="42">
+    <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+    </svg>
+    </div>
+    </center>
+  </div>
   <script>
-    document.querySelector('meta[name="theme-color"]').setAttribute('content',  (document.documentElement.classList.contains("_darkTheme") ? "#101010": "#eee"));
     $('#settingsContainer').load('./user/settings/home.php')
     function toggleNavBack() {
       document.getElementById('backBTN').href="javascript:void(0)"
       document.getElementById('backBTN').onclick = function() {$('#settingsContainer').load('./user/settings/home.php');document.getElementById('backBTN').onclick= function() {document.getElementById('backBTN').href="#/dashboard"}}
+      document.getElementById("settingsContainer").innerHTML = `
+      <center>
+<div class="loader">
+<svg viewBox="0 0 32 32" width="42" height="42">
+<circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+</svg>
+</div>
+</center>
+      `
     }
 
     document.getElementById('settingsCC').onscroll = function() {scrollFunction()};
-
+    document.querySelector('meta[name="theme-color"]').setAttribute('content',  (document.documentElement.classList.contains("_darkTheme") ? "#101010": "#fff"));
     function scrollFunction() {
+      if(document.getElementById("settingsCC").scrollTop==0) {
+        document.getElementById("settings_nav").classList.remove('blue-grey');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content',  (document.documentElement.classList.contains("_darkTheme") ? "#101010": "#fff"));
+      }
+      else {
+        document.getElementById("settings_nav").classList.add('blue-grey');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content',  (document.documentElement.classList.contains("_darkTheme") ? "#404040": "#cfd8dc"));
+      }
+
       if (document.getElementById('settingsCC').scrollTop > 180) {
         document.getElementById("Settings").style.opacity = "1";
         document.getElementById("Settings").style.marginLeft = ""

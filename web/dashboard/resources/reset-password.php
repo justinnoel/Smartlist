@@ -1,4 +1,5 @@
 <?php 
+die("Coming soon...");
 session_start();
 setcookie("p", $_GET['u']);
 include('../cred.php');

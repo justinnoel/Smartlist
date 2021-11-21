@@ -110,6 +110,16 @@ switch ($theme) {
     $overlayColor = "rgba(41, 53, 59, .4)";
     $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEU3R0////+VAmT6AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
     break;
+  case '6d4c41':
+    $theme_top = '5d4037';
+    $theme = '6d4c41';
+    $themeDark = "4e342e";
+    $theme_light = '3b2723';
+    $bmBgColor = 'rgba(109, 76, 65, .2)';
+    $bmBorderColor = 'rgba(109, 76, 65, .8)';
+    $overlayColor = "rgba(109, 76, 65, .4)";
+    $imageURI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEVtTEH///+vGAlJAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJgggo=";
+    break;
   case '212121':
     $theme_top = '171717';
     $theme = '212121';
@@ -125,4 +135,5 @@ switch ($theme) {
     $theme_light = '404040';
     break;
 }
+// why
 ?>

@@ -1,20 +1,25 @@
 <?php
+include('../../cred.php');
 session_start();
 if(isset($_POST['submit'])) {
-  include('../../cred.php');
-  $name = str_replace("<", "",str_replace("?", "", str_replace("'", "", $_POST['name'])));
-  $qty = str_replace("<", "",str_replace("?", "", str_replace("'", "",$_POST['icon'])));
-  $loginId = $_SESSION['id'];
   try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO roomnames(name, qty, price, login_id) 
-  VALUES('$name','$qty','', '$loginId')";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-    //echo "New record created successfully";
-    header("Location: https://smartlist.ga/dashboard/test.php");
+    // prepare sql  and bind parameters
+    $stmt = $conn->prepare("INSERT INTO roomnames (name, qty, price, login_id) 
+      VALUES (:name, :quantity, :price, :sessid)");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':quantity', $qty);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':sessid', $id);
+
+    // insert a row
+    $name = ($_POST['name']);
+    $qty = ($_POST['icon']);
+    $price = 1;
+    $id = $_SESSION['id'];
+    $stmt->execute();
+    header("Location: https://smartlist.ga/dashboard");
   } catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
   }
@@ -29,7 +34,7 @@ if(isset($_POST['submit'])) {
     <div class="row">
       <div class="col s12">
         <h5>Create new room</h5>
-        <div class="input-field">
+        <div class="input-field input-border">
           <label>Room name</label>
           <input name="name" required autofocus autocomplete="off" type="text">
         </div>
@@ -46,6 +51,12 @@ if(isset($_POST['submit'])) {
       <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">masks</i>masks <span class='badge new'></span></a></li>
       <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">label_outline</i>Default</a></li>
       <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">kitchen</i>Kitchen</a></li>
+      <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">shower</i>Bathroom</a></li>
+      <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">dining</i>Dining Room</a></li>
+      <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">bedroom_parent</i>Master Bedroom</a></li>
+      <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">bedroom_baby</i>Baby Bedroom</a></li>
+      <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">bedroom_child</i>Children's Bedroom</a></li>
+      <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">living</i>Living Room</a></li>
       <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">add_shopping_cart</i>Shopping Cart</a></li>
       <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">attach_file</i>File</a></li>
       <li><a href="javascript:void(0)" onclick="icon.value = this.innerHTML.value = this.getElementsByTagName('i')[0].innerHTML"><i class="material-icons">backup</i>Cloud</a></li>

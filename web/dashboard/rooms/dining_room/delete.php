@@ -1,40 +1,52 @@
-<?php session_start();
-include('../../cred.php');
-$id = intval($_GET['id']);
+<?php
+ini_set("display_errors", 1);
+session_start();
+include ('../../cred.php');
+define("_roomName", "dining_room");
 try {
-$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM dining_room WHERE id=" . $_GET['id'];
-$users = $dbh->query($sql);
-foreach ($users as $row)
-{
-    $name = $row['name'];
-    $qty = $row['name'];
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = $dbh->prepare("SELECT * FROM "._roomName." WHERE id=:id");
+
+    $sql->execute(array(
+        ':id' => intval($_GET['id'])
+    ));
+    $users = $sql->fetchAll();
+
+    foreach ($users as $row) {
+        $name = $row['name'];
+        $qty = $row['qty'];
+    }
+    $dbh = null;
+}
+catch(PDOexception $e) {
+    echo "Error is: " . $e->getmessage();
+}
+try {
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = $dbh->prepare("DELETE FROM "._roomName." WHERE id=:id");
+    $sql->execute(array(
+        ':id' => $_GET['id']
+    ));
+
+}
+catch(PDOException $e) {
+    echo $sql . "<br>" . $e->getMessage();
 }
 $dbh = null;
-}
-catch(PDOexception $e)
-{
-echo "Error is: " . $e->etmessage();
-}
-try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "DELETE FROM dining_room WHERE id=$id";
-  $conn->exec($sql);
-} catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
-}
-$conn = null;
 
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO trash (name, qty, login, room)
-  VALUES (".json_encode($name).", ".json_encode($qty).", ".json_encode($_SESSION['id']).", 'Dining Room')";
-  $conn->exec($sql);
-} catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = $dbh->prepare("INSERT INTO trash (name, qty, login, room) VALUES (:name, :qty, :sessid, :room)");
+    $sql->execute(array(
+        ':name' => $name,
+        ':qty' => $qty,
+        ':sessid' => $_SESSION['id'],
+        ':room' => "Dining Room",
+    ));
+}
+catch(PDOException $e) {
+    echo $sql . "<br>" . $e->getMessage();
 }
 
-$conn = null;
+$dbh = null;
 ?>

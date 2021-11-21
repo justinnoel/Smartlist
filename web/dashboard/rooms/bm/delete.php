@@ -1,14 +1,17 @@
-<?php 
+<?php
+ini_set("display_errors", 1);
 session_start();
-include('../../cred.php');
+include ('../../cred.php');
+define("_roomName", "bm");
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "DELETE FROM bm WHERE id=".$_GET['id'];
-  $conn->exec($sql);
-} catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
-}
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $sql = $dbh->prepare("DELETE FROM bm WHERE id=:id");
+    $sql->execute(array(
+        ':id' => $_GET['id']
+    ));
 
-$conn = null;
-?>
+}
+catch(PDOException $e) {
+    echo $sql . "<br>" . $e->getMessage();
+}
+$dbh = null;

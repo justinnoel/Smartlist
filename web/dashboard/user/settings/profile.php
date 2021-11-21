@@ -2,8 +2,11 @@
 session_start();
 include('../../cred.php');
 $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$sql = "SELECT * FROM login WHERE id=" . $_SESSION['id'];
-$users = $dbh->query($sql);
+$sql = $dbh->prepare("SELECT * FROM login WHERE id=:sessid");
+
+$sql->execute(array( ':sessid' => $_SESSION['id'] ));
+$users = $sql->fetchAll();
+
 foreach ($users as $row) {
   $_SESSION['name'] = decrypt($row['name']);
   $_SESSION['email'] = decrypt($row['email']);
@@ -13,15 +16,15 @@ foreach ($users as $row) {
 <div class="container">
   <form action="./user/settings/editProfile.php" method="POST" id="editProfile">
     <h5>Edit profile</h5>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Name</label>
       <input type="text" name="name" autocomplete="off" value="<?=($_SESSION['name']);?>" autofocus>
     </div>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Email</label>
       <input type="text" name="email" autocomplete="off" value="<?=($_SESSION['email']);?>" autofocus>
     </div>
-    <button class="btn blue-grey waves-effect waves-light"><i class="material-icons left">save</i> SAVE</button>
+    <button class="btn blue-grey waves-effect waves-light btn-round darken-3"><i class="material-icons left">save</i> Save</button>
   </form>
   <h6>Looking for something else? </h6>
   <div class='collection'>

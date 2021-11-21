@@ -35,9 +35,13 @@ $q = str_replace('"', '', trim($_POST['query']));
     try
     {
       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $sql = "SELECT * FROM labels WHERE login=" . $_SESSION['id'];
-      $users = $dbh->query($sql);
-      $c1 = $users->rowCount();
+    $sql = $dbh->prepare("SELECT * FROM bathroom WHERE id=:id");
+
+    $sql->execute(array(
+        ':id' => intval($_GET['id'])
+    ));
+    $users = $sql->fetchAll();
+      $c1 = count($users);
       foreach ($users as $row){
     ?>
     <div class="chip waves-effect chip-outline" onclick="filterResults(this)"><?=$row['name'];?></div>

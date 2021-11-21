@@ -1,157 +1,149 @@
-<?php
-session_start();
-include("../../cred.php");
-$number_notify = $_SESSION['number_notify'];
-?>
-<style>
-  .rc .collection-item:not(.active) {
-    line-height: 40px !important;
+<?php 
+session_start(); 
+include('../../cred.php');
+$_SESSION['id'] = intval($_SESSION['id']);
+if(!isset($_SESSION['id'])){header('location: ../../');}
+  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $sql = $dbh->prepare("SELECT * FROM login WHERE id=:sessid");
+  $sql->execute(array( ':sessid' => $_SESSION['id'] ));
+  $users = $sql->fetchAll();
+  foreach ($users as $row) { 
+    $goal = $row["goal"];
+    $welcome = $row['welcome'];
+    $_SESSION['avatar'] = $row['user_avatar'];
+    $theme = $row['theme'];
+    $_SESSION["number_notify"] = $row['remind'];
+  }
+  $number_notify = $_SESSION['number_notify'];
+  $month = date('M');
+  function sanitize_output($buffer) {
+
+    $search = array(
+      '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+      '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+      '/(\s)+/s',         // shorten multiple whitespace sequences
+      '/<!--(.|\s)*?-->/' // Remove HTML comments
+    );
+
+    $replace = array(
+      '>',
+      '<',
+      '\\1',
+      ''
+    );
+
+    $buffer = preg_replace($search, $replace, $buffer);
+
+    return $buffer;
   }
 
-  .rc .collection .collection-item {
-    transition: all .4s !important;
-  }
+  ob_start("sanitize_output");
 
-  .rc .collection-item:hover {
-    /*background: rgba(0, 0, 0, .1) !important;*/
-  }
-
-  @media only screen and (max-width: 600px) {
-    .rc {
-      width: 100% !important;
+  ?><!DOCTYPE html> 
+  <html>
+    <head> 
+      <meta charset="utf-8"> 
+      <meta name="viewport" content="width=device-width">
+      <meta name="theme-color" content="#eee"> <title>repl.it</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"> 
+      <link href="style.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/css/materialize.min.css"> 
+      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+      <style>
+        .carousel { height: 100vh !important } 
+        .btn-flat { background: transparent !important }
+        .done { background: green !important; opacity: .6 !important } 
+        .done::after { display: block; position: fixed; top:0; left:0; width:100%; content: "You've already bought this item!"; color:white; background:black; padding:10px; z-index:99999; opacity:1 !important } 
+        * {user-select:none}
+      </style>
+    </head> 
+    <body class="white"> 
+      <div class="carousel carousel-slider center" id="main">
+        <div class="carousel-fixed-item center">
+          <a class="btn waves-effect left btn-flat btn-floating btn-large waves-light white-text" onclick="$('.carousel.carousel-slider').carousel('prev')"> 
+            <i class="material-icons">arrow_back_ios</i>
+          </a> 
+          <a class="btn waves-effect right btn-flat btn-floating btn-large waves-light white-text" onclick="$('.carousel.carousel-slider').carousel('next')"> 
+            <i class="material-icons">arrow_forward_ios</i> 
+          </a> 
+        </div> 
+      </div> 
+      <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/js/materialize.min.js"></script>
+      <script>
+        const items = [
+          <?php 
+          try {
+    $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); 
+    $sql = $dbh->prepare(" SELECT * FROM grocerylist where login_id = ".$_SESSION['id']);
+    $sql->execute();
+    $users = $sql->fetchAll();
+    foreach ($users as $row)
+    {
+          ?>{"name": <?=json_encode(decrypt($row['name']));?>, "room": "Shopping List", "id": <?=$row['id'];?>},<?php
     }
-
-    .rc h5 {
-      margin-left: 10px;
-    }
-  }
-
-  .rc .collection .collection-item:first-child {
-    font-size: 30px !important;
-    border: 0;
-    transition: margin-left .2s !important;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    margin: 40px 10px;
-    padding: 20px !important;
-    margin-bottom: 50px;
-    border-radius: 3px;
-    text-align: center;
-  }
-
-  .rc .collection .collection-item:first-child .waves-ripple:first-child {
-    display: none !important
-  }
-
-  .cancel {
-    display: none
-  }
-
-  .rc .collection .collection-item:first-child .cancel {
-    margin-top: 30px;
-    display: inline-block
-  }
-
-  .rc .collection .collection-item:not(:first-child) {
-    opacity: .5
-  }
-
-  * {
-    -webkit-user-drag: none;
-  }
-</style>
-<div class="container rc">
-  <br><br>
-  <div class="collection">
-    <?php
-    try {
-      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $sql = "
-                    SELECT * FROM grocerylist WHERE login_id= " . $_SESSION['id'] . "
-                    ";
-      $users = $dbh->query($sql);
-      foreach ($users as $row) {
-        // var_dump( $row);
-    ?>
-    <a href="javascript:void(0)" id="sl_<?= $row['id'] ?>" class="collection-item waves'-effect">
-      <?= htmlspecialchars(($row['name'])); ?>
-      <br>
-      <div class="chip">Shopping List</div><br>
-      <button class="cancel btn circle btn-floating btn-flat waves-effect"><i class="material-icons" style="color: black !important">close</i></button>
-    </a>
-    <?php
-      }
       $dbh = null;
-    } catch (PDOexception $e) {
-      echo "Error is: " . $e->etmessage();
-    }
-    ?>
-    <?php
-    try {
-      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $sql = "
-                    SELECT * FROM products WHERE login_id= " . $_SESSION['id'] . "
-                    UNION
-                    SELECT * FROM garage WHERE login_id= " . $_SESSION['id'] . "
-                    UNION
-                    SELECT * FROM bedroom WHERE login_id= " . $_SESSION['id'] . "
-                    UNION
-                    SELECT * FROM bathroom WHERE login_id= " . $_SESSION['id'] . "
-                    UNION
-                    SELECT * FROM laundry WHERE login_id= " . $_SESSION['id'] . "
-                    UNION
-                    SELECT * FROM family WHERE login_id= " . $_SESSION['id'] . "
-                    ";
-      $users = $dbh->query($sql);
-      foreach ($users as $row) {
-        if (intval(preg_replace("/[^0-9]/", "", decrypt($row['qty']))) < $number_notify) {
-          // var_dump( $row );
-    ?>
-    <a href="javascript:void(0)" id="kitchenP_<?= $row['id'] ?>" class="collection-item waves-effect">
-      <?= htmlspecialchars(decrypt($row['name'])); ?><br>
-      <button class="cancel btn circle btn-floating btn-flat waves-effect"><i class="material-icons" style="color: black !important">close</i></button>
-      <button class="cancel btn circle btn-floating btn-flat waves-effect" onclick="$('#div1').load('./rooms/todo_qadd.php?name='+this.parentElement.innerText.replace('close', ''), function() {M.toast({html: 'Added to Shopping List!'})})"><i class="material-icons" style="color: black !important">receipt_long</i></button>
-    </a>
-    <?php
-        }
-      }
-      $dbh = null;
-    } catch (PDOexception $e) {
-      echo "Error is: " . $e->etmessage();
-    }
-    ?>
-  </div>
-  <a href='javascript:void(0)' onclick="localStorage.clear()" class='right'>Restart</a>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  }
+          catch(PDOexception $e) { echo "Error is: " . $e->getmessage(); }
+          try {
+            $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $sql = $dbh->prepare("
+    SELECT id, name, qty, login_id, star, 'Kitchen' as Source
+    FROM products 
+    where login_id = ".$_SESSION['id']."
+    union all
 
-<script>
-  $(document).ready(function() {
-    if (localStorage.getItem('done')) {
-      var done = JSON.parse(localStorage.getItem("done"))
-      done.forEach((el) => {
-        document.getElementById(el).remove()
-      })
-    } else {
-      localStorage.setItem("done", "[]")
-      var done = JSON.parse(localStorage.getItem("done"))
-      }
-    $(".rc .collection-item").click(function(e) {
-      done.push(this.id)
-      localStorage.setItem("done", JSON.stringify(done))
-      // this.style.position = 'relative';
-      this.style.width = this.style.width;
-      this.style.whiteSpace = "nowrap"
-      this.style.marginLeft = "150vw";
-      this.style.lineHeight = "1px !important"
-      // this.classList.add('active')
-      this.style.padding = 0;
-      this.style.fontSize = "0"
-      setTimeout(() => {
-        this.style.maxHeight = "0"
-        setTimeout(() => {
-          this.remove()
-        }, 200)
-      }, 400)
-    })
-  });
-</script>
+
+    SELECT id, name, qty, login_id, star, 'Bedroom' as Source
+    FROM bedroom 
+    where login_id = ".$_SESSION['id']."
+
+    union all
+
+    SELECT id, name, qty, login_id, star, 'Bathroom' as Source
+    FROM bathroom 
+    where login_id = ".$_SESSION['id']."
+
+    union all
+
+    SELECT id, name, qty, login_id, star, 'Garage' as Source
+    FROM garage 
+    where login_id = ".$_SESSION['id']."
+
+    union all
+
+    SELECT id, name, qty, login_id, star, 'Dining Room' as Source
+    FROM dining_room 
+    where login_id = ".$_SESSION['id']."
+
+    union all
+
+    SELECT id, name, qty, login_id, star, 'Laundry Room' as Source
+    FROM laundry 
+    where login_id = ".$_SESSION['id']."
+
+    union all
+
+    SELECT id, name, qty, login_id, star, 'Storage Room' as Source
+    FROM 	storageroom 
+    where login_id = ".$_SESSION['id']."
+
+    union all
+
+    SELECT id, name, qty, login_id, star, 'Family' as Source
+    FROM family 
+    where login_id = ".$_SESSION['id'].";
+    ");
+  $sql->execute();
+  $users = $sql->fetchAll();
+  foreach ($users as $row)
+  {
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify && !empty((decrypt($row['qty']))))
+    {
+?>{"name": <?=json_encode(decrypt($row['name']));?>, "room": <?=json_encode($row['Source']);?>},<?php
+    }
+    $dbh = null;
+  }
+}
+catch(PDOexception $e) { echo "Error is: " . $e->getmessage(); }
+?> ];</script><div id="ajaxLoader"></div><script src="script.js" ></script></body></html>

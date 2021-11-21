@@ -1,20 +1,37 @@
 <?php 
 session_start();
+include('./lib/phpmailer/phpmailer.php');
+include('./lib/phpmailer/Exception.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if(!isset($_GET['email'])) { ?>
+<script>
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+</script>
 <center>
-  <script>window.location.href="https://smartlist.ga/dashboard/"</script>
   <img src="https://img.icons8.com/fluency/2x/mail.png">
   <h5>Verify your email</h5>
   <P>We've sent a verification email to <b><?=$_SESSION['re_email'];?></b>. Please click on the link. Make sure to check your spam if it did not arraive</P>
-  <p>Didn't recieve an email? <a href="#" class="blue-text" onclick="$('#ajaxLoader').load('email.php?id=<?=$_SESSION['re_id'];?>&email',() => {M.toast({html:'Sent email!'})})" style="color:blue!important">Resend</a></p>
-  <p>Incorrect email? <a href="#" class="blue-text" onclick="$('#ajaxLoader').load('https://smartlist.ga/dashboard/change-email.php?email='+prompt('Enter your email'), () => {M.toast({html:'Updated email!'})})" style="color:blue!important">Change</a></p>
+  <p>Didn't recieve an email? <a href="javascript:void(0)" class="blue-text" onclick="$('#ajaxLoader').load('https://smartlist.ga/dashboard/email.php?id=<?=$_SESSION['re_id'];?>&email',() => {M.toast({html:'Sent email! Might take up to 5 minutes to arrive. Make sure to check your spam folder.'})})" style="color:blue!important">Resend</a></p>
+  <p>Incorrect email? <a href="javascript:void(0)" class="blue-text" onclick="var d=prompt('Enter your email');if(validateEmail(d)){$('#ajaxLoader').load('https://smartlist.ga/dashboard/change-email.php?email='+d, (e) => {alert(e);M.toast({html:'Updated email!'})})} else {M.toast({html:'Please enter a valid email!'})}" style="color:blue!important">Change</a></p>
   <div id="ajaxLoader"></div>
 </center>
 <?php } else {
-  $to = ($_SESSION['re_email']);
-  $subject = 'Welcome to Smartlist!!!';
-  $message = '
-<!doctype html>
+$mail = new PHPMailer(true);
+
+try {
+  $mail->setFrom('hello@smartlist.ga', 'Smartlist');
+  $mail->addAddress($_SESSION['re_email']);               //Name is optional
+
+  $mail->isHTML(true);                                  //Set email format to HTML
+  $mail->Subject = 'Welcome to Smartlist!!!';
+  $mail->Body    = '
+  <!doctype html>
 <html lang="en-US">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -92,10 +109,12 @@ if(!isset($_GET['email'])) { ?>
     </table>
   </body>
 </html>
-';
-  $headers = "MIME-Version: 1.0" . "\r\n";
-  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-  $headers .= 'From: <hello@smartlist.ga>' . "\r\n";
+  ';
+  $mail->AltBody = 'Welcome to Smartlist! Click on the link below to get started: https://smartlist.ga/dashboard/resources/verifynewaccount.php?u='.urlencode(hash('sha256', $_SESSION['re_id']));
 
-  mail($to,$subject,$message,$headers);
+  $mail->send();
+//   echo 'Success!';
+} catch (Exception $e) {
+  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
 } ?>

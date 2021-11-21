@@ -1,15 +1,17 @@
 <?php 
+ini_set("display_errors", 1);
 session_start(); 
 include('../cred.php');
+
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "UPDATE login SET remind=".json_encode($_GET['remind']). " WHERE id=".$_SESSION['id'];
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
+  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $sql = $dbh->prepare("UPDATE login SET remind=:remind WHERE id=:sessid");
+
+  $sql->execute(array(
+      ':remind' => $_GET['remind'],
+      ':sessid' => intval($_SESSION['id'])
+  ));
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }
-
-$conn = null;
 ?>

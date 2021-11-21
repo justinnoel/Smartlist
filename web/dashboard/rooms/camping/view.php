@@ -1,10 +1,14 @@
-<?php session_start(); include('../../cred.php');?>
+<?php
+ini_set('display_errors', 1);
+session_start();
+include('../../cred.php');
+?> 
 <div class="container">
   <?php
   try
   {
     $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $sql = "SELECT * FROM camping WHERE login_id=" . $_SESSION['id'] . " OR login_id= " . json_encode(decrypt($_SESSION['syncid']));
+    $sql = "SELECT * FROM camping WHERE login_id=" . intval($_SESSION['id']) . " OR login_id= " . json_encode(decrypt(intval($_SESSION['syncid'])));
     $users = $dbh->query($sql);
     $dr_count = $users->rowCount();
     if ($dr_count > 0)

@@ -1,176 +1,294 @@
 <?php
-session_set_cookie_params(0, '/', ".smartlist.ga",false, false);
+ini_set("display_errors", 1);
+session_set_cookie_params(0, "/", ".smartlist.ga", false, false);
 session_start();
-$_COOKIE['attempts']++;
-if (!isset($_COOKIE['attempts'])) {
-  setcookie('attempts', 0, time() + (86400 * 1) , "/");
+
+include "./lib/phpmailer/phpmailer.php";
+include "./lib/phpmailer/Exception.php";
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+if (!isset($_COOKIE["attempts"])) {
+    setcookie("attempts", 0, time() + 86400 * 1, "/");
 }
-if (isset($_COOKIE['attempts']) && $_COOKIE['attempts'] >= 4) {
-  echo 'max';
-  exit();
+if (isset($_COOKIE["attempts"]) && $_COOKIE["attempts"] >= 4) {
+    echo "max";
+    exit();
 }
-function gen_uuid() {
-  return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x', mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0x0fff ) | 0x4000, mt_rand( 0, 0x3fff ) | 0x8000, mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ));
+if (isset($_COOKIE["attempts"])) {
+    $_COOKIE["attempts"]++;
 }
-include ('cred.php');
-if (isset($_GET['sett'])) {
-  $msg1 = "Please login again";
+if (isset($_SESSION["valid"]) && !isset($_POST["app"])) {
+    echo "Valid";
+    exit();
+}
+function gen_uuid()
+{
+    return sprintf(
+        "%04x%04x-%04x-%04x-%04x-%04x%04x%04x",
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff)
+    );
+}
+include "cred.php";
+if (isset($_GET["sett"])) {
+    $msg1 = "Please login again";
 }
 try {
-  $db = new PDO('mysql:host=' . $servername . ';dbname=' . $dbname . ';charset=utf8mb4', $username, $password);
-  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-}
-catch(PDOException $e) {
-  echo "Connection failed : " . $e->getMessage();
+    $db = new PDO(
+        "mysql:host=" . $servername . ";dbname=" . $dbname . ";charset=utf8mb4",
+        $username,
+        $password
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+} catch (PDOException $e) {
+    echo "Connection failed : " . $e->getMessage();
 }
 $msg = "";
-$pwd_hash = password_hash($_POST['password'], PASSWORD_ARGON2I);
-$username1 = trim($_POST['username']);
+$pwd_hash = password_hash($_POST["password"], PASSWORD_ARGON2I);
+$username1 = isset($_POST["username"]) ? trim($_POST["username"]) : "";
 $password1 = trim($pwd_hash);
-if(isset($_SESSION['valid'])) {
-  $conn1 = new PDO("mysql:host=$servername;dbname=".$username."_smartlist_api", $username, $password);
-  $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $stmt1 = $conn1->prepare("SELECT * FROM apps");
-  $stmt1->execute();
-  $result1 = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
-  $d = $stmt1->fetchAll();
-  foreach($d as $r) {
+if (isset($_SESSION["valid"])) {
+    $conn1 = new PDO(
+        "mysql:host=$servername;dbname=" . $username . "_api",
+        $username,
+        $password
+    );
+    $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt1 = $conn1->prepare("SELECT * FROM apps");
+    $stmt1->execute();
+    $result1 = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
+    $d = $stmt1->fetchAll();
+    foreach ($d as $r) {
+        if (isset($_POST["app"]) && hash("sha512", $r["id"]) == $_POST["app"]) {
+            $token = gen_uuid();
 
-    if(hash("sha512", $r['id']) == $_POST['app']) {
-      $token = gen_uuid();
+            try {
+                $conn = new PDO(
+                    "mysql:host=$servername;dbname=" . $username . "_api",
+                    $username,
+                    $password
+                );
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                // prepare sql  and bind parameters
+                $stmt = $conn->prepare(
+                    $sql = "INSERT INTO tokens (name, email, username, user_avatar, app, userID, color)
+        VALUES (:name, :email, :username, :avatar, :token, :sessid, :color)"
+                );
+                $stmt->bindParam(":name", $name);
+                $stmt->bindParam(":email", $email);
+                $stmt->bindParam(":username", $uname1);
+                $stmt->bindParam(":avatar", $av);
+                $stmt->bindParam(":token", $token);
+                $stmt->bindParam(":sessid", $id);
+                $stmt->bindParam(":color", $color);
 
-      try {
-        $conn = new PDO("mysql:host=$servername;dbname=".$username."_smartlist_api", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO tokens (name, email, username, user_avatar, app, userID)
-  VALUES (".json_encode($_SESSION['name']).", ".json_encode($_SESSION['email']).", ".json_encode($_SESSION['username']).", ".json_encode($_SESSION['avatar']).", ".json_encode($token).", ".json_encode( md5(md5(md5($_SESSION['id']))) ).")";
-        // use exec() because no results are returned
-        $conn->exec($sql);
-      } catch(PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-      }
+                // insert a row
+                $name = $_SESSION["name"];
+                $email = $_SESSION["email"];
+                $uname1 = $_SESSION["username"];
+                $av = $_SESSION["avatar"];
+                $color = "#" . $_SESSION["theme"];
+                $id = md5(md5(md5($_SESSION["id"])));
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo $sql . "<br>" . $e->getMessage();
+            }
 
-      $conn1 = null;
+            $conn1 = null;
 
-
-      echo $r['redirectURI']."__AUTH__|".$token;
-      exit();
+            echo $r["redirectURI"] . "__AUTH__|" . $token;
+            exit();
+        }
     }
-  }
 }
 if ($username1 != "" && $password1 != "") {
-  try {
-    $query = "SELECT * from `login` WHERE `username`=:username OR `email` =:usernamea";
-    $stmt = $db->prepare($query);
-    $stmt->bindParam('username', $username1, PDO::PARAM_STR);
-    $stmt->bindParam('usernamea', $username1, PDO::PARAM_STR);
-    $stmt->execute();
-    $count = $stmt->rowCount();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($count == 1 && !empty($row)) {
-      $auth_email = $row['email'];
-      $auth_pwd = $row['password'];
-      if (password_verify($_POST['password'], $auth_pwd)) {
-        $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $sql = "SELECT * FROM auth_ip WHERE ip='" . md5($_SERVER['REMOTE_ADDR']) . "' AND login=" . $row['id'];
-        $users = $dbh->query($sql);
-        // $users->rowCount() >= 1
-        if ($users->rowCount() >= 0) {
-          if($row['accept'] === 1) {
-            $validuser = $row['username'];
-            $_SESSION['valid'] = $validuser;
-            $_SESSION['name'] = htmlspecialchars(decrypt($row['name']));
-            $_SESSION['id'] = htmlspecialchars($row['id']);
-            $_SESSION['email'] = htmlspecialchars(decrypt($row['email']));
-            $_SESSION['username'] = htmlspecialchars($row['username']);
-            $_SESSION['notifications'] = htmlspecialchars($row['notifications']);
-            $_SESSION['number_notify'] = htmlspecialchars($row['remind']);
-            $t = htmlspecialchars($row['syncid']);
-            if (empty($t)) {
-              $_SESSION['syncid'] = - 1;
-            }
-            else {
-              $_SESSION['syncid'] = $t;
-            }
-            $ta = $row['user_avatar'];
-            if (empty($ta)) {
-              $_SESSION['avatar'] = "https://i.stack.imgur.com/34AD2.jpg";
-            }
-            else {
-              $_SESSION['avatar'] = htmlspecialchars($ta);
-            }
-            $_SESSION['welcome'] = htmlspecialchars($row['welcome']);
-            $_SESSION['theme'] = htmlspecialchars($row['theme']);
-            if ($row['welcome'] === "1") { 
-              setcookie('attempts', 0, time() + (86400 * 30) , "/");
-              if(!isset($_POST['app'])) {
-                echo 'Valid'; 
-              }
-              else {
-                $conn1 = new PDO("mysql:host=$servername;dbname=".$username."_smartlist_api", $username, $password);
-                $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt1 = $conn1->prepare("SELECT * FROM apps");
-                $stmt1->execute();
-                $result1 = $stmt1->setFetchMode(PDO::FETCH_ASSOC);
-                $d = $stmt1->fetchAll();
-                foreach($d as $r) {
+    try {
+        $query =
+            "SELECT * from `login` WHERE `username`=:username OR `email` =:usernamea";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam("username", $username1, PDO::PARAM_STR);
+        $stmt->bindParam("usernamea", $username1, PDO::PARAM_STR);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($count == 1 && !empty($row)) {
+            $auth_email = $row["email"];
+            $auth_pwd = $row["password"];
+            if (password_verify($_POST["password"], $auth_pwd)) {
+                $dbh = new PDO(
+                    "mysql:host=$servername;dbname=$dbname",
+                    $username,
+                    $password
+                );
+                $json = file_get_contents(
+                    "https://ipinfo.io/" . $_SERVER["REMOTE_ADDR"] . "/geo"
+                );
+                if ($json) {
+                    $json = json_decode($json, true);
+                    $country = $json["country"];
+                    $region = $json["region"];
+                    $city = $json["city"];
+                } else {
+                    $country = "Error";
+                    $region = "Error";
+                    $city = "Error";
+                }
+                date_default_timezone_set($json["timezone"]);
 
-                  if(hash("sha512", $r['id']) == $_POST['app']) {
-                    $token = gen_uuid();
+                $sql =
+                    "SELECT * FROM auth_ip WHERE ip='" .
+                    md5($city) .
+                    "' AND login=" .
+                    $row["id"];
+                $users = $dbh->query($sql);
+                // $users->rowCount() >= 1
+                // This feature is known to have bugs.
+                if ($users->rowCount() >= 1) {
+                    if ($row["accept"] === 1) {
+                        $validuser = $row["username"];
+                        $_SESSION["valid"] = $validuser;
+                        $_SESSION["name"] = htmlspecialchars(
+                            decrypt($row["name"])
+                        );
+                        $_SESSION["id"] = htmlspecialchars($row["id"]);
+                        $_SESSION["email"] = htmlspecialchars(
+                            decrypt($row["email"])
+                        );
+                        $_SESSION["username"] = htmlspecialchars(
+                            $row["username"]
+                        );
+                        $_SESSION["number_notify"] = htmlspecialchars(
+                            $row["remind"]
+                        );
+                        $t = htmlspecialchars($row["syncid"]);
+                        if (empty($t)) {
+                            $_SESSION["syncid"] = -1;
+                        } else {
+                            $_SESSION["syncid"] = $t;
+                        }
+                        $ta = $row["user_avatar"];
+                        if (empty($ta)) {
+                            $_SESSION["avatar"] =
+                                "https://i.stack.imgur.com/34AD2.jpg";
+                        } else {
+                            $_SESSION["avatar"] = htmlspecialchars($ta);
+                        }
+                        $_SESSION["welcome"] = htmlspecialchars(
+                            $row["welcome"]
+                        );
+                        $_SESSION["theme"] = htmlspecialchars($row["theme"]);
+                        if ($row["welcome"] === "1") {
+                            setcookie("attempts", 0, time() + 86400 * 30, "/");
+                            if (!isset($_POST["app"])) {
+                                echo "Valid";
+                            } else {
+                                $conn1 = new PDO(
+                                    "mysql:host=$servername;dbname=" .
+                                        $username .
+                                        "_api",
+                                    $username,
+                                    $password
+                                );
+                                $conn1->setAttribute(
+                                    PDO::ATTR_ERRMODE,
+                                    PDO::ERRMODE_EXCEPTION
+                                );
+                                $stmt1 = $conn1->prepare("SELECT * FROM apps");
+                                $stmt1->execute();
+                                $result1 = $stmt1->setFetchMode(
+                                    PDO::FETCH_ASSOC
+                                );
+                                $d = $stmt1->fetchAll();
+                                foreach ($d as $r) {
+                                    if (
+                                        hash("sha512", $r["id"]) ==
+                                        $_POST["app"]
+                                    ) {
+                                        $token = gen_uuid();
+                                        try {
+                                            $conn = new PDO(
+                                                "mysql:host=$servername;dbname=" .
+                                                    $username .
+                                                    "_api",
+                                                $username,
+                                                $password
+                                            );
+                                            // set the PDO error mode to exception
+                                            $conn->setAttribute(
+                                                PDO::ATTR_ERRMODE,
+                                                PDO::ERRMODE_EXCEPTION
+                                            );
+                                            // prepare sql  and bind parameters
+                                            $stmt = $conn->prepare(
+                                                $sql = "INSERT INTO tokens (name, email, username, user_avatar, app, userID, color)
+        VALUES (:name, :email, :username, :avatar, :token, :sessid, :color)"
+                                            );
+                                            $stmt->bindParam(":name", $name);
+                                            $stmt->bindParam(":email", $email);
+                                            $stmt->bindParam(
+                                                ":username",
+                                                $uname1
+                                            );
+                                            $stmt->bindParam(":avatar", $av);
+                                            $stmt->bindParam(":token", $token);
+                                            $stmt->bindParam(":sessid", $id);
+                                            $stmt->bindParam(":color", $color);
+
+                                            // insert a row
+                                            $name = $_SESSION["name"];
+                                            $email = $_SESSION["email"];
+                                            $uname1 = $_SESSION["username"];
+                                            $av = $_SESSION["avatar"];
+                                            $color = "#" . $_SESSION["theme"];
+                                            $id = md5(
+                                                md5(md5($_SESSION["id"]))
+                                            );
+                                            $stmt->execute();
+                                        } catch (PDOException $e) {
+                                            echo $sql .
+                                                "<br>" .
+                                                $e->getMessage();
+                                        }
+
+                                        $conn1 = null;
+
+                                        echo $r["redirectURI"] .
+                                            "__AUTH__|" .
+                                            $token;
+                                    }
+                                }
+                            }
+                        } else {
+                            echo "Welcome";
+                        }
+                    } else {
+                        $_SESSION["re_id"] = $row["id"];
+                        $_SESSION["re_email"] = decrypt($row["email"]);
+                        echo "verify";
+                        exit();
+                    }
+                } else {
+                    $_SESSION["id"] = htmlspecialchars($row["id"]);
+                    $to = decrypt($row["email"]);
+                    $mail = new PHPMailer(true);
 
                     try {
-                      $conn = new PDO("mysql:host=$servername;dbname=".$username."_smartlist_api", $username, $password);
-                      // set the PDO error mode to exception
-                      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                      $sql = "INSERT INTO tokens (name, email, username, user_avatar, app, userID)
-  VALUES (".json_encode($_SESSION['name']).", ".json_encode($_SESSION['email']).", ".json_encode($_SESSION['username']).", ".json_encode($_SESSION['avatar']).", ".json_encode($token).", ".json_encode( md5(md5(md5($_SESSION['id']))) ).")";
-                      // use exec() because no results are returned
-                      $conn->exec($sql);
-                    } catch(PDOException $e) {
-                      echo $sql . "<br>" . $e->getMessage();
-                    }
-
-                    $conn1 = null;
-
-
-                    echo $r['redirectURI']."__AUTH__|".$token;
-                  }
-
-                }
-
-              }
-            }
-            else { echo "Welcome"; }
-          }
-          else {
-            $_SESSION['re_id'] = $row['id'];
-            $_SESSION['re_email'] = decrypt($row['email']);
-            echo "verify";
-            exit();
-          }
-        }
-        else
-        {
-
-          $json = file_get_contents("https://ipinfo.io/".$_SERVER['REMOTE_ADDR']."/geo");
-          if($json) {
-            $json = json_decode($json, true);
-            $country = $json['country'];
-            $region = $json['region'];
-            $city = $json['city'];
-          }
-          else {
-            $country = "Error";
-            $region = "Error";
-            $city = "Error";
-          }
-          date_default_timezone_set($json['timezone']);
-          $_SESSION['id'] = htmlspecialchars($row['id']);
-          $to = decrypt($row['email']);
-          $subject = 'Verify New IP';
-          $message = '
+                        $mail->setFrom("hello@smartlist.ga", "Smartlist");
+                        $mail->addAddress($to);
+                        $mail->isHTML(true); //Set email format to HTML
+                        $mail->Subject = "Verify new login location";
+                        $mail->Body =
+                            '
 <!doctype html>
 <html lang="en-US">
   <head>
@@ -215,19 +333,35 @@ if ($username1 != "" && $password1 != "") {
                       <br>
                       <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                         Hey, <br>
-                        Someone (hopefully you) has tried logging in from the following IP: '.$_SERVER['REMOTE_ADDR'].'
+                        Someone (hopefully you) has tried logging in from the following IP: ' .
+                            $_SERVER["REMOTE_ADDR"] .
+                            '
                         <br>
                         If this isn\'t you, don\'t worry, that user doesn\'t have access to your account until you log in. 
                         <br>
                         <br>
-                        <b style="font-weight: bold !importannt">Country</b>: '.$country.'<br>
-                        <b style="font-weight: bold !importannt">City:</b> '.$city.'<br>
-                        <b style="font-weight: bold !importannt">Region:</b> '.$region.'<br>
-                        <b style="font-weight: bold !importannt">Location:</b> '.$json['loc'].'<br>
-                        <b style="font-weight: bold !importannt">Postal Code:</b> '.$json['postal'].'<br>
-                        <b style="font-weight: bold !importannt">Time:</b> '.(date("Y-m-d h:i",time())).'<br>
+                        <b style="font-weight: bold !importannt">Country</b>: ' .
+                            $country .
+                            '<br>
+                        <b style="font-weight: bold !importannt">City:</b> ' .
+                            $city .
+                            '<br>
+                        <b style="font-weight: bold !importannt">Region:</b> ' .
+                            $region .
+                            '<br>
+                        <b style="font-weight: bold !importannt">Location:</b> ' .
+                            $json["loc"] .
+                            '<br>
+                        <b style="font-weight: bold !importannt">Postal Code:</b> ' .
+                            $json["postal"] .
+                            '<br>
+                        <b style="font-weight: bold !importannt">Time:</b> ' .
+                            date("Y-m-d h:i", time()) .
+                            '<br>
                       </p>
-                      <a href="https://smartlist.ga/dashboard/resources/verify_email.php?u='.urlencode(md5($_SERVER['REMOTE_ADDR'])).'"
+                      <a href="https://smartlist.ga/dashboard/resources/verify_email.php?u=' .
+                            md5($city) .
+                            '"
                          style="background:#4527a0;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:5px;">Authorize login</a>
                       <br><br>
                       <p style="color:#aaa; font-size:15px;line-height:24px; margin:0;">
@@ -257,36 +391,42 @@ if ($username1 != "" && $password1 != "") {
     </table>
   </body>
 </html>
-';
-          $headers = "MIME-Version: 1.0" . "\r\n";
-          $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-          $headers .= 'From: <hello@smartlist.ga>' . "\r\n";
+  ';
+                        $mail->AltBody =
+                            "Verify your email here: https://smartlist.ga/dashboard/resources/verify_email.php?u=" .
+                            md5($city);
 
-          mail($to,$subject,$message,$headers);
-          echo 'confirm_email '.$to;
+                        $mail->send();
+                        //   echo 'Success!';
+                    } catch (Exception $e) {
+                        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }
+                    echo "confirm_email " . $to;
+                }
+            } else {
+                //   Invalid Password
+                setcookie(
+                    "attempts",
+                    $_COOKIE["attempts"]++,
+                    time() + 86400 * 30,
+                    "/"
+                );
+                echo "Invalid";
+            }
+        } else {
+            //   Invalid Username
+            setcookie(
+                "attempts",
+                $_COOKIE["attempts"]++,
+                time() + 86400 * 30,
+                "/"
+            );
+            echo "Invalid";
         }
-      }
-      else
-      {
-        //   Invalid Password
-        setcookie('attempts', $_COOKIE['attempts']++, time() + (86400 * 30) , "/");
-        echo 'Invalid';
-      }
+    } catch (PDOException $e) {
+        echo "Error : " . $e->getMessage();
     }
-    else
-    {
-      //   Invalid Username
-      setcookie('attempts', $_COOKIE['attempts']++, time() + (86400 * 30) , "/");
-      echo 'Invalid';
-    }
-  }
-  catch(PDOException $e)
-  {
-    echo "Error : " . $e->getMessage();
-  }
-}
-else
-{
-  echo 'Empty';
+} else {
+    echo "Empty";
 }
 ?>

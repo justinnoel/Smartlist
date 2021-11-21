@@ -1,4 +1,6 @@
-<?php session_start();?>
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+      .btn {border-radius: 999px;height: auto!important;line-height:40px;text-transform:none !important;padding-left: 20px !important;padding-right: 20px !important;box-shadow: none !important}
       nav a {color: black !important;height:100%;} 
       .w_page {padding-bottom: 100px}
       body {padding-top: 100px}
@@ -19,10 +22,11 @@
       .circle {width:50px;height:50px;cursor:pointer;display:inline-block;margin:4px;transition: all .2s;} 
       /*.circle:hover {box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.75);} */
       .w_page {display:none}
+      .selected {box-shadow:  0px 0px 0px 2px inset #1976d2;pointer-events:none;border-radius:4px;border-color:#1976d2!important}
       #w1 {display: block}
       .__navI .waves-ripple {top: 50% !important; left: 50% !important; transition-duration: .7s !important;background: rgba(0,0,0,0.3)}
       .fade-up {animation: fadeUp .3s forwards;opacity:0;transform:translateY(30px)}
-      @keyframes fadeUp {0% {opacity:0;transform:translateY(30px)} 100% {opacity:1;transform: translateY(0)}}
+      @keyframes fadeUp {0% {opacity:0;transform:translateY(15px)} 100% {opacity:1;transform: translateY(0)}}
       .w_circle {transition: background .2s;background: #eee;display:block;width: 80px;height:80px;text-align:center;border-radius:999px;margin:auto}
       .w_circle div {color:black;user-select:none;cursor:pointer}
       .w_circle div i {margin-top: 27px;transition: all .2s}
@@ -44,6 +48,12 @@
       .zoom:hover {opacity: .8 !important}
       .w_page {padding-top: 10vh}
       @media only screen and (max-width: 900px) {.w_page {padding-top:0 !important;} h1 {font-size: 40px}.row,.col {padding: 0 !important}}
+      .waves-effect:not(.waves-light, ._darkTheme .waves-effect) .waves-ripple {
+          background: rgba(0, 0, 0, .1) !important
+        }
+        ._darkTheme .waves-ripple {background: rgba(255, 255, 255, .2) !important}
+        .waves-light .waves-ripple {background: rgba(255, 255, 255, .2) !important}
+        .waves-ripple { transition: transform .8s cubic-bezier(0.4, 0, 0.2, 1), opacity .4s !important }
     </style>
   </head>
   <body>
@@ -66,14 +76,14 @@
               <?php echo $_SESSION['name']; ?>, what's<br> your favorite color?
             </h1>
             <div class="circle __navI fade-up zoom" style="background: #41308a;animation-delay: 300ms;" onclick="colorInputV('41308a');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #6200ea;animation-delay: 350ms;" onclick="colorInputV('6200ea');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #B00020;animation-delay: 400ms;" onclick="colorInputV('B00020');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #00695c;animation-delay: 450ms;" onclick="colorInputV('00695c');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #00838f;animation-delay: 500ms;" onclick="colorInputV('00838f');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #0277bd;animation-delay: 550ms;" onclick="colorInputV('0277bd');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #2e7d32;animation-delay: 600ms;" onclick="colorInputV('2e7d32');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #ef6c00;animation-delay: 700ms;" onclick="colorInputV('ef6c00');"></div>
-            <div class="circle __navI fade-up zoom" style="background: #ad1457;animation-delay: 750ms;" onclick="colorInputV('ad1457');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #6200ea;animation-delay: 340ms;" onclick="colorInputV('6200ea');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #B00020;animation-delay: 380ms;" onclick="colorInputV('B00020');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #00695c;animation-delay: 420ms;" onclick="colorInputV('00695c');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #00838f;animation-delay: 460ms;" onclick="colorInputV('00838f');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #0277bd;animation-delay: 500ms;" onclick="colorInputV('0277bd');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #2e7d32;animation-delay: 540ms;" onclick="colorInputV('2e7d32');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #ef6c00;animation-delay: 580ms;" onclick="colorInputV('ef6c00');"></div>
+            <div class="circle __navI fade-up zoom" style="background: #ad1457;animation-delay: 620ms;" onclick="colorInputV('ad1457');"></div>
             <input name="color" type="hidden" value="41308a" id="__colorInput">
             <input name='id' type='hidden' value="<?php echo $_SESSION['id']; ?>">
           </div>
@@ -92,6 +102,45 @@
               </button>
             </div>
           </div>
+          
+          
+          <div id="w4" class="w_page">
+            <h3 class="fade-up">
+              What are you using Smartlist for?
+            </h3>
+            <p class="fade-up" style="animation-delay: 100ms">
+              This will help us decide a few settings for you. You can change this in your preferences
+            </p>
+            <input type="hidden" name="purpose" id="purpose" value="personal">
+            <div class="row">
+                <div class="col s12 m6 fade-up" style="animation-delay: 200ms;padding: 3px!important">
+                    <div class="card selected waves-effect" style="width:100%" onclick="$('.selected').removeClass('selected');this.classList.add('selected');document.getElementById('purpose').value='personal'">
+                        <div class="card-content">
+                                <h5><b>Personal</b></h5>
+                                <p>
+                                Smartlist will help you save money and track your home's inventory, give you maintenance reminders, and more. 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 fade-up" style="animation-delay: 200ms;padding: 3px!important">
+                    <div class="card waves-effect" style="width:100%" onclick="$('.selected').removeClass('selected');this.classList.add('selected');document.getElementById('purpose').value='business'">
+                        <div class="card-content">
+                                <h5><b>Business</b></h5>
+                                <p>
+                                Instead of focusing on tracking your home's inventory, you can focus on your finance management
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+              <button type="button" class="fade-up btn blue-grey right darken-3 waves-effect waves-light" onclick="__smPage('w5')" style="animation-delay: 500ms">
+                Next
+              </button>
+            </div>
+          </div>
+          
           <div id="w3" class="w_page" style="padding-top: 1vh">
             <h3 class="fade-up center">
               Creating inventory
@@ -182,14 +231,14 @@
               Next
             </button>
           </div>
-          <div id="w4" class="w_page center">
+          <div id="w5" class="w_page center">
             <h1 class="fade-up">
               You're all set!
             </h1>
             <p class="fade-up" style="animation-delay: 100ms">
               Click the button below to get started!
             </p><br>
-            <button class="waves-effect waves-light btn blue-grey darken-3 fade-up" style="animation-delay: 200ms">
+            <button class="waves-effect waves-light btn blue-grey darken-3 fade-up" style="animation-delay: 200ms" onclick="this.innerHTML = 'We\'re setting up your account. Hang on a sec...'">
               Save, and continue to dashboard
             </button>
           </div>

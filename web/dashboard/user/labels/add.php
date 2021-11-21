@@ -5,10 +5,14 @@ if(isset($_POST["name"])) {
     try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "INSERT INTO labels (name, login) 
-VALUES (".json_encode($_POST['name']).", ".json_encode($_SESSION['id']).")      
-";
-      $conn->exec($sql);
+      $sql = $conn->prepare("INSERT INTO labels (name, login, image) 
+VALUES (:name, :sessid, :url)
+");
+      $sql->execute(array(
+        ":name" => $_POST['name'],
+        ":sessid" => $_SESSION['id'],
+        ":url" => $_POST['url']
+      ));
     } catch(PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
@@ -19,9 +23,14 @@ else {
 ?>
 <h5>Add a Category</h5>
 <form action="https://smartlist.ga/dashboard/user/labels/add.php" method="POST" id="addCategory">
-    <div class="input-field">
+    <div class="input-field input-border">
         <label>Label Name</label>
         <input autocomplete="off" name="name" type="text" class="validate" data-length="50" required>
+    </div>
+  
+  <div class="input-field input-border">
+        <label>Image URL (Optional)</label>
+        <input autocomplete="off" name="url" type="text" class="validate" data-length="900">
     </div>
     <div>
         <p>Examples: Canned Food, Appliances</p>

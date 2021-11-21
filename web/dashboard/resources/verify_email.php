@@ -12,9 +12,12 @@ if($users->rowCount() > 1) {header("Location: https://smartlist.ga/dashboard/tes
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO auth_ip(ip, login) 
-  VALUES(".json_encode($_GET['u']).", ".$_SESSION['id'].")";
-  $conn->exec($sql);
+  $sql = $conn->prepare("INSERT INTO auth_ip(ip, login) 
+  VALUES(:u, :sessid)");
+  $sql->execute(array(
+    ":u" => $_GET['u'],
+    ":sessid" => $_SESSION['id']
+  ));
   header("Location: https://smartlist.ga/dashboard/login.php?confirmed");
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

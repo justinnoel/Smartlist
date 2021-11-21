@@ -1,55 +1,137 @@
 <?php
 session_start();
 include("../../cred.php");
+$totalPaid = 0;
+$totalMoney = array(
+  'bills' => 0,
+  'payment' => 0,
+  'subscription' => 0
+);
+
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = "SELECT * FROM payment_subs WHERE login_id=" . $_SESSION['id']. " ORDER BY id DESC";
+$r = $dbh->query($sql);
+foreach($r as $d) {
+  // $totalMoney += decrypt($d['price']);
+  $totalMoney[$d['paymentType']] += decrypt($d['price']);
+}
+
 ?>
-<div class="container">
-  <br><br>
-  <a href="#/my-finances">&lt; Back</a>
+<style>
+.tab {text-transform: none !important;}
+.header {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+._pc .collection {padding-left: 3px !important}
+</style>
+
+<div class="container _pc">
+  <a href="#/add/subscription" class="right btn btn-floating btn-flat waves-effect"><i class="material-icons" style="color:var(--font-color)!important">add</i></a>
   <h5><b>Payments</b></h5>
-  <a href="#/add/subscription">Add</a>
-  <br>
-  <ul class="collapsible">
-    <?php
-    try {
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs tabs-fixed-width">
+      <li class="tab col s3"><a class="waves-effect" href="#_1">Bills</a></li>
+      <li class="tab col s3"><a class="waves-effect" href="#_2">Payments</a></li>
+      <li class="tab col s3"><a class="waves-effect" href="#_3">Subscriptions</a></li>
+    </ul>
+  </div>
+  <div id="_1" class="col s12">
+  <div class="header">
+    <h5>$<?=$totalMoney['bills'];?></h5>
+    <p>Bills worth</p>
+  </div>
+  <ul class="collection">
+  <?php
       $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-      $sql = "SELECT * FROM payment_subs WHERE login_id=" . $_SESSION['id']. " ORDER BY id DESC";
+      $sql = "SELECT * FROM payment_subs WHERE login_id=" . $_SESSION['id']. " AND paymentType='bills' ORDER BY id DESC";
       $users = $dbh->query($sql);
       if($users->rowCount() === 0) {
-        echo "No payments!";
+        echo "<li>No results found!</li>";
       }
-      else {
-        foreach($users as $row) {
-          // echo decrypt($row['name']);
+      foreach($users as $row) {
     ?> 
-    <li>
-      <div class="collapsible-header waves-effect"><p style="margin:0"><b><?=decrypt($row['name']);?></b><br><?=ucfirst(decrypt($row['type']));?></p></div>
-      <div class="collapsible-body">
-        <p><b>$<?=decrypt($row['price']);?></b> <br>
-          <?=ucfirst(decrypt($row['type']));?> at <?=decrypt($row['date']);?><br><br>
-          <a href="#/my-finances/payments" onclick="if(confirm('Delete?') === true) {$('#ajaxLoader').load('./user/finance/delete.php?id=<?=($row['id']);?>')}" class="red-text">Delete</a>
-        </p>
-      </div>
+    <li class="collection-item">
+    <a class="secondary-content">$<?=decrypt($row['price']);?></a>
+      <p>
+        <b><?=decrypt($row['name']);?></b><br>
+        <?=ucfirst(decrypt($row['type']));?><br>
+        <?=decrypt($row['date']);?>
+        <br><a href="javascript:void(0)" onclick="if(confirm('Delete?') === true) {$('#ajaxLoader').load('./user/finance/delete.php?id=<?=$row['id'];?>',getHashPage);}">Delete</a>
+      </p>
     </li>
     <?php
-        }
-      }
-    }
-    catch (PDOexception $e) {
-      echo "Error is: " . $e->getmessage();
     }
     ?>
-  </ul>
+    </ul>
+  </div>
+  <div id="_2" class="col s12">
+  <div class="header">
+    <h5>$<?=$totalMoney['payment'];?></h5>
+    <p>Payments worth</p>
+  </div>
+  <ul class="collection">
+
+  <?php
+      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $sql = "SELECT * FROM payment_subs WHERE login_id=" . $_SESSION['id']. " AND paymentType='payment' ORDER BY id DESC";
+      $users = $dbh->query($sql);
+      if($users->rowCount() === 0) {
+        echo "<li>No results found!</li>";
+      }
+      foreach($users as $row) {
+    ?> 
+    <li class="collection-item">
+    <a class="secondary-content">$<?=decrypt($row['price']);?></a>
+      <p>
+        <b><?=decrypt($row['name']);?></b><br>
+        <?=ucfirst(decrypt($row['type']));?><br>
+        <?=decrypt($row['date']);?>
+        <br><a href="javascript:void(0)" onclick="if(confirm('Delete?') === true) {$('#ajaxLoader').load('./user/finance/delete.php?id=<?=$row['id'];?>',getHashPage);}">Delete</a>
+      </p>
+    </li>
+    <?php
+    }
+    ?>
+    </ul>
+  </div>
+  <div id="_3" class="col s12">
+  <div class="header">
+    <h5>$<?=$totalMoney['subscription'];?></h5>
+    <p>Subscriptions worth</p>
+  </div>
+  <ul class="collection">
+
+      <?php
+      $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $sql = "SELECT * FROM payment_subs WHERE login_id=" . $_SESSION['id']. " AND paymentType='subscription' ORDER BY id DESC";
+      $users = $dbh->query($sql);
+      if($users->rowCount() === 0) {
+        echo "<li>No results found!</li>";
+      }
+      foreach($users as $row) {
+    ?> 
+    <li class="collection-item">
+    <a class="secondary-content">$<?=decrypt($row['price']);?></a>
+      <p>
+        <b><?=decrypt($row['name']);?></b><br>
+        <?=ucfirst(decrypt($row['type']));?><br>
+        <?=decrypt($row['date']);?>
+        <br><a href="javascript:void(0)" onclick="if(confirm('Delete?') === true) {$('#ajaxLoader').load('./user/finance/delete.php?id=<?=$row['id'];?>',getHashPage);}">Delete</a>
+      </p>
+    </li>
+    <?php
+    }
+    ?>
+    </ul>
+  </div>
 </div>
-<style>
-  .collapsible {
-    box-shadow: none !important;
-    border: none !important;
-  }
-</style>
+</div>
 <script>
   $(document).ready(function(){
-    $('.collapsible').collapsible({
-      accordion: false
-    });
+    $(".tabs").tabs();
   });
 </script>

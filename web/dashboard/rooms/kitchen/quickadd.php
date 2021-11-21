@@ -9,11 +9,12 @@ $rand_keys = array_rand($chips, 15);
 <br><br>
 <div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/kitchen/addx.php" method="POST" id="kitchen_add_form">
-    <a href="./scan/live" target="_blank" class="btn right blue-grey darken-2 waves-effect waves-light"><i class="material-icons-round">compare</i></a>
+    <a href="./scan/live" target="_blank" class="btn right darken-2 waves-effect btn-floating btn-flat"><i class="material-icons-round" style="color:var(--font-color)">compare</i></a>
     <h5>Add an item (Kitchen)</h5> 
-    <div class="input-field">
+    <br>
+    <div class="input-field input-border">
       <label class="active" onclick="this.nextElementSibling.focus()">Name</label>
-      <input type="text" name="name" class="validate" id="addKitchenName" data-length="150" autofocus autocomplete="off" required>
+      <input type="text" name="name" id="addKitchenName" data-length="150" autocomplete="off" required>
     </div>
     <div class="chip-suggestions">
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[0]];?></div>
@@ -32,14 +33,14 @@ $rand_keys = array_rand($chips, 15);
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[13]];?></div>
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[14]];?></div>
     </div>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label class="active" onclick="this.nextElementSibling.focus()">Quantity</label>
-      <input type="text" id="addKitchenQty" name="qty" value="1" class="validate" autocomplete="off" data-length="20" required>
+      <input type="text" id="addKitchenQty" name="qty" value="1" autocomplete="off" data-length="20" required>
       <?php include('../suggestion_count.php'); ?>
     </div>
     <?php include('../category_select.php');?>
 
-    <button class="btn blue-grey darken-3">
+    <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">
       <i class="material-icons-round left">save</i> Save
     </button>
     <input type="hidden" id="date" name="date">
@@ -79,5 +80,7 @@ $rand_keys = array_rand($chips, 15);
       }
     });
   });
+  document.getElementById('addKitchenQty').focus();
+  document.getElementById('addKitchenName').focus();
   document.getElementById('date').value = `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} on ${new Date().getHours()}:${new Date().getMinutes()}`    
 </script>

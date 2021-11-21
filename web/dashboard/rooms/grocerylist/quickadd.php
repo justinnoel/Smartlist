@@ -8,8 +8,8 @@ $rand_keys = array_rand($chips, 15);
 ?>
 <br><br><div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/grocerylist/add.php" method="POST" id="grocerylist_add_form">
-    <h5>Add an item (Shopping List)</h5>
-    <div class="input-field">
+    <h5>Add</h5>
+    <div class="input-field input-border">
       <label onclick="this.nextElementSibling.focus()">Name</label>
       <input type="text" name="name" autofocus autocomplete="off" required>
     </div>
@@ -32,9 +32,10 @@ $rand_keys = array_rand($chips, 15);
     </div>
     <input type="hidden" name="qty" autocomplete="off" value="1">
     <br>
-    <button class="btn blue-grey darken-3">
+    <button class="btn blue-grey darken-3 btn-round waves-effect waves-light">
       <i class="material-icons-round left">save</i> Save
     </button>
+    <br>
   </form>
 </div>
 <script>
@@ -49,7 +50,8 @@ $rand_keys = array_rand($chips, 15);
       data: form.serialize(),
       success: function(data) {
         sm_page('grocerylist_add');
-        document.getElementById('grocerylist_add_form').reset()
+        document.getElementById('grocerylist_add_form').reset();
+        $('input').focus();
         M.toast({html: 'Added item successfully. You can keep adding more'});
       }
     });

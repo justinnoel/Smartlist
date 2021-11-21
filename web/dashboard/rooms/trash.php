@@ -1,51 +1,43 @@
 <?php 
+ini_set("display_errors", 1);
 session_start();
-include_once("../cred.php");?>
-<br>
-<div class="container">
-  <div class="alert" style="border-bottom: 1px solid rgba(0, 0, 0, .1)">
-    <div class="row">
-      <div class="col s10">
-        <h4>All items in trash will be deleted weekly</h4>  
-        <p>To maintain our servers and provide the best possible experience for you, all items in your trash will be deleted weekly on Friday 12:00</p>
-      </div>
-      <div class="col s2">
-        <img src="https://freeiconshop.com/wp-content/uploads/edd/trash-var-flat.png" style="width: 100%">
+require "../cred.php";
+try {
+$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$sql = $dbh->prepare("SELECT * FROM trash WHERE login=:sessid ORDER by id DESC");
+
+$sql->execute(array( ':sessid' => $_SESSION['id'] ));
+$users = $sql->fetchAll();
+if(count($users)!==0) {
+  echo '<div class="container"><br><br><h5><b>Deleted items</b></h5><p>All items in your trash will be deleted weekly on Friday at 12:00 AM</p><a href="javascript:void(0)" class="btn-round btn red darken-3 waves-effect waves-light" onclick="if(confirm(\'Delete trash? These items will be permanently deleted!\') == true){ $(\'#ajaxLoader\').load(\'https://smartlist.ga/dashboard/rooms/delete-trash.php?item_count=\',getHashPage)}"><i class="material-icons left">delete_forever</i>Clear trash</a><br><br><div class="row">';
+}
+foreach ($users as $row)
+{
+  ?>
+  <div class="col s12 m4">
+    <div class="card">
+      <div class="card-content">
+        <h6><b><?=decrypt($row['name']);?></b></h6>
+        <p><?=decrypt($row['qty']);?><br><?=$row['room'];?></p>
+        <br>
       </div>
     </div>
   </div>
-</div>
-<?php
-try {
-  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $sql = "SELECT * FROM trash WHERE login=".$_SESSION['id']. " ORDER by id DESC";
-  $users = $dbh->query($sql);
-  $lr_count = $users->rowCount();
-  if($lr_count > 0) {
-    echo '<div class="container"><a href="javascript:void(0)" class="btn blue-grey darken-3 right" onclick="if(confirm(\'Delete trash? '.$lr_count.' items will be permanently deleted!\') == true){ $(\'#ajaxLoader\').load(\'https://smartlist.ga/dashboard/rooms/delete-trash.php?item_count='.$lr_count.'\', () => {M.toast({html:\'Deleted!\'})})}">Clear trash</a><br><h5>Latest</h5>
-  <div style="max-width: 100%;overflow-x:scroll">
-  <table class="table">
-            <tr>
-             <td style="width: 40% !important">Name</td>
-             <td style="width: 40% !important">Quantity</td>
-             <td style="width: 10% !important">Room</td>
-             <td style="width: 10% !important">Actions</td>
-            </tr>';
-    foreach ($users as $row) {
-      echo "<tr class='zoom'>";
-      print "<td>".decrypt($row["name"]) . "</td><td>" . decrypt($row["qty"]) ."";
-      echo "</td><td>".$row["room"] . "</td></tr>";
-    }
-    $dbh = null;
-  }
-  else {
-    echo "<img alt='image' src='https://cdn.dribbble.com/users/129991/screenshots/4739382/delete.png?compress=1&resize=1500x700' width='100%' style='display:block;margin:auto;'><br><p class='center'>No items in trash</p>";
-  }
-} 
-catch (PDOexception $e) {
-  echo "Error is: " . $e-> etmessage();
+  <?php 
 }
+if(count($users)==0) {
 ?>
-</table>
-</div>
-</div>
+  <center>
+  <br><br><br>
+    <h1 class="grey-text lighten-3"><i class="material-icons medium">error</i></h1>
+    <h5 class="grey-text lighten-3">No items in trash</h5>
+  </center>
+  <?php 
+}
+}
+catch (Exception $e) {
+  echo $e->getMessage();
+}
+if(count($users)!==0) {
+  echo "</div></div>";
+}

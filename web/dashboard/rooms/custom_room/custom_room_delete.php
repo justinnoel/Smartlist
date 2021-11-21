@@ -4,6 +4,8 @@ $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 if(isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
     include("../../cred.php");
     $id = $_GET['id'];
+    $_GET['id'] = intval($_GET['id']);
+    $_SESSION['id'] = intval($_SESSION['id']);
     $name = $_GET['name'];
     
     try {

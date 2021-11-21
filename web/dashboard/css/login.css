@@ -1,0 +1,181 @@
+:root {
+  --bg: #fff;
+  --navbar-color: #37474f;
+  --card: #fff;
+}
+.collection-item {
+  border-radius: 999px !important;
+}
+.card {
+  border-radius: 5px;
+}
+body {
+  background: var(--bg);
+  background: url(https://i.ibb.co/d036W2x/blurry-gradient-haikei-2.png);
+  background-size: cover;
+}
+input {
+  color: rgba(100, 100, 100);
+}
+.waves-ripple {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s !important;
+}
+.collection-item {
+  min-height: 0 !important;
+}
+.waves-ripple:not(._darkTheme .waves-ripple) {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+.waves-light .waves-ripple {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+.input-field {
+  max-width: 100%;
+  overflow: visible !important;
+}
+.input-border input {
+  display: block;
+}
+.input-border input,
+.input-border textarea {
+  border: 1px solid #aaa !important;
+  border-radius: 3px !important;
+  padding-left: 10px !important;
+  width: 100%;
+  max-width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+._darkTheme .input-border label {
+  background: var(--bg-color) !important;
+}
+.input-border input:hover,
+.input-border textarea:hover {
+  border: 1px solid rgba(200, 200, 200, 0.5) !important;
+}
+.input-border label,
+.input-border textarea {
+  margin-left: 10px !important;
+  background: #fff;
+  transition: all 0.2s !important;
+  padding: 0 4px;
+  display: inline-block;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+.input-border input:focus,
+.input-border textarea:focus {
+  border-color: var(--navbar-color) !important;
+  box-shadow: 0 0 0 1px var(--navbar-color) inset !important;
+}
+.btn-round {
+  border-radius: 999px;
+  height: auto !important;
+  line-height: 40px;
+  text-transform: none !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  box-shadow: none !important;
+}
+._darkTheme .input-border input:focus,
+._darkTheme .input-border textarea:focus {
+  border-color: var(--font-color) !important;
+  box-shadow: 0 0 0 1px var(--font-color) inset !important;
+}
+.input-border .input-field textarea:focus + label.active,
+.input-field input:focus + label.active,
+input:focus {
+  color: var(--navbar-color) !important;
+}
+.input-border label.active {
+  margin-left: 7px !important;
+  margin-top: 8px !important;
+}
+.page {
+  visibility: hidden;
+  margin-left: 10px;
+  opacity: 0;
+  transition: all 0.2s;
+}
+.loginActive {
+  visibility: visible;
+  opacity: 1;
+  margin-left: 0;
+}
+#app {
+  position: fixed;
+  top: 50%;
+  width: 500px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#app .card {
+  overflow: hidden;
+}
+.card-content {
+  padding: 30px !important;
+}
+#p1 {
+  position: relative;
+  top: 20px;
+}
+#p1:not(.loginActive#p1) {
+  margin-left: -100px !important;
+}
+#p2.loginActive {
+  margin-top: -50px !important;
+}
+#p2 {
+  position: relative;
+  top: -20px;
+}
+.progress {
+  margin: 0 !important;
+  background: #7e57c2 !important;
+}
+.indeterminate {
+  background: #311b92 !important;
+}
+@media only screen and (prefers-color-scheme: dark) {
+  :root {
+    --bg: #212121;
+    --card: #303030;
+    --navbar-color: #fff;
+  }
+  .card,
+  .collection-item,
+  label {
+    background: #303030 !important;
+  }
+  body {
+    background-image: url(https://i.ibb.co/p2hLPw2/blurry-gradient-haikei.png);
+    color: #fff;
+  }
+}
+@media only screen and (max-width: 992px) {
+  #app {
+    width: 100%;
+    top: 0 !important;
+    transform: none !important;
+    left: 0 !important;
+  }
+  .card {
+    height: 100vh;
+    border-radius: 0;
+  }
+  .card-content {
+    padding-top: 20vh !important;
+  }
+  .card img {
+    display: none;
+  }
+  .card {
+    box-shadow: none !important;
+  }
+}
+._darkTheme .waves-ripple {
+  background: rgba(255, 255, 255, 0.1) !important;
+}

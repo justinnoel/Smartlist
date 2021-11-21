@@ -1,4 +1,5 @@
 <?php session_start();
+$_SESSION['id'] = intval($_SESSION['id']);
 include('../cred.php');
 try {
   $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

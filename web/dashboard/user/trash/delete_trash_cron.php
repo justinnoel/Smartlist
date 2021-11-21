@@ -1,9 +1,6 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "bcxkspna";
-$dbname = "bcxkspna_test";
-include('../../cred.php');
+include('/home/smartlis/public_html/dashboard/cred.php');
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

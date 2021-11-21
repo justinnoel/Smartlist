@@ -6,16 +6,18 @@ include('../../cred.php');
 <div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/custom_room/custom_room_adder.php?room=<?php echo $_GET['room']; ?>" method="POST" id="croom_form">
     <h5>Add an item</h5>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Name</label>
-      <input type="text" name="name" autofocus autocomplete="off" class="validate autocomplete" required data-length="150">
+      <input type="text" name="name" autofocus autocomplete="off" class="autocomplete" required data-length="150">
     </div>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Quantity</label>
-      <input type="text" name="qty" autocomplete="off" class="validate" data-length="20">
+      <input type="text" name="qty" autocomplete="off" data-length="20">
       <?php include('../suggestion_count.php'); ?>
     </div>
     <input type="hidden" name="price" value="<?php echo $_GET['room']; ?>" autocomplete="off" required>
+    <div class="input-field input-border">
+    
     <select name="label"> 
       <option disabled>Categories</option>
       <option selected value="No Category Specified">No Category Specified</option> 
@@ -39,8 +41,9 @@ include('../../cred.php');
       }
       ?>
     </select>
+</div>
     <input type="hidden" id="date" name="date">
-    <button class="btn blue-grey darken-3">
+    <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">
       <i class="material-icons-round left">save</i> Save
     </button>
   </form>

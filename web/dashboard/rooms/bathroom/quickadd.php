@@ -10,9 +10,10 @@ $rand_keys = array_rand($chips, 15);
 <div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/bathroom/add.php" method="POST" id="bathroom_add_form">
     <h5>Add an item (Bathroom)</h5>
-    <div class="input-field">
+    <br>
+    <div class="input-field input-border">
       <label>Name</label>
-      <input type="text" name="name" class="validate autocomplete" id="addBathroomName" autofocus data-length="150" autocomplete="off" required>
+      <input type="text" name="name" class="autocomplete" id="addBathroomName" autofocus data-length="150" autocomplete="off" required>
     </div>
     <div class="chip-suggestions">
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[0]];?></div>
@@ -31,14 +32,14 @@ $rand_keys = array_rand($chips, 15);
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[13]];?></div>
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[14]];?></div>
     </div>
-    <div class="input-field">
+    <div class="input-field input-border">
       <label>Quantity</label>
-      <input type="text" name="qty" class="validate" id="addBathroomQty" autocomplete="off" required data-length="20" value=1>
+      <input type="text" name="qty" id="addBathroomQty" autocomplete="off" required data-length="20" value=1>
       <?php include('../suggestion_count.php'); ?>
     </div>
     <?php include('../category_select.php');?>
     <input type="hidden" id="date" name="date">
-    <button class="btn blue-grey darken-3">
+    <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">
       <i class="material-icons-round left">save</i> Save
     </button>
   </form>
@@ -71,7 +72,7 @@ $rand_keys = array_rand($chips, 15);
           M.toast({html: "Item Already Exists!"});
         }
         else {
-          M.toast({html: 'Added item successfully. You can keep adding more'});
+          M.toast({html: data});
         }
       }
     });

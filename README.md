@@ -9,7 +9,6 @@ Smartlist is a home inventory app that lets you keep track of what you home inve
 ![CB](https://img.shields.io/badge/Contributors-20-yellow?style=flat)
 ![Frontend](https://img.shields.io/static/v1?label=Frontend&message=HTML,%20CSS,%20JS&color=%3CCOLOR%3E&style=flat)
 ![Backend](https://img.shields.io/static/v1?label=Backend&message=PHP,%20SQL&color=red&style=flat)
-![CONTRIBUTE](https://img.shields.io/static/v1?label=Contribute&message=Using%20Smartlist%20Contributors&color=blue&style=flat)
 [![Build Status](https://img.shields.io/github/forks/Smartlist-app/Smartlist.svg?style=flat)](https://github.com/ManuTheCoder/Smartlist-desktop)
 [![Build Status](https://img.shields.io/github/stars/Smartlist-app/Smartlist.svg?style=flat)](https://github.com/ManuTheCoder/Smartlist-desktop)
 [![License](https://img.shields.io/github/license/Smartlist-app/Smartlist.svg?style=flat)](https://github.com/ManuTheCoder/Smartlist-desktop)

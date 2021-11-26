@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="https://www.mozilla.org/2006/browser/search/">
+  <script/>
+  <ShortName>Your home [Smartlist]</ShortName>
+  <Description>Smartlist - The sophisticated home inventory app</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/png">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAABelBMVEUAAAD///+AgICqqqq/v7+ZmZm2traqqqqioqKqqqqxsbGkpKSvr6+qqqqurq6mpqaqqqqmpqaqqqqnp6etra2np6etra2np6eqqqqoqKiqqqqsrKysrKyoqKioqKisrKyoqKiqqqqsrKyoqKiqqqqsrKysrKyqqqqrq6uqqqqqqqqqqqqrq6urq6urq6urq6urq6uqqqqpqamqqqqrq6upqamqqqqrq6upqampqamqqqqqqqqpqamrq6upqampqamrq6upqampqamqqqqrq6upqamqqqqqqqqpqampqampqamqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqLcMdeAAAAfXRSTlMAAQIDBAUHCQsMDQ4QEhMUFRcYGhwdHyAhIyQlKCksLi8wMTIzNDc5PT9CRUZJTE9SV1ldXl9gZGVob3V3fH2AiImPkJGVlpmeoaeora6vs7W6vL/Cw8TFxsfJysvN0NLV19na3N7g4uTm5+jq6+3u8PHz9PX2+Pn6+/z9/glYU10AAAABYktHRAH/Ai3eAAABcElEQVQYGe3B6VMSARzH4S+oYBaheXSYZ1pm0n3agaVpHmVKWpodbmSmlrYVYe3nf+8Hwzg67m70ojcNz6OKiv9a9MFwVH8lNgGP4wq3tFnQraLEHGYuoVAOBV0qOLpMUbZVYRwK2mU6VilZ61EIB5NrlpRyAe/eXQ9wUwrmAO6ApOt5YPumdOUH8POWAjmw1i3pDsZNyfRvYYYiCuCQPSFVj2E+nlJR+wfMeI38OS/rpQNPMW9bVNL4GjN7UL4e1klHXmFeJLXjUAbzpkkB2lYwkzHtEpvArLTJ15lPmJGo9oikMZtn5ePid8C7rX1ubAO5y9pn8BeQuyQfF74BXlp7Re5jPvfJ1+kNzEhUu8QmMe9PKsDxd5gnce1IPMMsNSjQ4eeYhXqVHFvGzNQpRO00Jtuqoo5VzKMahaoaxaz3ypz7Anhp/dGgB3w9L2kKyF9TGa7mgSlJ8XnclMrSv8VirUwy06UydWaSqqj4534Djz+CSo7UoikAAAAASUVORK5CYII=</Image>
+  <Url type="application/x-suggestions+xml" method="GET" template="https://suggestqueries.google.com/complete/search?output=toolbar&amp;hl=en&amp;q={searchTerms}" />
+  <Url type="text/html" method="GET" template="https://smartlist.ga/dashboard/?q={searchTerms}" />
+  <SearchForm>https://smartlist.ga/</SearchForm>
+</OpenSearchDescription>

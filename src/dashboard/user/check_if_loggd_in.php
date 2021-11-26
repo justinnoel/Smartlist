@@ -1,0 +1,1 @@
+<?php header("Content-Type: application/json");session_start(); echo (isset($_SESSION['valid']) ? "true":"false");?>

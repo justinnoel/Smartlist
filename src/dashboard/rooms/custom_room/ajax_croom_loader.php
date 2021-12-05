@@ -9,7 +9,7 @@ $sql->execute(array( ':sessid' => $_SESSION['id'], ':syncid' => $_SESSION['synci
 $inv = $sql->fetchAll();
 
 if(count($inv) == 0) {
-  echo "<div class='center'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br>No items here?<br> <a href='#/add/".intval($_GET['room'])."' class='btn blue-grey darken-3 waves-effect waves-light btn-round'>Add an item</a></div>";
+  echo "<div class='center'><img alt='image' src='https://res.cloudinary.com/smartlist/image/upload/v1615853475/gummy-coffee_300x300_dlc9ur.png'width='300px' style='display:block;margin:auto;'><br><h5>No items here.</h5><br> <a href='#/add/".intval($_GET['room'])."' class='btn blue-grey darken-3 waves-effect waves-light btn-round'>Add an item</a></div>";
   exit();
 }
 ?> 

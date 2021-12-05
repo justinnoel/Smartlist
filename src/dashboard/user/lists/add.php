@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 session_start();
 include('../../cred.php');
+define("_roomName", "listNames");
 
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -9,21 +10,17 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // prepare sql  and bind parameters
-  $stmt = $conn->prepare("INSERT INTO notes (title, content, login_id, banner) VALUES (:name, :content, :sessid, :banner)");
-  $stmt->bindParam(':name', $name);
-  $stmt->bindParam(':content', $content);
+  $stmt = $conn->prepare("INSERT INTO "._roomName."(name, star, login)
+    VALUES (:name, :star, :sessid)");
+  $stmt->bindParam(':name', $_POST['name']);
+  $stmt->bindParam(':star', $_POST['star']);
   $stmt->bindParam(':sessid', $_SESSION['id']);
-  $stmt->bindParam(':banner', $banner);
 
   // insert a row
-  $name = encrypt($_POST['title']);
-  $content = encrypt($_POST['content']);
-  $banner = encrypt($_POST['url']);
-  $sessid = $_SESSION['id'];
   $stmt->execute();
 
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
 $conn = null;
-?>
+?>Success!

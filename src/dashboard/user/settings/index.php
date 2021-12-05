@@ -34,11 +34,13 @@ foreach ($users as $row) {
     left: 300px
   }
   #settings_nav {transition: background .25s;}
-  #settings_nav:not(.blue-grey,._darkTheme #settings_nav) {background: var(--bg-color)!important}
   #Settings {transition: all .2s;opacity:0}
-  ._darkTheme #settings_nav:not(.blue-grey){background: var(--bg-color)!important}
-  ._darkTheme #settings_nav {background: var(--bg-color)!important}
-  ._darkTheme nav.blue-grey {backround: #303030 !important}
+  #settings_nav:not(.blue-grey) {background:transparent}
+  ._darkTheme #settings_nav.blue-grey {background: #404040!important}
+  #settings_nav {padding-top: 5px!important;padding-bottom: 5px!important;height:auto!important;}
+  @media only screen and (max-width: 992px) {
+    #settings_nav {padding-top: 3px!important;padding-bottom: 3px!important}
+  }
 </style>
 <div style="position: fixed;top:0;left: 0;z-index: 9999999;width: 100%;height: 100%;background: var(--bg-color);overflow-y: scroll" id="settingsCC">
   <nav class="lighten-5 z-depth-0" id="settings_nav">

@@ -10,7 +10,7 @@ if(!in_array(_roomName, array("products", "bedroom", "bathroom", "garage", "fami
     die(403);
 }
 try {
-  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $dbh = new PDO("mysql:host=".App::server.";dbname=".App::database, App::username, App::password);
   $sql = $dbh->prepare("UPDATE "._roomName." SET star = star ^ 1 WHERE id=:id AND login_id=:sessid;");
 
   $sql->execute(array(

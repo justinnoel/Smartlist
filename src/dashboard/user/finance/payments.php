@@ -31,7 +31,7 @@ foreach($r as $d) {
 <br><br>
   <h5><b>Payments</b></h5>
   <br>
-  <a href="#/add/subscription" class="btn btn-round blue-grey darken-3 white-text btn-flat waves-effect"><i class="material-icons left" style="color:var(--font-color)!important">add</i>Create new</a>
+  <a href="#/add/subscription" class="btn btn-round blue-grey darken-3 white-text btn-flat waves-effect"><i class="material-icons left">add</i>Create new</a>
 <div class="row">
   <div class="col s12">
     <ul class="tabs tabs-fixed-width">

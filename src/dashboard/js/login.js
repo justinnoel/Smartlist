@@ -1,3 +1,4 @@
+'use strict';
 var form = document.querySelector("form");
 var currentPage = 0;
 
@@ -96,5 +97,5 @@ function reset() {
   }, 200);
 }
 $('input').focus()
-if(_e.isDarkMode()) {document.querySelector('meta[name="theme-color"]').setAttribute('content',  '#000');}
+if(_e.isDarkMode()) {document.cookie="dark=true";document.querySelector('meta[name="theme-color"]').setAttribute('content',  '#000');document.documentElement.classList.add("_darkTheme")}
 else {document.querySelector('meta[name="theme-color"]').setAttribute('content',  '#eee');}

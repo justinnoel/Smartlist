@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 session_start();
 include('../cred.php');
 define("_roomName", "grocerylist");
-$dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$dbh = new PDO("mysql:host=".App::server.";dbname=".App::database, App::username, App::password);
 $sql = $dbh->prepare("SELECT * FROM "._roomName." WHERE login_id=:sessid OR login_id=:syncid ORDER BY id DESC");
 
 $sql->execute(array( ':sessid' => $_SESSION['id'], ':syncid' => $_SESSION['syncid'] ));
@@ -15,7 +15,7 @@ foreach($inv as $res) {
   }
 }
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn = new PDO("mysql:host=".App::server.";dbname=".App::database, App::username, App::password);
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

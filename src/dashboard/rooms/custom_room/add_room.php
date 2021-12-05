@@ -43,7 +43,7 @@ if(isset($_POST['submit'])) {
       <div class="col s12">
         <input style="font-family: 'Material Icons Round';height: auto !important;font-size: 100px;text-align:center;border:0" placeholder="Choose icon..." value="label" required name="icon" readonly id="icon1"><br>
       </div>
-      <div class="col s12 center">  <a class='dropdown-trigger btn blue-grey btn-largea waves-effect' href='#' data-target='dropdown1'>Change</a>
+      <div class="col s12 center">  <a class='dropdown-trigger btn transparent black-text btn-round darken-3 btn-largea waves-effect s btn-border' href='#' data-target='dropdown1'>Change</a>
       </div>
     </div>  <!-- Dropdown Trigger -->
     <!-- Dropdown Structure -->

@@ -4,9 +4,6 @@ include "../../cred.php";
 ?>
 <div class="container">
 <br><br>
-  <h5><b>Recent</b></h5>
-  <a href="#addNote" class="btn modal-trigger waves-effect waves-light blue-grey darken-3 btn-round" onclick="$('.validate').characterCounter()" style="margin-top: 10px!important"><i class="material-icons-round left ">add</i>Add note</a><br><br>
-  <div class="row">
     <?php
     try {
     $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -16,10 +13,20 @@ include "../../cred.php";
     $users = $sql->fetchAll();
       if(count($users) == 0) {
     ?>
-    <center> No notes! Create one? </center>
+    <center>
+      <img src="https://i.ibb.co/nc9rBgr/fogg-deltaplan.png" style="width:100%;margin-top: 20px;max-width:400px;margin-bottom: 20px;display:block;"><br>No notes<br><br>
+    <p class="hoverP">
+    Illustration by <a href="https://icons8.com/illustrations/author/5ddea3b001d036001345e529">Dmitry Nikulnikov</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+    </p>
+    </center>
     <?php
-        return false;
+        exit();
       }
+      ?>
+      <h5><b>Recent</b></h5>
+  <a href="#addNote" class="btn modal-trigger waves-effect waves-light blue-grey darken-3 btn-round" onclick="$('.validate').characterCounter()" style="margin-top: 10px!important"><i class="material-icons-round left ">add</i>Add note</a><br><br>
+  <div class="row">
+  <?php
       foreach ($users as $row){
         if(!empty(decrypt($row['banner'])) && file_get_contents(decrypt($row['banner']))) {
     ?>

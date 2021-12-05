@@ -147,7 +147,7 @@ try {
     $arr = array_map("decrypt_all", $inv);
 
     if (count($inv) == 0) {
-        die("<div class='center'><img alt='image' src='https://i.ibb.co/dpYCnCG/fogg-616.png' width='300px' style='display:block;margin:auto;'><br>No items here? Try <a href='#/add/" . $room . "'>adding something. </a></div>");
+        die("<div class='center'><img alt='image' src='https://i.ibb.co/dpYCnCG/fogg-616.png' width='300px' style='display:block;margin:auto;'><br><h5>No items here</h5> <a href='#/add/" . $room . "' style='margin-top: 10px;' class='btn blue-grey darken-3 waves-effect waves-light btn-round'>Add something?</a></div>");
     }
 }
 catch(Exception $e) {
@@ -161,7 +161,7 @@ catch(Exception $e) {
     $chips->displaySuggestedItems();
     ?>
   <div style="text-align:right;padding: 10px">
-    <a class="btn dropdown-trigger btn-flat waves-effect btn-round btn-outline btn-large" style="color:var(--font-color)!important;padding: 0 15px !important;border-radius: 999px!important" data-target="orderBy" href="javascript:void(0)">Filter <i class="material-icons right" style="color:var(--font-color)!important;margin-right: 10px!important;">arrow_drop_down</i></a>
+    <a class="btn dropdown-trigger btn-flat waves-effect btn-round btn-outline btn-large" style="color:var(--font-color)!important;padding: 0 15px !important;border-radius: 15px !important" data-target="orderBy" href="javascript:void(0)">Filter <i class="material-icons right" style="color:var(--font-color)!important;margin-right: 10px!important;">arrow_drop_down</i></a>
   </div>
   <table id="_itemTable">
     <tr>
@@ -182,7 +182,7 @@ foreach ($inv as $item) {
         id="kitchentr_<?=intval($item['id']); ?>" 
         onclick="item(this,<?=$item['star'] ?>, '<?=strip_tags(decrypt($item['price'])) ?>', '<?=$room; ?>')">
       <td><?=strip_tags(decrypt($item['name'])); ?></td>
-      <td><?=strip_tags(decrypt($item['qty'])); ?></td>
+      <td><?=str_replace("(In stock)", "<span class='badge in-stock'></span>", strip_tags(decrypt($item['qty']))); ?></td>
       <td class="hide"><?=trim(explode("on ", strip_tags(($item['date']))) [0]); ?></td>
     </tr>
     <?php
@@ -210,3 +210,4 @@ foreach ($inv as $item) {
   });
   $('.dropdown-trigger').dropdown({coverTrigger:true,constrainWidth: false});
 </script>
+<style>.in-stock::after{content: "In Stock";display:inline-block;color:white!important}.in-stock{margin-left: 10px!important;margin-right:10px;float:right;background:#37474f;color:white;padding: 2px;padding-left:4px;padding-right:4px;border-radius:999px;}</style>

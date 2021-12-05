@@ -19,7 +19,7 @@ try {
 
   // insert a row
   $name = encrypt($_GET['date']);
-  $n = encrypt($_GET['n']);
+  $n = encrypt(intval($_GET['n']));
   $label = encrypt($_GET['label']);
   $id = $_SESSION['id'];
   $stmt->execute();

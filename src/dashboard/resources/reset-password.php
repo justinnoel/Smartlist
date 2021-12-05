@@ -6,7 +6,7 @@ include('../cred.php');
 if(isset($_POST['pwd'])) {
     $hash = password_hash($_POST['pwd'], PASSWORD_ARGON2I);
     try {
-      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, App::passwordwordword);
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "UPDATE login SET password=".json_encode($hash)." WHERE id=".$_GET['u'];
       $stmt = $conn->prepare($sql);

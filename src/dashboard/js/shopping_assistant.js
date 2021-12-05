@@ -1,3 +1,4 @@
+'use strict';
 main.innerHTML += `<div class="carousel-item blue-grey white-text darken-3" style="padding-top: 25vh"onclick="setTimeout(()=>\$('.carousel.carousel-slider').carousel('next'), 100);toggleFullScreen()">
 <div class="container">
 

@@ -1,3 +1,4 @@
+'use strict';
 const autocompleteData = {
    "Wing chair": null,
    "TV stand": null,

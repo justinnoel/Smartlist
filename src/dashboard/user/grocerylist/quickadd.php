@@ -6,6 +6,7 @@ $chips = array_map('ucfirst', $chips);
 
 $rand_keys = array_rand($chips, 15);
 ?>
+<style>#fab{display:none}</style>
 <br><br><div class="container">
   <form action="https://smartlist.ga/dashboard/user/grocerylist/add.php" method="POST" id="grocerylist_add_form">
     <h5>Add</h5>

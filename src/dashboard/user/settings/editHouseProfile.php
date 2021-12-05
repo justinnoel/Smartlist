@@ -6,7 +6,7 @@ try {
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  $sql = "UPDATE login SET houseName=:name WHERE id=:sessid";
+  $sql = "UPDATE login SET houseName=:name, familyCount=:number WHERE id=:sessid";
 
   // Prepare statement
   $stmt = $conn->prepare($sql);
@@ -14,6 +14,7 @@ try {
   // execute the query
   $stmt->execute(array(
     ":name" => encrypt($_POST['name']),
+    ":number" => ($_POST['number']),
     ":sessid" => $_SESSION['id']
   ));
 

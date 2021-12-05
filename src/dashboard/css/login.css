@@ -48,7 +48,7 @@ input {
   appearance: none;
 }
 ._darkTheme .input-border label {
-  background: var(--bg-color) !important;
+  background: var(--bg) !important;
 }
 .input-border input:hover,
 .input-border textarea:hover {
@@ -96,7 +96,7 @@ input:focus {
 }
 .page {
   visibility: hidden;
-  margin-left: 10px;
+  margin-left: 5px;
   opacity: 0;
   transition: all 0.2s;
 }
@@ -134,9 +134,11 @@ input:focus {
 }
 .progress {
   margin: 0 !important;
+}
+.progress:not(._darkTheme .progress) {
   background: #7e57c2 !important;
 }
-.indeterminate {
+.indeterminate:not(._darkTheme .indeterminate) {
   background: #311b92 !important;
 }
 @media only screen and (prefers-color-scheme: dark) {

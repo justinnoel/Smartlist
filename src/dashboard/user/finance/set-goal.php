@@ -20,7 +20,8 @@ foreach ($users as $row) {
   .center .card p:not(.override_center) {margin-bottom: 20px;text-align:left}
   .center .card p:not(.override_center) span {cursor:auto;pointer-events:none}
   .card {width:100%}
-  .card.selected {box-shadow:  0px 0px 0px 2px inset #1976d2;pointer-events:none;border-radius:4px;border-color:#1976d2!important}
+  .card.selected:not(._darkTheme .card.selected) {box-shadow:  0px 0px 0px 2px inset #<?=$_SESSION['theme'];?>;pointer-events:none;border-radius:4px;border-color:#<?=$_SESSION['theme'];?>!important}
+  ._darkTheme .card.selected {box-shadow:  0px 0px 0px 2px inset #fff!important;pointer-events:none;border-radius:4px;border-color:#fff!important}
   input[type="checkbox"]:checked + label:after{
      border: 2px solid #fff!important;
   }
@@ -32,14 +33,14 @@ foreach ($users as $row) {
   <div class="center">
     <br><br>
     <h5><b>Set a goal.</b></h5>
-    <p>Choose a finance plan below which you need the most help on. Smartlist will help you reach this goal!</p>
+    <p>Choose a finance plan below which you need the most help on. Smartlist will help you reach this goal! We'll recommend you a plan based on the number of people living in your family</p>
 
     <div class="row">
       <div class="col s12 m4">
         <div class="card waves-effect <?=($financePlan == 'short-term'?'selected':'');?>" onmousedown="selectPlan(this, 'short-term')">
           <div class="card-content">
             <p class="override_center">
-              <b>Short-term</b><br>
+              <b>Short-term <?=($_SESSION['personCount'] == 1 ? "(Suggested)" : "")?></b><br>
               Easier to achieve. Won't help you in the long term
             </p>
             <br>
@@ -62,7 +63,7 @@ foreach ($users as $row) {
         <div class="card waves-effect <?=($financePlan == 'medium-term'?'selected':'');?>" onmousedown="selectPlan(this, 'medium-term')">
           <div class="card-content">
             <p class="override_center">
-              <b>Medium-term</b><br>
+              <b>Medium-term <?=($_SESSION['personCount'] == 2 ? "(Suggested)" : "")?></b><br>
               Will help you boost your net worth for a while
             </p>
             <br>
@@ -85,7 +86,7 @@ foreach ($users as $row) {
         <div class="card waves-effect <?=($financePlan == 'long-term'?'selected':'');?>" onmousedown="selectPlan(this, 'long-term')">
           <div class="card-content">
             <p class="override_center">
-              <b>Long-term</b><br>
+              <b>Long-term <?=($_SESSION['personCount'] >= 3 ? "(Suggested)" : "")?></b><br>
               Harder to achieve. Will help you later
             </p>
             <br>

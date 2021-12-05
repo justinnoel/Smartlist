@@ -18,7 +18,7 @@ switch(room) {
 $chips = array_map('ucfirst', $chips);
 $rand_keys = array_rand($chips, 15);
 ?>
-
+<style>@media only screen and (max-width:992px) {.w-full-sm {width:100%!important;}} #fab{display:none}</style>
 <br><br>
 <div class="container">
   <form action="https://smartlist.ga/dashboard/rooms/addToRoom.php?room=<?=urlencode((room == 'kitchen' ? 'products':room));?>" method="POST" id="<?=(room);?>_add_form">
@@ -49,14 +49,23 @@ $rand_keys = array_rand($chips, 15);
       <label>Quantity</label>
       <?php include('suggestion_count.php'); ?>
     </div>
+    <p>
+      <label>
+        <input type="checkbox" oninput="if(this.checked===true){document.getElementById('add<?=ucfirst(room);?>Qty').value=document.getElementById('add<?=ucfirst(room);?>Qty').value+' (In stock)'} else {document.getElementById('add<?=ucfirst(room);?>Qty').value=document.getElementById('add<?=ucfirst(room);?>Qty').value.replace(' (In stock)','')}" />
+        <span>In stock?</span>
+      </label>
+    </p>
     <?php include('category_select.php');?> 
     <input type="hidden" id="date" name="date">
-
-    <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">
-      <i class="material-icons-round left">save</i> Save
-    </button>
+<div class="sm:fixed-bottom" style="padding: 20px;background: var(--bg-color);width:100%;z-index:99999;text-align: right;">
+      <button class="w-full-sm btn blue-grey lighten-4 waves-effect black-text btn-round" style="min-width: 100px;border-radius: 15px!important">
+        <i class="material-icons-round left hide-on-med-and-down black-text">save</i> Save
+      </button>
+      </div>
+      </div>
   </form>
 </div>
+<br><br><br>
 <script>
   document.getElementById('autofocus1').addEventListener("keyup", () => 
                                                          localStorage.setItem("add<?=ucfirst(room);?>Name", document.getElementById('autofocus1').value))

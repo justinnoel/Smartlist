@@ -17,7 +17,7 @@ foreach ($users as $row) {
     <h5>Edit profile</h5>
     <div class="input-field input-border">
       <label>House Name</label>
-      <input type="text" name="name" autocomplete="off" value="<?=($_SESSION['houseName']);?>" autofocus id="d">
+      <input oninput="document.getElementById('houseName').getElementsByTagName('span')[0].innerHTML=this.value;document.getElementById('houseName1').innerHTML = this.value" type="text" name="name" autocomplete="off" value="<?=($_SESSION['houseName']);?>" autofocus id="d">
     </div>
     <div class="chip-suggestions" id="emojiChips">
       <div class="chip waves-effect" onclick="var d = document.getElementById('d');d.focus();d.value+=' &#10084;'">&#10084;</div>
@@ -55,6 +55,13 @@ foreach ($users as $row) {
       <div class="chip waves-effect" onclick="var d = document.getElementById('d');d.focus();d.value+=' &#128421;'">&#128421;</div>
     </div>
     <p>Changing the house's name sets the default title on the tablet/mobile app to your house's name</p>
+
+    <h5>How many people do you live with?</h5>
+    <p>Smartlist will help you based on the number of people you live with</p>
+    <p class="range-field">
+      <input type="range" name="number" min="0" max="10" />
+    </p>
+
     <button class="btn blue-grey waves-effect waves-light btn-round darken-3"><i class="material-icons left">save</i> Save</button>
   </form>
 </div>
@@ -73,4 +80,6 @@ foreach ($users as $row) {
     });
   });
   $("#d").focus()
+    var elems  = document.querySelectorAll("input[type=range]");
+    M.Range.init(elems);
 </script>

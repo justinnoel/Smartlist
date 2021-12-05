@@ -11,7 +11,7 @@ $app = false;
 if (isset($_GET['auth']))
 {
     $dbname = "smartlis_api";
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, App::password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT * FROM apps");
     $stmt->execute();
@@ -49,7 +49,7 @@ if (!isset($_COOKIE['attempts']))
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="<?=(isset($_COOKIE['dark']) ? '_darkTheme' : '')?>">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,19 +57,19 @@ if (!isset($_COOKIE['attempts']))
     <link rel="shortcut icon" href="https://i.ibb.co/HPtyvJS/logo-z3yoqm-modified-removebg-preview-modified.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta name="title" content="Login | Smartlist">
-    <meta name="description" content="Log in to your Smartlist account and access your entire home at the tap of a button!">
+    <meta name="description" content="Sign into your Smartlist account and access your entire home at the tap of a button!">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metatags.io/">
     <meta name="viewport" content="width=device-width">
     <meta property="og:title" content="Login | Smartlist">
-    <meta property="og:description" content="Log in to your Smartlist account and access your entire home at the tap of a button!">
-    <meta property="og:image" content="https://i.ibb.co/2kSY71Q/Screenshot-2021-04-08-1-57-23-PM.png">
+    <meta property="og:description" content="Sign into your Smartlist account and access your entire home at the tap of a button!">
+    <meta property="og:image" content="https://i.ibb.co/1nW9xMJ/banner.png">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://metatags.io/">
     <meta name="theme-color" content="#fff">
     <meta property="twitter:title" content="Login | Smartlist">
-    <meta property="twitter:description" content="Log in to your Smartlist account and access your entire home at the tap of a button!">
-    <meta property="twitter:image" content="https://i.ibb.co/2kSY71Q/Screenshot-2021-04-08-1-57-23-PM.png">
+    <meta property="twitter:description" content="Sign into your Smartlist account and access your entire home at the tap of a button!">
+    <meta property="twitter:image" content="https://i.ibb.co/1nW9xMJ/banner.png">
     <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
@@ -79,9 +79,9 @@ if (!isset($_COOKIE['attempts']))
           href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/css/materialize.min.css"
           />
     <link rel="stylesheet" href="https://smartlist.ga/dashboard/css/login.css">
-    <style>._darkTheme .progress {background:rgba(255,255,255,.2)!important}._darkTheme .progress{background:#fff!important}</style>
+    <style>._darkTheme .progress {background:rgba(255,255,255,.2)!important} ._darkTheme .indeterminate{background:#fff!important}</style>
   </head>
-  <body>
+  <body class="class="<?=(isset($_COOKIE['dark']) ? '_darkTheme' : '')?>">
     <div id="app">
       <div class="card z-depth-3">
         <div class="progress hide" id="progress"> <div class="indeterminate"></div> </div>
@@ -113,8 +113,8 @@ if (!isset($_COOKIE['attempts']))
             <?php if (isset($_GET['logout']))
     { ?>
             <div id="p_logout" class="page">
-              <h5>Logged out!</h5><p>You are now logged out of Smartlist and it's related apps</p>
-              <a href="/dashboard/auth" style="margin-top: 15px;" class="btn btn-round btn-flat waves-effect waves-light red darken-3 white-text">Log back in</a>
+              <h5>Signed out!</h5><p>You are now signed out of Smartlist and it's related apps</p>
+              <a href="/dashboard/auth" style="margin-top: 15px;" class="btn btn-round btn-flat waves-effect waves-light red darken-3 white-text">Sign back in</a>
             </div>
             <?php
     } ?>
@@ -122,14 +122,14 @@ if (!isset($_COOKIE['attempts']))
     { ?>
             <div id="p_confirmed" class="page">
             <img src="https://cdn.dribbble.com/users/1088756/screenshots/9325233/media/2622b00ad677440df16b8301f9ca6b6b.png?compress=1&resize=1200x900" style="width: 50%;margin:auto;display:block;border-radius: 4px;"><br>
-              <h5>Confirmed login!</h5><p>This helps us make sure that only you can access your account, and people from random locations don't have access. You may now go back to the desktop, mobile, or web app, and log back in</p>
+              <h5>Confirmed location!</h5><p>This helps us make sure that only you can access your account, and people from random locations don't have access. You may now go back to the desktop, mobile, or web app, and sign back in</p>
             </div>
             <?php
     } ?>
             <?php if (isset($_GET['new']))
     { ?>
             <div id="p_new" class="page">
-              <h5>Account created! 🥳</h5><p>You may now <a href="https://smartlist.ga/login">log into your account</a></p>
+              <h5>Account created! 🥳</h5><p>You may now <a href="https://smartlist.ga/login">sign into your account</a></p>
             </div>
             <?php
     } ?>
@@ -142,7 +142,7 @@ if (!isset($_COOKIE['attempts']))
                   <span class="title"><?=$_SESSION['name']; ?></span>
                   <p><?=$_SESSION['email']; ?>
                   </p>
-                  <a href="#!" class="secondary-content" style="margin-bottom:-10px!important;">Logged in</a>
+                  <a href="#!" class="secondary-content" style="margin-bottom:-10px!important;">Signed in</a>
                 </li>
               </ul>
               <?php
@@ -217,7 +217,7 @@ if (!isset($_COOKIE['attempts']))
 else if ($invalid)
 { ?>
           <h5>Too many attempts</h5>
-          <p>Your account is locked. Please try again after a day or two.</p>
+          <p>Your account is locked. Please try again later</p>
           <br>
           <?php
 }
@@ -229,7 +229,7 @@ if (isset($invalidAPP))
           <?php
 }
 if ($app)
-{ ?><br><br><p><i>You are sharing your name, email, and profile picture with "<?=htmlspecialchars($name); ?>". Make sure you trust this website before using your Smartlist account.</i></p><?php
+{ ?><br><p><i>After signing in, your name, email, and profile picture will be shared with "<?=htmlspecialchars($name); ?>". Make sure to trust this service before signing in</i></p><?php
 } ?>
         </div>
       </div>
@@ -252,6 +252,8 @@ if ($app)
     <script>page('#p_confirmed')</script>
     <?php
 } ?>
-<script>document.getElementById('i1').addEventListener("keyup", function() {localStorage.setItem("i1", document.getElementById('i1').value)});window.addEventListener("load", function() {document.getElementById('i1').value=localStorage.getItem("i1")})</script>
+<?php if($app == false && !isset($_GET['new']) && !isset($_GET['confirmed']) && !isset($_GET['logout'])) {?>
+<script>document.getElementById('i1').addEventListener("keyup", function() {localStorage.setItem("i1", document.getElementById('i1').value)});window.addEventListener("load", function() {document.getElementById('i1').value=localStorage.getItem("i1")});</script>
+<?php } ?>
   </body>
 </html>

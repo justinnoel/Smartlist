@@ -93,7 +93,7 @@ $month = date('M');
   $users = $sql->fetchAll();
   foreach ($users as $row)
   {
-    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify && !empty((decrypt($row['qty']))))
+    if (preg_replace("/[^0-9]/", "", decrypt($row['qty'])) < $number_notify && !empty((decrypt($row['qty']))) && !str_contains(strtolower(decrypt($row['qty'])), strtolower(' (In Stock)')))
     {
       switch($row['Source']) {
         case "Kitchen": $color = "blue"; $icon = "blender"; break;
@@ -215,4 +215,5 @@ $month = date('M');
         .setAttribute("content", '#1e272b');
     }
   }
+  // document.querySelectorAll('input').reverse().forEach(el => el.focus())
 </script>

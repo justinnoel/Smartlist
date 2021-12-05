@@ -2,7 +2,7 @@
 $_SESSION['id'] = intval($_SESSION['id']);
 include('../cred.php');
 try {
-  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$dbh = new PDO("mysql:host=".App::server.";dbname=".App::database, App::username, App::password);
   $sql = "SELECT id, name, qty, login_id, star, 'Kitchen' as Source
   FROM products 
   where login_id = ".$_SESSION['id']." AND star=1
@@ -49,6 +49,17 @@ try {
   FROM family 
   where login_id = ".$_SESSION['id']." AND star=1;";
   $users = $dbh->query($sql);
+  if($users->rowCount() == 0) {
+    ?>
+    <center>
+      <img src="https://i.ibb.co/3TJCJLj/fogg-searching-2.png" style="width:100%;margin-top: 20px;max-width:400px;margin-bottom: 10px;display:block;">No starred items<br><br>
+      <p class="hoverP">
+      Illustration by <a href="https://icons8.com/illustrations/author/5c18c58a793948000f7394ce">Marina Fedoseenko</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+      </p>
+    </center>
+    <?php
+    exit();
+  }
   echo '<table class="table container" id="st">
                  <tr class="hover">
                   <td onclick="sortTable(0)"><b>Name</b></td>

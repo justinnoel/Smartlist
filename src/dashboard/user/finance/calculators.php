@@ -6,12 +6,29 @@
   height: 100vh !important;
   width: 100vw !important
 }
+.btn-boxy {
+  border-radius: 15px!important;
+  margin-top: 10px!important;
+  box-shadow: none !important;
+  text-transform: none!important;
+}
+._darkTheme input:focus+label {color:#fff!important;}
+._darkTheme #finance__calculator_app label {
+  background: #303030 !important
+}
+._darkTheme .btn-boxy {
+  background: #e3f2fd!important;
+  color:black!important;
+}
+._darkTheme .btn-boxy .waves-ripple{
+  background: rgba(0,0,0,.1) !important;
+}
 </style>
 <div class="container">
   <div class="center">
   <br><br>
-    <h3><b>Finance calculators <span class="new-badge" style="font-size: 15px;background: #aaa;color:var(--font-color);line-height: 20px!important;padding: 3px!important;display:inline-block;border-radius: 999px;">New!</span></b></h3>
-    <a href="#_feedback" class="modal-trigger btn blue-grey darken-3 waves-effect waves-light btn-round">Request a calculator</a>
+    <h3><b>Finance calculators</b></h3>
+    <a href="#_feedback" class="modal-trigger btn blue-grey darken-3 waves-effect btn-round">Request a calculator</a>
   </div>
   <div class="collection">
     <a href="#calculator__main" class="border-max modal-trigger waves-effect collection-item" onclick="calculatorFinance('loan')">
@@ -62,7 +79,7 @@
   $(".finance__calculator").modal({
     dismissible: false,
     onOpenStart() {
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#101010": "#cfd8dc"));
+      document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#303030": "#cfd8dc"));
     },
     onCloseStart() {
       document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#212121": user.themeTop));
@@ -71,7 +88,7 @@
   $('#calculator__results').modal({
     dismissible: false,
     onOpenStart() {
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#101010": "#6c7073"));
+      document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#303030": "#6c7073"));
     },
     onCloseStart() {
       document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#212121": '#cfd8dc'));
@@ -85,7 +102,7 @@
     var content;
     switch(str) {
       case "loan": content = `
-      <h4><b>Loan calculator</b></h4>
+      <br><h4><b>Loan calculator</b></h4><br>
       <form class="finance__calculatorForm">
         <div class="input-field input-border">
           <input id="finance__loan_amount" type="number">
@@ -99,12 +116,12 @@
           <input id="finance__loan_time" type="number">
           <label>Loan time (in years)</label>
         </div>
-        <div style="text-align:right"><button type="button" class="btn blue-grey darken-3 waves-effect waves-light btn-round" onclick="showCalcResults(getLoanMonthlyFromLoan( document.getElementById('finance__loan_amount').value, document.getElementById('finance__loan_percent').value, document.getElementById('finance__loan_time').value ), 'Monthly expenses on this loan')">Calculate <i class="material-icons right">calculate</i></button></div>
+        <div style="text-align:center"><button type="button" class="btn blue-grey darken-3 waves-effect btn-boxy btn-large" onclick="showCalcResults(getLoanMonthlyFromLoan( document.getElementById('finance__loan_amount').value, document.getElementById('finance__loan_percent').value, document.getElementById('finance__loan_time').value ), 'Monthly expenses on this loan')">Calculate <i class="material-icons right">calculate</i></button></div>
       </form>
       `; break;
 
       case "future value": content = `
-      <h4><b>Future Value calculator</b></h4>
+      <br><h4><b>Future Value calculator</b></h4><br>
       <form class="finance__calculatorForm">
         <div class="input-field input-border">
           <input id="finance__fv_periods" type="number">
@@ -118,12 +135,12 @@
           <input id="finance__fv_rate" type="number">
           <label>Interest Rate</label>
         </div>
-        <div style="text-align:right"><button type="button" class="btn blue-grey darken-3 waves-effect waves-light btn-round" onclick="showCalcResults(calculateFutureValue( document.getElementById('finance__fv_periods').value, document.getElementById('finance__fv_presentValue').value, document.getElementById('finance__fv_rate').value ), 'Your future value')">Calculate <i class="material-icons right">calculate</i></button></div>
+        <div style="text-align:center"><button type="button" class="btn blue-grey darken-3 waves-effect btn-boxy btn-large" onclick="showCalcResults(calculateFutureValue( document.getElementById('finance__fv_periods').value, document.getElementById('finance__fv_presentValue').value, document.getElementById('finance__fv_rate').value ), 'Your future value')">Calculate <i class="material-icons right">calculate</i></button></div>
       </form>
       `; break;
 
       case "discount": content = `
-      <h4><b>Discount Calculator</b></h4>
+      <br><h4><b>Discount Calculator</b></h4><br>
       <form class="finance__calculatorForm">
         <div class="input-field input-border">
           <input id="finance__discount_percent" type="number">
@@ -133,12 +150,12 @@
           <input id="finance__discount_total" type="number">
           <label>Total price</label>
         </div>
-        <div style="text-align:right"><button type="button" class="btn blue-grey darken-3 waves-effect waves-light btn-round" onclick="showCalcResults(getDiscount( document.getElementById('finance__discount_total').value, document.getElementById('finance__discount_percent').value) , 'Amount after discount')">Calculate <i class="material-icons right">calculate</i></button></div>
+        <div style="text-align:center"><button type="button" class="btn blue-grey darken-3 waves-effect btn-boxy btn-large" onclick="showCalcResults(getDiscount( document.getElementById('finance__discount_total').value, document.getElementById('finance__discount_percent').value) , 'Amount after discount')">Calculate <i class="material-icons right">calculate</i></button></div>
       </form>
       `; break;
 
       case "tax": content = `
-      <h4><b>Tax Calculator</b></h4>
+      <br><h4><b>Tax Calculator</b></h4><br>
       <form class="finance__calculatorForm">
         <div class="input-field input-border">
           <input id="finance__tax_percent" type="number">
@@ -148,7 +165,7 @@
           <input id="finance__tax_total" type="number">
           <label>Total price</label>
         </div>
-        <div style="text-align:right"><button type="button" class="btn blue-grey darken-3 waves-effect waves-light btn-round" onclick="showCalcResults(getTax( document.getElementById('finance__tax_total').value, document.getElementById('finance__tax_percent').value) , 'Amount after discount')">Calculate <i class="material-icons right">calculate</i></button></div>
+        <div style="text-align:center"><button type="button" class="btn blue-grey darken-3 waves-effect btn-boxy btn-large" onclick="showCalcResults(getTax( document.getElementById('finance__tax_total').value, document.getElementById('finance__tax_percent').value) , 'Amount after discount')">Calculate <i class="material-icons right">calculate</i></button></div>
       </form>
       `; break;
     }
@@ -157,7 +174,7 @@
   function showCalcResults(res, text) {
     $("#calculator__main").modal("open")
     $("#calculator__results").modal("open")
-    document.getElementById("finance__calculator_res").innerHTML = `\$${res}`;
+    document.getElementById("finance__calculator_res").innerHTML = `<?=$_SESSION['currency'];?>${res}`;
     document.getElementById("finance__calculator_desc").innerHTML = text+"<br>Click to close"
   }
 </script>

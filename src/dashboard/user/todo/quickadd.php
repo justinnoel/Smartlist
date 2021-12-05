@@ -1,3 +1,4 @@
+<style>#fab{display:none}</style>
 <br><br><div class="container">
   <form action="https://smartlist.ga/dashboard/user/todo/add.php" method="POST" id="todo_form">
     <div class="row">

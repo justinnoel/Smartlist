@@ -4,7 +4,7 @@ include('cred.php');
 // Updates the email on the signup page
 
 try {
-  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, App::password);
+  $dbh = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $sql = $dbh->prepare("UPDATE login SET email=:email WHERE id=:sessid");
 
   $sql->execute(array(

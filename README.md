@@ -4,7 +4,7 @@
 
 # Smartlist
 ## The sophisticated home inventory app
-Smartlist is a home inventory app that lets you keep track of what you home inventory app! Smartlist is free of cost and has no "Premium plans". Smartlist is made using HTML, CSS, JS, jQuery, PHP, SQL. This product is an open source projec
+Smartlist is a home inventory app that lets you keep track of what you home inventory app! Smartlist is free of cost and has no "Premium plans". Smartlist is made using JavaScript, PHP, SQL, and Node.JS (partially). This product is an open source projec
 ##### [Join us!](https://smartlist.ga/join)
 ![CB](https://img.shields.io/badge/Contributors-20-yellow?style=flat)
 ![Frontend](https://img.shields.io/static/v1?label=Frontend&message=HTML,%20CSS,%20JS&color=%3CCOLOR%3E&style=flat)

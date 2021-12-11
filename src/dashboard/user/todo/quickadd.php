@@ -7,7 +7,7 @@
       </div>
       <div class="col s12 m8">
         <div class='input-field input-border'><label onclick="this.nextElementSibling.focus()">Task title</label>
-          <input type="text" name="name" class="form-control" autocomplete="off">
+          <input type="text" name="name" class="form-control" autocomplete="off" id="focus">
         </div>
       </div>
       <div class="col s12 m4">
@@ -35,28 +35,13 @@
 </div>
 <script>
   document.getElementById('date').value = new Date().toISOString().substring(0, 10);
-  $("#todo_form").submit(function(e) {
-    e.preventDefault();
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(),
-      success: function(data) {
-        document.getElementById('todo_form').reset();
-        if(data == "Item Already Exists!") {
-          M.toast({html: "Reminder already exists!"});
-        }
-        else {
-          M.toast({html: 'Added reminder successfully. You can keep adding more'});
-        }
-      }
-    });
-  });
-  $('select').formSelect();
-  $('.datepicker').datepicker();
-  $('input').focus();
+  document.getElementById("todo_form").addEventListener("submit", (event) =>
+  sendData(event)
+    .then((data) => document.getElementById("todo_form").reset(),"Item Already Exists!"==data?M.toast({html:"Reminder already exists!"}):M.toast({html:"Added reminder successfully. You can keep adding more"}))
+  );
+  M.FormSelect.init(document.querySelectorAll("select"));
+  M.Datepicker.init(document.querySelectorAll(".datepicker"));
+  document.getElementById("focus").focus()
 </script>
 <style>
   .date-text {color:white !important;}

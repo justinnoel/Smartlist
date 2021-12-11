@@ -66,20 +66,11 @@ foreach ($users as $row) {
   </form>
 </div>
 <script>
-  $("#editProfile").submit(function(e) {
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(), // serializes the form's elements.
-      success: function(data) {
-        M.toast({html:data}); // show response from the php script.
-      }
-    });
-  });
-  $("#d").focus()
+  document.getElementById("editProfile").addEventListener("submit", (event) =>
+    sendData(event)
+      .then((res) => M.toast({html:res}) )
+  );
+  document.getElementById("d").focus();
     var elems  = document.querySelectorAll("input[type=range]");
     M.Range.init(elems);
 </script>

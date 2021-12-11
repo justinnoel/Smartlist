@@ -74,9 +74,7 @@ $rand_keys = array_rand($chips, 15);
   document.getElementById('add<?=ucfirst(room);?>Qty').addEventListener("keyup", () => 
                                                             localStorage.setItem("add<?=ucfirst(room);?>Qty", document.getElementById('add<?=ucfirst(room);?>Qty').value))
   document.getElementById('add<?=ucfirst(room);?>Qty').value = localStorage.getItem('add<?=ucfirst(room);?>Qty') || ""
-  $(document).ready(function() {
-    $('.validate').characterCounter();
-  });
+  M.CharacterCounter.init(document.querySelctorAll(".validate"))
   $("#<?=(room);?>_add_form").submit(function(e) {
     e.preventDefault();
     var form = $(this);
@@ -100,5 +98,21 @@ $rand_keys = array_rand($chips, 15);
       }
     });
   });
+
+  document.getElementById("<?=(room);?>_add_form").addEventListener("submit", (event) =>
+    sendData(event).then((data) => {
+      localStorage.setItem('add<?=ucfirst(room);?>Name', "")
+      localStorage.setItem('add<?=ucfirst(room);?>Qty', "")
+      document.getElementById('date').value = `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} on ${new Date().getHours()}:${new Date().getMinutes()}`    
+      document.getElementById('autofocus1').focus()
+      document.getElementById('<?=(room);?>_add_form').reset()
+      if(data == "Item Already Exists!") {
+        M.toast({html: "Item Already Exists!"});
+      }
+      else {
+        M.toast({html: 'Added item successfully. You can keep adding more'});
+      }
+    })
+  );
 
 </script>

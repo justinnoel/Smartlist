@@ -3,7 +3,9 @@ ini_set('display_errors', 1);
 session_start();
 include('../../cred.php');
 define("_roomName", "listNames");
-
+if(!isset($_POST['star'])) {
+    $_POST['star'] = "";
+}
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
@@ -23,4 +25,4 @@ try {
   echo "Error: " . $e->getMessage();
 }
 $conn = null;
-?>Success!
+?>Successfully created list!

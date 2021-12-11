@@ -6,7 +6,8 @@ session_start(); ?>
     <title>Signup | Smartlist</title>
     <link rel="shortcut icon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
     <link rel="favicon" href="https://smartlist.ga/dashboard/icon/roofing.svg">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
     <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/css/materialize.min.css"
@@ -224,7 +225,7 @@ session_start(); ?>
         <div class="pd main">
           <b><h4>Hey there!</h4></b>
           <p>Welcome to the party! Let's get started.</p>
-          <form action="https://smartlist.ga/dashboard/signup_auth.php" method="POST" id="form1">
+          <form action="https://smartlist.ga/dashboard/signup/auth.php" method="POST" id="form1">
             <div class="input-field">
               <label>Name</label>
               <input type="text" name="name" autocomplete="off" />
@@ -241,7 +242,7 @@ session_start(); ?>
               <label>Password</label>
               <input type="password" name="password" autocomplete="off" />
             </div>
-            <button class="btn waves-effect waves-light" onclick="setTimeout(() => {this.disabled = true}, 200)">Next</button>
+            <button class="btn waves-effect waves-light darken-3" onclick="setTimeout(() => {this.disabled = true}, 200)" id="nextBtn">Next<i class="material-icons right">arrow_forward_ios</i></button>
           </form>
           <br>
           <br>
@@ -268,8 +269,8 @@ session_start(); ?>
           success: function (data) {
             console.log(data);
             // alert(data)
-            if(data =="exists") {M.toast({ html: "Username exists!"})}
-            else {$('.pd').load("https://smartlist.ga/dashboard/email.php");}
+            if(data =="exists") {M.toast({ html: "An account with this username or email already exists!"});document.getElementById("nextBtn").disabled = false;}
+            else {$('.pd').load("https://smartlist.ga/dashboard/signup/email.php");}
 
           },
         });

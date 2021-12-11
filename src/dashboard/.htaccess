@@ -1,4 +1,0 @@
-# RewriteEngine On
-# RewriteBase /dashboard/
-# RewriteCond %{REMOTE_ADDR} !^68\.225\.245\.178
-# RewriteRule ^(.*)$ https://maintenance.smartlist.ga [R=307,L]

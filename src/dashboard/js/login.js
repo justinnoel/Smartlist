@@ -2,13 +2,20 @@
 var form = document.querySelector("form");
 var currentPage = 0;
 
+/**
+ * 
+ * @param {*} el - The element to be animated
+ */
 function page(el) {
-  document
-    .querySelectorAll(".page")
-    .forEach((e) => e.classList.remove("loginActive"));
-  document.querySelectorAll(el).forEach((e) => e.classList.add("loginActive"));
+   document
+      .querySelectorAll(".page")
+      .forEach((e) => e.classList.remove("loginActive"));
+   document.querySelectorAll(el).forEach((e) => e.classList.add("loginActive"));
 }
-
+/**
+ * 
+ * @returns {boolean} - Returns true if the form is valid
+ */
 function handleSubmit() {
   if (currentPage === 0 && document.getElementById("p1").getElementsByTagName("input")[0].value.trim()!=="") {
     setTimeout(() => {
@@ -22,11 +29,12 @@ function handleSubmit() {
   else {
     document.getElementById("progress").classList.remove("hide")
     $.ajax({
-      url: 'https://smartlist.ga/dashboard/login_auth.php',
+      url: 'https://smartlist.ga/dashboard/login/auth.php',
       data: $(form).serialize(),
       processData: false,
       type: 'POST',
       success: function ( data ) {
+        M.toast({html:data})
         var parts = window.location.search.substr(1).split("&");
         var $_GET = {};
         for (var i = 0; i < parts.length; i++) {
@@ -89,6 +97,9 @@ setTimeout(function () {
   document.getElementById("p1").getElementsByTagName("input")[0].focus();
 }, 200);
 
+/**
+ * @description - Resets the form
+ */
 function reset() {
   page("#p1");
   currentPage=0;
@@ -97,5 +108,8 @@ function reset() {
   }, 200);
 }
 $('input').focus()
+/**
+ * @description - Toggles dark theme
+ */
 if(_e.isDarkMode()) {document.cookie="dark=true";document.querySelector('meta[name="theme-color"]').setAttribute('content',  '#000');document.documentElement.classList.add("_darkTheme")}
 else {document.querySelector('meta[name="theme-color"]').setAttribute('content',  '#eee');}

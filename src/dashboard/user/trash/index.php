@@ -9,7 +9,7 @@ $sql = $dbh->prepare("SELECT * FROM trash WHERE login=:sessid ORDER by id DESC")
 $sql->execute(array( ':sessid' => $_SESSION['id'] ));
 $users = $sql->fetchAll();
 if(count($users)!==0) {
-  echo '<div class="container"><br><br><h5><b>Deleted items</b></h5><p>All items in your trash will be deleted weekly on Friday at 12:00 AM</p><a href="javascript:void(0)" class="btn-round btn red darken-3 waves-effect waves-light" onclick="if(confirm(\'Delete trash? These items will be permanently deleted!\') == true){ $(\'#ajaxLoader\').load(\'https://smartlist.ga/dashboard/user/trash/deleteUserTrash.php?item_count=\',getHashPage)}"><i class="material-icons left">delete_forever</i>Clear trash</a><br><br><div class="row">';
+  echo '<div class="container"><br><br><h5><b>Deleted items</b></h5><p>All items in your trash will be deleted weekly on Friday at 12:00 AM</p><a href="javascript:void(0)" class="btn-round btn red darken-3 waves-effect waves-light" onclick="if(confirm(\'Delete trash? These items will be permanently deleted!\') == true){loadURL(\'https://smartlist.ga/dashboard/user/trash/deleteUserTrash.php?item_count=\',null,getHashPage)}"><i class="material-icons left">delete_forever</i>Clear trash</a><br><br><div class="row">';
 }
 foreach ($users as $row)
 {

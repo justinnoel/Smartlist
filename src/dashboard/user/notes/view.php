@@ -74,8 +74,8 @@ try {
   </ul>
   <ul class="right">
     <!--<li><a href="javascript:void(0)" class="black-text btn-floating waves-effect btn-flat btn nav_scaleIconOnHover" onclick="viewNote('<?=$row['id']; ?>');"><i style="line-height:40px!important" class="material-icons black-text">refresh</i></a></li>-->
-    <li><a href="javascript:void(0)" class="black-text btn-floating waves-effect btn-flat btn nav_scaleIconOnHover" onclick="if(confirm('Delete note? This action is irreversible')===true) $('#ajaxLoader').load('./user/notes/delete.php?id=<?=$row['id']; ?>', function(){getHashPage();M.toast({html:'Deleted Note!'})});"><i style="line-height:40px!important" class="material-icons black-text">delete</i></a></li>
-    <li><a href="javascript:void(0)" style="margin-left: 5px!important" class="modal-close black-text btn-floating waves-effect btn-flat btn nav_scaleIconOnHover" onclick="$('#editNoteForm').submit();document.querySelector('meta[name=\'theme-color\']').setAttribute('content',  user.themeTop);"><i style="line-height:40px!important" class="material-icons black-text">check</i></a></li>
+    <li><a href="javascript:void(0)" class="black-text btn-floating waves-effect btn-flat btn nav_scaleIconOnHover" onclick="if(confirm('Delete note? This action is irreversible')===true) loadURL('./user/notes/delete.php?id=<?=$row['id']; ?>', function(){getHashPage();M.toast({html:'Deleted Note!'})});"><i style="line-height:40px!important" class="material-icons black-text">delete</i></a></li>
+    <li><a href="javascript:void(0)" style="margin-left: 5px!important" class="modal-close black-text btn-floating waves-effect btn-flat btn nav_scaleIconOnHover" onclick="document.getElementById('editNoteForm').submit();document.querySelector('meta[name=\'theme-color\']').setAttribute('content',  user.themeTop);"><i style="line-height:40px!important" class="material-icons black-text">check</i></a></li>
   </ul>
 </nav>
 <div class="modal-content" style="padding: 0 !important;overflow-x:hidden;width:100%;">
@@ -123,25 +123,17 @@ function escapeHtml(text) {
   // if(isMobile)  document.getElementById("s2").classList.add('materialize-textarea')
   // window.onbeforeunload = function() {return "";}
   document.querySelector('meta[name="theme-color"]').setAttribute('content',  (document.documentElement.classList.contains("_darkTheme") ? "#101010": "#cfd8dc"));
-  M.textareaAutoResize($('#s2'));
-  $("#s1").focus()
-  $("#s2").focus()
-  $("#s1").focus()
-  $("#editNoteForm").submit(function(e) {
-    e.preventDefault();
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(),
-      success: function(data) {
+  M.textareaAutoResize(document.getElementById("s2"));
+  document.getElementById("editNoteForm").addEventListener("submit", (event) =>
+    sendData(event)
+      .then((res) => {
         M.toast({unsafeHTML: `<span>${data}</span><button class="btn-flat toast-action" onclick="viewNote('<?=$_GET['id'];?>');M.Toast.dismissAll()">View</button>`});
         window.onbeforeunload = null
-      }
-    });
-  });
-  $('.materialboxed').materialbox()
+      })
+  );
+
+
+  M.Materialbox.init(document.querySelectorAll("materialboxed"));
   setInterval(() => {
     if(document.getElementById('s2')) document.querySelector( '#s2' ).value = escapeHtml(window.editor.getData());
   }, 10);

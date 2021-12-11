@@ -12,7 +12,7 @@ $rand_keys = array_rand($chips, 15);
     <h5>Add</h5>
     <div class="input-field input-border">
       <label onclick="this.nextElementSibling.focus()">Name</label>
-      <input type="text" name="name" autofocus autocomplete="off" required>
+      <input type="text" name="name" autofocus autocomplete="off" required id="_a1">
     </div>
     <div class="chip-suggestions">
       <div class="chip waves-effect" onclick="chipValue(this)"><?=$chips[$rand_keys[0]];?></div>
@@ -40,19 +40,12 @@ $rand_keys = array_rand($chips, 15);
   </form>
 </div>
 <script>
-  $("#grocerylist_add_form").submit(function(e) {
-    e.preventDefault();
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(),
-      success: function(data) {
+  document.getElementById("grocerylist_add_form").addEventListener("submit", (event) =>
+    sendData(event)
+      .then((res) => {
         document.getElementById('grocerylist_add_form').reset();
-        $('input').focus();
+        document.getElementById("_a1").focus();
         M.toast({html: 'Added item successfully. You can keep adding more'});
-      }
-    });
-  });
+      })
+  );
 </script>

@@ -12,37 +12,9 @@
   </button>
 </form>
 <br>
-<!--
-<div style='background:#eee;padding: 10px;'>
-  <a href="javascript:void(0)" onclick="AJAX_LOAD('#paira', 'https://smartlist.ga/dashboard/resources/pair_req.php')" class="right waves-effect btn purple darken-3">Refresh</a>
-  <p><b>Step #2 - View requests</b></p>
-  <div id='paira'></div>
-</div><br>
-<div style='background:#eee;padding: 10px;'> 
-  <a href="javascript:void(0)" onclick="AJAX_LOAD('#pairb', 'https://smartlist.ga/dashboard/resources/pairs.php');" id="account_pair_view" class="right waves-effect btn purple darken-3">Refresh</a>
-  <p><b>Step #3 - View current accounts paired to yours</b></p>
-  <div id='pairb'></div>
-</div>
--->
 <script>
-  $("#pairForm").submit(function(e) {
-
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-
-    var form = $(this);
-    var url = form.attr('action');
-
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(), // serializes the form's elements.
-      success: function(data)
-      {
-        alert(data); // show response from the php script.
-      }
-    });
-
-
-  });
-
+document.getElementById("pairForm").addEventListener("submit", (event) =>
+  sendData(event)
+    .then((res) => M.toast({html:res}) )
+);
 </script>

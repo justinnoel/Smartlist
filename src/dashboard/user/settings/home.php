@@ -1,5 +1,5 @@
 <?php
-include('../../header.php');
+session_start();
 include('../../cred.php');
 $dbh = new PDO("mysql:host=".App::server.";dbname=".App::database, App::username, App::password);
 $sql = $dbh->prepare("SELECT * FROM login WHERE id=:sessid");
@@ -35,20 +35,20 @@ include('../../colorSwitch.php');
   <a href="javascript:void(0)" class="collection-item borderVisible" draggable="false">
     <div class="switch"><b>Notifications</b><br>After item's quanity is less than <span id="count1"></span> (except for items manually marked in stock)
       <p class="range-field">
-        <input type="range" id="test5" name="remind" min="0" max="100" sonmousedown='this.focus()' oninput="document.getElementById('count1').innerHTML = this.value" value='<?=$_SESSION["number_notify"];?>' onmouseup='$("#ajaxLoader").load("./user/notifications.php/?remind="+this.value)'/>
+        <input type="range" id="test5" name="remind" min="0" max="100" sonmousedown='this.focus()' oninput="document.getElementById('count1').innerHTML = this.value" value='<?=$_SESSION["number_notify"];?>' onmouseup='loadURL("./user/settings/setNotifications.php/?remind="+this.value)'/>
       </p>
     </div>
   </a>
   <?php } ?>
   <a href="javascript:void(0)" class="collection-item selectable borderVisible" draggable="false">
     <p>Home Page</p>
-    <select onchange='$("#ajaxLoader").load("https://smartlist.ga/dashboard/user/settings/setHomePage.php?value="+this.value)'>
+    <select onchange='loadURL("https://smartlist.ga/dashboard/user/settings/setHomePage.php?value="+this.value)'>
       <option value="dashboard" <?=($homePage == "dashboard" ? "selected" : "")?>>Dashboard (Default)</option>
       <option value="finances" <?=($homePage == "finances" ? "selected" : "")?>>Finances</option>
     </select>
   </a>
   <a href="javascript:void(0)" class="collection-item waves-effect" onclick="this.getElementsByTagName('input')[0].click();">
-    <div class="switch" style="pointer-events: none"><label style="vertical-align: middle"><input onclick="dark_mode()" type="checkbox" value="dark" id="darkmode" onmousedown="this.click()"><span class="lever right"></span> </label> <span style="vertical-align: middle">Dark mode</span></div>
+    <div class="switch" style="pointer-events: none"><label style="vertical-align: middle"><input onclick="darkMode()" type="checkbox" value="dark" id="darkmode" onmousedown="this.click()"><span class="lever right"></span> </label> <span style="vertical-align: middle">Dark mode</span></div>
   </a>
   <a href="javascript:void(0)" class="collection-item waves-effect" onclick="this.getElementsByTagName('input')[0].click()">
     <div class="switch" style="pointer-events: none"> Dark sidenav<label style="vertical-align: middle"><input type="checkbox" onclick="darkSidenav()" value="dark" id="_darkSidenav"><span class="lever right"></span> </label> </div>
@@ -58,20 +58,20 @@ include('../../colorSwitch.php');
   </a>
   <?php if($_SESSION['purpose']!=='business') { ?>
     <a href="javascript:void(0)" class="collection-item waves-effect" onclick="this.getElementsByTagName('input')[0].click();getHashPage()">
-    <div class="switch" style="pointer-events: none"> <b style="vertical-align: middle">Student Mode <span class="badge new purple" style="float:none"></span></b><br>Are you a student in college living in a dorm? Turn this mode on to hide all rooms, except for the ones you might need<label style="vertical-align: middle"><input onclick="$('#ajaxLoader').load('./user/settings/studentMode.php?checked='+(this.checked==true?'true':'false'))" type="checkbox" value="true" onmousedown="this.click()" <?=($studentMode == "true" ? "checked" : "")?>><span class="lever right"></span> </label> </div>
+    <div class="switch" style="pointer-events: none"> <b style="vertical-align: middle">Student Mode <span class="badge new purple" style="float:none"></span></b><br>Are you a student in college living in a dorm? Turn this mode on to hide all rooms, except for the ones you might need<label style="vertical-align: middle"><input onclick="loadURL('./user/settings/studentMode.php?checked='+(this.checked==true?'true':'false'))" type="checkbox" value="true" onmousedown="this.click()" <?=($studentMode == "true" ? "checked" : "")?>><span class="lever right"></span> </label> </div>
   </a>
   <?php } ?>
   <form action="./user/settings/changeColor.php" id="__colorform" method="POST"> <input type='hidden' name='color' id='color' value="37474f"> </form> 
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/rooms.php')">Rooms</a>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/categories.php')">Categories</a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/rooms.php', '#settingsContainer')">Rooms</a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/categories.php','#settingsContainer')">Categories</a>
   <?php if ($_SESSION['purpose'] !== 'business') {?>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/sync.php')">Sync</a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/sync.php', '#settingsContainer')">Sync</a>
   <?php } ?>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/profile.php')">Profile</a>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/houseprofile.php')"><?=($_SESSION['purpose'] !== 'business' ? "House profile" : "Business profile")?></a>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/developer.php')">Developer</a>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/support.php')">Support</b></a>
-  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();$('#settingsContainer').load('./user/settings/backup.php')">Backup</a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/profile.php', '#settingsContainer')">Profile</a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/houseprofile.php', '#settingsContainer')"><?=($_SESSION['purpose'] !== 'business' ? "House profile" : "Business profile")?></a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/developer.php', '#settingsContainer')">Developer</a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/support.php','#settingsContainer')">Support</b></a>
+  <a href="javascript:void(0)" class="collection-item waves-effect" onclick="toggleNavBack();new loadPage('./user/settings/backup.php','#settingsContainer')">Backup</a>
   <a href="https://smartlist.ga/dashboard/logout.php" class="collection-item waves-effect" onclick="document.body.insertAdjacentHTML('beforebegin', `<div style='position:fixed;top:0;left:width:100%;height:100%;background:rgba(0,0,0,0.3);backdrop-filter:blur(10px);z-index:9999999999999999999999999999999'></div>`)">Sign out</a>
 </div>
 <div id="colorModal" class="modal">
@@ -93,7 +93,7 @@ include('../../colorSwitch.php');
 
 <script>
   var _color = document.getElementById("color");
-  $('#colorModal').modal()
+  M.Modal.init(document.querySelectorAll("#colorModal"));
   <?php if($_SESSION['purpose']=='personal') { ?>
   var elems = document.querySelectorAll("input[type=range]");
   M.Range.init(elems);
@@ -105,17 +105,7 @@ include('../../colorSwitch.php');
   if(localStorage.getItem('_darkSidenav') && localStorage.getItem('_darkSidenav') == "true") {
     document.getElementById('_darkSidenav').checked = true
   }
-  $('select').formSelect({
-    constrainWidth: false,
-  });
-</script>
-<script>
-  $(document).ready(function(){
-    $("#search234098").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#searchResSettings .collection-item").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
+  M.FormSelect.init(document.querySelectorAll("select"), {
+    constrainWidth: false
+  })
 </script>

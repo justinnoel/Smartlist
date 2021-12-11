@@ -19,7 +19,7 @@ $users = $sql->fetchAll();
   ?>
   <li class="collection-item <?=(isset($row['image']) && !empty($row['image']) ? "avatar" : "");?>"> 
     <?=(isset($row['image']) && !empty($row['image']) ? "<img src='".$row['image']."' class='circle'>":"");?>
-    <a href="javascript:void(0)" class="right btn waves-effect btn-flat btn-floating" onclick="$('#ajaxLoader').load('./user/labels/delete.php?id=<?=$row['id'];?>', getHashPage)"><i class="material-icons" style="color:var(--font-color)!important">delete</i></a>
+    <a href="javascript:void(0)" class="right btn waves-effect btn-flat btn-floating" onclick="loadURL('./user/labels/delete.php?id=<?=$row['id'];?>', getHashPage)"><i class="material-icons" style="color:var(--font-color)!important">delete</i></a>
     <h5><b><?=htmlspecialchars($row['name'])?></b></h5>
     <br>
     <br>

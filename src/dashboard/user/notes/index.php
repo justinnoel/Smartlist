@@ -24,7 +24,7 @@ include "../../cred.php";
       }
       ?>
       <h5><b>Recent</b></h5>
-  <a href="#addNote" class="btn modal-trigger waves-effect waves-light blue-grey darken-3 btn-round" onclick="$('.validate').characterCounter()" style="margin-top: 10px!important"><i class="material-icons-round left ">add</i>Add note</a><br><br>
+  <a href="#addNote" class="btn modal-trigger waves-effect waves-light blue-grey darken-3 btn-round" style="margin-top: 10px!important"><i class="material-icons-round left ">add</i>Add note</a><br><br>
   <div class="row">
   <?php
       foreach ($users as $row){
@@ -65,25 +65,3 @@ include "../../cred.php";
     ?>
   </div>
 </div>
-
-<script>
-  function viewNote(id) {
-    $("#noteView").modal({ 
-      dismissible: false, 
-      onCloseEnd: function() {
-        window.onbeforeunload = function() {return "";}
-      } 
-    })
-    $('#noteView').modal('open');
-    document.getElementById("noteView").innerHTML = `
-<div class="modal-content center">
-<center style="padding-top: 100px;">
-<svg class='circular' height='50' width='50'>
-<circle class='path' cx='25' cy='25' r='20' fill='none' stroke-width='3' stroke-miterlimit='10' />
-  </svg>
-  </center>
-  </div>
-`;
-    $('#noteView').load('./user/notes/view.php?id='+id);
-  }
-</script>

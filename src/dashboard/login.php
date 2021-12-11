@@ -11,7 +11,7 @@ $app = false;
 if (isset($_GET['auth']))
 {
     $dbname = "smartlis_api";
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=".App::server.";dbname=".App::database, App::username, App::password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT * FROM apps");
     $stmt->execute();
@@ -59,6 +59,7 @@ if (!isset($_COOKIE['attempts']))
     <meta name="title" content="Login | Smartlist">
     <meta name="description" content="Sign into your Smartlist account and access your entire home at the tap of a button!">
     <meta property="og:type" content="website">
+    <link rel="manifest" href="/dashboard/manifest.webmanifest">
     <meta property="og:url" content="https://metatags.io/">
     <meta name="viewport" content="width=device-width">
     <meta property="og:title" content="Login | Smartlist">
@@ -79,7 +80,27 @@ if (!isset($_COOKIE['attempts']))
           href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/css/materialize.min.css"
           />
     <link rel="stylesheet" href="https://smartlist.ga/dashboard/css/login.css">
-    <style>._darkTheme .progress {background:rgba(255,255,255,.2)!important} ._darkTheme .indeterminate{background:#fff!important}</style>
+    <style>
+      :root {--navbar-color:#37474f}
+      .card,.modal {box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)!important;}
+      .card {border-radius: 28px;}
+      .modal {
+        position: fixed;
+        top: 50% !important;
+        left: 50% !important;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 28px !important;
+        min-height: 90vh;
+        margin: 0 !important;
+        transform: translate(-50%, -50%) scale(1) !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {--navbar-color:#fff!important}
+        .progress {background:rgba(255,255,255,.2)!important} ._darkTheme .indeterminate{background:#fff!important}
+        .modal { background: #212121 !important; }
+      }
+    </style>
   </head>
   <body class="class="<?=(isset($_COOKIE['dark']) ? '_darkTheme' : '')?>">
     <div id="app">
@@ -96,7 +117,8 @@ if (!isset($_COOKIE['attempts']))
         { ?>
               <img
                    src="https://i.ibb.co/HPtyvJS/logo-z3yoqm-modified-removebg-preview-modified.png"
-                   width="50px"
+                   width="70px"
+                   style="margin-top: 10px;margin-bottom: 10px;"
                    alt="Logo"
                    />
               <?php
@@ -105,8 +127,8 @@ if (!isset($_COOKIE['attempts']))
     } ?>
               <?php if (!isset($_GET['logout']) && !isset($_GET['new']) && !isset($_GET['confirmed']))
     { ?>
-              <h5><b><?=($app ? "Sign into " . $name : "Login") ?></b></h5>
-              <p><?=($app ? "With your Smartlist account" : "Access your home's inventory, finances, and more!") ?></p>
+              <h5><b><?=($app ? "Sign into " . $name : "Sign in") ?></b></h5>
+              <p><?=($app ? "With your Smartlist account" : "Using your Smartlist account") ?></p>
               <?php
     } ?>
             </div>
@@ -183,6 +205,7 @@ if (!isset($_COOKIE['attempts']))
                 <input type="password" id="i1" name="password"/>
                 <label for="i1">Password</label>
               </div>
+              <a class="align-right modal-trigger" href="#forgotPassword">Forgot Password?</a>
             </div>
 
             <div style="text-align: right">
@@ -234,6 +257,62 @@ if ($app)
         </div>
       </div>
     </div>
+    <div id="forgotPassword" class="modal modal-fixed-footer">
+      <form action="/dashboard/login/send-forgot-password.php" id="fp" method="POST">
+      <div class="modal-content">
+      <br>
+        <h5>Forgot your password?</h5>
+        <p>Please type it here to reset your password</p>
+        <br>
+          <div class="input-field input-border">
+            <input type="email" name="email">
+            <label>Email</label>
+          </div>
+      </div>
+      <div class="modal-footer right-aligned transparent">
+        <a class="modal-close btn waves-effect waves-light btn-round" style="background: rgba(200, 200, 200, .1)!important">Cancel</a>
+        <button class="btn blue-grey darken-5 waves-effect waves-light btn-round">Send</button>
+      </div>
+      </form>
+    </div>
+
+    <div id="forgotPasswordCode" class="modal modal-fixed-footer">
+      <form action="/dashboard/login/verify-password.php" id="fp1" method="POST">
+      <div class="modal-content">
+      <br>
+        <h5>We emailed you a code.</h5>
+        <p>Please type it here to reset your password</p>
+        <br>
+          <div class="input-field input-border">
+            <input type="number" name="code">
+            <label>Code</label>
+          </div>
+      </div>
+      <div class="modal-footer right-aligned transparent">
+        <button class="btn blue-grey darken-3 waves-effect waves-light btn-round">Verify</button>
+      </div>
+      </form>
+    </div>
+
+    <div id="resetPassword" class="modal modal-fixed-footer">
+      <form action="/dashboard/login/change-password.php" id="fp2" method="POST">
+      <div class="modal-content">
+      <br>
+        <h5>Reset your password</h5>
+        <p>Your password should contain at least 8 characters, numbers, digits, and at least one special character</p>
+        <br>
+          <div class="input-field input-border">
+            <input type="text" name="password" id="passwordCheck">
+            <label>New password</label>
+          </div>
+      </div>
+      <div class="modal-footer right-aligned transparent">
+        <button class="btn blue-grey darken-3 waves-effect waves-light btn-round" id="passwordButton">Save</button>
+      </div>
+      </form>
+    </div>
+
+
     <script src="https://essentials.manuthecoder.ml/essentials.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.1.0-alpha/dist/js/materialize.min.js"></script>
     <script src="https://smartlist.ga/dashboard/js/login.js"></script>
@@ -255,5 +334,79 @@ if ($app)
 <?php if($app == false && !isset($_GET['new']) && !isset($_GET['confirmed']) && !isset($_GET['logout'])) {?>
 <script>document.getElementById('i1').addEventListener("keyup", function() {localStorage.setItem("i1", document.getElementById('i1').value)});window.addEventListener("load", function() {document.getElementById('i1').value=localStorage.getItem("i1")});</script>
 <?php } ?>
+<script>
+M.Modal.init(document.querySelectorAll(".modal"), {
+  dismissible: false
+});
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/dashboard/sw.js'); }
+
+$("#fp").submit(function(e) {
+// alert("step1")
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var url = form.attr('action');
+    
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: form.serialize(), // serializes the form's elements.
+           success: function(data) {
+             if(!data.includes("Invalid email")) {
+              M.Modal.getInstance(document.getElementById("forgotPassword")).close();
+              M.Modal.getInstance(document.getElementById("forgotPasswordCode")).open();
+              // M.toast({html:data})
+             }
+             else {
+              M.toast({text:data});
+             }
+           }
+         });
+
+    
+});
+
+$("#fp1").submit(function(e) {
+// alert("step1")
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var url = form.attr('action');
+    
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: form.serialize(), // serializes the form's elements.
+           success: function(data) {
+             if(data == 'true'){
+              M.Modal.getInstance(document.getElementById("forgotPasswordCode")).close();
+              M.Modal.getInstance(document.getElementById("resetPassword")).open();  
+             }
+             else {
+               M.toast({text: "Invalid code!"})
+             }
+              //  alert(data); // show response from the php script.
+           }
+         });
+});
+
+$("#fp2").submit(function(e) {
+// alert("step1")
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var url = form.attr('action');
+    
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: form.serialize(), // serializes the form's elements.
+           success: function(data) {
+              if(data === "Success") M.Modal.getInstance(document.getElementById("resetPassword")).close();
+              M.toast({html: data})
+           }
+         });
+});
+</script>
   </body>
 </html>

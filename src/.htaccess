@@ -1,6 +1,14 @@
 RewriteEngine On
 RewriteCond %{THE_REQUEST} ^.*/index\.php 
 RewriteRule ^(.*)index.php$ /$1 [R=301,L]
+
+
+# RewriteEngine On
+# RewriteBase /dashboard/
+# RewriteCond %{REMOTE_ADDR} !^68\.225\.245\.178
+# RewriteRule ^(.*)$ https://maintenance.smartlist.ga [R=307,L]
+
+
 # 403 error for some stuff -------------------------------------------------
 RewriteRule ^/?developer/clear-ratelimit\.php$ - [F,L]
 
@@ -30,14 +38,16 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 # url rewrites --------------------------------------------------------------
 
 RewriteRule ^login(.*)$ dashboard/login.php?id=$1 [L]
+RewriteRule ^impact(.*)$ impact.php?id=$1 [L]
+RewriteRule ^security(.*)$ security.php?id=$1 [L]
 RewriteRule ^dashboard/auth(.*)$ dashboard/login.php?id=$1 [L]
 RewriteRule ^signup(.*)$ dashboard/register.php?id=$1 [L]
 RewriteRule ^s/(.*)$ share/index.php?id=$1 [L]
-RewriteRule ^dashboard/beta(.*)$ dashboard/test.php?id=$1 [L]
+RewriteRule ^dashboard/beta(.*)$ dashboard/index.php?id=$1 [L]
 
 # ERROR REDIRECTS------------------------------------------------------------
-ErrorDocument 404 https://smartlist.ga/404
-ErrorDocument 403 https://smartlist.ga/403
+ErrorDocument 404 https://smartlist.ga/errors/404
+ErrorDocument 403 https://smartlist.ga/errors/403
 
 # SPEED----------------------------------------------------------------------
 AddType application/x-httpd-php .htm .html

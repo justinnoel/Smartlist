@@ -1,6 +1,6 @@
 <br><br>
 <div class="container">
-  <form action="./user/finance/subscription_add.php" id="quickAddForm">
+  <form action="./user/finance/subscription_add.php" id="quickAddForm" method="POST">
     <div class="row">
       <div class="col s12">
         <h5>Add a subscription</h5>
@@ -66,31 +66,17 @@
 </div>
 
 <script>
-  $(document).ready(function(){
-    $('.datepicker').datepicker({
-      // specify options here
-      format: "mm/dd/yyyy",
-      autoClose: true
-    });
+  M.Datepicker.init(document.querySelectorAll(".datepicker"), {
+    format: "mm/dd/yyyy",
+    autoClose: true
   });
-  // this is the id of the form
-  $("#quickAddForm").submit(function(e) {
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(), // serializes the form's elements.
-      success: function(data)
-      {
+  document.getElementById("quickAddForm").addEventListener("submit", (event) =>
+    sendData(event)
+      .then((res) => {
         window.location.hash="#/my-finances/"
-        M.toast({html:data}); // show response from the php script.
-      }
-    });
-
-
-  });
+        M.toast({html:data});
+      })
+  );
   function savea(e) {
     localStorage.setItem(e.id, e.value);
   } 

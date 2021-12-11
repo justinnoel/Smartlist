@@ -161,7 +161,7 @@ catch(Exception $e) {
     $chips->displaySuggestedItems();
     ?>
   <div style="text-align:right;padding: 10px">
-    <a class="btn dropdown-trigger btn-flat waves-effect btn-round btn-outline btn-large" style="color:var(--font-color)!important;padding: 0 15px !important;border-radius: 15px !important" data-target="orderBy" href="javascript:void(0)">Filter <i class="material-icons right" style="color:var(--font-color)!important;margin-right: 10px!important;">arrow_drop_down</i></a>
+    <a id="filterDropdown" class="btn dropdown-trigger btn-flat waves-effect btn-round btn-outline btn-large" style="color:var(--font-color)!important;padding: 0 15px !important;border-radius: 15px !important" data-target="orderBy" href="javascript:void(0)">Filter <i class="material-icons right" style="color:var(--font-color)!important;margin-right: 10px!important;">arrow_drop_down</i></a>
   </div>
   <table id="_itemTable">
     <tr>
@@ -191,10 +191,10 @@ foreach ($inv as $item) {
   </table>
 </div>
 <ul id='orderBy' class='dropdown-content'>
-  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(0, document.getElementById('_itemTable'), 'asc')">Alphabetical (A-Z)</a></li>
-  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(0, document.getElementById('_itemTable'), 'desc')">Alphabetical (Z-A)</a></li>
-  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(2, document.getElementById('_itemTable'), 'desc')">Date Updated</a></li>
-  <li><a href="javascript:void(0)" class="waves-effect" onclick="$('.dropdown-trigger').html(this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(1, document.getElementById('_itemTable'), 'asc')">Quantity</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="document.getElementById('filterDropdown').innerHTML = (this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(0, document.getElementById('_itemTable'), 'asc')">Alphabetical (A-Z)</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="document.getElementById('filterDropdown').innerHTML = (this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(0, document.getElementById('_itemTable'), 'desc')">Alphabetical (Z-A)</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="document.getElementById('filterDropdown').innerHTML = (this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(2, document.getElementById('_itemTable'), 'desc')">Date Updated</a></li>
+  <li><a href="javascript:void(0)" class="waves-effect" onclick="document.getElementById('filterDropdown').innerHTML = (this.innerText+'<i class=\'material-icons right\'>arrow_drop_down</i>');sortTable(1, document.getElementById('_itemTable'), 'asc')">Quantity</a></li>
 </ul>
 <script>
   var room = <?=json_encode(ucfirst($room)); ?>;
@@ -204,10 +204,12 @@ foreach ($inv as $item) {
     localStorage.setItem("add"+room+"Qty", 1)
     window.location.hash="#/add/"+room.toLowerCase();
   }
-  $('#app table tr').contextmenu(function(event) {
-      event.preventDefault();
-    event.target.click();
-  });
-  $('.dropdown-trigger').dropdown({coverTrigger:true,constrainWidth: false});
+  document.querySelectorAll("#app table tr").forEach(el => {
+    el.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+      e.target.click();
+    })
+  })
+  M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'), {coverTrigger:true,constrainWidth: false});
 </script>
 <style>.in-stock::after{content: "In Stock";display:inline-block;color:white!important}.in-stock{margin-left: 10px!important;margin-right:10px;float:right;background:#37474f;color:white;padding: 2px;padding-left:4px;padding-right:4px;border-radius:999px;}</style>

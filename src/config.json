@@ -1,0 +1,114 @@
+{
+    "maintenance": false,
+    "dashboard": {
+        "dependencies": [
+            {
+                "type": "js",
+                "url": "https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/moment.js\/2.29.1\/moment.min.js"
+            },
+            {
+                "type": "js",
+                "url": "https:\/\/cdn.jsdelivr.net\/npm\/apexcharts"
+            },
+            {
+                "type": "js",
+                "url": "https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/3.6.0\/jquery.min.js"
+            },
+            {
+                "type": "css",
+                "url": "https:\/\/cdn.jsdelivr.net\/npm\/@materializecss\/materialize@1.1.0-alpha\/dist\/css\/materialize.min.css"
+            },
+            {
+                "type": "css",
+                "url": "https:\/\/fonts.googleapis.com\/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+            },
+            {
+                "type": "css",
+                "url": "https:\/\/fonts.googleapis.com\/css2?family=Outfit&display=swap"
+            }
+        ],
+        "metaTags": [
+            {
+                "name": "Content-Type",
+                "content": "text\/html; charset=utf-8"
+            },
+            {
+                "name": "viewport",
+                "content": "width=device-width, initial-scale=1, user-scalable=no"
+            },
+            {
+                "name": "language",
+                "content": "English"
+            },
+            {
+                "name": "viewport",
+                "content": "width=device-width, initial-scale=1, user-scalable=no"
+            }
+        ],
+        "title": "Dashboard",
+        "popup": {
+            "title": "<center>Finance plans and home profiles are finally here!<\/center>",
+            "content": "<center>\r\n  You can now set your finance plan to short, medium, or long-term. Set your home's name in \"Settings &gt; House profile\"\r\n<\/center>",
+            "image": "\/\/cdn.dribbble.com\/users\/2367860\/screenshots\/16859451\/media\/0aa548e308861ab92c95aabc7bcf1802.png?compress=1&resize=1200x900",
+            "button": {
+                "text": "Let's go!",
+                "color": "blue-grey"
+            }
+        }
+    },
+    "homePage": {
+        "themeColorImages": [
+            {
+                "name": "purple",
+                "url": "https:\/\/i.ibb.co\/0frLw88\/image.png"
+            },
+            {
+                "name": "purple1",
+                "url": "https:\/\/i.ibb.co\/WFN5S63\/image.png"
+            },
+            {
+                "name": "red",
+                "url": "https:\/\/i.ibb.co\/71phDmz\/image.png"
+            },
+            {
+                "name": "teal",
+                "url": "https:\/\/i.ibb.co\/WgdZrcr\/image.png"
+            },
+            {
+                "name": "cyan",
+                "url": "https:\/\/i.ibb.co\/3BW3S92\/image.png"
+            },
+            {
+                "name": "blue",
+                "url": "https:\/\/i.ibb.co\/mGD74cZ\/image.png"
+            },
+            {
+                "name": "green",
+                "url": "https:\/\/i.ibb.co\/h91yvbc\/image.png"
+            },
+            {
+                "name": "orange",
+                "url": ""
+            },
+            {
+                "name": "pink",
+                "url": "https:\/\/i.ibb.co\/vwby0rf\/image.png"
+            },
+            {
+                "name": "blue-grey",
+                "url": "https:\/\/i.ibb.co\/0FPyZyP\/image.png"
+            }
+        ]
+    },
+    "banner": {
+        "desktop": "Version 4.0 is here! Introducing home maintenance, financial goals, home names, and more.",
+        "mobile": "Version 4.0 is finally here!",
+        "buttonText": "Learn More",
+        "buttonURL": "\/\/github.com\/Smartlist-App\/Smartlist\/releases\/tag\/v4.5.2"
+    },
+    "authorizedIpList": [
+        "209.232.148.105",
+        "70.187.235.69",
+        "68.225.245.178"
+    ]
+}

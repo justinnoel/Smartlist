@@ -52,7 +52,6 @@ include('../../cred.php');
     $sql = "SELECT * FROM roomnames WHERE login_id=" . $_SESSION['id'];
     $users = $dbh->query($sql);
     foreach ($users as $row) {
-    //   echo "<li class=\"collection-item\" href=\"javascript:void(0)\" onclick=\"$('#ajaxLoader').load('./user/settings/backup/custom_room.php?id=".$row['id']."')\">Download ".htmlspecialchars($row['name'])."</li>";
     ?>
     <li class="collection-item">
         <p><?=$row['name'];?></p>
@@ -68,12 +67,3 @@ catch(PDOexception $e) { echo "Error is: " . $e->etmessage(); }
 </ul>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script src="https://unpkg.com/jspdf-autotable@3.5.14/dist/jspdf.plugin.autotable.js"></script>
-<script>
-function downloadFile(fileName, urlData) {
-  var aLink = document.createElement('a');
-  aLink.download = fileName;
-  aLink.href = urlData;
-  var event = new MouseEvent('click');
-  aLink.dispatchEvent(event);
-}
-</script>

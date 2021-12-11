@@ -28,7 +28,7 @@ async function fetchText() {
     // handle data
     data = JSON.parse(data);
     var items = "";
-    data.items.forEach(data => {
+    data.forEach(data => {
       if(parseInt(data.qty.replace(/\D/g,'')) < 10000) {
         items += `${data.name}, `
       }

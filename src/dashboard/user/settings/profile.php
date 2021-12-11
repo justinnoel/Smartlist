@@ -72,18 +72,9 @@ foreach ($users as $row) {
   </div>
 </div>
 <script>
-  $("#editProfile").submit(function(e) {
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-    var form = $(this);
-    var url = form.attr('action');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(), // serializes the form's elements.
-      success: function(data) {
-        M.toast({html:data}); // show response from the php script.
-      }
-    });
-  });
+document.getElementById("editProfile").addEventListener("submit", (event) =>
+  sendData(event)
+    .then((res) => M.toast({html:res}) )
+);
   $('select').formSelect();
 </script>

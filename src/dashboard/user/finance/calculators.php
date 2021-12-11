@@ -1,4 +1,6 @@
-<style>
+<?php
+session_start();
+?><style>
 .border-max {border-radius: 99999px!important;border:0!important}
 .modal.bottom-sheet.finance__calculator {
   max-height: 100vh !important;
@@ -63,7 +65,7 @@
 
   <div class="modal-content">
     <div class="container">
-    <nav class="blue-grey lighten-5 z-depth-0">
+    <nav class="blue-grey lighten-5 z-depth-0" style="position:fixed;top:0;left:0;width:100%;height:auto!important;padding-top:5px;padding-bottom:5px;">
       <ul>
         <li><a class="btn btn-flat nav_scaleIconOnHover transparent waves-effect modal-close btn-floating"><i style="line-height: 40px!important" class="black-text material-icons">arrow_back</i></a></li>
       </ul>
@@ -76,7 +78,7 @@
 </div>
 
 <script>
-  $(".finance__calculator").modal({
+  $('#calculator__main').modal({
     dismissible: false,
     onOpenStart() {
       document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#303030": "#cfd8dc"));
@@ -93,10 +95,6 @@
     onCloseStart() {
       document.querySelector('meta[name="theme-color"]').setAttribute("content", (document.documentElement.classList.contains("_darkTheme") ? "#212121": '#cfd8dc'));
     }
-  })
-  $(".finance__calculatorForm").submit(function(e) {
-    e.preventDefault();
-    return false;
   })
   function calculatorFinance(str) {
     var content;
@@ -169,11 +167,16 @@
       </form>
       `; break;
     }
-    document.getElementById("finance__calculator_app").innerHTML = content
+    document.getElementById("finance__calculator_app").innerHTML = content;
+    $("#calculator__main").modal("open")
+//     document.getElementById("finance__calculatorForm").addEventListener("submit", function(e) {
+//     e.preventDefault();
+//     return false;
+//   })
   }
   function showCalcResults(res, text) {
-    $("#calculator__main").modal("open")
-    $("#calculator__results").modal("open")
+    $('#calculator__main').modal('open')
+    $('#calculator__results').modal('open')
     document.getElementById("finance__calculator_res").innerHTML = `<?=$_SESSION['currency'];?>${res}`;
     document.getElementById("finance__calculator_desc").innerHTML = text+"<br>Click to close"
   }

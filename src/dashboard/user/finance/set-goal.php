@@ -131,6 +131,6 @@ function selectPlan(el,v) {
 	if(document.querySelectorAll(".selected")) document.querySelectorAll(".selected").forEach(e=>e.classList.remove("selected"))
   
   el.classList.add("selected");
-  $("#ajaxLoader").load("./user/finance/setFinancePlan.php?v="+v);
+  loadURL("./user/finance/setFinancePlan.php?v="+v);
 }
 </script>
